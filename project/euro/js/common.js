@@ -44,14 +44,15 @@ function parallax() {
         $('.is_parallax').each(function (index, target) {
             const $target = $(target);
             const startPoint = $target.offset().top - $(window).height();
-            const endPoint = $target.offset().top + $target.height();
+            const endPoint = $target.offset().top + $target.outerHeight();
             const nowPoint = $(window).scrollTop() - startPoint;
             const gab = endPoint - startPoint;
             const percentage = (nowPoint / gab).toFixed(4);
             const degree = 50;
             if (startPoint < $(window).scrollTop() && $(window).scrollTop() < endPoint) {
-                $target.css('background-position-y', 50 + (percentage * degree - degree / 2) + "%");
+                $target.css('background-position-y', percentage * degree - degree / 2 + "px");
             }
+            console.log($target.offset().top, $target.outerHeight(), nowPoint);
         });
     }
 }

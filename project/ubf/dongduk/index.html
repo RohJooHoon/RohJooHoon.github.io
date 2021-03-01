@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:url" content="https://ubfinfo.cafe24.com/dongduk/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="동덕 UBF">
+    <meta property="og:description" content="우리는 동덕여대 중앙동아리 기독연합 UBF입니다.">
+    <meta property="fb:app_id" content="0">
+    <meta property="og:image" content="https://ubfinfo.cafe24.com/dongduk/img/banner.jpg">
+    <meta property="og:image:width" content="640">
+    <meta property="og:image:height" content="320">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+          integrity="sha256-gvEnj2axkqIj4wbYhPjbWV7zttgpzBVEgHub9AAZQD4=" crossorigin="anonymous"/>
+    <title>동덕 UBF</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
+          integrity="sha256-UK1EiopXIL+KVhfbFa8xrmAWPeBjMVdvYMYkTAEv/HI=" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"
+          integrity="sha256-4hqlsNP9KM6+2eA8VUT0kk4RsMRTeS7QGHIM+MZ5sLY=" crossorigin="anonymous"/>
+    <style>
+        @import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
+
+        .is_blind {
+            position: relative;
+            display: block;
+            font-size: 1px;
+            color: rgba(0, 0, 0, 0);
+            overflow: hidden;
+            white-space: nowrap;
+            height: 1px;
+            width: 1px;
+            text-indent: 1980px;
+        }
+
+        a {
+            color: #494949;
+            opacity: 0.85;
+        }
+
+        a:hover {
+            opacity: 1;
+        }
+
+        body {
+            background-color: #f3f3f3;
+            font-family: 'NanumSquare', sans-serif;
+            font-weight: bold;
+            color: #494949;
+        }
+
+        .slick-dots li {
+            width: 8px;
+            height: 8px;
+            margin: 0 3px;
+        }
+
+        .slick-dots li button {
+            width: 8px;
+            height: 8px;
+        }
+
+        .slick-dots li button:before {
+            border-radius: 8px;
+            background-color: #494949;
+            width: 8px;
+            height: 8px;
+            content: '';
+        }
+
+        .container {
+            width: 100%;
+            max-width: 640px;
+            margin: auto;
+            background-color: #fff;
+        }
+
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 50%;
+            background: no-repeat center url(img/hero_bg.jpg);
+            background-size: cover;
+        }
+
+        .hero_title {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            width: 53.12%;
+        }
+
+        .hero_description {
+            position: absolute;
+            left: 20px;
+            bottom: 25px;
+            width: 53.12%;
+        }
+
+        .hero_titleImg,
+        .hero_descriptionImg {
+            width: 100%;
+        }
+
+        .hero_link {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            width: 100px;
+            height: 100px;
+            background: no-repeat center url(img/link.png);
+            background-size: cover;
+        }
+
+        .notice {
+            font-size: 13px;
+            line-height: 20px;
+            padding: 15px 20px;
+            background-color: #ebebeb;
+        }
+
+        .info {
+            padding: 0 14px 20px;
+        }
+
+        .info_text {
+            padding: 20px 10px 0;
+            font-size: 13px;
+            line-height: 20px;
+        }
+
+        .info_box {
+            width: 100%;
+            margin: auto;
+            padding: 14px;
+            text-align: center;
+            box-sizing: border-box;
+            background-color: #ebebeb;
+            font-size: 13px;
+            line-height: 20px;
+        }
+
+        .info_annotation {
+            width: 100%;
+            padding: 10px 14px 15px;
+            text-align: center;
+            font-size: 12px;
+            line-height: 16px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .imgBox {
+            padding: 25px 14px 20px;
+        }
+
+        .imgBox + .imgBox {
+            padding-top: 0;
+        }
+
+        .imgBox_title {
+            display: inline-block;
+            position: relative;
+            padding-left: 14px;
+            font-size: 16px;
+        }
+
+        .imgBox_title:before {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 4px;
+            height: 4px;
+            background-color: #494949;
+        }
+
+        .imgBox_titleInfo {
+            font-size: 11px;
+            line-height: 11px;
+            padding-left: 6px;
+            margin-left: 4px;
+            border-left: solid 1px #494949;
+        }
+
+        .imgBox_video {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            margin-top: 8px;
+        }
+
+        .imgBox_video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .imgBox_img {
+            margin-top: 8px;
+        }
+
+        .imgBox_img img {
+            width: 100%;
+        }
+
+        .imgBox_imgItem_img {
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            background: no-repeat center;
+            background-size: cover;
+        }
+
+        .footer {
+            padding: 15px;
+            background-color: #ebebeb;
+        }
+
+        .footer_info {
+            font-size: 12px;
+            line-height: 18px;
+            color: #808080;
+        }
+
+        .footer_info a {
+            color: #808080;
+        }
+
+        .footer_copyright {
+            display: block;
+            font-size: 10px;
+            margin-top: 15px;
+            color: #979797;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1 class="hero_title">
+            <span class="is_blind">동덕여자대학교 중앙동아리 기독연합 UBF</span>
+            <img class="hero_titleImg" src="img/title.png">
+        </h1>
+        <p class="hero_description">
+        <span class="is_blind">
+          교회를 안 다녀도 성경을 본적이 없어도
+          새롭게 시작하는 대학생활을 친구, 선배들과
+          동방에서 말씀으로 함께하며 서로의 힘이 되어요
+        </span>
+            <img class="hero_descriptionImg" src="img/description.png">
+        </p>
+<!--        <a class="hero_link" target="_blank" href="https://open.kakao.com/o/s0eOKrWb"></a>-->
+    </div>
+    <div class="notice">
+        21학번 신입생 여러분!<br>
+        동덕여대 중앙동아리 기독연합 UBF에서는 신입생 여러분에게 도움을 주고자 <a target="_blank" href="https://open.kakao.com/o/s0eOKrWb">오픈카톡방</a>을
+        개설하였습니다.<br>
+        수강신청, 학사일정, 동아리 등 학교생활 궁금한 점이 있으면 언제든 오픈채팅으로 연락주세요 :)
+    </div>
+    <div class="info">
+        <p class="info_text">
+            안녕하세요? <span style="font-size: 16px; font-weight: 800;">동덕 UBF(University Bible Fellowship)</span>를
+            소개합니다.<br>
+            UBF는 CCC, IVF, JOY, YWAM 4개의 선교단체와 함께 동덕여대 중앙동아리 기독연합 소속입니다.<br>
+            국민일보 기독교 교육 브랜드 대상을 수상한 선교단체로 사이비종교단체가 아닐까 하는 걱정은 접어두세요~
+            <img src="img/icon.png" style="width: 16px; vertical-align: middle;"><br>
+            <br>
+            우리 동아리에서는 <span style="font-size: 16px; font-weight: 800;">성경모임, 점심식사, 맛집탐방, MT, 축제참여, 해외여행</span> 등 친목도모를
+            위한 다양한 활동들을 하고있어요<br>
+        </p>
+        <div class="imgBox_img" id="imgSlider1">
+            <div class="imgBox_imgItem">
+                <img src="img/imgBox1_1.jpg">
+            </div>
+            <div class="imgBox_imgItem">
+                <img src="img/imgBox1_2.jpg">
+            </div>
+            <div class="imgBox_imgItem">
+                <img src="img/imgBox1_3.jpg">
+            </div>
+            <div class="imgBox_imgItem">
+                <img src="img/imgBox1_4.png">
+            </div>
+        </div>
+        <br>
+        <span style="font-weight: 800;">‣ When?</span><br>
+        일주일에 한두번 점심시간에 같이 식사하면서, 공강시간 등<br>
+        <br>
+        <span style="font-weight: 800;">‣ Where?</span><br>
+        동방 학생관 318호<br>
+        <br>
+        <span style="font-weight: 800;">‣ What?</span><br>
+        성경을 읽고 나누며 대화하는 시간을 가져요<br>
+        <span style="display: block; text-align: center; font-size: 17px; font-weight: 800; padding: 30px 0;">
+          U'r Best Friend! UBF와 함께 해요!
+        </span>
+        <div class="info_box">
+            동아리방 : 학생관 318호 | 오픈채팅 : <a target="_blank" href="https://open.kakao.com/o/s0eOKrWb">동덕UBF</a> | 지도교수 :
+            김동빈(시각디자인)
+        </div>
+    </div>
+    <div class="imgBox">
+        <strong class="imgBox_title">
+            언택트 찬양
+        </strong>
+        <span class="imgBox_titleInfo">동덕여대 광운대 연합</span>
+        <div class="imgBox_video">
+            <iframe src="https://www.youtube.com/embed/009epMyRtGA" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    <div class="imgBox">
+        <strong class="imgBox_title">
+            UBF 활동 사진
+        </strong>
+        <div class="imgBox_img" id="imgSlider2">
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_1.jpg);"></div>
+            </div>
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_2.jpg);"></div>
+            </div>
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_3.jpg);"></div>
+            </div>
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_4.jpg);"></div>
+            </div>
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_5.jpg);"></div>
+            </div>
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_6.jpg);"></div>
+            </div>
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_7.jpg);"></div>
+            </div>
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_8.jpg);"></div>
+            </div>
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_9.jpg);"></div>
+            </div>
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_10.jpg);"></div>
+            </div>
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_11.jpg);"></div>
+            </div>
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_12.jpg);"></div>
+            </div>
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_13.jpg);"></div>
+            </div>
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_14.jpg);"></div>
+            </div>
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_15.jpg);"></div>
+            </div>
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_16.jpg);"></div>
+            </div>
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_17.jpg);"></div>
+            </div>
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_18.jpg);"></div>
+            </div>
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_19.jpg);"></div>
+            </div>
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_20.jpg);"></div>
+            </div>
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_21.jpg);"></div>
+            </div>
+            <div class="imgBox_imgItem">
+                <div class="imgBox_imgItem_img" style="background-image: url(img/imgBox_22.jpg);"></div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <p class="footer_info">
+            회장: 간사 이해빈 (카톡아이디 : janice745) | 지도교수: 김동빈(시각디자인)<br>
+            주소: 서울시 성북구 화랑로13길 60 동덕여자대학교 학생관 318호<br>
+            오픈채팅: <a href="https://open.kakao.com/o/s0eOKrWb" target="_blank">https://open.kakao.com/o/gYoa49Wb</a>
+        </p>
+        <span class="footer_copyright">
+        ⓒ 2021. Dongduk UBF. All right reserved.
+      </span>
+    </footer>
+</div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script>
+
+    $('#imgSlider1').slick({
+        dots: true,
+        arrows: false,
+        autoplay: false,
+        adaptiveHeight: true
+    });
+
+    $('#imgSlider2').slick({
+        dots: false,
+        arrows: false,
+        autoplay: true,
+        autoplaySpeed: 3000,
+    });
+</script>
+</body>
+</html>
