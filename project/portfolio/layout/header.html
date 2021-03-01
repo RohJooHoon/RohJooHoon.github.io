@@ -1,0 +1,132 @@
+<style>
+  .header {
+    position: fixed;
+    z-index: 500;
+    top: 0;
+    width: 100%;
+    height: 70px;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: background-color 0.5s ease-out;
+  }
+  .header.is_onScroll {
+    background-color: #000;
+  }
+  .header_wrap {
+    position: relative;
+    width: 100%;
+    max-width: 1280px;
+    padding: 0 20px;
+    margin: auto;
+    box-sizing: border-box;
+  }
+  .header_wrap:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+  .header_logo {
+    float: left;
+    margin: 15px 0;
+    line-height: 40px;
+    font-size: 23px;
+    font-weight: 500;
+    letter-spacing: -0.3px;
+  }
+  .header_logo:after {
+    content: "";
+    display: inline-block;
+    vertical-align: bottom 18px;
+    width: 6px;
+    height: 6px;
+    margin-left: 3px;
+    background-color: #fc6060;
+  }
+  .header_logoLink {
+    color: #fff;
+  }
+  .headerNav {
+    float: right;
+    height: 40px;
+    margin: 15px 0;
+  }
+  .headerNav_menu {
+    display: none;
+  }
+  .headerNav_item {
+    position: relative;
+    display: inline-block;
+    line-height: 34px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.4s ease-out;
+  }
+  .headerNav_item + .headerNav_item {
+    margin-left: 40px;
+  }
+  .headerNav_item:hover {
+    color: #fc6060;
+  }
+  .headerNav_item:after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background-color: #fc6060;
+    transition: width 0.5s;
+  }
+  .headerNav_item.is_active:after {
+    width: 100%;
+  }
+  @media all and (max-width:768px) {
+    .header_wrap.is_menuOpen {
+      background-color: #000;
+    }
+    .header_wrap.is_menuOpen .headerNav {
+      display: block;
+    }
+    .headerNav_menu {
+      display: block;
+      float: right;
+      margin: 22px 0;
+      padding: 0;
+      width: 26px;
+      height: 24px;
+      border: none;
+      background: center no-repeat url(img/header_menu.png);
+    }
+    .headerNav {
+      display: none;
+      float: none;
+      position: fixed;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      height: calc(100% - 70px);
+      margin: 0;
+      padding: 0 20px;
+      background-color: #000;
+      box-sizing: border-box;
+    }
+    .headerNav_item {
+      display: block;
+      margin: 0 auto 10px;
+    }
+    .headerNav_item + .headerNav_item {
+      margin-left: auto;
+    }
+  }
+</style>
+
+<div class="header_wrap">
+  <h1 class="header_logo">
+    <a class="header_logoLink" href="./page/home.html">JooHoon</a>
+  </h1>
+  <button class="headerNav_menu is_blind" type="button">menu</button>
+  <nav class="headerNav nav">
+    <a class="headerNav_item nav_item is_active" href="./page/home.html">Home</a>
+    <a class="headerNav_item nav_item" href="./page/about.html">About</a>
+    <a class="headerNav_item nav_item" href="./page/work.html">Work</a>
+    <a class="headerNav_item nav_item" href="./page/contact.html">Contact</a>
+  </nav>
+</div>
