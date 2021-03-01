@@ -1,5 +1,6 @@
 const $euroHeader = $(".euroHeader");
 parallax();
+scrollActive();
 
 // 스크롤 방향 판단
 let prevScrollTop = $(window).scrollTop();
@@ -52,7 +53,26 @@ function parallax() {
             if (startPoint < $(window).scrollTop() && $(window).scrollTop() < endPoint) {
                 $target.css('background-position-y', percentage * degree - degree / 2 + "px");
             }
-            console.log($target.offset().top, $target.outerHeight(), nowPoint);
+        });
+    }
+}
+
+// 영역 접근
+function scrollActive() {
+    scrollActiveFunc();
+    $(window).on('scroll', function (e){
+        scrollActiveFunc();
+    })
+    function scrollActiveFunc() {
+        $('.is_scrollActive').each(function (index, target) {
+            const $target = $(target);
+            const startPoint = $target.offset().top - $(window).height();
+            const endPoint = $target.offset().top + $target.outerHeight();
+            if (startPoint < $(window).scrollTop() && $(window).scrollTop() < endPoint) {
+                $target.addClass('is_active');
+            } else {
+                $target.removeClass('is_active');
+            }
         });
     }
 }

@@ -127,6 +127,94 @@
         margin-top: 18px;
       }
 
+      .whatWeDoFeatureList {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .whatWeDoFeatureItem {
+        display: flex;
+        flex-wrap: wrap;
+        flex: none;
+        width: 50%;
+      }
+      .whatWeDoFeatureItem:nth-of-type(2n) .whatWeDoFeatureIndexWrap {
+        border-left: 0;
+      }
+      .whatWeDoFeatureItem:nth-of-type(n + 3) .whatWeDoFeatureIndexWrap,
+      .whatWeDoFeatureItem:nth-of-type(n + 3) .whatWeDoFeatureTextWrap{
+        border-top: 0;
+      }
+      .whatWeDoFeatureIndexWrap {
+        position: relative;
+        flex: 1;
+        border: 1px solid #EEEEEE;
+        height: 546px;
+      }
+      .whatWeDoFeatureImg {
+        position: absolute;
+        width: calc(100% - 24px);
+        height: calc(100% - 24px);
+        left: 12px;
+        top: 12px;
+        background: no-repeat center;
+        background-size: cover;
+        opacity: 0;
+      }
+      .whatWeDoFeatureIndexWrap.is_active .whatWeDoFeatureImg {
+        opacity: 1;
+        transition: opacity 5s;
+      }
+      .whatWeDoFeatureIndex {
+        position: absolute;
+        top: 10px;
+        left: 24px;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 44px;
+        text-align: center;
+        letter-spacing: -0.02em;
+        color: #000000;
+      }
+      .whatWeDoFeatureIndexWrap.is_active .whatWeDoFeatureIndex {
+        color: #ffffff;
+        transition: color 3s;
+      }
+      .whatWeDoFeatureName {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        transform: translateY(-50%);
+        font-weight: 600;
+        font-size: 28px;
+        line-height: 40px;
+        text-align: center;
+        letter-spacing: -0.02em;
+        color: #000000;
+      }
+      .whatWeDoFeatureIndexWrap.is_active .whatWeDoFeatureName {
+        color: #ffffff;
+        transition: color 3s;
+      }
+      .whatWeDoFeatureTextWrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        border: 1px solid #EEEEEE;
+        border-left: 0;
+        height: 546px;
+      }
+      .whatWeDoFeatureText {
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 26px;
+        letter-spacing: -0.02em;
+        color: #000000;
+        padding: 24px;
+      }
+
       /* pageCommon */
       .euroContainer {
         padding: 123px 24px;
@@ -250,6 +338,40 @@
           color: #000000;
           opacity: 0.8;
           margin-top: 13px;
+        }
+
+        .whatWeDoFeatureItem {
+          display: flex;
+          flex-wrap: wrap;
+          flex: none;
+          width: 100%;
+        }
+        .whatWeDoFeatureIndexWrap,
+        .whatWeDoFeatureTextWrap{
+          flex: none;
+          width: 100%;
+        }
+        .whatWeDoFeatureIndexWrap {
+          height: 504px;
+        }
+        .whatWeDoFeatureIndex {
+          top: 0;
+          left: 12px;
+        }
+        .whatWeDoFeatureTextWrap {
+          height: auto;
+        }
+        .whatWeDoFeatureText {
+          width: 100%;
+          padding: 19px 12px 74px;
+          text-align: left;
+        }
+        .whatWeDoFeatureItem .whatWeDoFeatureIndexWrap,
+        .whatWeDoFeatureItem .whatWeDoFeatureTextWrap{
+          border-top-width: 1px;
+          border-left-width: 0;
+          border-right-width: 0;
+          border-bottom-width: 0;
         }
 
         /* pageCommon */
@@ -448,6 +570,79 @@
             <div class="whatWeDoProcessText">
               설치<br/>
               시공관리
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="euroSubBox is_mt_117_94">
+        <div class="is_T24" style="margin-bottom: 35px;">Our Feature</div>
+        <div class="whatWeDoFeatureList">
+          <div class="whatWeDoFeatureItem">
+            <div class="whatWeDoFeatureIndexWrap is_scrollActive">
+              <div class="whatWeDoFeatureImg" style="background-image: url(img/whatWeDoFeature1.png)"></div>
+              <div class="whatWeDoFeatureIndex">01</div>
+              <div class="whatWeDoFeatureName">
+                시간단축, 비용절감,<br/>
+                안정성 확보
+              </div>
+            </div>
+            <div class="whatWeDoFeatureTextWrap">
+              <div class="whatWeDoFeatureText">
+                무브라켓트의 적용으로 PC제작 공정이<br/>
+                단순화되고 자립식 소켓을 적용하면<br/>
+                안정성이 높아지고 보다 시공이 간단하고<br/>
+                편리합니다.
+              </div>
+            </div>
+          </div>
+          <div class="whatWeDoFeatureItem">
+            <div class="whatWeDoFeatureIndexWrap is_scrollActive">
+              <div class="whatWeDoFeatureImg" style="background-image: url(img/whatWeDoFeature1.png)"></div>
+              <div class="whatWeDoFeatureIndex">02</div>
+              <div class="whatWeDoFeatureName">
+                뛰어난 내진성능,<br/>
+                운송비용 절감 및<br/>
+                보관장소 최소화
+              </div>
+            </div>
+            <div class="whatWeDoFeatureTextWrap">
+              <div class="whatWeDoFeatureText">
+                내진 성능이 뛰어나고 내부 활용 공간이 보다<br/>
+                많아지며, 부자의 운반이 용이하고 적재 효율성이<br/>
+                뛰어납니다
+              </div>
+            </div>
+          </div>
+          <div class="whatWeDoFeatureItem">
+            <div class="whatWeDoFeatureIndexWrap is_scrollActive">
+              <div class="whatWeDoFeatureImg" style="background-image: url(img/whatWeDoFeature1.png)"></div>
+              <div class="whatWeDoFeatureIndex">03</div>
+              <div class="whatWeDoFeatureName">
+                다음 공정 간섭없이<br/>
+                효율적 관리
+              </div>
+            </div>
+            <div class="whatWeDoFeatureTextWrap">
+              <div class="whatWeDoFeatureText">
+                적층식 공법을 사용하면 설비 장비 선택의 폭이<br/>
+                넓어집니다.
+              </div>
+            </div>
+          </div>
+          <div class="whatWeDoFeatureItem">
+            <div class="whatWeDoFeatureIndexWrap is_scrollActive">
+              <div class="whatWeDoFeatureImg" style="background-image: url(img/whatWeDoFeature1.png)"></div>
+              <div class="whatWeDoFeatureIndex">04</div>
+              <div class="whatWeDoFeatureName">
+                친환경적, 인력수급 원활,<br/>
+                후속 공정 간소화
+              </div>
+            </div>
+            <div class="whatWeDoFeatureTextWrap">
+              <div class="whatWeDoFeatureText">
+                100% 건식 공법으로 현장타설 없이<br/>
+                후속처리가 간단합니다.
+              </div>
             </div>
           </div>
         </div>
