@@ -175,6 +175,8 @@ select {
   margin: auto;
 }
 .euroSubHeader {
+  max-width: 100%;
+  overflow: hidden;
   padding: 230px 24px 46px;
   font-weight: bold;
   font-size: 108px;
@@ -390,6 +392,10 @@ select {
     left: 0;
     bottom: 0;
     padding: 31px 12px;
+  }
+  .euroContainer .is_mobileFull {
+    margin-left: -12px;
+    margin-right: -12px;
   }
   .euroMainContent.is_img {
     width: 100%;
