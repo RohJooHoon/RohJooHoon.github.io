@@ -7,6 +7,98 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="css/common.css" />
+    <style>
+      .portfolioTabBar {
+        white-space: nowrap;
+        padding: 0 24px;
+      }
+      .portfolioTab {
+        font-weight: 600;
+        font-size: 40px;
+        line-height: 60px;
+        letter-spacing: -0.03em;
+        color: #DDDDDD;
+      }
+      .portfolioTab + .portfolioTab {
+        margin-left: 54px;
+      }
+      .portfolioTab.is_active {
+        color: #000000;
+        border-bottom: solid 4px #000000;
+      }
+      .portfolioList {
+        margin-top: 70px;
+      }
+      .portfolioItem {
+
+      }
+      .portfolioItemImgList {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .portfolioItemImg {
+        flex: none;
+        width: 25%;
+        padding-bottom: 14.16665%;
+        background: no-repeat center;
+        background-size: cover;
+      }
+      .portfolioItemTextBox {
+        padding: 26px 24px 220px;
+      }
+      .portfolioItemTextName {
+        display: inline-block;
+        font-weight: 600;
+        font-size: 28px;
+        line-height: 40px;
+        letter-spacing: -0.02em;
+        color: #000000;
+      }
+      .portfolioItemTextSub {
+        display: inline-block;
+        font-weight: normal;
+        font-size: 13px;
+        line-height: 20px;
+        letter-spacing: -0.02em;
+        color: #999999;
+        margin-left: 30px;
+        vertical-align: 8px;
+      }
+
+      @media (max-width: 768px) {
+        .portfolioTabBar {
+          padding: 0 16px;
+        }
+        .portfolioTab {
+          font-size: 28px;
+          line-height: 40px;
+        }
+        .portfolioTab + .portfolioTab {
+          margin-left: 37px;
+        }
+        .portfolioList {
+          margin-top: 25px;
+        }
+        .portfolioItemImg {
+          width: 100%;
+          padding-bottom: 59.4666%;
+        }
+        .portfolioItemTextBox {
+          padding: 10px 12px 74px;
+        }
+        .portfolioItemTextName {
+          display: block;
+          font-size: 24px;
+          line-height: 40px;
+        }
+        .portfolioItemTextSub {
+          display: block;
+          margin: 0;
+          font-size: 16px;
+          line-height: 26px;
+        }
+      }
+    </style>
   </head>
 
   <body class="euro">
@@ -19,24 +111,24 @@
         </div>
         <div class="euroNav euroHeaderBarMenuList is_pcHide_up">
           <div class="euroHeaderBarMenu">
-            <a class="euroHeaderBarMenuLink" href="#">What we do</a>
+            <a class="euroHeaderBarMenuLink" href="whatwedo.html">What we do</a>
           </div>
           <div class="euroHeaderBarMenu">
-            <a class="euroHeaderBarMenuLink" href="#">Work</a>
+            <a class="euroHeaderBarMenuLink" href="work.html">Work</a>
             <div class="euroHeaderBarMenuSub">
-              <a class="euroHeaderBarMenuSubLink" href="#">프리캐스트 콘크리트 골조</a>
-              <a class="euroHeaderBarMenuSubLink" href="#">Coling Tower</a>
-              <a class="euroHeaderBarMenuSubLink" href="#">SSPC</a>
-              <a class="euroHeaderBarMenuSubLink" href="#">PBCR</a>
-              <a class="euroHeaderBarMenuSubLink" href="#">PCRC</a>
-              <a class="euroHeaderBarMenuSubLink" href="#">내진 구조 성능 실험</a>
+              <a class="euroHeaderBarMenuSubLink" href="workSub1.html">프리캐스트 콘크리트 골조</a>
+              <a class="euroHeaderBarMenuSubLink" href="workSub2.html">Coling Tower</a>
+              <a class="euroHeaderBarMenuSubLink" href="workSub3.html">SSPC</a>
+              <a class="euroHeaderBarMenuSubLink" href="workSub4.html">PBCR</a>
+              <a class="euroHeaderBarMenuSubLink" href="workSub5.html">PCRC</a>
+              <a class="euroHeaderBarMenuSubLink" href="workSub6.html">내진 구조 성능 실험</a>
             </div>
           </div>
           <div class="euroHeaderBarMenu">
-            <a class="euroHeaderBarMenuLink" href="#">Portfolio</a>
+            <a class="euroHeaderBarMenuLink" href="portfolio.html">Portfolio</a>
           </div>
           <div class="euroHeaderBarMenu">
-            <a class="euroHeaderBarMenuLink is_hide_m" href="#">Certificate</a>
+            <a class="euroHeaderBarMenuLink is_hide_m" href="centificate.html">Certificate</a>
           </div>
         </div>
         <div class="euroHeaderBarSubList is_pcHide_top">
@@ -50,8 +142,75 @@
         </div>
       </div>
     </div>
-    <div class="euroContainer">
-      portfolio
+    <div class="euroSubHeader">Portfolio</div>
+    <div class="portfolio">
+      <div class="portfolioTabBar">
+        <button class="portfolioTab is_tabTrigger is_active" type="button" data-tabTrigger="portfolio">전체</button>
+        <button class="portfolioTab is_tabTrigger" type="button" data-tabTrigger="portfolio">국내 프로젝트</button>
+        <button class="portfolioTab is_tabTrigger" type="button" data-tabTrigger="portfolio">해외 프로젝트</button>
+      </div>
+      <div class="portfolioList">
+        <div class="portfolioItem is_active">
+          <div class="portfolioItemImgList">
+            <div class="portfolioItemImg" style="background-image: url(img/portfolio1_1.png)"></div>
+            <div class="portfolioItemImg is_hide_m" style="background-image: url(img/portfolio1_2.png)"></div>
+            <div class="portfolioItemImg" style="background-image: url(img/portfolio1_3.png)"></div>
+            <div class="portfolioItemImg" style="background-image: url(img/portfolio1_4.png)"></div>
+          </div>
+          <div class="portfolioItemTextBox">
+            <div class="portfolioItemTextName">포스코 광양 Cooling Tower</div>
+            <div class="portfolioItemTextSub">국내 프로젝트</div>
+          </div>
+        </div>
+        <div class="portfolioItem">
+          <div class="portfolioItemImgList">
+            <div class="portfolioItemImg" style="background-image: url(img/portfolio1_1.png)"></div>
+            <div class="portfolioItemImg is_hide_m" style="background-image: url(img/portfolio1_2.png)"></div>
+            <div class="portfolioItemImg" style="background-image: url(img/portfolio1_3.png)"></div>
+            <div class="portfolioItemImg" style="background-image: url(img/portfolio1_4.png)"></div>
+          </div>
+          <div class="portfolioItemTextBox">
+            <div class="portfolioItemTextName">포스코 광양 Cooling Tower</div>
+            <div class="portfolioItemTextSub">국내 프로젝트</div>
+          </div>
+        </div>
+        <div class="portfolioItem">
+          <div class="portfolioItemImgList">
+            <div class="portfolioItemImg" style="background-image: url(img/portfolio1_1.png)"></div>
+            <div class="portfolioItemImg is_hide_m" style="background-image: url(img/portfolio1_2.png)"></div>
+            <div class="portfolioItemImg" style="background-image: url(img/portfolio1_3.png)"></div>
+            <div class="portfolioItemImg" style="background-image: url(img/portfolio1_4.png)"></div>
+          </div>
+          <div class="portfolioItemTextBox">
+            <div class="portfolioItemTextName">포스코 광양 Cooling Tower</div>
+            <div class="portfolioItemTextSub">국내 프로젝트</div>
+          </div>
+        </div>
+        <div class="portfolioItem">
+          <div class="portfolioItemImgList">
+            <div class="portfolioItemImg" style="background-image: url(img/portfolio1_1.png)"></div>
+            <div class="portfolioItemImg is_hide_m" style="background-image: url(img/portfolio1_2.png)"></div>
+            <div class="portfolioItemImg" style="background-image: url(img/portfolio1_3.png)"></div>
+            <div class="portfolioItemImg" style="background-image: url(img/portfolio1_4.png)"></div>
+          </div>
+          <div class="portfolioItemTextBox">
+            <div class="portfolioItemTextName">포스코 광양 Cooling Tower</div>
+            <div class="portfolioItemTextSub">국내 프로젝트</div>
+          </div>
+        </div>
+        <div class="portfolioItem">
+          <div class="portfolioItemImgList">
+            <div class="portfolioItemImg" style="background-image: url(img/portfolio1_1.png)"></div>
+            <div class="portfolioItemImg is_hide_m" style="background-image: url(img/portfolio1_2.png)"></div>
+            <div class="portfolioItemImg" style="background-image: url(img/portfolio1_3.png)"></div>
+            <div class="portfolioItemImg" style="background-image: url(img/portfolio1_4.png)"></div>
+          </div>
+          <div class="portfolioItemTextBox">
+            <div class="portfolioItemTextName">포스코 광양 Cooling Tower</div>
+            <div class="portfolioItemTextSub">국내 프로젝트</div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="euroFooter is_T13">
       <div class="euroFooterDescription">
@@ -67,5 +226,20 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="js/common.js"></script>
+    <script>
+      /**
+       탭 동작
+       **/
+      setTabTrigger();
+      function setTabTrigger() {
+        $(document).on('click', '.is_tabTrigger', function (e) {
+          const $trigger = $(e.currentTarget);
+          const $target = $(`.is_tabTarget[data-tabTarget=${$trigger.attr('data-tabTrigger')}]`);
+          const nowIndex = $trigger.index();
+          $trigger.addClass('is_active').siblings('.is_tabTrigger').removeClass('is_active');
+          $target.removeClass('is_active').eq(nowIndex).addClass('is_active');
+        });
+      }
+    </script>
   </body>
 </html>
