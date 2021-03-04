@@ -30,7 +30,10 @@
         margin-top: 70px;
       }
       .portfolioItem {
-
+        opacity: 0.5;
+      }
+      .portfolioItem.is_active {
+        opacity: 1;
       }
       .portfolioItemImgList {
         display: flex;
@@ -146,8 +149,8 @@
     <div class="portfolio">
       <div class="portfolioTabBar">
         <button class="portfolioTab is_tabTrigger is_active" type="button" data-tabTrigger="portfolio">전체</button>
-        <button class="portfolioTab is_tabTrigger" type="button" data-tabTrigger="portfolio">국내 프로젝트</button>
-        <button class="portfolioTab is_tabTrigger" type="button" data-tabTrigger="portfolio">해외 프로젝트</button>
+        <button class="portfolioTab is_tabTrigger is_inner" type="button" data-tabTrigger="portfolio">국내 프로젝트</button>
+        <button class="portfolioTab is_tabTrigger is_outer" type="button" data-tabTrigger="portfolio">해외 프로젝트</button>
       </div>
       <div class="portfolioList">
         <div class="portfolioItem is_active">
@@ -227,17 +230,28 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="js/common.js"></script>
     <script>
+
       /**
        탭 동작
        **/
-      setTabTrigger();
-      function setTabTrigger() {
+      portfolioSorting();
+      function portfolioSorting() {
         $(document).on('click', '.is_tabTrigger', function (e) {
           const $trigger = $(e.currentTarget);
           const $target = $(`.is_tabTarget[data-tabTarget=${$trigger.attr('data-tabTrigger')}]`);
-          const nowIndex = $trigger.index();
-          $trigger.addClass('is_active').siblings('.is_tabTrigger').removeClass('is_active');
-          $target.removeClass('is_active').eq(nowIndex).addClass('is_active');
+
+          console.log("$target : ", $target);
+          if ($target.hasClass('is_inner')) {
+            console.log("$target.hasClass('is_inner')");
+          } else if ($target.hasClass('is_outer')) {
+            console.log("$target.hasClass('is_outer')");
+          } else {
+            console.log("$target.hasClass('none')");
+          }
+
+          // const nowIndex = $trigger.index();
+          // $trigger.addClass('is_active').siblings('.is_tabTrigger').removeClass('is_active');
+          // $target.removeClass('is_active').eq(nowIndex).addClass('is_active');
         });
       }
     </script>
