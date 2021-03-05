@@ -97,7 +97,7 @@ select {
   top: 0;
   left: 0;
   width: 100%;
-  min-height: 114px;
+  min-height: 90px;
   z-index: 100;
   opacity: 0;
   transition: opacity 0.35s;
@@ -169,18 +169,36 @@ select {
   line-height: 17px;
   letter-spacing: -0.03em;
   border: 0;
+  color: #000000;
 }
 .euroContainer {
   max-width: 1440px;
   margin: auto;
 }
+.euroSubHeaderWrap {
+  display: flex;
+  flex-wrap: wrap;
+}
 .euroSubHeader {
+  flex: 1;
   max-width: 100%;
   overflow: hidden;
   padding: 230px 24px 46px;
   font-weight: bold;
   font-size: 108px;
   line-height: 100px;
+  letter-spacing: -0.02em;
+  color: #000000;
+  white-space: nowrap;
+}
+.euroSubHeaderSub {
+  flex: 1;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 230px 24px 46px;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 40px;
   letter-spacing: -0.02em;
   color: #000000;
   white-space: nowrap;
@@ -318,6 +336,66 @@ select {
   height: 236px;
 }
 
+.contactForm {
+  padding: 50px 24px 0 calc(50% + 24px);
+}
+.contactInput {
+  width: 100%;
+  min-height: 34px;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: -0.02em;
+  color: #000000;
+  border: none;
+  border-bottom: 1px solid #EEEEEE;
+  resize: vertical;
+}
+.contactInput::placeholder {
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: -0.02em;
+  color: #BBBBBB;
+}
+.contactInput + .contactInput {
+  margin-top: 30px;
+}
+.contactSubmit {
+  display: block;
+  margin-top: 20px;
+  margin-left: auto;
+  padding: 0 40px 0 0;
+  border: none;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: -0.02em;
+  color: #000000;
+  background: transparent no-repeat right center url(../img/arrow.svg);
+  background-size: 30px;
+}
+.contactInfoBox {
+  margin: -140px 24px 100px;
+}
+.contactInfo {
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: -0.02em;
+  color: #333333;
+}
+a.contactInfo {
+  text-decoration: underline;
+}
+.contactInfoHeader {
+  min-width: 35px;
+  display: inline-block;
+}
+.contactInfoBody {
+  display: inline-block;
+}
+
 @media (min-width: 768px) {
   .is_hide_p {
     display: none !important;
@@ -385,6 +463,17 @@ select {
     color: #000000;
     white-space: nowrap;
   }
+  .euroSubHeaderSub {
+    flex: none;
+    width: 100%;
+    padding: 8px 12px 40px;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 36px;
+    letter-spacing: -0.02em;
+    color: #000000;
+    white-space: nowrap;
+  }
   .euroSubHero {
     padding-bottom: 720px;
   }
@@ -445,5 +534,38 @@ select {
     line-height: 26px;
     letter-spacing: -0.02em;
     color: #000000;
+  }
+  .contactForm {
+    padding: 0 12px 64px;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 36px;
+    letter-spacing: -0.02em;
+    color: #000000;
+  }
+  .contactInput {
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 40px;
+    letter-spacing: -0.02em;
+    color: #BBBBBB;
+  }
+  .contactSubmit {
+    margin-left: 0;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 26px;
+    letter-spacing: -0.02em;
+    color: #000000;
+  }
+  .contactInfoBox {
+    margin: 0 0 77px 50%;
+  }
+  .contactInfo {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 26px;
+    letter-spacing: -0.02em;
+    color: #333333;
   }
 }

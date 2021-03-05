@@ -1,71 +1,100 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Parcel Sandbox</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="css/common.css" />
-  </head>
+<head>
+  <title>Parcel Sandbox</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="css/common.css" />
+</head>
 
-  <body class="euro">
-    <div class="euroHeader">
-    <div class="euroHeaderBar">
-      <div class="euroHeaderBarMenuList is_pcHide_top is_hide_m">
-        <button class="euroHeaderBarMenuLink euroMenuBtn" type="button" onclick="euroMenuBtn();">
-          Menu
-        </button>
+<body class="euro">
+<div class="euroHeader">
+  <div class="euroHeaderBar">
+    <div class="euroHeaderBarMenuList is_pcHide_top is_hide_m">
+      <button class="euroHeaderBarMenuLink euroMenuBtn" type="button" onclick="euroMenuBtn();">
+        Menu
+      </button>
+    </div>
+    <div class="euroNav euroHeaderBarMenuList is_pcHide_up">
+      <div class="euroHeaderBarMenu">
+        <a class="euroHeaderBarMenuLink" href="whatwedo.html">What we do</a>
       </div>
-      <div class="euroNav euroHeaderBarMenuList is_pcHide_up">
-        <div class="euroHeaderBarMenu">
-          <a class="euroHeaderBarMenuLink" href="whatwedo.html">What we do</a>
-        </div>
-        <div class="euroHeaderBarMenu">
-          <a class="euroHeaderBarMenuLink" href="work.html">Work</a>
-          <div class="euroHeaderBarMenuSub">
-            <a class="euroHeaderBarMenuSubLink" href="workSub1.html">프리캐스트 콘크리트 골조</a>
-            <a class="euroHeaderBarMenuSubLink" href="workSub2.html">Coling Tower</a>
-            <a class="euroHeaderBarMenuSubLink" href="workSub3.html">SSPC</a>
-            <a class="euroHeaderBarMenuSubLink" href="workSub4.html">PBCR</a>
-            <a class="euroHeaderBarMenuSubLink" href="workSub5.html">PCRC</a>
-            <a class="euroHeaderBarMenuSubLink" href="workSub6.html">내진 구조 성능 실험</a>
-          </div>
-        </div>
-        <div class="euroHeaderBarMenu">
-          <a class="euroHeaderBarMenuLink" href="portfolio.html">Portfolio</a>
-        </div>
-        <div class="euroHeaderBarMenu">
-          <a class="euroHeaderBarMenuLink is_hide_m" href="centificate.html">Certificate</a>
+      <div class="euroHeaderBarMenu">
+        <a class="euroHeaderBarMenuLink" href="work.html">Work</a>
+        <div class="euroHeaderBarMenuSub">
+          <a class="euroHeaderBarMenuSubLink" href="workSub1.html">프리캐스트 콘크리트 골조</a>
+          <a class="euroHeaderBarMenuSubLink" href="workSub2.html">Coling Tower</a>
+          <a class="euroHeaderBarMenuSubLink" href="workSub3.html">SSPC</a>
+          <a class="euroHeaderBarMenuSubLink" href="workSub4.html">PBCR</a>
+          <a class="euroHeaderBarMenuSubLink" href="workSub5.html">PCRC</a>
+          <a class="euroHeaderBarMenuSubLink" href="workSub6.html">내진 구조 성능 실험</a>
         </div>
       </div>
-      <div class="euroHeaderBarSubList is_pcHide_top">
-        <select class="euroHeaderBarSub">
-          <option value="KR">KR</option>
-          <option value="EN">EN</option>
-        </select>
+      <div class="euroHeaderBarMenu">
+        <a class="euroHeaderBarMenuLink" href="portfolio.html">Portfolio</a>
       </div>
-      <div class="euroHeaderBarSubList is_pcHide_top is_hide_m">
-        <button class="euroHeaderBarSub" type="button">Contact</button>
+      <div class="euroHeaderBarMenu">
+        <a class="euroHeaderBarMenuLink is_hide_m" href="centificate.html">Certificate</a>
       </div>
+    </div>
+    <div class="euroHeaderBarSubList is_pcHide_top">
+      <select class="euroHeaderBarSub">
+        <option value="KR">KR</option>
+        <option value="EN">EN</option>
+      </select>
+    </div>
+    <div class="euroHeaderBarSubList is_pcHide_top is_hide_m">
+      <a class="euroHeaderBarSub" href="contact.html">Contact</a>
     </div>
   </div>
-    <div class="euroContainer">
-      contact
+</div>
+<div class="euroSubHeaderWrap">
+  <div class="euroSubHeader">Contact</div>
+  <div class="euroSubHeaderSub">
+    안전하고 정확한 기술력과 시공법을 갖춘<br/>
+    전문가에게 문의하기
+  </div>
+</div>
+<div class="contact">
+  <form class="contactForm">
+    <input class="contactInput" type="text" placeholder="회사명">
+    <input class="contactInput" type="email" placeholder="이메일">
+    <input class="contactInput" type="tel" placeholder="전화번호">
+    <textarea class="contactInput" type="text" placeholder="문의내용" rows="1"></textarea>
+    <button class="contactSubmit" type="submit">보내기</button>
+  </form>
+  <div class="contactInfoBox">
+    <address class="contactInfo">서울특별시 강남구<br>논현로 34길 26, 유창빌딩 3F</address>
+    <a class="contactInfo" href="#">지도에서 보기</a>
+    <div class="contactInfo" style="margin-top: 17px;">
+      <div class="contactInfoHeader">Tel</div>
+      <div class="contactInfoBody">02.3443.1910</div>
     </div>
-    <div class="euroFooter is_T13">
-      <div class="euroFooterDescription">
-        EURO ENGINEERING<br />
-        대표 김군삼<br />
-        서울특별시 강남구 논현로 34길 26, 유창빌딩 3F<br />
-        02-3443-1910 / 02-3443-1588
-      </div>
-      <div class="euroFooterCopyrighy">
-        copyright (c) www.ieuroeng.co.kr all rights reserved.
-      </div>
+    <div class="contactInfo">
+      <div class="contactInfoHeader">Fax</div>
+      <div class="contactInfoBody">02.3443.1588</div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="js/common.js"></script>
-  </body>
+    <a class="contactInfo" href="mailto:email@euro.co.kr" style="margin-top: 4px;">email@euro.co.kr</a>
+  </div>
+</div>
+<div class="euroFooter is_T13">
+  <div class="euroFooterDescription">
+    EURO ENGINEERING<br />
+    대표 김군삼<br />
+    서울특별시 강남구 논현로 34길 26, 유창빌딩 3F<br />
+    02-3443-1910 / 02-3443-1588
+  </div>
+  <div class="euroFooterCopyrighy">
+    copyright (c) www.ieuroeng.co.kr all rights reserved.
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="js/common.js"></script>
+<script>
+
+</script>
+</body>
 </html>
