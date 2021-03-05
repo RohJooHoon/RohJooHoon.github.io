@@ -148,12 +148,12 @@
     <div class="euroSubHeader">Portfolio</div>
     <div class="portfolio">
       <div class="portfolioTabBar">
-        <button class="portfolioTab is_tabTrigger is_active" type="button" data-tabTrigger="portfolio">전체</button>
-        <button class="portfolioTab is_tabTrigger is_inner" type="button" data-tabTrigger="portfolio">국내 프로젝트</button>
-        <button class="portfolioTab is_tabTrigger is_outer" type="button" data-tabTrigger="portfolio">해외 프로젝트</button>
+        <button class="portfolioTab is_switchTab is_active" type="button" data-switch="portfolio">전체</button>
+        <button class="portfolioTab is_switchTab" type="button" data-switch="portfolio" data-switchkey="inner">국내 프로젝트</button>
+        <button class="portfolioTab is_switchTab" type="button" data-switch="portfolio" data-switchkey="outer">해외 프로젝트</button>
       </div>
       <div class="portfolioList">
-        <div class="portfolioItem is_active">
+        <div class="portfolioItem is_switchTabTarget is_active" data-switch="portfolio" data-switchkey="inner">
           <div class="portfolioItemImgList">
             <div class="portfolioItemImg" style="background-image: url(img/portfolio1_1.png)"></div>
             <div class="portfolioItemImg is_hide_m" style="background-image: url(img/portfolio1_2.png)"></div>
@@ -165,7 +165,7 @@
             <div class="portfolioItemTextSub">국내 프로젝트</div>
           </div>
         </div>
-        <div class="portfolioItem">
+        <div class="portfolioItem is_switchTabTarget" data-switch="portfolio" data-switchkey="outer">
           <div class="portfolioItemImgList">
             <div class="portfolioItemImg" style="background-image: url(img/portfolio1_1.png)"></div>
             <div class="portfolioItemImg is_hide_m" style="background-image: url(img/portfolio1_2.png)"></div>
@@ -174,10 +174,10 @@
           </div>
           <div class="portfolioItemTextBox">
             <div class="portfolioItemTextName">포스코 광양 Cooling Tower</div>
-            <div class="portfolioItemTextSub">국내 프로젝트</div>
+            <div class="portfolioItemTextSub">해외 프로젝트</div>
           </div>
         </div>
-        <div class="portfolioItem">
+        <div class="portfolioItem is_switchTabTarget" data-switch="portfolio" data-switchkey="outer">
           <div class="portfolioItemImgList">
             <div class="portfolioItemImg" style="background-image: url(img/portfolio1_1.png)"></div>
             <div class="portfolioItemImg is_hide_m" style="background-image: url(img/portfolio1_2.png)"></div>
@@ -186,10 +186,10 @@
           </div>
           <div class="portfolioItemTextBox">
             <div class="portfolioItemTextName">포스코 광양 Cooling Tower</div>
-            <div class="portfolioItemTextSub">국내 프로젝트</div>
+            <div class="portfolioItemTextSub">해외 프로젝트</div>
           </div>
         </div>
-        <div class="portfolioItem">
+        <div class="portfolioItem is_switchTabTarget" data-switch="portfolio" data-switchkey="outer">
           <div class="portfolioItemImgList">
             <div class="portfolioItemImg" style="background-image: url(img/portfolio1_1.png)"></div>
             <div class="portfolioItemImg is_hide_m" style="background-image: url(img/portfolio1_2.png)"></div>
@@ -198,10 +198,10 @@
           </div>
           <div class="portfolioItemTextBox">
             <div class="portfolioItemTextName">포스코 광양 Cooling Tower</div>
-            <div class="portfolioItemTextSub">국내 프로젝트</div>
+            <div class="portfolioItemTextSub">해외 프로젝트</div>
           </div>
         </div>
-        <div class="portfolioItem">
+        <div class="portfolioItem is_switchTabTarget" data-switch="portfolio" data-switchkey="inner">
           <div class="portfolioItemImgList">
             <div class="portfolioItemImg" style="background-image: url(img/portfolio1_1.png)"></div>
             <div class="portfolioItemImg is_hide_m" style="background-image: url(img/portfolio1_2.png)"></div>
@@ -230,29 +230,31 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="js/common.js"></script>
     <script>
-
-      /**
-       탭 동작
-       **/
-      portfolioSorting();
-      function portfolioSorting() {
-        $(document).on('click', '.is_tabTrigger', function (e) {
-          const $trigger = $(e.currentTarget);
-          const $target = $(`.is_tabTarget[data-tabTarget=${$trigger.attr('data-tabTrigger')}]`);
-
-          console.log("$target : ", $target);
-          if ($target.hasClass('is_inner')) {
-            console.log("$target.hasClass('is_inner')");
-          } else if ($target.hasClass('is_outer')) {
-            console.log("$target.hasClass('is_outer')");
-          } else {
-            console.log("$target.hasClass('none')");
-          }
-
-          // const nowIndex = $trigger.index();
-          // $trigger.addClass('is_active').siblings('.is_tabTrigger').removeClass('is_active');
-          // $target.removeClass('is_active').eq(nowIndex).addClass('is_active');
+      setSwitchTab();
+      function setSwitchTab() {
+        setSwitchTabFunc($('.is_switchTab.is_active'));
+        $(document).on('click', `.is_switchTab`, function (e) {
+          $(e.currentTarget).addClass('is_active').siblings().removeClass('is_active');
+          setSwitchTabFunc($(e.currentTarget));
         });
+        function setSwitchTabFunc(target) {
+          const $trigger = target;
+          const $triggerSwitch = $trigger.attr('data-switch');
+          const $target = $(`.is_switchTabTarget[data-switch=${$triggerSwitch}]`);
+          const $portfolioList = $('.portfolioList');
+          if ($trigger.attr('data-switchkey')) {
+            $target.each(function (index, value) {
+              if ($trigger.attr('data-switchkey') == $(value).attr('data-switchkey')) {
+                $(value).addClass('is_active');
+                $portfolioList.prepend($(value));
+              } else {
+                $(value).removeClass('is_active');
+              }
+            })
+          } else {
+            $target.addClass('is_active');
+          }
+        }
       }
     </script>
   </body>
