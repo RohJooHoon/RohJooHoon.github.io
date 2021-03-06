@@ -111,15 +111,15 @@ select {
   opacity: 0;
   transition: opacity 0.35s;
 }
-.euroHeader.is_main {
+.euroHeader.is_white {
   background-image: url("../img/logo_w.svg");
 }
-.euroHeader.is_main .euroHeaderBarSub,
-.euroHeader.is_main .euroHeaderBarMenuLink,
-.euroHeader.is_main .euroHeaderBarMenuSubLink {
+.euroHeader.is_white .euroHeaderBarSub,
+.euroHeader.is_white .euroHeaderBarMenuLink,
+.euroHeader.is_white .euroHeaderBarMenuSubLink {
   color: #ffffff;
 }
-.euroHeader.is_main select {
+.euroHeader.is_white select {
   background-image: url("../img/selectArrow_w.svg");
 }
 .euroHeader.is_on {
@@ -460,7 +460,7 @@ a.contactInfo {
     background: no-repeat center url("../img/close.svg");
     background-size: 22px;
   }
-  .euroHeader.is_main:not(.is_top) .euroMenuBtn.is_on {
+  .euroHeader.is_white:not(.is_top) .euroMenuBtn.is_on {
     background-image: url("../img/close_w.svg");
   }
 }
