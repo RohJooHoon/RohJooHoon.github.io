@@ -420,6 +420,14 @@ a.contactInfo {
 .contactInfoBody {
   display: inline-block;
 }
+.euroHeader .euroMenuBtn.is_onFix {
+  font-size: 0;
+  color: transparent;
+  width: 22px;
+  height: 22px;
+  background: no-repeat center url("../img/close.svg");
+  background-size: 22px;
+}
 
 @media (min-width: 768px) {
   .is_hide_p {

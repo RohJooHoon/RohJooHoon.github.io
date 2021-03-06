@@ -15,12 +15,15 @@
         line-height: 0;
       }
       .portfolioSubView {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: relative;
         width: calc(100% - 384px);
         float: right;
       }
       .portfolioSubViewImg {
+        flex: 1;
         width: 100%;
         height: 0;
         padding-top: 56.3953%;
@@ -74,7 +77,37 @@
       }
 
       @media (max-width: 768px) {
-
+        .portfolioSub {
+          margin-top: 0;
+        }
+        .portfolioSubView {
+          width: 100%;
+          height: 450px;
+          float: none;
+        }
+        .portfolioSubBox {
+          width: 100%;
+          float: none;
+          padding: 9px 12px;
+        }
+        .portfolioSubBoxTitle {
+          font-weight: 500;
+          font-size: 24px;
+          line-height: 32px;
+          letter-spacing: -0.02em;
+          color: #000000;
+          margin: 0;
+        }
+        .portfolioSubBoxEyebrow {
+          font-size: 13px;
+          line-height: 20px;
+          letter-spacing: -0.02em;
+          color: #BBBBBB;
+          margin-top: 7px;
+        }
+        .portfolioSubList {
+          margin: 12px 0 0;
+        }
       }
     </style>
   </head>
@@ -82,40 +115,18 @@
   <body class="euro">
     <div class="euroHeader">
       <div class="euroHeaderBar">
-        <div class="euroHeaderBarMenuList is_pcHide_top is_hide_m">
-          <button class="euroHeaderBarMenuLink euroMenuBtn" type="button" onclick="euroMenuBtn();">
+        <div class="euroHeaderBarMenuList">
+          <a class="euroHeaderBarMenuLink euroMenuBtn is_onFix" type="button" href="portfolio.html">
             Menu
-          </button>
+          </a>
         </div>
-        <div class="euroNav euroHeaderBarMenuList is_pcHide_up">
-          <div class="euroHeaderBarMenu">
-            <a class="euroHeaderBarMenuLink" href="whatwedo.html">What we do</a>
-          </div>
-          <div class="euroHeaderBarMenu">
-            <a class="euroHeaderBarMenuLink is_hide_m" href="work.html">Work</a>
-            <div class="euroHeaderBarMenuSub">
-              <a class="euroHeaderBarMenuSubLink" href="workSub1.html">프리캐스트 콘크리트 골조</a>
-              <a class="euroHeaderBarMenuSubLink" href="workSub2.html">Coling Tower</a>
-              <a class="euroHeaderBarMenuSubLink" href="workSub3.html">SSPC</a>
-              <a class="euroHeaderBarMenuSubLink" href="workSub4.html">PBCR</a>
-              <a class="euroHeaderBarMenuSubLink" href="workSub5.html">PCRC</a>
-              <a class="euroHeaderBarMenuSubLink" href="workSub6.html">내진 구조 성능 실험</a>
-            </div>
-          </div>
-          <div class="euroHeaderBarMenu">
-            <a class="euroHeaderBarMenuLink is_active" href="portfolio.html">Portfolio</a>
-          </div>
-          <div class="euroHeaderBarMenu">
-            <a class="euroHeaderBarMenuLink" href="centificate.html">Certificate</a>
-          </div>
-        </div>
-        <div class="euroHeaderBarSubList is_pcHide_top">
+        <div class="euroHeaderBarSubList is_hide_m">
           <select class="euroHeaderBarSub">
             <option value="KR">KR</option>
             <option value="EN">EN</option>
           </select>
         </div>
-        <div class="euroHeaderBarSubList is_pcHide_top is_hide_m">
+        <div class="euroHeaderBarSubList is_hide_m">
           <a class="euroHeaderBarSub" href="contact.html">Contact</a>
         </div>
       </div>
@@ -125,9 +136,10 @@
         <div class="portfolioSubViewImg" style="background-image: url(img/portfolioSubView_1_1.jpg)"></div>
       </div>
       <div class="portfolioSubBox">
-        <div class="portfolioSubBoxEyebrow">해외 프로젝트</div>
+        <div class="portfolioSubBoxEyebrow is_hide_m">해외 프로젝트</div>
         <div class="portfolioSubBoxTitle">UZGTL Project Guzar<br>Uzbekistan</div>
-        <div class="portfolioSubBoxSubTitle">SSPC + PBRC</div>
+        <div class="portfolioSubBoxEyebrow is_hide_p">해외 프로젝트</div>
+        <div class="portfolioSubBoxSubTitle is_hide_m">SSPC + PBRC</div>
       </div>
       <div class="portfolioSubList">
         <button class="portfolioSubItem is_active" type="button" style="background-image: url(img/portfolio1_1.jpg)"></button>
