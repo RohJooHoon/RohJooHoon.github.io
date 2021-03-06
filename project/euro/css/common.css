@@ -84,6 +84,15 @@ select {
   transition: background-position 0.25s;
 }
 
+/* icon */
+.ic_plus {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: no-repeat center url(../img/whatWeDoPlus.svg);
+  margin-right: 10px;
+}
+
 /* Content Style */
 .euro {
   font-family: "HelveticaNeue", "AppleSDGothicNeo";
@@ -142,7 +151,9 @@ select {
   cursor: pointer;
 }
 .euroHeaderBarMenu:hover .euroHeaderBarMenuLink,
-.euroHeaderBarMenuSubLink:hover {
+.euroHeaderBarMenuLink.is_active,
+.euroHeaderBarMenuSubLink:hover,
+.euroHeaderBarMenuSubLink.is_active {
   color: #0073cc !important;
 }
 .euroHeaderBarMenuSub {
@@ -158,6 +169,7 @@ select {
   line-height: 26px;
   letter-spacing: -0.02em;
   white-space: nowrap;
+  color: #000000;
 }
 .euroHeaderBarSubList {
   display: inline-block;
@@ -200,6 +212,19 @@ select {
   font-size: 28px;
   line-height: 40px;
   letter-spacing: -0.02em;
+  color: #000000;
+  white-space: nowrap;
+}
+.euroSubHeaderSubRight {
+  flex: none;
+  padding: 300px 24px 46px;
+}
+.euroSubHeaderSubButton {
+  padding: 0;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: -0.03em;
   color: #000000;
   white-space: nowrap;
 }
@@ -453,6 +478,7 @@ a.contactInfo {
   .euroHeaderBarSubList {
     width: 100%;
     margin-bottom: 12px;
+    color: #000000;
   }
   .euroSubHeader {
     padding: 220px 12px 15px;
