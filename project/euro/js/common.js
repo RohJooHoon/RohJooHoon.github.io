@@ -1,30 +1,65 @@
-const $euroHeader = $(".euroHeader");
-parallax();
-scrollActive();
+const thisFileFullName = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.length);
+let allLoad = 0;
+let nowLoad = 0;
+
+loadHtml("header", "../layout/header.html");
+loadHtml("footer", "../layout/footer.html");
+
+function loadHtml(target, url) {
+    allLoad++;
+    $(target).load(url, function( response, status, xhr ) {
+        loadCheck();
+    });
+}
+
+function loadCheck() {
+    nowLoad++;
+    if (allLoad == nowLoad) {
+        navActiveCheck();
+        parallax();
+        scrollActive();
+        scrollCheck();
+    }
+}
+
+// 네비게이션 액티브 상태 확인
+function navActiveCheck() {
+    $('.euroHeaderBarMenuLink, .euroHeaderBarMenuSubLink').each(function (index, value) {
+        if (thisFileFullName ==  $(value).attr('href')) {
+            $(value).addClass('is_active');
+            if ($(value).hasClass('euroHeaderBarMenuSubLink')) {
+                $(value).closest('.euroHeaderBarMenu').find('.euroHeaderBarMenuLink').addClass('is_active');
+            }
+        }
+    });
+}
 
 // 스크롤 방향 판단
-let prevScrollTop = $(window).scrollTop();
-scrollCheck();
-$(window).scroll(function (e) {
-    scrollCheck();
-    prevScrollTop = $(window).scrollTop();
-});
 function scrollCheck() {
-    if ($(window).scrollTop() == 0) {
-        $euroHeader.show();
-        $euroHeader.addClass("is_top");
-        $euroHeader.removeClass("is_up");
-        $euroHeader.addClass("is_on");
-    } else if ($(window).scrollTop() < prevScrollTop) {
-        $euroHeader.show();
-        $euroHeader.removeClass("is_top");
-        $euroHeader.addClass("is_up");
-        $euroHeader.addClass("is_on");
-    } else {
-        $euroHeader.hide();
-        $euroHeader.removeClass("is_top");
-        $euroHeader.removeClass("is_up");
-        $euroHeader.removeClass("is_on");
+    let prevScrollTop = $(window).scrollTop();
+    scrollCheckFunc();
+    $(window).scroll(function (e) {
+        scrollCheckFunc();
+        prevScrollTop = $(window).scrollTop();
+    });
+    function scrollCheckFunc() {
+        const $euroHeader = $(".euroHeader");
+        if ($(window).scrollTop() == 0) {
+            $euroHeader.show();
+            $euroHeader.addClass("is_top");
+            $euroHeader.removeClass("is_up");
+            $euroHeader.addClass("is_on");
+        } else if ($(window).scrollTop() < prevScrollTop) {
+            $euroHeader.show();
+            $euroHeader.removeClass("is_top");
+            $euroHeader.addClass("is_up");
+            $euroHeader.addClass("is_on");
+        } else {
+            $euroHeader.hide();
+            $euroHeader.removeClass("is_top");
+            $euroHeader.removeClass("is_up");
+            $euroHeader.removeClass("is_on");
+        }
     }
 }
 

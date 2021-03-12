@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="../css/common.css"/>
+    <style>
+        .portfolioTabBar {
+            white-space: nowrap;
+            padding: 0 24px;
+        }
+
+        .portfolioTab {
+            font-weight: 600;
+            font-size: 40px;
+            line-height: 60px;
+            letter-spacing: -0.03em;
+            color: #DDDDDD;
+        }
+
+        .portfolioTab + .portfolioTab {
+            margin-left: 54px;
+        }
+
+        .portfolioTab.is_active {
+            color: #000000;
+            border-bottom: solid 4px #000000;
+        }
+
+        .portfolioList {
+            margin-top: 70px;
+        }
+
+        .portfolioItem {
+            opacity: 0.5;
+        }
+
+        .portfolioItem.is_active {
+            opacity: 1;
+        }
+
+        .portfolioItemImgList {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .portfolioItemImg {
+            flex: none;
+            width: 25%;
+            padding-bottom: 14.16665%;
+            background: no-repeat center;
+            background-size: cover;
+        }
+
+        .portfolioItemTextBox {
+            padding: 26px 24px 120px;
+        }
+
+        .portfolioItemTextName {
+            display: inline-block;
+            font-weight: 600;
+            font-size: 28px;
+            line-height: 40px;
+            letter-spacing: -0.02em;
+            color: #000000;
+        }
+
+        .portfolioItemTextSub {
+            display: inline-block;
+            font-weight: normal;
+            font-size: 13px;
+            line-height: 20px;
+            letter-spacing: -0.02em;
+            color: #999999;
+            margin-left: 30px;
+            vertical-align: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .portfolioTabBar {
+                padding: 0 16px;
+            }
+
+            .portfolioTab {
+                font-size: 28px;
+                line-height: 40px;
+            }
+
+            .portfolioTab + .portfolioTab {
+                margin-left: 37px;
+            }
+
+            .portfolioList {
+                margin-top: 25px;
+            }
+
+            .portfolioItemImg {
+                width: 100%;
+                padding-bottom: 59.4666%;
+            }
+
+            .portfolioItemTextBox {
+                padding: 10px 12px 74px;
+            }
+
+            .portfolioItemTextName {
+                display: block;
+                font-size: 24px;
+                line-height: 40px;
+            }
+
+            .portfolioItemTextSub {
+                display: block;
+                margin: 0;
+                font-size: 16px;
+                line-height: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body class="euro">
+<header class="euroHeader"></header>
+<div class="euroSubHeader">Portfolio</div>
+<div class="portfolio">
+    <div class="portfolioTabBar">
+        <button class="portfolioTab is_switchTab is_active" type="button" data-switch="portfolio">전체</button>
+        <button class="portfolioTab is_switchTab" type="button" data-switch="portfolio" data-switchkey="inner">국내 프로젝트</button>
+        <button class="portfolioTab is_switchTab" type="button" data-switch="portfolio" data-switchkey="outer">해외 프로젝트</button>
+    </div>
+    <div class="portfolioList">
+        <a class="portfolioItem is_switchTabTarget is_active" href="portfolioDetail_1.html" data-switch="portfolio" data-switchkey="inner">
+            <div class="portfolioItemImgList">
+                <div class="portfolioItemImg" style="background-image: url(../img/portfolio1_1.jpg)"></div>
+                <div class="portfolioItemImg is_hide_m" style="background-image: url(../img/portfolio1_2.jpg)"></div>
+                <div class="portfolioItemImg" style="background-image: url(../img/portfolio1_3.jpg)"></div>
+                <div class="portfolioItemImg" style="background-image: url(../img/portfolio1_4.jpg)"></div>
+            </div>
+            <div class="portfolioItemTextBox">
+                <div class="portfolioItemTextName">포스코 광양 Cooling Tower</div>
+                <div class="portfolioItemTextSub">국내 프로젝트</div>
+            </div>
+        </a>
+        <a class="portfolioItem is_switchTabTarget" href="portfolio_2.html" data-switch="portfolio" data-switchkey="inner">
+            <div class="portfolioItemImgList">
+                <div class="portfolioItemImg" style="background-image: url(../img/portfolio2_1.jpg)"></div>
+                <div class="portfolioItemImg is_hide_m" style="background-image: url(../img/portfolio2_2.jpg)"></div>
+                <div class="portfolioItemImg" style="background-image: url(../img/portfolio2_3.jpg)"></div>
+                <div class="portfolioItemImg" style="background-image: url(../img/portfolio2_4.jpg)"></div>
+            </div>
+            <div class="portfolioItemTextBox">
+                <div class="portfolioItemTextName">대우 포천 Cooling Tower</div>
+                <div class="portfolioItemTextSub">국내 프로젝트</div>
+            </div>
+        </a>
+        <a class="portfolioItem is_switchTabTarget" href="portfolio_3.html" data-switch="portfolio" data-switchkey="inner">
+            <div class="portfolioItemImgList">
+                <div class="portfolioItemImg" style="background-image: url(../img/portfolio3_1.jpg)"></div>
+                <div class="portfolioItemImg is_hide_m" style="background-image: url(../img/portfolio3_2.jpg)"></div>
+                <div class="portfolioItemImg" style="background-image: url(../img/portfolio3_3.jpg)"></div>
+                <div class="portfolioItemImg" style="background-image: url(../img/portfolio3_4.jpg)"></div>
+            </div>
+            <div class="portfolioItemTextBox">
+                <div class="portfolioItemTextName">SK건설 여주 천연가스 발전소 Cooling Tower</div>
+                <div class="portfolioItemTextSub">국내 프로젝트</div>
+            </div>
+        </a>
+        <a class="portfolioItem is_switchTabTarget" href="portfolio_4.html" data-switch="portfolio" data-switchkey="outer">
+            <div class="portfolioItemImgList">
+                <div class="portfolioItemImg" style="background-image: url(../img/portfolio4_1.jpg)"></div>
+                <div class="portfolioItemImg is_hide_m" style="background-image: url(../img/portfolio4_2.jpg)"></div>
+                <div class="portfolioItemImg" style="background-image: url(../img/portfolio4_3.jpg)"></div>
+                <div class="portfolioItemImg" style="background-image: url(../img/portfolio4_4.jpg)"></div>
+            </div>
+            <div class="portfolioItemTextBox">
+                <div class="portfolioItemTextName">UZGTL Project Guzar Uzbekistan</div>
+                <div class="portfolioItemTextSub">해외 프로젝트</div>
+            </div>
+        </a>
+        <a class="portfolioItem is_switchTabTarget" href="portfolio_5.html" data-switch="portfolio" data-switchkey="outer">
+            <div class="portfolioItemImgList">
+                <div class="portfolioItemImg" style="background-image: url(../img/portfolio5_1.jpg)"></div>
+                <div class="portfolioItemImg is_hide_m" style="background-image: url(../img/portfolio5_2.jpg)"></div>
+                <div class="portfolioItemImg" style="background-image: url(../img/portfolio5_3.jpg)"></div>
+                <div class="portfolioItemImg" style="background-image: url(../img/portfolio5_4.jpg)"></div>
+            </div>
+            <div class="portfolioItemTextBox">
+                <div class="portfolioItemTextName">RFCC Project Cilacap Indonesia</div>
+                <div class="portfolioItemTextSub">해외 프로젝트</div>
+            </div>
+        </a>
+        <a class="portfolioItem is_switchTabTarget" href="portfolio_6.html" data-switch="portfolio" data-switchkey="outer">
+            <div class="portfolioItemImgList">
+                <div class="portfolioItemImg" style="background-image: url(../img/portfolio6_1.jpg)"></div>
+                <div class="portfolioItemImg is_hide_m" style="background-image: url(../img/portfolio6_2.jpg)"></div>
+                <div class="portfolioItemImg" style="background-image: url(../img/portfolio6_3.jpg)"></div>
+                <div class="portfolioItemImg" style="background-image: url(../img/portfolio6_4.jpg)"></div>
+            </div>
+            <div class="portfolioItemTextBox">
+                <div class="portfolioItemTextName">PTT Phenol Train II Project Maptaphut Thailand</div>
+                <div class="portfolioItemTextSub">해외 프로젝트</div>
+            </div>
+        </a>
+    </div>
+</div>
+<footer class="euroFooter"></footer>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="../js/common.js"></script>
+<script>
+    setSwitchTab();
+
+    function setSwitchTab() {
+        setSwitchTabFunc($('.is_switchTab.is_active'));
+        $(document).on('click', `.is_switchTab`, function (e) {
+            $(e.currentTarget).addClass('is_active').siblings().removeClass('is_active');
+            setSwitchTabFunc($(e.currentTarget));
+        });
+
+        function setSwitchTabFunc(target) {
+            const $trigger = target;
+            const $triggerSwitch = $trigger.attr('data-switch');
+            const $target = $(`.is_switchTabTarget[data-switch= ${$triggerSwitch}
+
+            ]`);
+            const $portfolioList = $('.portfolioList');
+            if ($trigger.attr('data-switchkey')) {
+                $target.each(function (index, value) {
+                    if ($trigger.attr('data-switchkey') == $(value).attr('data-switchkey')) {
+                        $(value).addClass('is_active');
+                        $portfolioList.prepend($(value));
+                    } else {
+                        $(value).removeClass('is_active');
+                    }
+                })
+            } else {
+                $target.addClass('is_active');
+            }
+        }
+    }
+</script>
+</body>
+</html>

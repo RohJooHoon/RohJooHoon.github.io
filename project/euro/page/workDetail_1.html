@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="../css/common.css"/>
+    <style>
+        /* whatWeDoVisual */
+        .whatWeDoVisual {
+            position: relative;
+            height: 720px;
+        }
+
+        .whatWeDoVisual:after {
+            display: block;
+            content: "";
+            clear: both;
+        }
+
+        .whatWeDoVisualImg {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: no-repeat center;
+            background-size: cover;
+        }
+
+        .whatWeDoVisualTitle {
+            position: absolute;
+            top: 74px;
+            left: 360px;
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 32px;
+            letter-spacing: -0.02em;
+            color: #FFFFFF;
+        }
+
+        .whatWeDoVisualList {
+            position: absolute;
+            top: 74px;
+            left: calc(50% + 24px);
+        }
+
+        .whatWeDoVisualItem {
+            display: block;
+            font-weight: 600;
+            font-size: 72px;
+            line-height: 80px;
+            letter-spacing: -0.02em;
+            color: #FFFFFF;
+            margin-bottom: 17px;
+            opacity: 0.4;
+        }
+
+        .whatWeDoVisualItem.is_active {
+            opacity: 1;
+        }
+
+        .whatWeDoPlus {
+            display: block;
+            position: relative;
+            margin-bottom: 14px;
+            padding-top: 14px;
+            background: no-repeat left center;
+            background-size: 14px;
+        }
+
+        .whatWeDoProcessList {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .whatWeDoProcessItem {
+            flex: 1;
+            text-align: center;
+            padding: 40px 0 0;
+        }
+
+        .whatWeDoProcessIndex {
+            font-weight: 500;
+            font-size: 80px;
+            line-height: 52px;
+            text-align: center;
+            letter-spacing: -0.03em;
+            color: #000000;
+        }
+
+        .whatWeDoProcessLine {
+            position: relative;
+            height: 14px;
+            width: 100%;
+            margin: 46px 0 30px;
+        }
+
+        .whatWeDoProcessLine:before {
+            position: absolute;
+            left: 0;
+            top: calc(50% - 1px);
+            content: "";
+            display: block;
+            width: 100%;
+            height: 1px;
+            background-color: #EEEEEE;
+        }
+
+        .whatWeDoProcessLine:after {
+            position: absolute;
+            left: calc(50% - 7px);
+            top: calc(50% - 7px);
+            content: "";
+            display: block;
+            width: 14px;
+            height: 14px;
+            background-color: #0073CC;
+            border-radius: 14px;
+        }
+
+        .whatWeDoProcessName {
+            font-weight: 600;
+            font-size: 28px;
+            line-height: 40px;
+            text-align: center;
+            letter-spacing: -0.02em;
+            color: #000000;
+            opacity: 0.8;
+        }
+
+        .whatWeDoProcessText {
+            font-size: 20px;
+            line-height: 32px;
+            text-align: center;
+            letter-spacing: -0.02em;
+            color: #000000;
+            opacity: 0.8;
+            margin-top: 18px;
+        }
+
+        .whatWeDoFeatureList {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .whatWeDoFeatureItem {
+            display: flex;
+            flex-wrap: wrap;
+            flex: none;
+            width: 50%;
+        }
+
+        .whatWeDoFeatureItem:nth-of-type(2n) .whatWeDoFeatureIndexWrap {
+            border-left-width: 0;
+        }
+
+        .whatWeDoFeatureItem:nth-of-type(n + 3) .whatWeDoFeatureIndexWrap,
+        .whatWeDoFeatureItem:nth-of-type(n + 3) .whatWeDoFeatureTextWrap {
+            border-top-width: 0;
+        }
+
+        .whatWeDoFeatureIndexWrap {
+            position: relative;
+            flex: 1;
+            border: 1px solid #EEEEEE;
+            height: 546px;
+        }
+
+        .whatWeDoFeatureImg {
+            position: absolute;
+            width: calc(100% - 24px);
+            height: calc(100% - 24px);
+            left: 12px;
+            top: 12px;
+            background: no-repeat center;
+            background-size: cover;
+            opacity: 0;
+        }
+
+        .whatWeDoFeatureIndexWrap.is_active .whatWeDoFeatureImg {
+            opacity: 1;
+            transition: opacity 5s;
+        }
+
+        .whatWeDoFeatureIndex {
+            position: absolute;
+            top: 10px;
+            left: 24px;
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 44px;
+            text-align: center;
+            letter-spacing: -0.02em;
+            color: #000000;
+        }
+
+        .whatWeDoFeatureIndexWrap.is_active .whatWeDoFeatureIndex {
+            color: #ffffff;
+            transition: color 3s;
+        }
+
+        .whatWeDoFeatureName {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            transform: translateY(-50%);
+            font-weight: 600;
+            font-size: 28px;
+            line-height: 40px;
+            text-align: center;
+            letter-spacing: -0.02em;
+            color: #000000;
+        }
+
+        .whatWeDoFeatureIndexWrap.is_active .whatWeDoFeatureName {
+            color: #ffffff;
+            transition: color 3s;
+        }
+
+        .whatWeDoFeatureTextWrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            border: 1px solid #EEEEEE;
+            border-left: 0;
+            height: 546px;
+        }
+
+        .whatWeDoFeatureText {
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 26px;
+            letter-spacing: -0.02em;
+            color: #000000;
+            padding: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .euroSubBox.is_pcRight {
+                padding-left: calc(50% + 48px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* whatWeDoVisual */
+            .whatWeDoVisual {
+                height: auto;
+            }
+
+            .whatWeDoVisualImg {
+                display: block;
+                position: static;
+                height: 260px;
+                margin-bottom: 20px;
+            }
+
+            .whatWeDoVisualTitle {
+                position: static;
+                display: block;
+                width: 50%;
+                float: left;
+                font-weight: 500;
+                font-size: 24px;
+                line-height: 32px;
+                letter-spacing: -0.02em;
+                color: #000000;
+            }
+
+            .whatWeDoVisualList {
+                position: static;
+                display: block;
+                width: 50%;
+                float: left;
+            }
+
+            .whatWeDoVisualItem {
+                font-weight: 600;
+                font-size: 24px;
+                line-height: 40px;
+                letter-spacing: -0.02em;
+                color: #000000;
+                margin: 0;
+                padding: 0;
+            }
+
+            .whatWeDoPlus {
+                padding-top: 32px;
+                margin-bottom: 24px;
+                background-position: top 18px left;
+            }
+
+            .whatWeDoPlus:before {
+                position: absolute;
+                left: 0;
+                top: 0;
+                content: "";
+                display: block;
+                width: 100%;
+                height: 1px;
+                background-color: #EEEEEE;
+            }
+
+            .euroSubHeroText.is_rightBottom.is_T130 {
+                font-weight: bold;
+                font-size: 72px;
+                line-height: 86px;
+                letter-spacing: -0.02em;
+                color: #FFFFFF;
+            }
+
+            .is_mobileRight {
+                padding-left: calc(50% + 14px);
+            }
+
+            .whatWeDoProcessItem {
+                flex: none;
+                width: 100%;
+            }
+
+            .whatWeDoProcessIndex {
+                font-weight: 500;
+                font-size: 72px;
+                line-height: 80px;
+                text-align: center;
+                letter-spacing: -0.02em;
+                color: #000000;
+            }
+
+            .whatWeDoProcessLine {
+                margin: 18px 0 23px;
+            }
+
+            .whatWeDoProcessName {
+                font-weight: 600;
+                font-size: 28px;
+                line-height: 40px;
+                text-align: center;
+                letter-spacing: -0.02em;
+                color: #000000;
+                opacity: 0.8;
+            }
+
+            .whatWeDoProcessText {
+                font-weight: normal;
+                font-size: 20px;
+                line-height: 32px;
+                text-align: center;
+                letter-spacing: -0.02em;
+                color: #000000;
+                opacity: 0.8;
+                margin-top: 13px;
+            }
+
+            .whatWeDoFeatureItem {
+                display: flex;
+                flex-wrap: wrap;
+                flex: none;
+                width: 100%;
+            }
+
+            .whatWeDoFeatureIndexWrap,
+            .whatWeDoFeatureTextWrap {
+                flex: none;
+                width: 100%;
+            }
+
+            .whatWeDoFeatureIndexWrap {
+                height: 504px;
+            }
+
+            .whatWeDoFeatureIndex {
+                top: 0;
+                left: 12px;
+            }
+
+            .whatWeDoFeatureTextWrap {
+                height: auto;
+            }
+
+            .whatWeDoFeatureText {
+                width: 100%;
+                padding: 19px 12px 74px;
+                text-align: left;
+            }
+
+            .whatWeDoFeatureItem .whatWeDoFeatureIndexWrap,
+            .whatWeDoFeatureItem .whatWeDoFeatureTextWrap {
+                border-top-width: 1px !important;
+                border-left-width: 0 !important;
+                border-right-width: 0 !important;
+                border-bottom-width: 0 !important;
+            }
+
+            /* text */
+            .is_T200 {
+                font-weight: normal;
+                font-size: 130px;
+                line-height: 100px;
+                letter-spacing: -0.02em;
+                color: #000000;
+            }
+
+            .is_T130 {
+                font-weight: bold;
+                font-size: 72px;
+                line-height: 86px;
+                letter-spacing: -0.02em;
+                color: #000000;
+            }
+
+            .is_T40 {
+                font-weight: 600;
+                font-size: 28px;
+                line-height: 40px;
+                letter-spacing: -0.02em;
+                color: #000000;
+            }
+
+            .is_T24 {
+                font-weight: 500;
+                font-size: 24px;
+                line-height: 32px;
+                letter-spacing: -0.02em;
+                color: #000000;
+            }
+        }
+    </style>
+</head>
+
+<body class="euro">
+<header class="euroHeader is_white"></header>
+<div class="euroSubHero is_parallax" style="background-image: url(../img/whatWeDo.png)">
+    <div class="euroSubHeroText is_rightBottom is_T130">
+        우리는<br/>
+        신뢰와 함께<br/>
+        성장합니다.
+    </div>
+</div>
+<footer class="euroFooter"></footer>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="../js/common.js"></script>
+<script>
+
+    /* whatWeDoVisual */
+    whatWeDoVisualChange();
+    $('.whatWeDoVisualItem').on('click', function (e) {
+        $(e.currentTarget).addClass('is_active').siblings().removeClass('is_active');
+        whatWeDoVisualChange();
+    })
+
+    function whatWeDoVisualChange() {
+        $('.whatWeDoVisualImg').css('background-image', `url(${$('.whatWeDoVisualItem.is_active').attr('data-url')})`);
+    }
+
+</script>
+</body>
+</html>
