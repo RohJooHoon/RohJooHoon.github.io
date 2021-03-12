@@ -111,3 +111,31 @@ function scrollActive() {
         });
     }
 }
+
+// euroSubHeader 움직임
+function euroSubHeaderMove(size) {
+    let scrollActiveSwitch = true;
+
+    euroSubHeaderMoveFunc();
+    $(window).resize(function () {
+        euroSubHeaderMoveFunc();
+    });
+
+    function euroSubHeaderMoveFunc() {
+        if ($(window).width() < size) {
+            $('.euroSubHeader').css('text-indent', `${$(window).width() - size}px`);
+        } else {
+            $('.euroSubHeader').css('text-indent', `0px`);
+        }
+    }
+
+    $(".euroSubHeader").on('transitionend webkitTransitionEnd', function() {
+        if (scrollActiveSwitch) {
+            scrollActiveSwitch = false;
+            $('.euroSubHeader').css('text-indent', `0px`);
+        } else {
+            scrollActiveSwitch = true;
+            euroSubHeaderMoveFunc();
+        }
+    });
+}

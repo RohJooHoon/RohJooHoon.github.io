@@ -50,7 +50,7 @@
             padding: 0 24px;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 920px) {
 
         }
     </style>
@@ -119,9 +119,7 @@
         function setSwitchTabFunc(target) {
             const $trigger = target;
             const $triggerSwitch = $trigger.attr('data-switch');
-            const $target = $(`.is_switchTabTarget[data-switch= ${$triggerSwitch}
-
-            ]`);
+            const $target = $(`.is_switchTabTarget[data-switch= ${$triggerSwitch}]`);
             const $portfolioList = $('.portfolioList');
             if ($trigger.attr('data-switchkey')) {
                 $target.each(function (index, value) {
