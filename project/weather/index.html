@@ -1,121 +1,190 @@
 <!doctype html>
 <html lang="ko">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Weather</title>
-	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-	<style>
-		.swiper-container {
-			position: relative;
-			width: 100vw;
-			height: 100vh;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Weather</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 </head>
 <body>
+<h1>오늘의 옷 추천</h1>
+<h2 id="h2"></h2>
+<div class="swiper-container">
+    <div class="swiper-wrapper" id="weatherBox"></div>
+    <div class="swiper-pagination"></div>
+</div>
 
-	<div class="swiper-container">
-		<div class="swiper-wrapper" id="weatherBox"></div>
-		<div class="swiper-pagination"></div>
-	</div>
+<script src="js/jquery-3.5.1.min.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    let toDayResponse = JSON.parse(sessionStorage.getItem("toDayResponse"));
+    let allDayResponse = JSON.parse(sessionStorage.getItem("allDayResponse"));
+    let temperature = 20;
 
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-	<!-- 오늘의 날씨 마크업 -->
-	<script id="nowDayWeather" type="text/x-jsrender">
+    /* 의상 데이터 */
+    const wear = {
+        top: [
+            /* 속옷 */
+            [
+                {warmth: 0.5, name: "나시"},
+                {warmth: 1, name: "반팔"},
+                {warmth: 2, name: "긴팔"},
+            ],
+            /* 겉옷 */
+            [
+                {warmth: 3, name: "맨투맨"},
+                {warmth: 3.5, name: "니트"},
+            ],
+            /* 아우터 */
+            [
+                {warmth: 4, name: "후디"},
+                {warmth: 5, name: "코트"},
+                {warmth: 7, name: "후리스"},
+                {warmth: 11, name: "숏패딩"},
+                {warmth: 15, name: "롱패딩"},
+            ],
+        ],
+        other: {}, // 일교차 조건으로 오전9 ~ 11시 편차 n도 이상 차이나면 other 로 수치 보정 (겨울에만), (아우터 편차가 크면 이전 단계에서 other로 대신함, 다 합쳐도 모자라면 other로 대신함)
+        bottom: {}, // 비교적 단순하게 온도 평균으로 퉁 / 남자 : 반바지 긴바지 기모바지 내복 + 기모바지 / 짧은치마, 긴치마, 긴치마 + 스타킹, 긴치마 + 니삭스, 내복 + 기모바지 (여성쪽은 모르겠다 여성대상 설문)
+    }
 
-	</script>
-	<!-- 5일간 날씨 마크업 -->
-	<script id="fiveDayWeather" type="text/x-jsrender">
+    /* 날씨 정보 조회 */
+    weatherFind();
 
-	</script>
-	<!-- 동작 스크립트 -->
-	<script>
-		let nowLoad = 0;
-		let allLoad = 2;
+    function weatherFind() {
+        let nowLoad = 0;
+        let allLoad = 2;
 
-		$.ajax({
-			url: "https://api.openweathermap.org/data/2.5/weather?q=Seoul,kr&lang=kr&units=metric&appid=acf191e1cb2ddda1db775cff43434ecd",
-			type: "GET",
-			dataType: "JSON",
-			success: function (response) {
-				console.log("toDay : ", response);
-				$('#weatherBox').append(`<div class="swiper-slide">${getWeather(response)}</div>`);
-				allLoadCheck();
-			}
-		});
+        function allLoadCheck() {
+            nowLoad++;
+            if (nowLoad == allLoad) {
+                window.setTimeout(function () {
+                    sessionStorage.clear(); // 5분 후에 세션 스토리지 데이터 제거;
+                }, 60000 * 5);
 
-		$.ajax({
-			url: "https://api.openweathermap.org/data/2.5/forecast?q=Seoul,kr&lang=kr&units=metric&appid=acf191e1cb2ddda1db775cff43434ecd",
-			type: "GET",
-			dataType: "JSON",
-			success: function (response) {
-				console.log("allDay : ", response);
-				response.list.forEach(function(value, index){
-					if (index % 8 == 5) {
-						let dayText = `<div>${parseInt(index / 8) + 1}일 후 `;
-						dayText += `</div>`;
-						$('#weatherBox').append(`<div class="swiper-slide">${dayText + getWeather(value)}</div>`);
-					}
-				});
-				allLoadCheck();
-			}
-		});
+                $('#weatherBox').append(`<div class="swiper-slide">${getWeather(toDayResponse)}</div>`);
 
-		function allLoadCheck() {
-			nowLoad++;
-			if (nowLoad == allLoad) {
-				new Swiper('.swiper-container', {
-					pagination: {
-						el: '.swiper-pagination',
-					},
-					navigation: {
-						nextEl: '.swiper-button-next',
-						prevEl: '.swiper-button-prev',
-					},
-				})
-			}
-		}
+                allDayResponse.list.forEach(function (value, index) {
+                    if (index % 8 == 5) {
+                        let dayText = `<div>${parseInt(index / 8) + 1}일 후 `;
+                        dayText += `</div>`;
+                        $('#weatherBox').append(`<div class="swiper-slide">${dayText + getWeather(value)}</div>`);
+                    }
+                });
+                ajaxAllLoad();
+            }
+        }
 
-		function getTime (inputTime) {
-			const nowTime = new Date(inputTime * 1000);
-			let month = nowTime.getMonth() + 1;
-			let date = nowTime.getDate();
-			let hours = nowTime.getHours();
-			let minutes = nowTime.getMinutes();
-			let ampm = hours >= 12 ? 'pm' : 'am';
-			hours = hours % 12;
-			hours = hours ? hours : 12;
-			minutes = minutes < 10 ? '0'+minutes : minutes;
-			return month + '월' +date + '일' + hours + ':' + minutes + ' ' + ampm;
-		}
+        /* 오늘의 날씨 */
+        if (toDayResponse) {
+            allLoadCheck();
+        } else {
+            $.ajax({
+                url: "https://api.openweathermap.org/data/2.5/weather?q=Seoul,kr&lang=kr&units=metric&appid=acf191e1cb2ddda1db775cff43434ecd",
+                type: "GET",
+                dataType: "JSON",
+                success: function (response) {
+                    toDayResponse = response;
+                    sessionStorage.setItem("toDayResponse", JSON.stringify(toDayResponse));
+                    allLoadCheck();
+                }
+            });
+        }
 
-		function getWeather (weather) {
-			let todayText = `
-				도시이름 : ${weather.name}<br>
-				일출 시간 : ${getTime(weather.sys.sunrise)}<br>
-				일몰 시간 : ${getTime(weather.sys.sunset)}<br>
-				예측 시간 : ${getTime(weather.dt)}<br>
-				현재온도 : ${weather.main.temp}℃<br>
-				최고온도 : ${weather.main.temp_max}℃<br>
-				최저온도 : ${weather.main.temp_min}℃<br>
-				체감온도 : ${weather.main.feels_like}℃<br>
-				상세날씨설명 : ${weather.weather[0].description} ${weather.weather[0].icon}<br>
-				<div class="col-sm-6 col-md-4 col-lg-3 w-icon"> <i class="wi wi-day-cloudy-high"></i> wi wi-day-cloudy-high </div>
-				현재습도 : ${weather.main.humidity}%<br>
-				구름 : ${weather.clouds.all}%<br>
-				풍속 : ${weather.wind.speed}m/s<br>
-				풍향 : ${weather.wind.deg}<br>
-			`;
-			return todayText;
-		}
+        /* 5일간 날씨 */
+        if (allDayResponse) {
+            allLoadCheck();
+        } else {
+            $.ajax({
+                url: "https://api.openweathermap.org/data/2.5/forecast?q=Seoul,kr&lang=kr&units=metric&appid=acf191e1cb2ddda1db775cff43434ecd",
+                type: "GET",
+                dataType: "JSON",
+                success: function (response) {
+                    allDayResponse = response;
+                    sessionStorage.setItem("allDayResponse", JSON.stringify(allDayResponse));
+                    allLoadCheck();
+                }
+            });
+        }
 
-		function convertIcon (code) {
+        function getTime(inputTime) {
+            const nowTime = new Date(inputTime * 1000);
+            let month = nowTime.getMonth() + 1;
+            let date = nowTime.getDate();
+            let hours = nowTime.getHours();
+            let minutes = nowTime.getMinutes();
+            let ampm = hours >= 12 ? 'pm' : 'am';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            return month + '월' + date + '일' + hours + ':' + minutes + ' ' + ampm;
+        }
 
-		}
-	</script>
+        function getWeather(weather) {
+            let todayText = `
+                도시이름 : ${weather.name}<br>
+                일출 시간 : ${getTime(weather.sys.sunrise)}<br>
+                일몰 시간 : ${getTime(weather.sys.sunset)}<br>
+                예측 시간 : ${getTime(weather.dt)}<br>
+                현재온도 : ${weather.main.temp}℃<br>
+                최고온도 : ${weather.main.temp_max}℃<br>
+                최저온도 : ${weather.main.temp_min}℃<br>
+                체감온도 : ${weather.main.feels_like}℃<br>
+                상세날씨설명 : ${weather.weather[0].description} ${weather.weather[0].icon}<br>
+                <div class="col-sm-6 col-md-4 col-lg-3 w-icon"> <i class="wi wi-day-cloudy-high"></i> wi wi-day-cloudy-high </div>
+                현재습도 : ${weather.main.humidity}%<br>
+                구름 : ${weather.clouds.all}%<br>
+                풍속 : ${weather.wind.speed}m/s<br>
+                풍향 : ${weather.wind.deg}<br>
+            `;
+            return todayText;
+        }
+    }
+
+    /* 데이터 로드 완료 */
+    function ajaxAllLoad() {
+        console.log("toDayResponse : ", toDayResponse);
+        console.log("allDayResponse : ", allDayResponse);
+        findTemperature(toDayResponse.main.feels_like);
+
+        new Swiper('.swiper-container', {
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    }
+
+    function findTemperature(feels_like) {
+        let wearList = [];
+
+        for (let i = 0; i < 10; i++) {
+            for (let j = 0; j < wear.top.length; j++) {
+                if (wear.top[j][i]) {
+                    let nowWarmth = feels_like;
+                    wearList[j] = wear.top[j][i];
+                    wearList.forEach(function (value) {
+                        nowWarmth += value.warmth;
+                    });
+                    if (nowWarmth >= temperature) {
+                        console.log("temperature : ", nowWarmth);
+                        console.log("wearList : ", wearList);
+                        let recommend = "";
+                        wearList.forEach(function (value) {
+                            recommend += value.name + ',';
+                        })
+                        $('#h2').html(recommend);
+                        return false;
+                    }
+                }
+            }
+        }
+    }
+</script>
 </body>
 </html>
