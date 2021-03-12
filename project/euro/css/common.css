@@ -116,6 +116,21 @@ select {
     height: 51px;
     background: no-repeat center url("../img/logo.svg");
     background-size: contain;
+    z-index: 100;
+}
+.euroHeader.is_white .euroHeaderLogo {
+    background-image: url("../img/logo_w.svg");
+}
+.euroHeader.is_white .euroHeaderBarSub,
+.euroHeader.is_white .euroHeaderBarMenuLink,
+.euroHeader.is_white .euroHeaderBarMenuSubLink {
+    color: #ffffff;
+}
+.euroHeader.is_white select {
+    background-image: url("../img/selectArrow_w.svg");
+}
+.euroHeader.is_white:not(.is_top) .euroMenuBtn.is_on {
+    background-image: url("../img/close_w.svg");
 }
 .euroHeader.is_on {
     opacity: 1;
@@ -506,20 +521,6 @@ a.contactInfo {
         background: no-repeat center url("../img/close.svg");
         background-size: 22px;
     }
-    .euroHeader.is_white .euroHeaderLogo {
-        background-image: url("../img/logo_w.svg");
-    }
-    .euroHeader.is_white .euroHeaderBarSub,
-    .euroHeader.is_white .euroHeaderBarMenuLink,
-    .euroHeader.is_white .euroHeaderBarMenuSubLink {
-        color: #ffffff;
-    }
-    .euroHeader.is_white select {
-        background-image: url("../img/selectArrow_w.svg");
-    }
-    .euroHeader.is_white:not(.is_top) .euroMenuBtn.is_on {
-        background-image: url("../img/close_w.svg");
-    }
 }
 @media (max-width: 920px) {
     .is_hide_m {
@@ -531,6 +532,8 @@ a.contactInfo {
     }
     .euroHeaderBar {
         padding: 17px 12px;
+    }
+    .euroHeader:not(.is_white) {
         background-color: #ffffff;
     }
     .euroHeaderLogo {
