@@ -2,8 +2,10 @@ const thisFileFullName = document.URL.substring(document.URL.lastIndexOf("/") + 
 let allLoad = 0;
 let nowLoad = 0;
 
-loadHtml("header", "../layout/header.html");
-loadHtml("footer", "../layout/footer.html");
+$( document ).ready(function() {
+    loadHtml("header", "../layout/header.html");
+    loadHtml("footer", "../layout/footer.html");
+});
 
 function loadHtml(target, url) {
     allLoad++;

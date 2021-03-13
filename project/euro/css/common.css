@@ -81,7 +81,7 @@ select {
     font-size: 13px;
     line-height: 20px;
 }
-.is_parallax {
+.is_parallax:not('.is_fixBg') {
     transition: background-position 0.25s;
 }
 /* icon */
@@ -258,6 +258,44 @@ select {
     bottom: 0;
     padding: 0 48px 118px;
 }
+.euroWorkHero {
+    position: relative;
+    width: 100%;
+    background: no-repeat center;
+    background-size: cover;
+}
+.euroWorkHero.is_fixBg {
+    background-attachment: fixed;
+}
+.euroWorkHeroTextWrap {
+    padding: 319px 142px 114px;
+}
+.euroWorkHeroTextTitle {
+    font-weight: bold;
+    font-size: 108px;
+    line-height: 100px;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+}
+.euroWorkHeroTextSubTitle {
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 56px;
+    letter-spacing: -0.02em;
+    color: #EEEEEE;
+    margin-top: 12px;
+}
+.euroWorkHeroText {
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 60px;
+    letter-spacing: -0.03em;
+    color: #FFFFFF;
+    margin-top: 293px;
+}
+.euroWorkHeroText + .euroWorkHeroText {
+    margin-top: 24px;
+}
 .euroMainContentWrap {
     font-size: 0;
     line-height: 0;
@@ -350,18 +388,6 @@ select {
     line-height: 80px;
     letter-spacing: -0.02em;
     color: #ffffff;
-}
-.euroHeroItemLink {
-    display: inline-block;
-    margin-top: 63px;
-    font-weight: normal;
-    font-size: 20px;
-    line-height: 32px;
-    letter-spacing: -0.02em;
-    color: #ffffff;
-    padding-right: 140px;
-    background: no-repeat right center url("../img/buttonClick_w.svg");
-    background-size: 30px;
 }
 .euroFooter {
     position: relative;
@@ -490,6 +516,62 @@ a.contactInfo {
     background: no-repeat center url("../img/close.svg");
     background-size: 22px;
 }
+
+.euroWorkDetailBox {
+    padding-top: 117px;
+}
+.euroWorkDetailTitle {
+    padding: 0 24px 28px;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 56px;
+    letter-spacing: -0.02em;
+    color: #000000;
+}
+.euroWorkDetailTile {
+    display: flex;
+    flex-wrap: wrap;
+}
+.euroWorkDetailTileItem {
+    position: relative;
+    flex: none;
+    border: solid 1px #EEEEEE;
+    border-left-width: 0;
+    background: no-repeat center;
+    background-size: contain;
+}
+.euroWorkDetailTile .euroWorkDetailTileItem {
+    width: 25%;
+    padding-bottom: 25%;
+}
+.euroWorkDetailTile .euroWorkDetailTileItem:nth-child(4n - 3) {
+    border-left-width: 1px;
+}
+.euroWorkDetailTile .euroWorkDetailTileItem:nth-child(n + 4) {
+    border-top-width: 0;
+}
+.euroWorkDetailTile.is_type1 .euroWorkDetailTileItem {
+    padding-bottom: 37.9166%;
+}
+.euroWorkDetailTileItemText {
+    position: absolute;
+    padding: 17px 24px;
+    left: 0;
+    bottom: 0;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 26px;
+    letter-spacing: -0.02em;
+    color: #000000;
+}
+.euroWorkDetailTileItemTextTitle {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 40px;
+    letter-spacing: -0.02em;
+    color: #000000;
+}
+
 @media (min-width: 920px) {
     .is_hide_p {
         display: none !important;
@@ -575,6 +657,12 @@ a.contactInfo {
     .euroSubHeroText.is_rightBottom {
         left: 0;
         bottom: 0;
+        padding: 31px 12px;
+    }
+    .euroWorkHero {
+        padding-bottom: 720px;
+    }
+    .euroWorkHeroTextWrap {
         padding: 31px 12px;
     }
     .euroContainer .is_mobileFull {
