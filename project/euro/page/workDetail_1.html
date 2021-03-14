@@ -542,6 +542,41 @@
     </div>
 </div>
 
+<div class="euroWorkDetailBox">
+    <div class="euroWorkDetailAccordion">
+        <div class="euroWorkDetailAccordionItem">
+            <div class="euroWorkDetailAccordionTitle">적용 기술의 효과</div>
+            <div class="euroWorkDetailAccordionDescription">
+                1. 접합부의 내진성능 확보로, 중 지진대 및 강 지진대 지역에서 모두 적용 가능<br>
+                2. 콘트리트 양생 시 부재를 지지하는 가설 버팀목, 브레이스를 설치하지<br>
+                않으므로 하부 공간 활용도 증대, 원활한 후속 작업으로 공사 기간 단축
+                3. 거푸집 제작 및 설치, 가설 버팀목 설치, 부재 레벨 확보 등에 필요한<br>
+                인력 및 기계장비의 최소화에 따른 비용 절감 효과
+            </div>
+            <button class="euroWorkDetailAccordionBtn" type="button"></button>
+        </div>
+        <div class="euroWorkDetailAccordionItem">
+            <div class="euroWorkDetailAccordionTitle">적용 기술의 사용처</div>
+            <div class="euroWorkDetailAccordionDescription">
+                1. 시설물 배관 파이프랙 및 빠른 공기가 필요한 국내외 공동 주택<br>
+                2. PC  공법이 주로 활용되는 국내외 대형 건설 현장<br>
+                3. 물류창고, 지하 주차장, 쿨링 타워 등 PC 공법의 장점이 극대화 될 수 있는 장경간 구조
+            </div>
+            <button class="euroWorkDetailAccordionBtn" type="button"></button>
+        </div>
+        <div class="euroWorkDetailAccordionItem">
+            <div class="euroWorkDetailAccordionTitle">적용 기술의 효과</div>
+            <div class="euroWorkDetailAccordionDescription">
+                1. 경주, 포항 지진 이후, 국내 건축물의 내진성능 기준 강화<br>
+                PC 공법의 장점과 더불어 접합부의 내진 성능을 강조<br>
+                2. 현재 국내 건설업에도 주 52시간 근무제 적용에 따라 공기가 증가됨<br>
+                본 시스템의 가설 시설물 최소화 및 작업량 감소
+            </div>
+            <button class="euroWorkDetailAccordionBtn" type="button"></button>
+        </div>
+    </div>
+</div>
+
 <footer class="euroFooter"></footer>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -562,10 +597,13 @@
     $(document).on('click', '.euroWorkDetailVideoFloatingPlay', function (e) {
         $('.euroWorkDetailVideoBox').addClass('is_play');
     })
-
     $(document).on('click', '.euroWorkDetailVideoBox.is_play', function (e) {
         $('.euroWorkDetailVideoBox').removeClass('is_play');
     });
+
+    $(document).on('click', '.euroWorkDetailAccordionBtn', function (e) {
+        $(e.currentTarget).closest('.euroWorkDetailAccordionItem').toggleClass('is_open');
+    })
 
 </script>
 </body>

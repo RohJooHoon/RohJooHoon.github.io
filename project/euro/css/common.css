@@ -651,6 +651,57 @@ a.contactInfo {
     color: #000000;
 }
 
+.euroWorkDetailAccordion {
+    max-width: 1056px;
+    padding: 0 24px;
+}
+.euroWorkDetailAccordionItem {
+    position: relative;
+    border-top: solid 1px #eeeeee;
+    display: flex;
+    padding: 23px 0;
+}
+.euroWorkDetailAccordionTitle {
+    flex: none;
+    width: 360px;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 40px;
+    letter-spacing: -0.02em;
+    color: #000000;
+}
+.euroWorkDetailAccordionDescription {
+    flex: 1;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 26px;
+    letter-spacing: -0.02em;
+    color: #000000;
+    padding-right: 24px;
+    padding-bottom: 43px;
+    opacity: 0;
+    overflow: hidden;
+    height: 0;
+}
+.euroWorkDetailAccordionItem.is_open .euroWorkDetailAccordionDescription {
+    opacity: 1;
+    height: auto;
+}
+.euroWorkDetailAccordionBtn {
+    position: absolute;
+    top: 23px;
+    right: 0;
+    width: 24px;
+    height: 24px;
+    background: no-repeat center url(../img/whatWeDoPlus.svg);
+    background-size: 24px;
+    z-index: 5;
+    cursor: pointer;
+}
+.euroWorkDetailAccordionItem.is_open .euroWorkDetailAccordionBtn {
+    background-image: url(../img/whatWeDoMinus.svg);
+}
+
 @media (min-width: 920px) {
     .is_hide_p {
         display: none !important;
