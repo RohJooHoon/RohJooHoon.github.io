@@ -702,6 +702,41 @@ a.contactInfo {
     background-image: url(../img/whatWeDoMinus.svg);
 }
 
+.euroWorkDetailSliderTitle {
+    display: block;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.02em;
+    color: #333333;
+    padding: 0 24px 17px;
+}
+.euroWorkDetailSlider {
+    margin-bottom: 66px;
+}
+.euroWorkDetailSliderItem {
+    position: relative;
+    float: left;
+    width: 354px;
+    padding-top: 200px;
+}
+.euroWorkDetailSliderItemImg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 354px;
+    height: 200px;
+    background: no-repeat center;
+    background-size: cover;
+}
+.euroWorkDetailSliderItemText {
+    padding: 8px 24px;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 20px;
+    color: #BBBBBB;
+}
+
 @media (min-width: 920px) {
     .is_hide_p {
         display: none !important;

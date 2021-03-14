@@ -18,7 +18,6 @@ function loadCheck() {
     nowLoad++;
     if (allLoad == nowLoad) {
         navActiveCheck();
-        parallax();
         scrollActive();
         scrollCheck();
     }
@@ -67,23 +66,28 @@ function euroMenuBtn() {
 }
 
 // 이미지 지연 스크롤
-function parallax() {
+function parallax(degree) {
     parallaxFunc();
     $(window).on('scroll', function (e){
         parallaxFunc();
     })
 
     function parallaxFunc() {
+        const windowScrollTop = $(window).scrollTop();
         $('.is_parallax').each(function (index, target) {
             const $target = $(target);
             const startPoint = $target.offset().top - $(window).height();
             const endPoint = $target.offset().top + $target.outerHeight();
-            const nowPoint = $(window).scrollTop() - startPoint;
-            const gab = endPoint - startPoint;
-            const percentage = (nowPoint / gab).toFixed(4);
-            const degree = 50;
-            if (startPoint < $(window).scrollTop() && $(window).scrollTop() < endPoint) {
-                $target.css('background-position-y', percentage * degree - degree / 2 + "px");
+            if (startPoint < windowScrollTop && windowScrollTop < endPoint) {
+                if (degree == "auto") {
+                    $target.css('background-position-y', windowScrollTop * 0.5 + "px");
+                } else {
+                    const nowPoint = windowScrollTop - startPoint;
+                    const gab = endPoint - startPoint;
+                    const percentage = (nowPoint / gab).toFixed(4);
+                    $target.css('background-position-y', percentage * degree - degree / 2 + "px");
+                    // $target.css('background-position-y', windowScrollTop * 1.5 + "px");
+                }
             }
         });
     }

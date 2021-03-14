@@ -29,8 +29,8 @@
             width: 100%;
             height: 0;
             padding-top: 56.3953%;
-            background: no-repeat center;
-            background-size: cover;
+            background: #F9F9F9 no-repeat center;
+            background-size: contain;
         }
 
         .portfolioSubBox {
@@ -66,12 +66,10 @@
             margin-top: 9px;
         }
 
-        .portfolioSubList {
+        .portfolioSubListWrap {
             clear: both;
             margin-left: 384px;
             padding-top: 20px;
-            white-space: nowrap;
-            overflow-x: auto;
         }
 
         .portfolioSubItem {
@@ -79,6 +77,8 @@
             width: 146px;
             height: 88px;
             vertical-align: top;
+            background: no-repeat center;
+            background-size: cover;
         }
 
         .portfolioSubItem.is_active {
@@ -130,7 +130,7 @@
 <header class="euroHeader"></header>
 <div class="portfolioSub">
     <div class="portfolioSubView">
-        <div class="portfolioSubViewImg" style="background-image: url(../img/portfolioSubView_1_1.jpg)"></div>
+        <div class="portfolioSubViewImg" style="background-image: url(../img/portfolio1_0.jpg)"></div>
     </div>
     <div class="portfolioSubBox">
         <div class="portfolioSubBoxEyebrow is_hide_m">해외 프로젝트</div>
@@ -138,19 +138,22 @@
         <div class="portfolioSubBoxEyebrow is_hide_p">해외 프로젝트</div>
         <div class="portfolioSubBoxSubTitle is_hide_m">SSPC + PBRC</div>
     </div>
-    <div class="portfolioSubList">
-        <button class="portfolioSubItem is_active" type="button" style="background-image: url(../img/portfolio1_1.jpg)"></button>
-        <button class="portfolioSubItem" type="button" style="background-image: url(../img/portfolio1_2.jpg)"></button>
-        <button class="portfolioSubItem" type="button" style="background-image: url(../img/portfolio1_3.jpg)"></button>
-        <button class="portfolioSubItem" type="button" style="background-image: url(../img/portfolio1_4.jpg)"></button>
-        <button class="portfolioSubItem" type="button" style="background-image: url(../img/portfolio2_1.jpg)"></button>
-        <button class="portfolioSubItem" type="button" style="background-image: url(../img/portfolio2_2.jpg)"></button>
-        <button class="portfolioSubItem" type="button" style="background-image: url(../img/portfolio2_3.jpg)"></button>
-        <button class="portfolioSubItem" type="button" style="background-image: url(../img/portfolio2_4.jpg)"></button>
-        <button class="portfolioSubItem" type="button" style="background-image: url(../img/portfolio3_1.jpg)"></button>
-        <button class="portfolioSubItem" type="button" style="background-image: url(../img/portfolio3_2.jpg)"></button>
-        <button class="portfolioSubItem" type="button" style="background-image: url(../img/portfolio3_3.jpg)"></button>
-        <button class="portfolioSubItem" type="button" style="background-image: url(../img/portfolio3_4.jpg)"></button>
+    <div class="portfolioSubListWrap swiper-container">
+        <div class="portfolioSubList swiper-wrapper">
+            <button class="portfolioSubItem swiper-slide is_active" type="button" style="background-image: url(../img/portfolio1_0.jpg)"></button>
+            <button class="portfolioSubItem swiper-slide" type="button" style="background-image: url(../img/portfolio1_1.jpg)"></button>
+            <button class="portfolioSubItem swiper-slide" type="button" style="background-image: url(../img/portfolio1_2.jpg)"></button>
+            <button class="portfolioSubItem swiper-slide" type="button" style="background-image: url(../img/portfolio1_3.jpg)"></button>
+            <button class="portfolioSubItem swiper-slide" type="button" style="background-image: url(../img/portfolio1_4.jpg)"></button>
+            <button class="portfolioSubItem swiper-slide" type="button" style="background-image: url(../img/portfolio2_1.jpg)"></button>
+            <button class="portfolioSubItem swiper-slide" type="button" style="background-image: url(../img/portfolio2_2.jpg)"></button>
+            <button class="portfolioSubItem swiper-slide" type="button" style="background-image: url(../img/portfolio2_3.jpg)"></button>
+            <button class="portfolioSubItem swiper-slide" type="button" style="background-image: url(../img/portfolio2_4.jpg)"></button>
+            <button class="portfolioSubItem swiper-slide" type="button" style="background-image: url(../img/portfolio3_1.jpg)"></button>
+            <button class="portfolioSubItem swiper-slide" type="button" style="background-image: url(../img/portfolio3_2.jpg)"></button>
+            <button class="portfolioSubItem swiper-slide" type="button" style="background-image: url(../img/portfolio3_3.jpg)"></button>
+            <button class="portfolioSubItem swiper-slide" type="button" style="background-image: url(../img/portfolio3_4.jpg)"></button>
+        </div>
     </div>
 </div>
 <footer class="euroFooter"></footer>
@@ -170,7 +173,8 @@
         function setSwitchTabFunc(target) {
             const $trigger = target;
             const $triggerSwitch = $trigger.attr('data-switch');
-            const $target = $(`.is_switchTabTarget[data-switch= ${$triggerSwitch}
+            const $target = $(`.is_switchTabTarget[data-switch=
+            ${$triggerSwitch}
 
             ]`);
             const $portfolioList = $('.portfolioList');
@@ -188,6 +192,17 @@
             }
         }
     }
+
+    const swiper = new Swiper('.swiper-container', {
+        slidesPerView: 'auto',
+        loop: true,
+    })
+
+    $(document).on('click', '.portfolioSubItem', function (e) {
+        $(e.currentTarget).addClass('is_active').siblings().removeClass('is_active');
+        $('.portfolioSubViewImg').css('background-image', $(e.currentTarget).css('background-image'))
+    })
+
 </script>
 </body>
 </html>
