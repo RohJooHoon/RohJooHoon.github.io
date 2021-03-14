@@ -47,19 +47,14 @@ function scrollCheck() {
     function scrollCheckFunc() {
         const $euroHeader = $(".euroHeader");
         if ($(window).scrollTop() == 0) {
-            $euroHeader.show();
             $euroHeader.addClass("is_top");
             $euroHeader.removeClass("is_up");
             $euroHeader.addClass("is_on");
         } else if ($(window).scrollTop() < prevScrollTop) {
-            $euroHeader.show();
             $euroHeader.removeClass("is_top");
             $euroHeader.addClass("is_up");
             $euroHeader.addClass("is_on");
         } else {
-            $euroHeader.hide();
-            $euroHeader.removeClass("is_top");
-            $euroHeader.removeClass("is_up");
             $euroHeader.removeClass("is_on");
         }
     }

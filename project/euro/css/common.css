@@ -29,6 +29,21 @@ select {
     -moz-appearance: none;
     appearance: none;
 }
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+.video-container iframe,
+.video-container object,
+.video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 /* Component */
 .is_T200 {
     font-size: 200px;
@@ -100,13 +115,13 @@ select {
 }
 .euroHeader {
     position: fixed;
-    top: 0;
+    top: -90px;
     left: 0;
     width: 100%;
     min-height: 90px;
     z-index: 100;
     opacity: 0;
-    transition: opacity 0.35s;
+    transition: 0.5s;
 }
 .euroHeaderLogo {
     position: absolute;
@@ -133,6 +148,7 @@ select {
     background-image: url("../img/close_w.svg");
 }
 .euroHeader.is_on {
+    top: 0;
     opacity: 1;
 }
 .euroHeader.is_top .is_hide_top,
@@ -521,6 +537,7 @@ a.contactInfo {
     padding-top: 117px;
 }
 .euroWorkDetailTitle {
+    display: block;
     padding: 0 24px 28px;
     font-weight: 500;
     font-size: 40px;
@@ -568,6 +585,68 @@ a.contactInfo {
     font-weight: 600;
     font-size: 24px;
     line-height: 40px;
+    letter-spacing: -0.02em;
+    color: #000000;
+}
+
+.euroWorkDetailVideoBox {
+    position: relative;
+    height: 820px;
+}
+.euroWorkDetailVideoBox.is_play .euroWorkDetailVideoFloatingWrap {
+    height: 0;
+}
+.euroWorkDetailVideoBox.is_play {
+    cursor: url("../img/closeVideo_w.svg"), auto;
+}
+.euroWorkDetailVideo {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+.euroWorkDetailVideoFloatingWrap {
+    position: absolute;
+    overflow: hidden;
+    right: 144px;
+    top: 140px;
+    width: 432px;
+    height: 540px;
+    transition: 1s;
+}
+.euroWorkDetailVideoFloating {
+    background-color: #ffffff;
+    padding: 10px 24px 48px;
+}
+.euroWorkDetailVideoFloatingTitle {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 44px;
+    letter-spacing: -0.02em;
+    color: #000000;
+}
+.euroWorkDetailVideoFloatingTime {
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 20px;
+    color: #BBBBBB;
+}
+.euroWorkDetailVideoFloatingPlay {
+    position: absolute;
+    right: 22px;
+    top: 24px;
+    width: 40px;
+    height: 40px;
+    background: no-repeat center url("../img/playBtn.png");
+    z-index: 5;
+    cursor: pointer;
+}
+.euroWorkDetailVideoFloatingText {
+    margin-top: 274px;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 26px;
     letter-spacing: -0.02em;
     color: #000000;
 }
