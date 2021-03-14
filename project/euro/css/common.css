@@ -283,6 +283,15 @@ select {
 .euroWorkHero.is_fixBg {
     background-attachment: fixed;
 }
+.euroWorkHero.is_white .euroWorkHeroTextTitle {
+    color: #FFFFFF;
+}
+.euroWorkHero.is_white .euroWorkHeroTextSubTitle {
+    color: #EEEEEE;
+}
+.euroWorkHero.is_white .euroWorkHeroText {
+    color: #FFFFFF;
+}
 .euroWorkHeroTextWrap {
     padding: 319px 142px 114px;
 }
@@ -291,14 +300,14 @@ select {
     font-size: 108px;
     line-height: 100px;
     letter-spacing: -0.02em;
-    color: #FFFFFF;
+    color: #000000;
 }
 .euroWorkHeroTextSubTitle {
     font-weight: 500;
     font-size: 40px;
     line-height: 56px;
     letter-spacing: -0.02em;
-    color: #EEEEEE;
+    color: #CCCCCC;
     margin-top: 12px;
 }
 .euroWorkHeroText {
@@ -306,8 +315,8 @@ select {
     font-size: 40px;
     line-height: 60px;
     letter-spacing: -0.03em;
-    color: #FFFFFF;
     margin-top: 293px;
+    color: #000000;
 }
 .euroWorkHeroText + .euroWorkHeroText {
     margin-top: 24px;
@@ -534,7 +543,7 @@ a.contactInfo {
 }
 
 .euroWorkDetailBox {
-    padding-top: 117px;
+    margin-top: 117px;
 }
 .euroWorkDetailTitle {
     display: block;
@@ -549,7 +558,8 @@ a.contactInfo {
     display: flex;
     flex-wrap: wrap;
 }
-.euroWorkDetailTileItem {
+.euroWorkDetailTileItem,
+.euroWorkDetailTileItemWrap {
     position: relative;
     flex: none;
     border: solid 1px #EEEEEE;
@@ -560,6 +570,27 @@ a.contactInfo {
 .euroWorkDetailTile .euroWorkDetailTileItem {
     width: 25%;
     padding-bottom: 25%;
+}
+.euroWorkDetailTileItemWrap.is_type1 {
+    width: 25%;
+}
+.euroWorkDetailTileItemWrap.is_type2 {
+    width: 50%;
+}
+.euroWorkDetailTileItemWrap.is_type4 {
+    width: 100%;
+}
+.euroWorkDetailTile .euroWorkDetailTileItem.is_type44 {
+    width: 100%;
+    padding-bottom: 100%;
+}
+.euroWorkDetailTile .euroWorkDetailTileItem.is_type22 {
+    width: 50%;
+    padding-bottom: 50%;
+}
+.euroWorkDetailTile .euroWorkDetailTileItem.is_type24 {
+    width: 50%;
+    padding-bottom: 100%;
 }
 .euroWorkDetailTile .euroWorkDetailTileItem:nth-child(4n - 3) {
     border-left-width: 1px;
@@ -580,6 +611,14 @@ a.contactInfo {
     line-height: 26px;
     letter-spacing: -0.02em;
     color: #000000;
+}
+.euroWorkDetailTileItemText.is_fix {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 240px;
+    margin: 0;
 }
 .euroWorkDetailTileItemTextTitle {
     font-weight: 600;
@@ -605,6 +644,8 @@ a.contactInfo {
     height: 100%;
     left: 0;
     top: 0;
+    background: no-repeat center;
+    background-size: cover;
 }
 .euroWorkDetailVideoFloatingWrap {
     position: absolute;
@@ -616,8 +657,10 @@ a.contactInfo {
     transition: 1s;
 }
 .euroWorkDetailVideoFloating {
-    background-color: #ffffff;
+    height: 100%;
     padding: 10px 24px 48px;
+    background: #ffffff no-repeat top;
+    background-size: cover;
 }
 .euroWorkDetailVideoFloatingTitle {
     font-weight: 500;

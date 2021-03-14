@@ -11,7 +11,7 @@
 
 <body class="euro">
 <header class="euroHeader is_white"></header>
-<div class="euroWorkHero is_fixBg" style="background-image: url(../img/workDetail_1.png)">
+<div class="euroWorkHero is_fixBg is_white" style="background-image: url(../img/workDetail_1.png)">
     <div class="euroWorkHeroTextWrap">
         <div class="euroWorkHeroTextTitle">
             PC System
@@ -202,10 +202,10 @@
     })
 
     $(document).on('click', '.euroWorkDetailVideoFloatingPlay', function (e) {
-        $('.euroWorkDetailVideoBox').addClass('is_play');
+        $(e.currentTarget).closest('.euroWorkDetailVideoBox').addClass('is_play');
     })
     $(document).on('click', '.euroWorkDetailVideoBox.is_play', function (e) {
-        $('.euroWorkDetailVideoBox').removeClass('is_play');
+        $(e.currentTarget).closest('.euroWorkDetailVideoBox').removeClass('is_play');
     });
 
     $(document).on('click', '.euroWorkDetailAccordionBtn', function (e) {
