@@ -39,6 +39,11 @@
 <script src="../js/common.js"></script>
 <script>
     setSwitchTab();
+    function pageCallback() {
+        $('.is_pcHide_top').removeClass('is_pcHide_top');
+        $('.euroNav').addClass('is_hide_p');
+        $('.euroMenuBtn').addClass('is_onFix');
+    }
 
     function setSwitchTab() {
         setSwitchTabFunc($('.is_switchTab.is_active'));

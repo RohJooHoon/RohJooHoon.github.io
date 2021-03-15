@@ -20,7 +20,12 @@ function loadCheck() {
         navActiveCheck();
         scrollActive();
         scrollCheck();
+        pageCallback();
     }
+}
+
+function pageCallback() {
+    // 개별 페이지 내부 콜백
 }
 
 // 네비게이션 액티브 상태 확인
