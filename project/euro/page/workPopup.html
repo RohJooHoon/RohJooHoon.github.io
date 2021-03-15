@@ -43,6 +43,9 @@
         $('.is_pcHide_top').removeClass('is_pcHide_top');
         $('.euroNav').addClass('is_hide_p');
         $('.euroMenuBtn').addClass('is_onFix');
+        $(document).on('click', `.euroHeaderBarMenuLink`, function (e) {
+            window.history.back();
+        });
     }
 
     function setSwitchTab() {
