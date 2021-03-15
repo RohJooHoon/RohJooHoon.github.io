@@ -415,6 +415,7 @@ select {
     color: #ffffff;
 }
 .euroHeroItemLink {
+    position: relative;
     display: inline-block;
     margin-top: 63px;
     font-weight: normal;
@@ -423,8 +424,22 @@ select {
     letter-spacing: -0.02em;
     color: #ffffff;
     padding-right: 140px;
-    background: no-repeat right center url("../img/buttonClick_w.svg");
-    background-size: 30px;
+    background: no-repeat right center url("../img/buttonClickHeader_w.svg");
+    background-size: 9px;
+}
+.euroHeroItemLink:after {
+    display: block;
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 1.2px;
+    right: 2px;
+    top: calc(50% - 0.6px);
+    background-color: #ffffff;
+    transition: 0.5s;
+}
+.euroHeroItemLink:hover:after {
+    width: 50px;
 }
 .euroFooter {
     position: relative;
