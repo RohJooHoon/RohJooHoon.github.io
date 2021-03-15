@@ -414,6 +414,18 @@ select {
     letter-spacing: -0.02em;
     color: #ffffff;
 }
+.euroHeroItemLink {
+    display: inline-block;
+    margin-top: 63px;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    padding-right: 140px;
+    background: no-repeat right center url("../img/buttonClick_w.svg");
+    background-size: 30px;
+}
 .euroFooter {
     position: relative;
     background-color: #121C2C;
