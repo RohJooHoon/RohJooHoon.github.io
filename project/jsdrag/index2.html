@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .box {
+            padding: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            flex: 1;
+            background-color: #0073cc;
+            border: solid 1px green;
+        }
+        .box > .box {
+            background-color: #555E6D;
+        }
+        .box > .box > .box {
+            background-color: #450831;
+        }
+        .item {
+            display: inline-block;
+            padding: 24px;
+            height: 50px;
+            width: 50px;
+            color: #ffffff;
+            background-color: #6B0F9C;
+            border: solid 1px bisque;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <span class="item">1</span>
+    <span class="item">2</span>
+    <span class="item">3</span>
+<!--    <span class="item" id="1" ondragstart="dragStart(event);" draggable="true" ondragend="dragEnd(event)">1</span>-->
+<!--    <span class="item" id="2" ondragstart="dragStart(event);" draggable="true" ondragend="dragEnd(event)">2</span>-->
+<!--    <span class="item" id="3" ondragstart="dragStart(event);" draggable="true" ondragend="dragEnd(event)">3</span>-->
+    <div class="box box1">
+        <div class="item">item1</div>
+        <div class="box box2">
+            <div class="item">item2</div>
+        </div>
+        <div class="box box3">
+            <div class="item">item3</div>
+            <div class="item">item4</div>
+        </div>
+    </div>
+    <div class="box box4" style="flex: none;">
+        <div class="item">item7</div>
+        <div class="item">item8</div>
+        <div class="box box5">
+            <div class="item">item5</div>
+            <div class="item">item6</div>
+            <div class="box box6">
+                <div class="item">item3</div>
+                <div class="item">item4</div>
+            </div>
+            <div class="item">item8</div>
+        </div>
+    </div>
+    <div class="box box7" style="flex: none; width: 100%;">
+        <div class="item">item5</div>
+        <div class="item">item6</div>
+        <div class="box box8">
+            <div class="item">item3</div>
+            <div class="item">item4</div>
+        </div>
+        <div class="item">item7</div>
+        <div class="item">item8</div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+<script>
+    jsDrag('.item', '.box');
+    function jsDrag (dragTarget, dropArea) {
+        $(document).on('mousedown', dragTarget, function (event){
+            $(event.currentTarget).attr('draggable', true);
+        });
+
+        $(document).on('touchstart', dragTarget, function (event){
+            $(event.currentTarget).trigger('dragstart');
+        });
+        $(document).on('touchend', dragTarget, function (event){
+            $(event.currentTarget).trigger('dragend');
+        });
+        $(document).on('touchmove', dragTarget, function (event){
+            $(event.currentTarget).trigger('drag',[200, 100]);
+            // console.log('touchmove : ', event);
+        });
+
+
+        // var box = document.getElementById('box');
+        // box.addEventListener('touchmove', function(e) {
+        //     var touchLocation = e.targetTouches[0];
+        //     box.style.left = touchLocation.pageX + 'px';
+        //     box.style.top = touchLocation.pageY + 'px';
+        // })
+        // box.addEventListener('touchend', function(e) {
+        //     var x = parseInt(box.style.left);
+        //     var y = parseInt(box.style.top);
+        // })
+
+        $(document).on('drag', dragTarget, function (event, a, b){
+            const x = 260;
+            const y = 60;
+            event.clientX = x;
+            event.clientY = y;
+            event.offsetX = x;
+            event.offsetY = y;
+            event.pageX = x;
+            event.pageY = y;
+            event.screenX = x;
+            event.screenY = y;
+            console.log(event);
+            if (!event.originalEvent) {
+                event.originalEvent = {}
+            }
+            event.originalEvent.clientX = x;
+            event.originalEvent.clientY = y;
+            event.originalEvent.layerX = x;
+            event.originalEvent.layerY = y;
+            event.originalEvent.movementX = x;
+            event.originalEvent.movementY = y;
+            event.originalEvent.offsetX = x;
+            event.originalEvent.offsetY = y;
+            event.originalEvent.pageX = x;
+            event.originalEvent.pageY = y;
+            event.originalEvent.screenX = x;
+            event.originalEvent.screenY = y;
+            event.originalEvent.x = x;
+            event.originalEvent.y = y;
+
+            console.log("ondrag : ", event, a, b);
+        });
+        $(document).on('dragstart', dragTarget, function (event){
+            console.log("ondragstart : ", event);
+            $(event.currentTarget).css('opacity', 0.5);
+        });
+        $(document).on('dragend', dragTarget, function (event){
+            console.log("ondragend : ", event);
+            $(event.currentTarget).css('opacity', 1);
+        });
+        $(document).on('dragover', dropArea, function (event){
+            console.log("ondragover : ", event);
+            event.preventDefault();
+        });
+        $(document).on('dragover', false).on('drop', dropArea, function (event) {
+            console.log("drop : ", event);
+            return false;
+        });
+    }
+</script>
+</body>
+</html>

@@ -653,7 +653,6 @@ a.contactInfo {
     letter-spacing: -0.02em;
     color: #000000;
 }
-
 .euroWorkDetailVideoBox {
     position: relative;
     height: 820px;
@@ -719,7 +718,6 @@ a.contactInfo {
     letter-spacing: -0.02em;
     color: #000000;
 }
-
 .euroWorkDetailAccordion {
     max-width: 1056px;
     padding: 0 24px;
@@ -770,7 +768,6 @@ a.contactInfo {
 .euroWorkDetailAccordionItem.is_open .euroWorkDetailAccordionBtn {
     background-image: url(../img/whatWeDoMinus.svg);
 }
-
 .euroWorkDetailSliderTitle {
     display: block;
     font-weight: 500;
@@ -805,30 +802,34 @@ a.contactInfo {
     line-height: 20px;
     color: #BBBBBB;
 }
-
 @media (min-width: 920px) {
     .is_hide_p {
         display: none !important;
     }
+
     .euroHeader.is_top .is_pcHide_top,
     .euroHeader.is_up .is_pcHide_up {
         display: none;
     }
+
     .euroHeader:not(.is_top) .euroNav.is_on {
         display: block !important;
         position: absolute;
         left: 24px;
         top: 121px;
     }
+
     .euroHeader:not(.is_top) .euroNav.is_on .euroHeaderBarMenuLink {
         font-weight: 500;
         font-size: 40px;
         line-height: 56px;
         letter-spacing: -0.02em;
     }
+
     .euroHeader:not(.is_top) .euroNav.is_on .euroHeaderBarMenu:hover .euroHeaderBarMenuSub {
         display: block;
     }
+
     .euroHeader:not(.is_top) .euroMenuBtn.is_on {
         font-size: 0;
         color: transparent;
@@ -842,29 +843,36 @@ a.contactInfo {
     .is_hide_m {
         display: none !important;
     }
+
     .euroHeader.is_top .is_mobileHide_top,
     .euroHeader.is_up .is_mobileHide_up {
         display: none;
     }
+
     .euroHeaderBar {
         padding: 17px 12px;
     }
+
     .euroHeader:not(.is_white) {
         background-color: #ffffff;
     }
+
     .euroHeaderLogo {
         top: 20px;
         right: 16px;
     }
+
     .euroHeaderBarMenuList {
         width: 100%;
         margin-bottom: 25px;
     }
+
     .euroHeaderBarSubList {
         width: 100%;
         margin-bottom: 12px;
         color: #000000;
     }
+
     .euroSubHeader {
         padding: 220px 12px 15px;
         font-weight: bold;
@@ -874,6 +882,7 @@ a.contactInfo {
         color: #000000;
         white-space: nowrap;
     }
+
     .euroSubHeaderSub {
         flex: none;
         width: 100%;
@@ -885,50 +894,63 @@ a.contactInfo {
         color: #000000;
         white-space: nowrap;
     }
+
     .euroSubHero {
         padding-bottom: 720px;
     }
+
     .euroSubHeroText.is_rightBottom {
         left: 0;
         bottom: 0;
         padding: 31px 12px;
     }
+
     .euroWorkHero {
         padding-bottom: 720px;
     }
+
     .euroWorkHeroTextWrap {
         padding: 31px 12px;
     }
+
     .euroContainer .is_mobileFull {
         margin-left: -12px;
         margin-right: -12px;
     }
+
     .euroMainContent.is_img {
         width: 100%;
     }
+
     .euroMainContent.is_img.is_img_1 {
         padding-bottom: 89.03%;
     }
+
     .euroMainContent.is_img.is_img_3 {
         padding-bottom: 179.2%;
     }
+
     .euroMainContent.is_text {
         width: 100%;
         height: auto;
         padding-bottom: 0;
     }
+
     .euroMainContent.is_text .euroMainContentBox {
         position: static;
         padding: 20px 12px 52px;
     }
+
     .euroHeroItemTextBox {
         top: auto;
         transform: none;
         bottom: 0;
     }
+
     .euroHeroItemTextWrap {
         padding: 31px 12px;
     }
+
     .euroMainContentEyebrow {
         font-weight: 500;
         font-size: 24px;
@@ -936,6 +958,7 @@ a.contactInfo {
         letter-spacing: -0.02em;
         color: #000000;
     }
+
     .euroMainContentText {
         margin-top: 33px;
         font-weight: 600;
@@ -944,6 +967,7 @@ a.contactInfo {
         letter-spacing: -0.02em;
         color: #000000;
     }
+
     .euroMainContentLink {
         margin-top: 33px;
         font-weight: normal;
@@ -952,22 +976,28 @@ a.contactInfo {
         letter-spacing: -0.02em;
         color: #000000;
     }
+
     .euroFooter {
         padding: 20px 24px 18px;
     }
+
     .euroFooterDescription {
         height: auto;
     }
+
     .euroFooterMenuList {
         width: 100%;
     }
+
     .euroFooterSubList {
         width: 100%;
         margin-top: 30px;
     }
+
     .euroFooterBottom {
         margin-top: 92px;
     }
+
     .contactForm {
         padding: 0 12px 64px;
         font-weight: 600;
@@ -976,6 +1006,7 @@ a.contactInfo {
         letter-spacing: -0.02em;
         color: #000000;
     }
+
     .contactInput {
         font-weight: normal;
         font-size: 20px;
@@ -983,6 +1014,7 @@ a.contactInfo {
         letter-spacing: -0.02em;
         color: #BBBBBB;
     }
+
     .contactSubmit {
         margin-left: 0;
         font-weight: normal;
@@ -991,9 +1023,11 @@ a.contactInfo {
         letter-spacing: -0.02em;
         color: #000000;
     }
+
     .contactInfoBox {
         margin: 0 0 77px 50%;
     }
+
     .contactInfo {
         font-weight: normal;
         font-size: 16px;

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .box {
+            padding: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            flex: 1;
+            background-color: #0073cc;
+            border: solid 1px green;
+        }
+        .box > .box {
+            background-color: #555E6D;
+        }
+        .box > .box > .box {
+            background-color: #450831;
+        }
+        .item {
+            padding: 24px;
+            color: #ffffff;
+            background-color: #6B0F9C;
+            border: solid 1px bisque;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="box box1">
+        <div class="item">item1</div>
+        <div class="box box2">
+            <div class="item">item2</div>
+        </div>
+        <div class="box box3">
+            <div class="item">item3</div>
+            <div class="item">item4</div>
+        </div>
+    </div>
+    <div class="box box4" style="flex: none;">
+        <div class="item">item7</div>
+        <div class="item">item8</div>
+        <div class="box box5">
+            <div class="item">item5</div>
+            <div class="item">item6</div>
+            <div class="box box6">
+                <div class="item">item3</div>
+                <div class="item">item4</div>
+            </div>
+            <div class="item">item8</div>
+        </div>
+    </div>
+    <div class="box box7" style="flex: none; width: 100%;">
+        <div class="item">item5</div>
+        <div class="item">item6</div>
+        <div class="box box8">
+            <div class="item">item3</div>
+            <div class="item">item4</div>
+        </div>
+        <div class="item">item7</div>
+        <div class="item">item8</div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+<script>
+
+    $(function () {
+        var currentObj = '';
+        $(".item").draggable({
+            start:function(event, ui) {
+                currentObj = $(".ui-draggable-dragging");
+            },
+            helper: "clone",
+            containment: ".container" //이 영역 안에서만 이동
+        });
+        $( ".box" ).droppable({
+            drop: function( event, ui ) {
+                console.log(event, ui)
+                //영역안으로 드롭 했을때
+                var uiClass = currentObj.attr("class");
+                if(uiClass.indexOf('box1') != -1){
+                    console.log("drag1!!");
+                    $( ".drag1" ).draggable("destroy");
+                }else if(uiClass.indexOf('box1') != -1){
+                    console.log("drag2!!");
+                }else if(uiClass.indexOf('box1') != -1){
+                    console.log("drag3!!");
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -18,12 +18,10 @@
 
 <script src="js/jquery-3.5.1.min.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+</body>
 <script>
-    let toDayResponse = JSON.parse(sessionStorage.getItem("toDayResponse"));
     let allDayResponse = JSON.parse(sessionStorage.getItem("allDayResponse"));
     let temperature = 20;
-
-    /* 의상 데이터 */
     const wear = {
         top: [
             /* 속옷 */
@@ -49,85 +47,20 @@
         other: {}, // 일교차 조건으로 오전9 ~ 11시 편차 n도 이상 차이나면 other 로 수치 보정 (겨울에만), (아우터 편차가 크면 이전 단계에서 other로 대신함, 다 합쳐도 모자라면 other로 대신함)
         bottom: {}, // 비교적 단순하게 온도 평균으로 퉁 / 남자 : 반바지 긴바지 기모바지 내복 + 기모바지 / 짧은치마, 긴치마, 긴치마 + 스타킹, 긴치마 + 니삭스, 내복 + 기모바지 (여성쪽은 모르겠다 여성대상 설문)
     }
-
-    /* 날씨 정보 조회 */
-    weatherFind();
-
-    function weatherFind() {
-        let nowLoad = 0;
-        let allLoad = 2;
-
-        function allLoadCheck() {
-            nowLoad++;
-            if (nowLoad == allLoad) {
-                window.setTimeout(function () {
-                    sessionStorage.clear(); // 5분 후에 세션 스토리지 데이터 제거;
-                }, 60000 * 5);
-
-                $('#weatherBox').append(`<div class="swiper-slide">${getWeather(toDayResponse)}</div>`);
-
-                allDayResponse.list.forEach(function (value, index) {
-                    if (index % 8 == 5) {
-                        let dayText = `<div>${parseInt(index / 8) + 1}일 후 `;
-                        dayText += `</div>`;
-                        $('#weatherBox').append(`<div class="swiper-slide">${dayText + getWeather(value)}</div>`);
-                    }
-                });
-                ajaxAllLoad();
-            }
-        }
-
-        /* 오늘의 날씨 */
-        if (toDayResponse) {
-            allLoadCheck();
-        } else {
-            $.ajax({
-                url: "https://api.openweathermap.org/data/2.5/weather?q=Seoul,kr&lang=kr&units=metric&appid=acf191e1cb2ddda1db775cff43434ecd",
-                type: "GET",
-                dataType: "JSON",
-                success: function (response) {
-                    toDayResponse = response;
-                    sessionStorage.setItem("toDayResponse", JSON.stringify(toDayResponse));
-                    allLoadCheck();
-                }
-            });
-        }
-
-        /* 5일간 날씨 */
-        if (allDayResponse) {
-            allLoadCheck();
-        } else {
-            $.ajax({
-                url: "https://api.openweathermap.org/data/2.5/forecast?q=Seoul,kr&lang=kr&units=metric&appid=acf191e1cb2ddda1db775cff43434ecd",
-                type: "GET",
-                dataType: "JSON",
-                success: function (response) {
-                    allDayResponse = response;
-                    sessionStorage.setItem("allDayResponse", JSON.stringify(allDayResponse));
-                    allLoadCheck();
-                    console.log("allLoadCheck : ", response);
-                }
-            });
-        }
-
-        function getTime(inputTime) {
-            const nowTime = new Date(inputTime * 1000);
-            let month = nowTime.getMonth() + 1;
-            let date = nowTime.getDate();
-            let hours = nowTime.getHours();
-            let minutes = nowTime.getMinutes();
-            let ampm = hours >= 12 ? 'pm' : 'am';
-            hours = hours % 12;
-            hours = hours ? hours : 12;
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            return month + '월' + date + '일' + hours + ':' + minutes + ' ' + ampm;
-        }
-
-        function getWeather(weather) {
-            let todayText = `
-                도시이름 : ${weather.name}<br>
-                일출 시간 : ${getTime(weather.sys.sunrise)}<br>
-                일몰 시간 : ${getTime(weather.sys.sunset)}<br>
+    function getTime(inputTime) {
+        const nowTime = new Date(inputTime * 1000);
+        let month = nowTime.getMonth() + 1;
+        let date = nowTime.getDate();
+        let hours = nowTime.getHours();
+        let minutes = nowTime.getMinutes();
+        let ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        return month + '월' + date + '일' + hours + ':' + minutes + ' ' + ampm;
+    }
+    function getWeather(weather) {
+        let todayText = `
                 예측 시간 : ${getTime(weather.dt)}<br>
                 현재온도 : ${weather.main.temp}℃<br>
                 최고온도 : ${weather.main.temp_max}℃<br>
@@ -140,16 +73,57 @@
                 풍속 : ${weather.wind.speed}m/s<br>
                 풍향 : ${weather.wind.deg}<br>
             `;
-            return todayText;
+        return todayText;
+    }
+
+    /* 날씨 정보 조회 */
+    weatherFind();
+    function weatherFind() {
+
+        /* 6일간 시간대별 날씨 조회 */
+        if (allDayResponse) {
+            sessionCheck();
+        } else {
+            $.ajax({
+                url: "https://api.openweathermap.org/data/2.5/forecast?q=Seoul,kr&lang=kr&units=metric&appid=acf191e1cb2ddda1db775cff43434ecd",
+                type: "GET",
+                dataType: "JSON",
+                success: function (response) {
+                    allDayResponse = response;
+                    sessionStorage.setItem("allDayResponse", JSON.stringify(allDayResponse));
+                    sessionCheck();
+                }
+            });
+        }
+
+        function sessionCheck() {
+            window.setTimeout(function () {
+                sessionStorage.clear(); // 5분 후에 세션 스토리지 데이터 제거;
+            }, 1000 * 60 * 5);
+
+            let nowDate = allDayResponse.list[0].dt_txt.split(' ')[0];
+            let nowDay = 0;
+            allDayResponse.list.forEach(function (value, index) {
+                const getDate = value.dt_txt.split(' ');
+                if (nowDate != getDate[0]) {
+                    nowDate = getDate[0];
+                    nowDay++;
+                } else {
+
+                }
+                console.log(nowDay);
+                $('#weatherBox').append(`<div class="swiper-slide"><div>${nowDay}일 후</div>${getWeather(value)}</div>`);
+
+                // nowDay
+
+                console.log("value dt_txt : ", value.dt_txt.split(' '));
+            });
+            ajaxAllLoad();
         }
     }
 
     /* 데이터 로드 완료 */
     function ajaxAllLoad() {
-        console.log("toDayResponse : ", toDayResponse);
-        console.log("allDayResponse : ", allDayResponse);
-        findTemperature(toDayResponse.main.feels_like);
-
         new Swiper('.swiper-container', {
             pagination: {
                 el: '.swiper-pagination',
@@ -187,5 +161,4 @@
         }
     }
 </script>
-</body>
 </html>
