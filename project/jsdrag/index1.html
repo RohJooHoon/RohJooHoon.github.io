@@ -37,6 +37,7 @@
             font-weight: bold;
         }
         .cardList {
+            display: flex;
             padding: 12px;
             border: solid 1px #ddd;
             overflow-x: auto;
@@ -44,6 +45,7 @@
         }
         .cardItem {
             display: inline-block;
+            flex: none;
             width: 70px;
             height: 70px;
             background-color: #018DED;
@@ -107,18 +109,12 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 <script>
-
-    $(function () {
-        $(".cardList").sortable({
-            revert: true
-        });
-        // $(".cardList").draggable({
-        //     connectToSortable: "#sortable",
-        //     helper: "clone",
-        //     revert: "invalid"
-        // });
-        // $(".cardList").disableSelection();
-    });
+    $( function() {
+        const sortable = $( ".cardList" ).sortable({
+            connectWith: ".cardList",
+            forceHelperSize: true,
+        }).disableSelection();
+    } );
 </script>
 </body>
 </html>

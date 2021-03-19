@@ -1,11 +1,10 @@
 <!doctype html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Sortable - Connect lists</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <style>
         * {
             box-sizing: border-box;
@@ -37,6 +36,8 @@
     </style>
 </head>
 <body>
+
+
 <div class="container">
     <div class="box box1">
         <div class="item">item1</div>
@@ -72,36 +73,16 @@
         <div class="item">item8</div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
-<script>
 
-    $(function () {
-        var currentObj = '';
-        $(".item").draggable({
-            start:function(event, ui) {
-                currentObj = $(".ui-draggable-dragging");
-            },
-            helper: "clone",
-            containment: ".container" //이 영역 안에서만 이동
-        });
-        $( ".box" ).droppable({
-            drop: function( event, ui ) {
-                console.log(event, ui)
-                //영역안으로 드롭 했을때
-                var uiClass = currentObj.attr("class");
-                if(uiClass.indexOf('box1') != -1){
-                    console.log("drag1!!");
-                    $( ".drag1" ).draggable("destroy");
-                }else if(uiClass.indexOf('box1') != -1){
-                    console.log("drag2!!");
-                }else if(uiClass.indexOf('box1') != -1){
-                    console.log("drag3!!");
-                }
-            }
-        });
-    });
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $( function() {
+        $('.box').sortable({
+            connectWith: ".box"
+        }).disableSelection();
+    } );
 </script>
 </body>
 </html>

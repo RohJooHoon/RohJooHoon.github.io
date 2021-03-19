@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // 아래 동작으로 출력되는 콘솔을 출력 순서대로 적으시오
+        let change = "C1"
+        $('.text').text(change);
+        console.log("A ", $('.text').text());
+        $.ajax({ // 해당 ajax요청은 문제 없이 동작한다고 가정
+            type: "POST",
+            dataType: "json",
+            url: `${denma_api_url}/product/test/33248}`,
+            success: function (response) {
+                change = "C2"
+                $('.text').text(change);
+                console.log("B ", $('.text').text());
+            }
+        });
+        $(function () {
+            let change = "C3"
+            $('.text').text(change);
+            console.log("C ", $('.text').text());
+        });
+        console.log("D ", $('.text').text());
+    </script>
+</head>
+<body>
+<div class="text">
+    Im container
+</div>
+</body>
+</html>
+
+
+
+
+
+
