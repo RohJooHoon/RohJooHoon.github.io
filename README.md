@@ -1,4 +1,4 @@
-## 웹프론트 개발자 노주훈
+## 웹프론트 개발자 노주훈   
 [티스토리 블로그](https://non-traditional-developer.tistory.com/)
 : 개발 스터디 정리   
 [포트폴리오 페이지](https://rohjoohoon.github.io/project/portfolio/)
