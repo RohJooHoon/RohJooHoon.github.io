@@ -90,7 +90,8 @@ function parallax(degree) {
                     const nowPoint = windowScrollTop - startPoint;
                     const gab = endPoint - startPoint;
                     const percentage = (nowPoint / gab).toFixed(4);
-                    $target.css('background-position-y', percentage * degree - degree / 2 + "px");
+                    console.log("percentage * 100 : ", index, percentage * 100);
+                    $target.css('background-position-y', percentage * 100 + "%");
                 }
             }
         });

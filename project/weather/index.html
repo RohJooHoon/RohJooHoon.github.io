@@ -26,22 +26,22 @@
     /* 의상 데이터 */
     const wear = {
         top: [
-            /* 속옷 */
+            /* 이너 */
             [
-                {warmth: 0.5, name: "나시"},
+                {warmth: 0, name: "나시"},
                 {warmth: 1, name: "반팔"},
                 {warmth: 2, name: "긴팔"},
             ],
-            /* 겉옷 */
+            /* 레이어 */
             [
                 {warmth: 3, name: "맨투맨"},
-                {warmth: 3.5, name: "니트"},
+                {warmth: 4, name: "후디"},
+                {warmth: 5, name: "니트"},
             ],
             /* 아우터 */
             [
-                {warmth: 4, name: "후디"},
-                {warmth: 5, name: "코트"},
-                {warmth: 7, name: "후리스"},
+                {warmth: 6, name: "코트"},
+                {warmth: 8, name: "후리스"},
                 {warmth: 11, name: "숏패딩"},
                 {warmth: 15, name: "롱패딩"},
             ],
@@ -163,6 +163,7 @@
 
     function findTemperature(temper) {
         let wearList = [];
+        let prevWear = "";
 
         for (let i = 0; i < 10; i++) {
             for (let j = 0; j < wear.top.length; j++) {

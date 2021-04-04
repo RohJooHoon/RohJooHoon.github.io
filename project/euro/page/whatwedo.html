@@ -157,10 +157,10 @@
             background: no-repeat center;
             background-size: cover;
             opacity: 0;
+            transition: opacity 1s;
         }
         .whatWeDoFeatureIndexWrap.is_active .whatWeDoFeatureImg {
             opacity: 1;
-            transition: opacity 5s;
         }
         .whatWeDoFeatureIndex {
             position: absolute;
@@ -172,10 +172,10 @@
             text-align: center;
             letter-spacing: -0.02em;
             color: #000000;
+            transition: color 0.5s;
         }
         .whatWeDoFeatureIndexWrap.is_active .whatWeDoFeatureIndex {
             color: #ffffff;
-            transition: color 3s;
         }
         .whatWeDoFeatureName {
             position: absolute;
@@ -190,10 +190,10 @@
             text-align: center;
             letter-spacing: -0.02em;
             color: #000000;
+            transition: color 0.5s;
         }
         .whatWeDoFeatureIndexWrap.is_active .whatWeDoFeatureName {
             color: #ffffff;
-            transition: color 3s;
         }
         .whatWeDoFeatureTextWrap {
             display: flex;
@@ -532,7 +532,7 @@
         <div class="is_T24" style="margin-bottom: 35px;">Our Feature</div>
         <div class="whatWeDoFeatureList is_mobileFull">
             <div class="whatWeDoFeatureItem">
-                <div class="whatWeDoFeatureIndexWrap is_scrollActive">
+                <div class="whatWeDoFeatureIndexWrap is_hoverActive">
                     <div class="whatWeDoFeatureImg" style="background-image: url(../img/whatWeDoFeature1.png)"></div>
                     <div class="whatWeDoFeatureIndex">01</div>
                     <div class="whatWeDoFeatureName">
@@ -550,7 +550,7 @@
                 </div>
             </div>
             <div class="whatWeDoFeatureItem">
-                <div class="whatWeDoFeatureIndexWrap is_scrollActive">
+                <div class="whatWeDoFeatureIndexWrap is_hoverActive">
                     <div class="whatWeDoFeatureImg" style="background-image: url(../img/whatWeDoFeature1.png)"></div>
                     <div class="whatWeDoFeatureIndex">02</div>
                     <div class="whatWeDoFeatureName">
@@ -568,7 +568,7 @@
                 </div>
             </div>
             <div class="whatWeDoFeatureItem">
-                <div class="whatWeDoFeatureIndexWrap is_scrollActive">
+                <div class="whatWeDoFeatureIndexWrap is_hoverActive">
                     <div class="whatWeDoFeatureImg" style="background-image: url(../img/whatWeDoFeature1.png)"></div>
                     <div class="whatWeDoFeatureIndex">03</div>
                     <div class="whatWeDoFeatureName">
@@ -584,7 +584,7 @@
                 </div>
             </div>
             <div class="whatWeDoFeatureItem">
-                <div class="whatWeDoFeatureIndexWrap is_scrollActive">
+                <div class="whatWeDoFeatureIndexWrap is_hoverActive">
                     <div class="whatWeDoFeatureImg" style="background-image: url(../img/whatWeDoFeature1.png)"></div>
                     <div class="whatWeDoFeatureIndex">04</div>
                     <div class="whatWeDoFeatureName">
@@ -607,6 +607,13 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="../js/common.js"></script>
 <script>
+
+    $(document).on('mouseover', '.is_hoverActive', function (e){
+        $(this).addClass('is_active');
+    })
+    $(document).on('mouseout', '.is_hoverActive', function (e){
+        $(this).removeClass('is_active');
+    })
 
     /* whatWeDoVisual */
     whatWeDoVisualChange();
