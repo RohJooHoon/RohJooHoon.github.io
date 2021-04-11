@@ -8,6 +8,7 @@
     src: url("../font/HelveticaNeue.ttc");
 }
 * {
+    outline: none;
     box-sizing: border-box;
 }
 body {
@@ -122,6 +123,14 @@ select {
     z-index: 100;
     opacity: 0;
     transition: 0.5s;
+    background-color: #ffffff;
+}
+.euroHeader.is_white {
+    background-color: transparent;
+}
+.euroHeader.is_on {
+    top: 0;
+    opacity: 1;
 }
 .euroHeaderLogo {
     position: absolute;
@@ -147,10 +156,6 @@ select {
 .euroHeader.is_white:not(.is_top) .euroMenuBtn.is_on {
     background-image: url("../img/close_w.svg");
 }
-.euroHeader.is_on {
-    top: 0;
-    opacity: 1;
-}
 .euroHeader.is_top .is_hide_top,
 .euroHeader.is_up .is_hide_up {
     display: none;
@@ -159,10 +164,6 @@ select {
     width: 100%;
     padding: 20px 24px 9px;
     border-top: 5px solid #0073CC;
-    background-color: #ffffff;
-}
-.euroHeader.is_white .euroHeaderBar {
-    background-color: transparent;
 }
 .euroHeaderBarMenu {
     position: relative;
@@ -746,6 +747,7 @@ a.contactInfo {
     border-top: solid 1px #eeeeee;
     display: flex;
     padding: 23px 0;
+    cursor: pointer;
 }
 .euroWorkDetailAccordionTitle {
     flex: none;
@@ -782,7 +784,6 @@ a.contactInfo {
     background: no-repeat center url(../img/whatWeDoPlus.svg);
     background-size: 24px;
     z-index: 5;
-    cursor: pointer;
 }
 .euroWorkDetailAccordionItem.is_open .euroWorkDetailAccordionBtn {
     background-image: url(../img/whatWeDoMinus.svg);
@@ -812,7 +813,11 @@ a.contactInfo {
     width: 354px;
     height: 200px;
     background: no-repeat center;
-    background-size: cover;
+    background-size: 100%;
+    transition: background-size 0.5s;
+}
+.euroWorkDetailSliderItem:hover .euroWorkDetailSliderItemImg {
+    background-size: 110%;
 }
 .euroWorkDetailSliderItemText {
     padding: 8px 24px;
@@ -824,6 +829,9 @@ a.contactInfo {
 @media (min-width: 920px) {
     .is_hide_p {
         display: none !important;
+    }
+    .euroHeader.is_menuOn {
+        height: 370px;
     }
 
     .euroHeader.is_top .is_pcHide_top,
@@ -861,6 +869,11 @@ a.contactInfo {
 @media (max-width: 920px) {
     .is_hide_m {
         display: none !important;
+    }
+
+    .euroHeader {
+        top: 0;
+        opacity: 1;
     }
 
     .euroHeader.is_top .is_mobileHide_top,

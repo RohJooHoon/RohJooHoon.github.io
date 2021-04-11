@@ -68,6 +68,7 @@ function scrollCheck() {
 function euroMenuBtn() {
     $(event.currentTarget).toggleClass("is_on");
     $(".euroNav").toggleClass("is_on");
+    $(".euroHeader").toggleClass("is_menuOn");
 }
 
 // 이미지 지연 스크롤
