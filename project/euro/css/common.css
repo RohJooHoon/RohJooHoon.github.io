@@ -285,6 +285,14 @@ select {
     background: no-repeat center;
     background-size: cover;
 }
+.euroWorkHero.is_bottomSticky {
+    margin-bottom: -84px;
+    padding-bottom: 84px;
+}
+
+.euroWorkHero.is_bottomSticky + .euroWorkDetailBox {
+    margin-top: 0;
+}
 .euroWorkHero.is_fixBg {
     background-attachment: fixed;
 }
@@ -815,6 +823,8 @@ a.contactInfo {
     background: no-repeat center;
     background-size: 100%;
     transition: background-size 0.5s;
+    border: solid 1px #eeeeee;
+    border-left: 0;
 }
 .euroWorkDetailSliderItem:hover .euroWorkDetailSliderItemImg {
     background-size: 110%;
