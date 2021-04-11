@@ -84,15 +84,10 @@ function parallax(degree) {
             const startPoint = $target.offset().top - $(window).height();
             const endPoint = $target.offset().top + $target.outerHeight();
             if (startPoint < windowScrollTop && windowScrollTop < endPoint) {
-                if (degree == "auto") {
-                    $target.css('background-position-y', windowScrollTop * 0.5 + "px");
-                } else {
-                    const nowPoint = windowScrollTop - startPoint;
-                    const gab = endPoint - startPoint;
-                    const percentage = (nowPoint / gab).toFixed(4);
-                    console.log("percentage * 100 : ", index, percentage * 100);
-                    $target.css('background-position-y', percentage * 100 + "%");
-                }
+                const nowPoint = windowScrollTop - startPoint;
+                const gab = endPoint - startPoint;
+                const percentage = (nowPoint / gab).toFixed(4);
+                $target.css('background-position-y', percentage * 100 + "%");
             }
         });
     }

@@ -18,6 +18,13 @@
             content: "";
             clear: both;
         }
+        .whatWeDoVisualImgList {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
         .whatWeDoVisualImg {
             position: absolute;
             left: 0;
@@ -26,6 +33,10 @@
             height: 100%;
             background: no-repeat center;
             background-size: cover;
+        }
+        .whatWeDoVisualImg.is_active {
+            display: block;
+            z-index: 1;
         }
         .whatWeDoVisualTitle {
             position: absolute;
@@ -36,11 +47,13 @@
             line-height: 32px;
             letter-spacing: -0.02em;
             color: #FFFFFF;
+            z-index: 2;
         }
         .whatWeDoVisualList {
             position: absolute;
             top: 74px;
             left: calc(50% + 24px);
+            z-index: 2;
         }
         .whatWeDoVisualItem {
             display: block;
@@ -244,9 +257,9 @@
             .whatWeDoVisual {
                 height: auto;
             }
-            .whatWeDoVisualImg {
+            .whatWeDoVisualImgList {
                 display: block;
-                position: static;
+                position: relative;
                 height: 260px;
                 margin-bottom: 20px;
             }
@@ -426,7 +439,7 @@
 <body class="euro">
 <header class="euroHeader"></header>
 <div class="euroSubHeader">What we do</div>
-<div class="euroSubHero is_parallax" style="background-image: url(../img/whatWeDo.png)">
+<div class="euroSubHero is_parallax" style="background-image: url(../img/mainContent1.jpg)">
     <div class="euroSubHeroText is_rightBottom is_T130">
         우리는<br/>
         신뢰와 함께<br/>
@@ -459,14 +472,20 @@
         </div>
     </div>
     <div class="whatWeDoVisual is_mt_103_120">
-        <div class="whatWeDoVisualImg"></div>
+        <div class="whatWeDoVisualImgList">
+            <div class="whatWeDoVisualImg is_active" style="background-image: url(../img/whatWeDoVisual1.png)"></div>
+            <div class="whatWeDoVisualImg" style="background-image: url(../img/whatWeDoVisual2.png)"></div>
+            <div class="whatWeDoVisualImg" style="background-image: url(../img/whatWeDoVisual3.png)"></div>
+            <div class="whatWeDoVisualImg" style="background-image: url(../img/whatWeDoVisual4.png)"></div>
+            <div class="whatWeDoVisualImg" style="background-image: url(../img/whatWeDoVisual5.png)"></div>
+        </div>
         <div class="whatWeDoVisualTitle">Our Works</div>
         <div class="whatWeDoVisualList">
-            <button class="whatWeDoVisualItem is_active" data-url="../img/whatWeDoVisual1.png">오일・가스 플랜트</button>
-            <button class="whatWeDoVisualItem" data-url="../img/whatWeDoVisual2.png">화학・정유 플랜트</button>
-            <button class="whatWeDoVisualItem" data-url="../img/whatWeDoVisual3.png">환경・산업 플랜트</button>
-            <button class="whatWeDoVisualItem" data-url="../img/whatWeDoVisual4.png">중공업 플랜트</button>
-            <button class="whatWeDoVisualItem" data-url="../img/whatWeDoVisual5.png">창고, 빌딩, 주차장</button>
+            <button class="whatWeDoVisualItem is_active">오일・가스 플랜트</button>
+            <button class="whatWeDoVisualItem">화학・정유 플랜트</button>
+            <button class="whatWeDoVisualItem">환경・산업 플랜트</button>
+            <button class="whatWeDoVisualItem">중공업 플랜트</button>
+            <button class="whatWeDoVisualItem">창고, 빌딩, 주차장</button>
         </div>
     </div>
     <div class="euroSubBox is_pcRight is_mt_80_42">
@@ -532,7 +551,7 @@
         <div class="is_T24" style="margin-bottom: 35px;">Our Feature</div>
         <div class="whatWeDoFeatureList is_mobileFull">
             <div class="whatWeDoFeatureItem">
-                <div class="whatWeDoFeatureIndexWrap is_hoverActive">
+                <div class="whatWeDoFeatureIndexWrap is_hoverActive is_active">
                     <div class="whatWeDoFeatureImg" style="background-image: url(../img/whatWeDoFeature1.png)"></div>
                     <div class="whatWeDoFeatureIndex">01</div>
                     <div class="whatWeDoFeatureName">
@@ -609,14 +628,11 @@
 <script>
 
     $(document).on('mouseover', '.is_hoverActive', function (e){
-        $(this).addClass('is_active');
-    })
-    $(document).on('mouseout', '.is_hoverActive', function (e){
-        $(this).removeClass('is_active');
+        $(this).addClass('is_active').closest('.whatWeDoFeatureItem').siblings().find('.is_hoverActive').removeClass('is_active');
     })
 
     /* whatWeDoVisual */
-    whatWeDoVisualChange();
+    whatWeDoVisualChange(0);
 
     /* euroSubHeader 움직임 */
     euroSubHeaderMove(420);
@@ -625,11 +641,12 @@
 
     $('.whatWeDoVisualItem').on('click', function (e) {
         $(e.currentTarget).addClass('is_active').siblings().removeClass('is_active');
-        whatWeDoVisualChange();
+        whatWeDoVisualChange($(e.currentTarget).index());
+        console.log($(e.currentTarget).index());
     })
 
-    function whatWeDoVisualChange() {
-        $('.whatWeDoVisualImg').css('background-image', `url(${$('.whatWeDoVisualItem.is_active').attr('data-url')})`);
+    function whatWeDoVisualChange(index) {
+        $('.whatWeDoVisualImgList .whatWeDoVisualImg').eq(index).addClass('is_active').siblings().removeClass('is_active');
     }
 </script>
 </body>
