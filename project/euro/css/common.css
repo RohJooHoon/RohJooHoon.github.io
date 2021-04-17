@@ -128,10 +128,14 @@ select {
     transition: 0.5s;
     background-color: #ffffff;
 }
+.euroHeader.is_transparent {
+    background-color: transparent;
+}
 .euroHeader.is_white {
     background-color: transparent;
 }
-.euroHeader.is_on {
+.euroHeader.is_on,
+.euroHeader.is_onFix {
     top: 0;
     opacity: 1;
 }

@@ -127,7 +127,7 @@
 </head>
 
 <body class="euro">
-<header class="euroHeader"></header>
+<header class="euroHeader is_onFix"></header>
 <div class="portfolioSub">
     <div class="portfolioSubView">
         <div class="portfolioSubViewImg" style="background-image: url(../img/portfolio1_0.jpg)"></div>
@@ -162,7 +162,14 @@
 <script src="../js/common.js"></script>
 <script>
     setSwitchTab();
-
+    function pageCallback() {
+        $('.euroHeaderBarMenuList').removeClass('is_hide_m');
+        $('.euroHeaderBarSubList').addClass('is_hide');
+        $('.is_pcHide_top').removeClass('is_pcHide_top');
+        $('.euroNav').addClass('is_hide');
+        $('.euroMenuBtn').addClass('is_onFix');
+        $('.euroFooter').addClass('is_hide');
+    }
     function setSwitchTab() {
         setSwitchTabFunc($('.is_switchTab.is_active'));
         $(document).on('click', `.is_switchTab`, function (e) {
@@ -202,6 +209,10 @@
         $(e.currentTarget).addClass('is_active').siblings().removeClass('is_active');
         $('.portfolioSubViewImg').css('background-image', $(e.currentTarget).css('background-image'))
     })
+
+    $(document).on('click', `.euroHeaderBarMenuLink`, function (e) {
+        window.history.back();
+    });
 
 </script>
 </body>
