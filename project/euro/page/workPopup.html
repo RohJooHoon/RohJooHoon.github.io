@@ -40,8 +40,10 @@
 <script>
     setSwitchTab();
     function pageCallback() {
+        $('.euroHeaderBarMenuList').removeClass('is_hide_m');
+        $('.euroHeaderBarSubList').addClass('is_hide');
         $('.is_pcHide_top').removeClass('is_pcHide_top');
-        $('.euroNav').addClass('is_hide_p');
+        $('.euroNav').addClass('is_hide');
         $('.euroMenuBtn').addClass('is_onFix');
         $(document).on('click', `.euroHeaderBarMenuLink`, function (e) {
             window.history.back();

@@ -11,6 +11,9 @@
     outline: none;
     box-sizing: border-box;
 }
+.is_hide {
+    display: none !important;
+}
 body {
     max-width: 100%;
     overflow-x: hidden;
@@ -282,7 +285,7 @@ select {
 .euroWorkHero {
     position: relative;
     width: 100%;
-    background: no-repeat center;
+    background: no-repeat center top;
     background-size: cover;
 }
 .euroWorkHero.is_bottomSticky {
