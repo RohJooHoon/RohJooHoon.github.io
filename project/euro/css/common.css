@@ -681,6 +681,9 @@ a.contactInfo {
     padding-right: 384px;
     min-height: 244px;
 }
+.euroWorkDetailTileItemBox.is_image.is_long {
+    min-height: 500px;
+}
 .euroWorkDetailTileItemImage {
     position: absolute;
     right: 24px;
@@ -689,6 +692,9 @@ a.contactInfo {
     height: 220px;
     background: no-repeat center;
     background-size: cover;
+}
+.euroWorkDetailTileItemBox.is_image.is_long .euroWorkDetailTileItemImage {
+    height: 400px;
 }
 .euroWorkDetailTile.is_type11 .euroWorkDetailTileItem {
     flex: none;
