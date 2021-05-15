@@ -122,7 +122,7 @@ select {
     top: -90px;
     left: 0;
     width: 100%;
-    min-height: 90px;
+    min-height: 54px;
     z-index: 100;
     opacity: 0;
     transition: 0.5s;
@@ -131,7 +131,7 @@ select {
 .euroHeader.is_transparent {
     background-color: transparent;
 }
-.euroHeader.is_white {
+.euroHeader.is_white.is_top {
     background-color: transparent;
 }
 .euroHeader.is_on,
@@ -149,23 +149,26 @@ select {
     background-size: contain;
     z-index: 100;
 }
-.euroHeader.is_white .euroHeaderLogo {
+.euroHeader.is_up .euroHeaderLogo {
+    display: none;
+}
+.euroHeader.is_white.is_top .euroHeaderLogo {
     background-image: url("../img/logo_w.svg");
 }
-.euroHeader.is_white .euroHeaderBarSub,
-.euroHeader.is_white .euroHeaderBarMenuLink,
-.euroHeader.is_white .euroHeaderBarMenuSubLink {
+.euroHeader.is_white.is_top .euroHeaderBarSub,
+.euroHeader.is_white.is_top .euroHeaderBarMenuLink,
+.euroHeader.is_white.is_top .euroHeaderBarMenuSubLink {
     color: #ffffff;
 }
-.euroHeader.is_white select {
+.euroHeader.is_white.is_top select {
     background-image: url("../img/selectArrow_w.svg");
-}
-.euroHeader.is_white:not(.is_top) .euroMenuBtn.is_on {
-    background-image: url("../img/close_w.svg");
 }
 .euroHeader.is_top .is_hide_top,
 .euroHeader.is_up .is_hide_up {
     display: none;
+}
+.euroHeader.is_up .euroHeaderBar {
+    padding: 15px 24px;
 }
 .euroHeaderBar {
     width: 100%;
