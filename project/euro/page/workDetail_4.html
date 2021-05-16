@@ -70,6 +70,8 @@
             <div class="euroWorkDetailSliderItemText">내진구조 성능실험</div>
         </a>
     </div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
 </div>
 
 <footer class="euroFooter"></footer>
@@ -94,6 +96,10 @@
     const swiper = new Swiper('.swiper-container', {
         slidesPerView: 'auto',
         loop: true,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
     })
 
     $(document).on('click', '.euroWorkDetailVideoFloatingPlay', function (e) {

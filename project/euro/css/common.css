@@ -33,6 +33,38 @@ select {
     -moz-appearance: none;
     appearance: none;
 }
+.swiper-button-prev,
+.swiper-button-next {
+    z-index: 100;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    background: #ffffff no-repeat center / 7px 12px;
+    opacity: 0.5;
+    filter: drop-shadow(2px 3px 8px rgba(0, 0, 0, 0.2));
+}
+.swiper-button-prev.swiper-button-hidden,
+.swiper-button-next.swiper-button-hidden {
+    display: none;
+}
+.swiper-button-prev.swiper-button-disabled,
+.swiper-button-next.swiper-button-disabled {
+    pointer-events: auto;
+}
+.swiper-button-prev:not(.swiper-button-disabled):hover,
+.swiper-button-next:not(.swiper-button-disabled):hover {
+    opacity: 1;
+}
+.swiper-button-prev:after,
+.swiper-button-next:after{
+    content: "";
+}
+.swiper-button-prev {
+    background-image: url("../img/swiperNavigation_l.svg");
+}
+.swiper-button-next {
+    background-image: url("../img/swiperNavigation_r.svg");
+}
 .video-container {
     position: relative;
     padding-bottom: 56.25%;
@@ -435,7 +467,7 @@ select {
     width: 100%;
     position: absolute;
     left: 0;
-    top: calc(114px + 50%);
+    top: 50%;
     transform: translateY(-50%);
     z-index: 10;
 }
@@ -608,6 +640,11 @@ a.contactInfo {
 .euroWorkDetailBox {
     margin-top: 117px;
 }
+.euroWorkDetailBox.swiper-container .swiper-button-prev,
+.euroWorkDetailBox.swiper-container .swiper-button-next {
+    top: calc(50% - 18px);
+}
+
 .euroWorkDetailTitle {
     display: block;
     padding: 0 24px 28px;
@@ -898,7 +935,7 @@ a.contactInfo {
         display: none !important;
     }
     .euroHeader.is_menuOn {
-        height: 370px;
+        height: 564px;
     }
 
     .euroHeader.is_top .is_pcHide_top,

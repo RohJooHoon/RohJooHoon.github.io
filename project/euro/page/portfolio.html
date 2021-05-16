@@ -45,7 +45,6 @@
 
         .portfolioItemImgList {
             display: flex;
-            flex-wrap: wrap;
         }
 
         .portfolioItemImg {
@@ -140,78 +139,122 @@
         <button class="portfolioTab is_switchTab" type="button" data-switch="portfolio" data-switchkey="outer">해외 프로젝트</button>
     </div>
     <div class="portfolioList">
-        <a class="portfolioItem is_switchTabTarget is_active" href="portfolioDetail_1.html" data-switch="portfolio" data-switchkey="inner">
-            <div class="portfolioItemImgList">
-                <div class="portfolioItemImg" style="background-image: url(../img/portfolio1_1.jpg)"></div>
-                <div class="portfolioItemImg is_hide_m" style="background-image: url(../img/portfolio1_2.jpg)"></div>
-                <div class="portfolioItemImg" style="background-image: url(../img/portfolio1_3.jpg)"></div>
-                <div class="portfolioItemImg" style="background-image: url(../img/portfolio1_4.jpg)"></div>
+        <div class="portfolioItem is_switchTabTarget" data-switch="portfolio" data-switchkey="inner">
+            <div class="portfolioItemImgList swiper-container">
+                <a class="swiper-wrapper" href="portfolioDetail_1.html">
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio1_1.jpg)"></div>
+                </a>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
             <div class="portfolioItemTextBox">
                 <div class="portfolioItemTextName">포스코 광양 Cooling Tower</div>
                 <div class="portfolioItemTextSub">국내 프로젝트</div>
             </div>
-        </a>
-        <a class="portfolioItem is_switchTabTarget" href="portfolio_2.html" data-switch="portfolio" data-switchkey="inner">
-            <div class="portfolioItemImgList">
-                <div class="portfolioItemImg" style="background-image: url(../img/portfolio2_1.jpg)"></div>
-                <div class="portfolioItemImg is_hide_m" style="background-image: url(../img/portfolio2_2.jpg)"></div>
-                <div class="portfolioItemImg" style="background-image: url(../img/portfolio2_3.jpg)"></div>
-                <div class="portfolioItemImg" style="background-image: url(../img/portfolio2_4.jpg)"></div>
+        </div>
+        <div class="portfolioItem is_switchTabTarget" data-switch="portfolio" data-switchkey="inner">
+            <div class="portfolioItemImgList swiper-container">
+                <a class="swiper-wrapper" href="portfolioDetail_2.html">
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio2_1.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio2_2.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio2_3.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio2_4.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio2_5.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio2_6.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio2_7.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio2_8.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio2_9.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio2_10.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio2_11.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio2_12.jpg)"></div>
+                </a>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
             <div class="portfolioItemTextBox">
                 <div class="portfolioItemTextName">대우 포천 Cooling Tower</div>
                 <div class="portfolioItemTextSub">국내 프로젝트</div>
             </div>
-        </a>
-        <a class="portfolioItem is_switchTabTarget" href="portfolio_3.html" data-switch="portfolio" data-switchkey="inner">
-            <div class="portfolioItemImgList">
-                <div class="portfolioItemImg" style="background-image: url(../img/portfolio3_1.jpg)"></div>
-                <div class="portfolioItemImg is_hide_m" style="background-image: url(../img/portfolio3_2.jpg)"></div>
-                <div class="portfolioItemImg" style="background-image: url(../img/portfolio3_3.jpg)"></div>
-                <div class="portfolioItemImg" style="background-image: url(../img/portfolio3_4.jpg)"></div>
+        </div>
+        <div class="portfolioItem is_switchTabTarget" data-switch="portfolio" data-switchkey="inner">
+            <div class="portfolioItemImgList swiper-container">
+                <a class="swiper-wrapper" href="portfolioDetail_3.html">
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio3_1.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio3_2.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio3_3.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio3_4.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio3_5.jpg)"></div>
+                </a>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
             <div class="portfolioItemTextBox">
                 <div class="portfolioItemTextName">SK건설 여주 천연가스 발전소 Cooling Tower</div>
                 <div class="portfolioItemTextSub">국내 프로젝트</div>
             </div>
-        </a>
-        <a class="portfolioItem is_switchTabTarget" href="portfolio_4.html" data-switch="portfolio" data-switchkey="outer">
-            <div class="portfolioItemImgList">
-                <div class="portfolioItemImg" style="background-image: url(../img/portfolio4_1.jpg)"></div>
-                <div class="portfolioItemImg is_hide_m" style="background-image: url(../img/portfolio4_2.jpg)"></div>
-                <div class="portfolioItemImg" style="background-image: url(../img/portfolio4_3.jpg)"></div>
-                <div class="portfolioItemImg" style="background-image: url(../img/portfolio4_4.jpg)"></div>
+        </div>
+
+        <div class="portfolioItem is_switchTabTarget" data-switch="portfolio" data-switchkey="outer">
+            <div class="portfolioItemImgList swiper-container">
+                <a class="swiper-wrapper" href="portfolioDetail_4.html">
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio4_1.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio4_2.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio4_3.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio4_4.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio4_5.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio4_6.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio4_7.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio4_8.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio4_9.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio4_10.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio4_11.jpg)"></div>
+                </a>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
             <div class="portfolioItemTextBox">
                 <div class="portfolioItemTextName">UZGTL Project Guzar Uzbekistan</div>
                 <div class="portfolioItemTextSub">해외 프로젝트</div>
             </div>
-        </a>
-        <a class="portfolioItem is_switchTabTarget" href="portfolio_5.html" data-switch="portfolio" data-switchkey="outer">
-            <div class="portfolioItemImgList">
-                <div class="portfolioItemImg" style="background-image: url(../img/portfolio5_1.jpg)"></div>
-                <div class="portfolioItemImg is_hide_m" style="background-image: url(../img/portfolio5_2.jpg)"></div>
-                <div class="portfolioItemImg" style="background-image: url(../img/portfolio5_3.jpg)"></div>
-                <div class="portfolioItemImg" style="background-image: url(../img/portfolio5_4.jpg)"></div>
+        </div>
+        <div class="portfolioItem is_switchTabTarget" data-switch="portfolio" data-switchkey="outer">
+            <div class="portfolioItemImgList swiper-container">
+                <a class="swiper-wrapper" href="portfolioDetail_5.html">
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio5_1.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio5_2.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio5_3.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio5_4.jpg)"></div>
+                </a>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
             <div class="portfolioItemTextBox">
                 <div class="portfolioItemTextName">RFCC Project Cilacap Indonesia</div>
                 <div class="portfolioItemTextSub">해외 프로젝트</div>
             </div>
-        </a>
-        <a class="portfolioItem is_switchTabTarget" href="portfolio_6.html" data-switch="portfolio" data-switchkey="outer">
-            <div class="portfolioItemImgList">
-                <div class="portfolioItemImg" style="background-image: url(../img/portfolio6_1.jpg)"></div>
-                <div class="portfolioItemImg is_hide_m" style="background-image: url(../img/portfolio6_2.jpg)"></div>
-                <div class="portfolioItemImg" style="background-image: url(../img/portfolio6_3.jpg)"></div>
-                <div class="portfolioItemImg" style="background-image: url(../img/portfolio6_4.jpg)"></div>
+        </div>
+        <div class="portfolioItem is_switchTabTarget" data-switch="portfolio" data-switchkey="outer">
+            <div class="portfolioItemImgList swiper-container">
+                <a class="swiper-wrapper" href="portfolioDetail_6.html">
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio6_1.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio6_2.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio6_3.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio6_4.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio6_5.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio6_6.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio6_7.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio6_8.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio6_9.jpg)"></div>
+                    <div class="portfolioItemImg swiper-slide" style="background-image: url(../img/portfolio6_10.jpg)"></div>
+                </a>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
             <div class="portfolioItemTextBox">
                 <div class="portfolioItemTextName">PTT Phenol Train II Project Maptaphut Thailand</div>
                 <div class="portfolioItemTextSub">해외 프로젝트</div>
             </div>
-        </a>
+        </div>
     </div>
 </div>
 <footer class="euroFooter"></footer>
@@ -220,6 +263,21 @@
 <script src="../js/common.js"></script>
 <script>
     setSwitchTab();
+
+    const swiper = new Swiper(".swiper-container", {
+        slidesPerView: 4,
+        on : {
+            init: function () {
+                if (this.slides.length <= 4) {
+                    $(this.el).find('.swiper-button-prev, .swiper-button-next').addClass('swiper-button-hidden');
+                }
+            }
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
 
     function setSwitchTab() {
         setSwitchTabFunc($('.is_switchTab.is_active'));
