@@ -288,6 +288,7 @@
                 color: #000000;
                 margin: 0;
                 padding: 0;
+                cursor: pointer;
             }
             .whatWeDoPlus {
                 padding-top: 32px;
@@ -642,7 +643,6 @@
     $('.whatWeDoVisualItem').on('click', function (e) {
         $(e.currentTarget).addClass('is_active').siblings().removeClass('is_active');
         whatWeDoVisualChange($(e.currentTarget).index());
-        console.log($(e.currentTarget).index());
     })
 
     function whatWeDoVisualChange(index) {

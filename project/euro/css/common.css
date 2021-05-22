@@ -777,7 +777,8 @@ a.contactInfo {
 }
 .euroWorkDetailVideoBox {
     position: relative;
-    height: 820px;
+    height: 0;
+    padding-bottom: 56.25%;
 }
 .euroWorkDetailVideoBox.is_play .euroWorkDetailVideoFloatingWrap {
     height: 0;
