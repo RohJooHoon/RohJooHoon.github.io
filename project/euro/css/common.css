@@ -346,8 +346,18 @@ select {
 .euroWorkHero.is_white .euroWorkHeroText {
     color: #FFFFFF;
 }
+.euroWorkHeroVideoWrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 .euroWorkHeroTextWrap {
+    position: relative;
     padding: 319px 142px 114px;
+    z-index: 2;
 }
 .euroWorkHeroTextTitle {
     font-weight: bold;
