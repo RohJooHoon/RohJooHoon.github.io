@@ -26,27 +26,31 @@
     /* 의상 데이터 */
     const wear = {
         top: [
-            /* 이너 */
+            /* 속옷 */
             [
-                {warmth: 0, name: "나시"},
+                {warmth: 0.5, name: "나시"},
                 {warmth: 1, name: "반팔"},
-                {warmth: 2, name: "긴팔"},
+                {warmth: 1.5, name: "긴팔"},
+                {warmth: 2, name: "셔츠"},
             ],
-            /* 레이어 */
+            /* 겉옷 */
             [
                 {warmth: 3, name: "맨투맨"},
-                {warmth: 4, name: "후디"},
-                {warmth: 5, name: "니트"},
+                {warmth: 3.5, name: "니트"},
+                {warmth: 3, name: "블레이저", noneOut: true},
             ],
             /* 아우터 */
             [
-                {warmth: 6, name: "코트"},
-                {warmth: 8, name: "후리스"},
+                {warmth: 4, name: "후디"},
+                {warmth: 5, name: "코트"},
+                {warmth: 7, name: "후리스"},
                 {warmth: 11, name: "숏패딩"},
                 {warmth: 15, name: "롱패딩"},
             ],
         ],
-        other: {}, // 일교차 조건으로 오전9 ~ 11시 편차 n도 이상 차이나면 other 로 수치 보정 (겨울에만), (아우터 편차가 크면 이전 단계에서 other로 대신함, 다 합쳐도 모자라면 other로 대신함)
+        other: [
+
+        ], // 일교차 조건으로 오전9 ~ 11시 편차 n도 이상 차이나면 other 로 수치 보정 (겨울에만), (아우터 편차가 크면 이전 단계에서 other로 대신함, 다 합쳐도 모자라면 other로 대신함)
         bottom: {}, // 비교적 단순하게 온도 평균으로 퉁 / 남자 : 반바지 긴바지 기모바지 내복 + 기모바지 / 짧은치마, 긴치마, 긴치마 + 스타킹, 긴치마 + 니삭스, 내복 + 기모바지 (여성쪽은 모르겠다 여성대상 설문)
     }
 
