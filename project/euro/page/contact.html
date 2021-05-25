@@ -20,11 +20,11 @@
 </div>
 <div class="contact">
     <form class="contactForm">
-        <input class="contactInput" type="text" placeholder="회사명">
-        <input class="contactInput" type="email" placeholder="이메일">
-        <input class="contactInput" type="tel" placeholder="전화번호">
-        <textarea class="contactInput" type="text" placeholder="문의내용" rows="1"></textarea>
-        <button class="contactSubmit" type="submit">보내기</button>
+        <input class="contactInput is_company" type="text" placeholder="회사명">
+        <input class="contactInput is_email" type="email" placeholder="이메일">
+        <input class="contactInput is_tel" type="tel" placeholder="전화번호">
+        <textarea class="contactInput is_text" type="text" placeholder="문의내용" rows="1"></textarea>
+        <a id="submit" class="contactSubmit" href="mailto:email@euro.co.kr" style="margin-top: 4px;" target="_blank">보내기</a>
     </form>
     <div class="contactInfoBox">
         <address class="contactInfo">서울특별시 강남구<br>논현로 34길 26, 유창빌딩 3F</address>
@@ -37,7 +37,7 @@
             <div class="contactInfoHeader">Fax</div>
             <div class="contactInfoBody">02.3443.1588</div>
         </div>
-        <a class="contactInfo" href="mailto:email@euro.co.kr" style="margin-top: 4px;">email@euro.co.kr</a>
+        <a class="contactInfo" href="mailto:email@euro.co.kr" style="margin-top: 4px;" target="_blank">email@euro.co.kr</a>
     </div>
 </div>
 <footer class="euroFooter"></footer>
@@ -45,7 +45,30 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="../js/common.js"></script>
 <script>
-
+    let submitCompany = "";
+    let submitEmail = "";
+    let submitTel = "";
+    let submitText = "";
+    let $submit = "";
+    $(document).ready(function (){
+        $submit = $('#submit');
+    })
+    $('.contactInput').on("change keyup paste", function () {
+        const $this = $(this);
+        const nowVal = $this.val();
+        if ($this.hasClass('is_company')) {
+            submitCompany = nowVal;
+        } else if ($this.hasClass('is_email')) {
+            submitEmail = nowVal;
+        } else if ($this.hasClass('is_tel')) {
+            submitTel = nowVal;
+        } else if ($this.hasClass('is_text')) {
+            submitText = nowVal;
+        }
+        $submit.attr('href', `mailto:email@euro.co.kr?subject=문의사항${submitCompany.length ? '_' + submitCompany : ''}&body=${submitCompany.length ? '회사 : ' + submitCompany + '%0A' : ''}${submitEmail.length ? '이메일 : ' + submitEmail + '%0A' : ''}${submitTel.length ? '전화번호 : ' + submitTel + '%0A' : ''}${submitText.length ? '문의사항 : ' + submitText + '%0A' : ''}`)
+        console.log("$submit : ", $submit);
+        console.log("$submit.attr : ", $submit.attr('href'));
+    });
 </script>
 </body>
 </html>

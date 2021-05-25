@@ -132,7 +132,7 @@ select {
     font-size: 13px;
     line-height: 20px;
 }
-.is_parallax:not('.is_fixBg') {
+.is_parallax:not(.is_fixBg) {
     transition: background-position 0.25s;
 }
 /* icon */
@@ -224,9 +224,9 @@ select {
     transition: opacity 0.35s;
     cursor: pointer;
 }
-.euroHeaderBarMenu:hover .euroHeaderBarMenuLink,
+.euroHeader:not(.is_top) .euroHeaderBarMenu:hover .euroHeaderBarMenuLink,
 .euroHeaderBarMenuLink.is_active,
-.euroHeaderBarMenuSubLink:hover,
+.euroHeader:not(.is_top) .euroHeaderBarMenuSubLink:hover,
 .euroHeaderBarMenuSubLink.is_active {
     color: #0073cc !important;
 }
@@ -581,6 +581,7 @@ select.euroFooterSub {
     color: #555E6D;
 }
 .contactForm {
+    text-align: right;
     padding: 50px 24px 0 calc(50% + 24px);
 }
 .contactInput {
@@ -606,7 +607,7 @@ select.euroFooterSub {
     margin-top: 30px;
 }
 .contactSubmit {
-    display: block;
+    display: inline-block;
     margin-top: 20px;
     margin-left: auto;
     padding: 0 40px 0 0;
@@ -946,7 +947,7 @@ a.contactInfo {
     .is_hide_p {
         display: none !important;
     }
-    .euroHeader.is_menuOn {
+    .euroHeader.is_menuOn:not(.is_top) {
         height: 564px;
     }
 
@@ -1169,7 +1170,6 @@ a.contactInfo {
         font-size: 20px;
         line-height: 40px;
         letter-spacing: -0.02em;
-        color: #BBBBBB;
     }
 
     .contactSubmit {
