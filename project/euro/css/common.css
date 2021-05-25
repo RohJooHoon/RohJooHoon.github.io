@@ -810,8 +810,9 @@ a.contactInfo {
 .euroWorkDetailVideoFloatingWrap {
     position: absolute;
     overflow: hidden;
-    right: 144px;
-    top: 140px;
+    right: 11%;
+    top: 50%;
+    transform: translateY(-50%);
     width: 432px;
     height: 540px;
     transition: 1s;
