@@ -804,6 +804,7 @@ a.contactInfo {
     top: 0;
     background: no-repeat center;
     background-size: cover;
+    object-fit: cover;
 }
 .euroWorkDetailVideoFloatingWrap {
     position: absolute;

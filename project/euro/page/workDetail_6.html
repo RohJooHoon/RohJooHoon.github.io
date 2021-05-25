@@ -34,7 +34,7 @@
 <div class="euroWorkDetailBox">
     <strong class="euroWorkDetailTitle">PCRC 보 항복시 양상</strong>
     <div class="euroWorkDetailVideoBox">
-        <div class="euroWorkDetailVideo" style="background-image: url(../img/workDetail6_1_bg.jpg)"></div>
+        <video class="euroWorkDetailVideo" src="../img/workDetail6_1_bg.mp4" poster="../img/workDetail6_1_bg.jpg" type="video/mp4" muted loop></video>
         <div class="euroWorkDetailVideoFloatingWrap">
             <div class="euroWorkDetailVideoFloating" style="background-image: url(../img/workDetail6_1_bg_pop.png)">
                 <div class="euroWorkDetailVideoFloatingTitle">Play Video</div>
@@ -49,13 +49,6 @@
     <strong class="euroWorkDetailTitle">PCRC 최종 파괴 양상</strong>
     <div class="euroWorkDetailVideoBox">
         <div class="euroWorkDetailVideo" style="background-image: url(../img/workDetail6_2_bg.jpg)"></div>
-        <div class="euroWorkDetailVideoFloatingWrap">
-            <div class="euroWorkDetailVideoFloating" style="background-image: url(../img/workDetail6_2_bg_pop.png)">
-                <div class="euroWorkDetailVideoFloatingTitle">Play Video</div>
-                <div class="euroWorkDetailVideoFloatingTime">00:00</div>
-                <button class="euroWorkDetailVideoFloatingPlay" type="button"></button>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -65,7 +58,7 @@
         SSPC [Self-Supported Precast Column]
     </strong>
     <div class="euroWorkDetailVideoBox">
-        <div class="euroWorkDetailVideo" style="background-image: url(../img/workDetail6_3_bg.jpg)"></div>
+        <video class="euroWorkDetailVideo" src="../img/workDetail6_3_bg.mp4" poster="../img/workDetail6_3_bg.jpg" type="video/mp4" muted loop></video>
         <div class="euroWorkDetailVideoFloatingWrap">
             <div class="euroWorkDetailVideoFloating" style="background-image: url(../img/workDetail6_3_bg_pop.png)">
                 <div class="euroWorkDetailVideoFloatingTitle">Play Video</div>
@@ -135,15 +128,41 @@
         },
     })
 
+    $(document).ready(function (){
+        videoTimeCheck();
+    })
+
+    function videoTimeCheck() {
+        $('video.euroWorkDetailVideo').each(function (index, value) {
+            const nowCurrentTime = parseInt(value.currentTime);
+            $(value).closest('.euroWorkDetailVideoBox').find('.euroWorkDetailVideoFloatingTime').html(changeTime(nowCurrentTime));
+        })
+        setTimeout(function (){
+            videoTimeCheck();
+        },500);
+
+        function changeTime(seconds) {
+            const hour = parseInt(seconds/3600);
+            const min = parseInt((seconds%3600)/60);
+            const sec = seconds%60;
+            const setHour = String(hour).length == 1 ? '0' + hour : hour;
+            const setMin = String(min).length == 1 ? '0' + min : min;
+            const setSec = String(sec).length == 1 ? '0' + sec : sec;
+            return setMin + ":" + setSec;
+        }
+    }
+
     $(document).on('click', '.euroWorkDetailVideoFloatingPlay', function (e) {
-        $(e.currentTarget).closest('.euroWorkDetailVideoBox').addClass('is_play');
+        $(e.currentTarget).closest('.euroWorkDetailVideoBox').addClass('is_play').find('.euroWorkDetailVideo').get(0).play();
     })
     $(document).on('click', '.euroWorkDetailVideoBox.is_play', function (e) {
-        $(e.currentTarget).closest('.euroWorkDetailVideoBox').removeClass('is_play');
+        console.log(".euroWorkDetailVideoBox.is_play");
+        $(e.currentTarget).closest('.euroWorkDetailVideoBox').removeClass('is_play').find('.euroWorkDetailVideo').get(0).pause();
     });
 
     $(document).on('click', '.euroWorkDetailAccordionItem', function (e) {
-        $(e.currentTarget).toggleClass('is_open');
+        console.log(".euroWorkDetailAccordionItem");
+        $(e.currentTarget).toggleClass('is_open')
     })
 
 </script>
