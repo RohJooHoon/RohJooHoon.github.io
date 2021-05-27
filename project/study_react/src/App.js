@@ -1,20 +1,18 @@
+import React from 'react';
 import logo from './img/logo.svg';
 import './css/App.css';
+import MyComponent from "./js/MyComponent";
 
 function App() {
     const name = '리액트';
     return (
         <div className="App">
             <header className="App-header">
-                <div>{name} 안녕</div>
+                <div className='react' style={{color: 'red'}}>{name} 안녕</div>
                 <img src={logo} className="App-logo" alt="logo"/>
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-                    Learn React
-                </a>
+                {name == "리액트" ? <div>{name} 입니다.</div> : <div>{name} 아닙니다.</div>}
             </header>
+            <MyComponent name="React">마이컴포넌트</MyComponent>
         </div>
     );
 }
