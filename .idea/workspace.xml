@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a575369a-b3bd-4bdb-855b-a9f7cf6a55ed" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gemfile" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/_config.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_sass/_header.scss" beforeDir="false" afterPath="$PROJECT_DIR$/_sass/_header.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/authorimage.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/authorimage.jpg" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +71,7 @@
       <workItem from="1622209917174" duration="296000" />
       <workItem from="1622210561388" duration="110000" />
       <workItem from="1622305420095" duration="603000" />
-      <workItem from="1622350493065" duration="511000" />
+      <workItem from="1622350493065" duration="3326000" />
     </task>
     <servers />
   </component>
