@@ -4,6 +4,8 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+_site
+.jekyll-cache
 
 # Runtime data
 pids
