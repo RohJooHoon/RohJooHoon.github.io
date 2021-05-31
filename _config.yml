@@ -1,14 +1,17 @@
+# jekyll start : bundle exec jekyll serve
+# jekyll build : jekyll build
+
 # Site setings
 name: 'JooHoon'
 description: 'Web Front Developer'
-meta_description: 'Jekyll template, minimal style, perfect for bloggers.'
+meta_description: 'Web Front Developer blog'
 logo:
 # Author image is used in site sidebar and greetings in the home page hero text
 author:
   image: 'authorimage.jpg'
-  greetings: "Hi there! My name is Charles Lavoie. I'm a freelance web developer, author and speaker based in Montreal, Canada. It’s nice to meet you."
+  greetings: 'Posts'
 favicon: 'assets/images/favicon.ico'
-baseurl: https://rohjoohoon.github.io/
+baseurl: ''
 production_url: https://rohjoohoon.github.io/
 disqus: 'justgoodthemes'
 mailchimp_url: '//justgoodthemes.us3.list-manage.com/subscribe/post?u=78f1bab16028354caeb23aecd&amp;id=4a7330d117'
@@ -16,9 +19,9 @@ mailchimp_url: '//justgoodthemes.us3.list-manage.com/subscribe/post?u=78f1bab160
 ga_analytics: 
 
 # Contact form setings
-email: youremail@email.com
-contact_page_description: "Horace theme comes with a contact form built-in. You can use this form with Formspree service and get up to 50 submissions for free. Also, you can easily switch to another service if you want."
-thankyou_page_description: "Your message has been successfully sent. We will contact you very soon!"
+email: joohoon.roh@gmail.com
+contact_page_description: "프론트엔드 개발자 노주훈 입니다.<br>웹 퍼블리싱 및 웹 프론트 관련 비즈니스 문의는 아래 폼으로 연락주시면 확인 후 답변드리겠습니다."
+thankyou_page_description: "메세지가 성공적으로 보내졌습니다. 곧 연락 드리겠습니다!"
 
 # Social links
 #twitter: 'justgoodthemes'
@@ -39,12 +42,12 @@ navigation:
     url: /
   - text: About
     url: /about
-  - text: Style Guide
-    url: /style-guide
-  - text: Contact Me
+#  - text: Style Guide
+#    url: /style-guide
+  - text: Contact
     url: /contact
-  - text: Search
-    url: /search
+#  - text: Search
+#    url: /search
 
 # Required Plugins
 plugins_dir:

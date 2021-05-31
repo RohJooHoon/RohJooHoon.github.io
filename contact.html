@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Contact Me
+title: Contact
 ---
 
 <!--
@@ -12,14 +12,14 @@ title: Contact Me
 <main id="main" class="site-main">
   <div class="post-full inner">
     <header class="post-header">
-      <h1 class="post-title">Contact Me</h1>
+      <h1 class="post-title">Contact</h1>
     </header>
     {% if site.contact_page_description %}
     <p>{{ site.contact_page_description }}</p>
     {{else}}
     {% endif %}
     <section class="contact-form">
-      <form action="https://formspree.io/{{ site.email }}" method="post" id="contact-form">
+      <form>
         <div class="form-item">
           <label class="form-label">Your Email <span>(required)</span></label>
           <input type="text" name="email" placeholder="Your email address..." class="form-input" />
@@ -35,14 +35,26 @@ title: Contact Me
           <textarea name="message" placeholder="Your message..." class="form-textarea"></textarea>
         </div>
 
-        <input type="hidden" name="_next" value="/thank-you" />
-        <input type="hidden" name="_subject" value="Contact form submission" />
-        <input type="text" name="_gotcha" style="display: none;" class="contact-form__gotcha" val="" />
-
         <div class="form-item">
-          <input type="submit" value="Send Message" class="button" />
+          <input name="submit" type="button" onclick="emailSubmit();" value="Send Message" class="button" />
         </div>
       </form>
     </section>
   </div><!-- .inner-->
 </main>
+
+<script>
+    function emailSubmit() {
+        event.preventDefault();
+        console.log("emailSubmit event : ", event);
+        const emailSubmitData = {};
+        $(event.target).closest('form').find('input:not([name="submit"]), textarea').each(function (index, value) {
+            const $value = $(value);
+            emailSubmitData[$value.attr('name')] = $value.val();
+        })
+        console.log("emailSubmitData : ", emailSubmitData);
+
+        $submit.attr('href', `mailto:email@euro.co.kr?subject=문의사항${submitCompany.length ? '_' + submitCompany : ''}&body=${submitCompany.length ? '회사 : ' + submitCompany + '%0A' : ''}${submitEmail.length ? '이메일 : ' + submitEmail + '%0A' : ''}${submitTel.length ? '전화번호 : ' + submitTel + '%0A' : ''}${submitText.length ? '문의사항 : ' + submitText + '%0A' : ''}`)
+
+    }
+</script>

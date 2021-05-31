@@ -6,8 +6,8 @@ title: Home
 
 {% if page.url == "/" %}
 <div class="hero inner">
-    <p class="hero-text">{{ site.author.greetings }}</p>
-</div>        
+    <h1 class="hero-text">{{ site.author.greetings }}</h1>
+</div>
 {% endif %}
 
 {% if page.url == "/" %}
@@ -35,9 +35,6 @@ title: Home
 </div>
 <!-- Pagination-->
 {% include pagination.html %}
-{% if site.mailchimp_url %}
-    {% include newsletter-box.html %}
-{% endif %}
 </main>
 
 

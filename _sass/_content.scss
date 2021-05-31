@@ -284,24 +284,24 @@ ul.archive-posts-list {
 
 /* Hero section */
 .hero {
-  margin-bottom: 2.5em;
-}
-
-.hero:after {
-  background-color: $color-accent;
-  display: block;
-  content: "";
-  margin-top: 1.66667em;
-  height: 1px;
-  width: 60px;
+  margin-bottom: 1.66667em;
 }
 
 .hero-text {
   color: $gray-darkest;
   font-family: $font-secondary;
-  font-size: 1.66667rem;
+  font-size: 2.66667rem;
   line-height: 1.2;
   margin: 0;
+}
+
+.hero-text:after {
+  background-color: $color-accent;
+  display: block;
+  content: "";
+  margin-top: 0.35em;
+  height: 1px;
+  width: 60px;
 }
 
 /* Featured posts */
@@ -353,8 +353,8 @@ ul.archive-posts-list {
  * ----------------------------------------------------------------------------
  */
 .pagination {
-  margin-bottom: 3.33333em;
-  margin-top: 3.33333em;
+  margin-bottom: 1.33333em;
+  margin-top: 1.33333em;
   text-align: center;
 }
 
