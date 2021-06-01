@@ -1,5 +1,5 @@
 {% if paginator.total_pages > 1 %}
-<nav class="pagination inner">
+<nav class="pagination">
   <div class="nav-links">
     {% if paginator.previous_page %}
     <a class="newer-posts" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}"><span
