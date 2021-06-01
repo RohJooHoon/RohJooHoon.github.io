@@ -13,7 +13,7 @@ author:
 favicon: 'assets/images/favicon.ico'
 baseurl: ''
 production_url: https://rohjoohoon.github.io/
-disqus: ''
+disqus: 'rohjoohoon-github-io'
 mailchimp_url: ''
 # Add your GA Tracking Id
 ga_analytics: 
