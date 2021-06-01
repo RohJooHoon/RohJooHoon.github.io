@@ -23,11 +23,11 @@ title: Home
 {% endif%}
 
 <!-- Posts Index -->
-<div class="post-feed inner">
+<div class="post-feed">
     {% if page.url == "/" %}
     <div class="post-feed-title">Latest Articles</div>
     {% endif %}
-    <div class="post-feed inner-wide">
+    <div class="post-feed">
         {% for post in paginator.posts %}
             {% include postbox.html %}
         {% endfor %}

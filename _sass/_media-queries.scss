@@ -184,7 +184,7 @@
     margin-left: calc(510px - 47vw);
     margin-right: calc(510px - 47vw);
   }
-  .post-full .post-thumbnail,
+  .post-full.inner .post-thumbnail,
   .post-content img[src$='#wide'],
   .post-content img[src$='#full'],
   .kg-width-wide .kg-image,
@@ -202,7 +202,7 @@
     margin-left: -180px;
     margin-right: -180px;
   }
-  .post-full .post-thumbnail,
+  .post-full.inner .post-thumbnail,
   .post-content img[src$='#wide'],
   .post-content img[src$='#full'],
   .kg-width-wide .kg-image,
