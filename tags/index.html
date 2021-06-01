@@ -1,12 +1,15 @@
 ---
 layout: default
-title: Post list
+title: Tags
 ---
 
 <main id="main" class="site-main">
     <div class="post-full">
         <header class="post-header">
             <h1 class="post-title">{{ page.title }}</h1>
+            {% if site.home_page_description %}
+            <p class="hero-description">{{ site.home_page_description }}</p>
+            {{else}}
         </header>
         <div class="post-content inner">
             <div class="post-tags">

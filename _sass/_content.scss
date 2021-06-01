@@ -295,11 +295,19 @@ ul.archive-posts-list {
   margin: 0;
 }
 
-.hero-text:after {
+.hero-description {
+  color: $gray;
+  font-family: $font-secondary;
+  font-size: 1.66667rem;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.hero:after {
   background-color: $color-accent;
   display: block;
   content: "";
-  margin-top: 0.35em;
+  margin-top: 0.9em;
   height: 1px;
   width: 60px;
 }
