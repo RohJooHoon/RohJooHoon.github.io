@@ -13,8 +13,8 @@ author:
 favicon: 'assets/images/favicon.ico'
 baseurl: ''
 production_url: https://rohjoohoon.github.io/
-disqus: 'justgoodthemes'
-mailchimp_url: '//justgoodthemes.us3.list-manage.com/subscribe/post?u=78f1bab16028354caeb23aecd&amp;id=4a7330d117'
+disqus: ''
+mailchimp_url: ''
 # Add your GA Tracking Id
 ga_analytics: 
 
@@ -24,7 +24,7 @@ contact_page_description: "프론트엔드 개발자 노주훈 입니다.<br>웹
 thankyou_page_description: "메세지가 성공적으로 보내졌습니다. 곧 연락 드리겠습니다!"
 
 # Social links
-#twitter: 'justgoodthemes'
+#twitter: 'username'
 #facebook: 'username'
 github: 'RohJooHoon'
 #codepen: 'username'
