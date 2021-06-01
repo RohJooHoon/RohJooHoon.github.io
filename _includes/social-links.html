@@ -9,11 +9,6 @@
         {% include icons/facebook.html %}
     </a>
     {% endif %}
-    {% if site.github %}
-    <a href="https://github.com/{{ site.github }}" target="_blank">
-        {% include icons/github.html %}
-    </a>
-    {% endif %}
     {% if site.codepen %}
     <a href="https://codepen.io/{{ site.codepen }}" target="_blank">
         {% include icons/codepen.html %}
@@ -52,6 +47,11 @@
     {% if site.quora %}
     <a href="https://www.quora.com/profile/{{ site.quora }}" target="_blank">
         {% include icons/quora.html %}
+    </a>
+    {% endif %}
+    {% if site.github %}
+    <a href="https://github.com/{{ site.github }}" target="_blank">
+        {% include icons/github.html %}
     </a>
     {% endif %}
 </p>
