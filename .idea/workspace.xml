@@ -3,18 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a575369a-b3bd-4bdb-855b-a9f7cf6a55ed" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/_config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_includes/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/footer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_layouts/default.html" beforeDir="false" afterPath="$PROJECT_DIR$/_layouts/default.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_layouts/page.html" beforeDir="false" afterPath="$PROJECT_DIR$/_layouts/page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_layouts/post.html" beforeDir="false" afterPath="$PROJECT_DIR$/_layouts/post.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_sass/_content.scss" beforeDir="false" afterPath="$PROJECT_DIR$/_sass/_content.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_sass/_structure.scss" beforeDir="false" afterPath="$PROJECT_DIR$/_sass/_structure.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/custom.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/custom.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/contact.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/portfolio/layout/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/project/portfolio/layout/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/react/client/src/components/views/NavBar/Sections/LeftMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/project/react/client/src/components/views/NavBar/Sections/LeftMenu.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,6 +80,7 @@
       <workItem from="1622305420095" duration="603000" />
       <workItem from="1622350493065" duration="4057000" />
       <workItem from="1622370338071" duration="313000" />
+      <workItem from="1622512478028" duration="346000" />
     </task>
     <servers />
   </component>
