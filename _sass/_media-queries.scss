@@ -179,18 +179,11 @@
 }
 
 @media only screen and (min-width: 1086px) {
-  .inner blockquote,
-  .inner .kg-gallery-card {
-    margin-left: calc(510px - 47vw);
-    margin-right: calc(510px - 47vw);
-  }
   .post-full.inner .post-thumbnail,
   .post-content img[src$='#wide'],
   .post-content img[src$='#full'],
   .kg-width-wide .kg-image,
   .kg-width-full .kg-image {
-    margin-left: calc(510px - 47vw);
-    margin-right: calc(510px - 47vw);
     max-width: none;
     width: calc(94vw - 300px);
   }
