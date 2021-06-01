@@ -1,12 +1,15 @@
 ---
 layout: default
-title: Posts
+title: Home
 ---
 <main id="main" class="site-main">
 
 {% if page.url == "/" %}
 <div class="hero">
     <h1 class="hero-text">{{ site.author.greetings }}</h1>
+    {% if site.home_page_description %}
+    <p class="hero-description">{{ site.home_page_description }}</p>
+    {{else}}
 </div>
 {% endif %}
 
