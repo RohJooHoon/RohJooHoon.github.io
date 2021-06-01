@@ -38,7 +38,7 @@ instagram: 'picfox93'
 
 # Navigation
 navigation:
-  - text: Home
+  - text: Posts
     url: /
   - text: About
     url: /about
