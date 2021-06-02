@@ -9,6 +9,7 @@
   .post-featured:only-child,
   .post-featured:first-child:nth-last-child(3) {
     flex: 0 0 100%;
+    margin-bottom: 4em;
   }
   .post-featured:only-child .post-thumbnail,
   .post-featured:first-child:nth-last-child(3) .post-thumbnail {
@@ -18,7 +19,7 @@
   .post-featured.has-image:first-child:nth-last-child(3) .post-header {
     background: rgba($gray-darkest,.9);
     border-left: 2px solid $color-accent;
-    bottom: 1.66667em;
+    bottom: 0;
     left: 2.5em;
     margin: 0;
     max-width: 60%;
@@ -44,19 +45,19 @@
   }
   .post-featured:first-child:nth-last-child(2),
   .post-featured:nth-child(2):nth-last-child(2) {
-    flex: 0 0 60%;
+    flex: 1;
   }
   .post-featured:first-child:nth-last-child(2) .post-thumbnail,
   .post-featured:nth-child(2):nth-last-child(2) .post-thumbnail {
-    padding-top: 60%;
+    padding-top: 45%;
   }
   .post-featured:nth-child(2):last-child,
   .post-featured:nth-child(3):last-child {
-    flex: 0 0 40%;
+    flex: 1;
   }
   .post-featured:nth-child(2):last-child .post-thumbnail,
   .post-featured:nth-child(3):last-child .post-thumbnail {
-    padding-top: calc(90% + 9px);
+    padding-top: 45%;
   }
 }
 
@@ -270,10 +271,6 @@
   .newsletter-box {
     padding-left: 3vw;
     padding-right: 3vw;
-  }
-  .post-full .post-content > p:first-child:first-letter {
-    font-size: 60px;
-    margin-right: 10px;
   }
 }
 

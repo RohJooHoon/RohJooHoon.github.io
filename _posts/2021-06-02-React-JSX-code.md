@@ -1,9 +1,9 @@
 ---
 layout: post
-title: 'Choosing the Best Front-end Framework'
-tags: [JavaScript, Tips]
+title: 'React : JSX 코드 정리'
+tags: [React]
 featured_image_thumbnail:
-featured_image: assets/images/posts/2019/desk.jpg
+featured_image: assets/images/posts/react.png
 featured: true
 hidden: true
 ---

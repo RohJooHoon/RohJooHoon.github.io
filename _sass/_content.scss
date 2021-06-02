@@ -24,11 +24,14 @@
 
 .post-thumbnail {
   display: block;
-  margin-bottom: 1.66667em;
+  margin-bottom: 3em;
 }
 
 .post-thumbnail img {
+  display: block;
   width: 100%;
+  max-width: 400px;
+  margin: auto;
 }
 
 .post-meta, .caption-text {
@@ -89,25 +92,6 @@
 
 .post-full .post-tags {
   margin-top: 2.14285em;
-}
-
-.post-full .post-content > p:first-child:first-letter {
-  color: $gray-darkest;
-  font-weight: 400;
-  font-size: 72px;
-  font-family: $font-secondary;
-  float: left;
-  line-height: 0.8;
-  margin-right: 15px;
-  position: relative;
-  text-transform: uppercase;
-  vertical-align: bottom;
-}
-
-@-moz-document url-prefix() {
-  .post-full .post-content > p:first-child:first-letter {
-    padding-top: 0.08em;
-  }
 }
 
 .comments-area,
@@ -320,7 +304,10 @@ ul.archive-posts-list {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  margin: 0 -0.83333em 2.5em;
+  margin: 0 -0.83333em;
+}
+.featured-posts .post {
+  padding-bottom: 2.5em;
 }
 
 .post-featured {
@@ -334,7 +321,7 @@ ul.archive-posts-list {
 .post-featured .post-thumbnail {
   display: block;
   height: 0;
-  padding-top: 60%;
+  padding-top: 45%;
   position: relative;
   width: 100%;
 }
@@ -342,10 +329,11 @@ ul.archive-posts-list {
 .post-featured img {
   height: 100%;
   left: 0;
-  object-fit: cover;
+  object-fit: contain;
   position: absolute;
   top: 0;
   width: 100%;
+  max-width: 100%;
 }
 
 .post-featured .post-header {

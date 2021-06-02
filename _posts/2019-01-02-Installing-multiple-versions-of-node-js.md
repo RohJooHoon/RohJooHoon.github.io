@@ -3,7 +3,7 @@ layout: post
 title: 'Installing Multiple Versions of Node.js Using NVM'
 tags: [JavaScript, Tips]
 featured_image_thumbnail:
-featured_image: assets/images/posts/2019/laptop.jpg
+featured_image: assets/images/posts/javascript.png
 featured: true
 hidden: true
 ---

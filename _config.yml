@@ -8,7 +8,7 @@ meta_description: 'Web Front Developer blog'
 logo:
 # Author image is used in site sidebar and greetings in the home page hero text
 author:
-  image: 'authorimage.jpg'
+  image: 'profile.jpg'
   greetings: 'Home'
 favicon: 'assets/images/favicon.ico'
 baseurl: ''
