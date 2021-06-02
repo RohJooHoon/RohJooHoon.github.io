@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "What is Jekyll?"
-tags: [ Jekyll, Development ]
+tags: [ jQuery ]
 featured_image_thumbnail:
 featured_image: assets/images/posts/2018/11.jpg
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Options for creating a new site with Jekyll"
-tags: [ Jekyll, Tips, Development  ]
+tags: [ Tips ]
 featured_image_thumbnail:
 featured_image: assets/images/posts/2018/10.jpg
 ---

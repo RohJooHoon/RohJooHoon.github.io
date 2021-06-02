@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'React.js Conferences to Attend in 2018'
-tags: [Startups, JavaScript]
+tags: [JavaScript]
 featured_image_thumbnail:
 featured_image: assets/images/posts/2018/6.jpg
 ---
