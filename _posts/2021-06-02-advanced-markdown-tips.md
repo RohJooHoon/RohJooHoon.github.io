@@ -3,7 +3,7 @@ layout: post
 title:  "Advanced Markdown tips"
 tags: [ Tips ]
 featured_image_thumbnail:
-featured_image: assets/images/posts/tip.png
+featured_image: assets/images/posts/markdown.png
 ---
 
 Jekyll uses a language called **Markdown** to format text.
