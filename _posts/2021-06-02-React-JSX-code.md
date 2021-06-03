@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'React : JSX 코드 정리'
-tags: [React]
+tags: [ React ]
 featured_image_thumbnail:
 featured_image: assets/images/posts/react.png
 featured: true

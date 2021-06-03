@@ -1,9 +1,11 @@
 ---
 layout: post
-title:  "Advanced Markdown tips"
+title:  "Markdown : 마크다운 정리"
 tags: [ Tips ]
 featured_image_thumbnail:
 featured_image: assets/images/posts/markdown.png
+featured: true
+hidden: true
 ---
 
 Jekyll uses a language called **Markdown** to format text.
