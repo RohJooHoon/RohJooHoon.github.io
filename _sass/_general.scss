@@ -194,11 +194,6 @@ caption {
   text-align: left;
 }
 
-th + th,
-td + td {
-  border-left: 1px solid $gray-lighter;
-}
-
 thead tr {
   border-top: 1px solid $gray-lighter;
   border-bottom: 1px solid $color-accent;
