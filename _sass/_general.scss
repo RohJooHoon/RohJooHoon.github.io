@@ -194,15 +194,31 @@ caption {
   text-align: left;
 }
 
-th,
-td {
-  border-bottom: 1px solid $gray-lighter;
-  padding: 0.5em 5px;
+th + th,
+td + td {
+  border-left: 1px solid $gray-lighter;
+}
+
+tr {
+  border-left: 1px solid $gray-lighter;
+  border-right: 1px solid $gray-lighter;
+}
+
+tbody tr:nth-of-type(2n - 1) {
+  background-color: #fcfcfc;
 }
 
 th {
+  border-top: 1px solid $gray-lighter;
+  border-bottom: 1px solid $color-accent;
+  padding: 0.5em 12px;
   color: $gray-darkest;
   font-weight: bold;
+}
+
+td {
+  border-bottom: 1px solid $gray-lighter;
+  padding: 0.5em 12px;
 }
 
 /* Form fields */
