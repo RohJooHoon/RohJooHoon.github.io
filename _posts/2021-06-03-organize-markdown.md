@@ -8,11 +8,28 @@ featured: true
 hidden: true
 ---
 
+## Heading
+```
+# 뒤에서 한번 띄어쓰기를 사용해야 정상적으로 동작합니다.
+
+#H (X)
+
+# H (O)
+```
+
+# # H1
+## ## H2
+### ### H3
+#### #### H4
+##### ##### H5
+###### ###### H6
+
 Jekyll uses a language called **Markdown** to format text.
 
 If you've gotten pretty comfortable with Markdown in Jekyll, then you may enjoy some more advanced tips about the types of things you can do with it!
 
->“You can only do so many things great, and you should cast aside everything else.” ― Tim Cook
+>“You can only do so many things great, and you should cast aside everything else.”
+> <cite>- Tim Cook -</cite>
 
 As with the last post about the editor, you'll want to be actually editing this post as you read it so that you can see all the Markdown code we're using.
 
