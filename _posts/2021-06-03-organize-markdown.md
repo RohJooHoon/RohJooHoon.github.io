@@ -1,14 +1,30 @@
 ---
 layout: post
 title:  "Markdown : 마크다운 정리"
-tags: [ Tips ]
+tags: [ Markdown, Tips ]
 featured_image_thumbnail:
 featured_image: assets/images/posts/markdown.png
 featured: true
 hidden: true
 ---
 
-## Heading
+## 마크다운이란?
+**쉽게 읽고 쓰기** 위해 **2004**년 **존그루버**에 의해 만들어진 **텍스트 기반**의 **마크업 언어**로 별도 도구나 환경 없이 **텍스트로 저장**되어 **용량이 작고 작성이 간편**합니다.  
+**블로그 포스트** 작성이나 **깃헙 저장소**에서 자주 이용됩니다.
+
+## 줄바꿈(Line Break)
+```markdown
+Lorem Ipsum is simply  dummy<br> text  of the printing.  
+Lorem Ipsum has been the industry's standard
+```
+**문장끝**에 **띄어쓰기 2개**를 **연속 사용**하면 **줄바꿈** 처리가 됩니다.  
+**문장중**에는 줄바꿈 처리가 **되지 않습**니다.  
+**&lt;br>태그**를 직접 사용하면 **줄바꿈** 처리가 됩니다.
+
+Lorem Ipsum is simply  dummy<br> text  of the printing.  
+Lorem Ipsum has been the industry's standard
+
+## 헤더(Headers)
 ```markdown
 # H1
 ## H2
@@ -17,14 +33,110 @@ hidden: true
 ##### H5
 ###### H6
 ```
-**"#"** 뒤에서 **띄어쓰기**가 **꼭** 들어가야합니다.
+**1~6** **까지**만 **지원**하며  
+**"#"** 뒤에서 **띄어쓰기**가 **꼭** 들어가야합니다.  
 
-# # H1
-## ## H2
-### ### H3
-#### #### H4
-##### ##### H5
-###### ###### H6
+# H1
+## H2
+### H3
+#### H4
+##### H5
+###### H6
+
+## 강조(Emphasis)
+```markdown
+*Italics* or _Italics_  
+**Bord** or __Bord__
+~~Strikethrough~~
+```
+**이텔릭체**는 **별표** 또는 **언더바** **하나**,  
+**볼드**는 **별표** 또는 **언더바** **두개**로 감싸면 적용되며  
+**취소선**은 **물결** **두개**로 감싸면 적용됩니다.
+
+*Italics* or _Italics_  
+**Bord** or __Bord__  
+~~Strikethrough~~  
+
+## 목록(List)
+```markdown
+1. 순서 있는 목록
+    3. 순서 있는 하위 목록
+    * 순서 없는 대하위 목록
+        6. 순서 있는 대하위 목록
+
+* 순서 없는 목록
+    - 순서 없는 하위 목록
+        + 순서 없는 대하위 목록
+        9. 순서 있는 대하위 목록
+```
+**순서 있는** 목록은 `숫자. ` 형식으로 작성하며, **1부터** 시작하지 않으면 **1로 초기화**될 수 있습니다.  
+**순서 없는**** 목록은 `* ` or `- ` or `+ ` 중에 어느것을 사용해도 **동일**합니다.  
+**하위 목록**은 앞에 **띄어쓰기 4개** or **탭**을 넣으면 적용되며 **3뎁스**까지 가능합니다.  
+**순서있는 목록 속**에서 **순서없는 목록** 사용 **혹은** 그 **반대**의 경우도 문제없이 작동합니다.  
+**리스트 사이**는 한칸(**개행**) 띄어야 정상작동합니다.
+
+1. 순서 있는 목록
+    3. 순서 있는 하위 목록
+    * 순서 없는 대하위 목록
+        6. 순서 있는 대하위 목록
+
+* 순서 없는 목록
+    - 순서 없는 하위 목록
+        + 순서 없는 대하위 목록
+        9. 순서 있는 대하위 목록
+
+
+## 이미지(Images)
+```markdown
+![이미지 alt값](../assets/images/computer.jpg "title값 (필수값 아님)")  
+![이미지 alt값][test image]  
+
+[test image]: https://casper.ghost.org/v1.0.0/images/computer.jpg#wide
+```
+**!&#91;이미지 alt값](절대 / 상대 경로) 형식**으로 작성하며,  
+**문서내 참조 이미지 경로**를 **변수처럼** 적어놓고 **연결**하여 사용할 수 있습니다.
+
+![이미지 alt값](../assets/images/computer.jpg "title값 (필수값 아님)")  
+![이미지 alt값][test image]
+
+[test image]: https://casper.ghost.org/v1.0.0/images/computer.jpg#wide
+
+
+## 링크(Links)
+```markdown
+[상대경로 링크 텍스트](https://naver.com "title값 (필수값 아님)")  
+[절대경로 링크 텍스트](../index.html "title값 (필수값 아님)")  
+[문서내 참조 링크 텍스트][test link]  
+<https://naver.com>
+
+[test link]: https://naver.com
+```
+**&#91;링크태그 텍스트](절대 / 상대 경로) 형식**으로 작성하며,  
+**꺾쇠속 URL**은 자동으로 **링크** 태그로 **변환**됩니다.  
+**문서내 참조 링크 경로**를 **변수처럼** 적어놓고 **연결**하여 사용할 수 있습니다.
+
+[상대경로 링크 텍스트](https://naver.com "image alt값 (필수값 아님)")  
+[절대경로 링크 텍스트](../index.html "image alt값 (필수값 아님)")  
+[문서내 참조 링크 텍스트][test link]  
+<https://naver.com>
+
+[test link]: https://naver.com
+
+## 특수 기호
+```markdown
+<p>Text</p>  
+<img width="100" src="assets/images/posts/markdown.png?num=30&amp;q=larry+bird">  
+&lt;p>Text&lt;/p>  
+&lt;img width="100" src="assets/images/posts/markdown.png?num=30&amp;amp;q=larry+bird">  
+```
+markdown 내부에서 마크업 코드를 작성하면 html코드로 인식됩니다.  
+텍스트로 노출시키고 싶을경우 사용된 특수문자를 (꺽쇠 &lt;, 대괄호 &#91;, 엔드 &amp; 등 )  
+아스키코드(`&lt;`, `&#91;`, `&amp;` 등 )로 변환하여 작성하면 됩니다.
+
+<p>Text</p>  
+<img width="100" src="assets/images/posts/markdown.png?num=30&amp;q=larry+bird">  
+&lt;p>Text&lt;/p>  
+&lt;img width="100" src="assets/images/posts/markdown.png?num=30&amp;amp;q=larry+bird">  
 
 
 | 값 | 의미 | 기본값 |
