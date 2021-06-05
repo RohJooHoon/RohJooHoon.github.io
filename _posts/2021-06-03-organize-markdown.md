@@ -91,7 +91,7 @@ Lorem Ipsum has been the industry's standard
 ![이미지 alt값](../assets/images/computer.jpg "title값 (필수값 아님)")  
 ![이미지 alt값][test image]  
 
-[test image]: https://casper.ghost.org/v1.0.0/images/computer.jpg#wide
+[test image]: https://casper.ghost.org/v1.0.0/images/computer.jpg
 ```
 **!&#91;이미지 alt값](절대 / 상대 경로) 형식**으로 작성하며,  
 **문서내 참조 이미지 경로**를 **변수처럼** 적어놓고 **연결**하여 사용할 수 있습니다.
@@ -99,7 +99,7 @@ Lorem Ipsum has been the industry's standard
 ![이미지 alt값](../assets/images/computer.jpg "title값 (필수값 아님)")  
 ![이미지 alt값][test image]
 
-[test image]: https://casper.ghost.org/v1.0.0/images/computer.jpg#wide
+[test image]: https://casper.ghost.org/v1.0.0/images/computer.jpg
 
 
 ## 링크(Links)
@@ -108,19 +108,44 @@ Lorem Ipsum has been the industry's standard
 [절대경로 링크 텍스트](../index.html "title값 (필수값 아님)")  
 [문서내 참조 링크 텍스트][test link]  
 <https://naver.com>
+[![이미지 alt값](../assets/images/computer.jpg)](https://naver.com/)
 
 [test link]: https://naver.com
 ```
 **&#91;링크태그 텍스트](절대 / 상대 경로) 형식**으로 작성하며,  
 **꺾쇠속 URL**은 자동으로 **링크** 태그로 **변환**됩니다.  
-**문서내 참조 링크 경로**를 **변수처럼** 적어놓고 **연결**하여 사용할 수 있습니다.
+**문서내 참조 링크 경로**를 **변수처럼** 적어놓고 **연결**하여 사용할 수 있습니다.  
+**이미지에 링크**를 연결할 수 있습니다.
 
 [상대경로 링크 텍스트](https://naver.com "image alt값 (필수값 아님)")  
 [절대경로 링크 텍스트](../index.html "image alt값 (필수값 아님)")  
 [문서내 참조 링크 텍스트][test link]  
 <https://naver.com>
+[![이미지 alt값](../assets/images/computer.jpg)](https://naver.com/)
 
 [test link]: https://naver.com
+
+
+## 코드 블록 (Code Block) / 코드 인라인 (Code Inline)
+````markdown
+```html
+<div class="text">Lorem Ipsum</div>
+```
+
+Lorem `<div class="text">Lorem Ipsum</div>` Ipsum
+````
+영문 키보드 선택 상태로 숫자 1번 키 왼쪽에 있는 물결 키를 누르면 나오는 **&#96;(Grave)** 로  
+**위 아래 라인**에 **3개의 &#96;(Grave)**를 사용하여 **감싸**고 코드 타입을 적으면, **코드 블록 (Code Block)**,  
+동일 라인 문장 도중, **좌우에 &#96;(Grave)**를 사용하여 **감싸**면, **코드 인라인 (Code Inline)** 으로 코드를 강조할 수 있습니다.  
+코드블록에서 **코드타입**을 지정하면 해당 코드타입에 맞는 **코드 하이라이터**가 활성화됩니다.  
+**코드블록 안에**서 **코드블록**을 적고싶을때 안에서 사용된 시작코드가 종료코드로 중복되어 종료되버리는 경우 감싸는 **&#96;(Grave)**를 **4번** 사용하여 감싸게되면 작동합니다.
+
+```html
+<div class="text">Lorem Ipsum</div>
+```
+
+Lorem `<div class="text">Lorem Ipsum</div>` Ipsum
+
 
 ## 특수 기호
 ```markdown
@@ -130,8 +155,8 @@ Lorem Ipsum has been the industry's standard
 &lt;img width="100" src="assets/images/posts/markdown.png?num=30&amp;amp;q=larry+bird">  
 ```
 markdown 내부에서 마크업 코드를 작성하면 html코드로 인식됩니다.  
-텍스트로 노출시키고 싶을경우 사용된 특수문자를 (꺽쇠 &lt;, 대괄호 &#91;, 엔드 &amp; 등 )  
-아스키코드(`&lt;`, `&#91;`, `&amp;` 등 )로 변환하여 작성하면 됩니다.
+텍스트로 노출시키고 싶을경우 사용된 특수문자를 (꺽쇠 &lt;, 대괄호 &#91;, 그레이브 &#96;, 엔드 &amp; 등 )  
+간접표현식(`&lt;`, `&#91;`, `&#96;` `&amp;` 등 )으로 변환하여 작성하면 됩니다.
 
 <p>Text</p>  
 <img width="100" src="assets/images/posts/markdown.png?num=30&amp;q=larry+bird">  
