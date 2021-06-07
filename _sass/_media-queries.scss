@@ -6,43 +6,6 @@
   .post-featured .post-title {
     font-size: 1.33333rem;
   }
-  .post-featured:only-child,
-  .post-featured:first-child:nth-last-child(3) {
-    flex: 0 0 100%;
-    margin-bottom: 4em;
-  }
-  .post-featured:only-child .post-thumbnail,
-  .post-featured:first-child:nth-last-child(3) .post-thumbnail {
-    margin: 0;
-  }
-  .post-featured.has-image:only-child .post-header,
-  .post-featured.has-image:first-child:nth-last-child(3) .post-header {
-    background: rgba($gray-darkest,.9);
-    border-left: 2px solid $color-accent;
-    bottom: 0;
-    left: 2.5em;
-    margin: 0;
-    max-width: 60%;
-    min-width: 30%;
-    padding: 1.5em;
-    position: absolute;
-  }
-  .post-featured:only-child .post-meta,
-  .post-featured:first-child:nth-last-child(3) .post-meta {
-    margin-bottom: 0.75em;
-  }
-  .post-featured:only-child .post-title,
-  .post-featured:first-child:nth-last-child(3) .post-title {
-    font-size: 1.66667rem;
-  }
-  .post-featured.has-image:only-child .post-title,
-  .post-featured.has-image:first-child:nth-last-child(3) .post-title {
-    color: #fff;
-  }
-  .post-featured.has-image:only-child .post-tags a:hover,
-  .post-featured.has-image:first-child:nth-last-child(3) .post-tags a:hover {
-    color: $gray-light;
-  }
   .post-featured:first-child:nth-last-child(2),
   .post-featured:nth-child(2):nth-last-child(2) {
     flex: 1;

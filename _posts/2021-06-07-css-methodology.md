@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "마크다운(Markdown) 정리"
-tags: [ MARKDOWN ]
+title:  "CSS 방법론<br/>(BEM + OOCSS + SMACSS 장점 통합)"
+tags: [ CSS ]
 featured_image_thumbnail:
-featured_image: assets/images/posts/markdown.png
+featured_image: assets/images/posts/css.png
 featured: true
 hidden: true
 ---
