@@ -13,7 +13,7 @@ class App_c extends Component {
                     <img src={logo} className="App-logo" alt="logo"/>
                     {name == "리액트" ? <div>{name} 입니다.</div> : <div>{name} 아닙니다.</div>}
                 </header>
-                <MyComponent_c name="react">마이컴포넌트</MyComponent_c>
+                <MyComponent_c name="React">마이컴포넌트</MyComponent_c>
             </div>
         );
     }

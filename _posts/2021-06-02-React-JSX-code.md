@@ -9,7 +9,7 @@ hidden: true
 ---
 
 ## 함수형 기본 형식
-### 부모 컴포넌트
+### 함수형 부모 컴포넌트
 ```javascript
 import React from 'react';
 import MyComponent from "./js/MyComponent"; // 내부에서 사용할 컴포넌트 (MyComponent라는 이름은 수정 가능)
@@ -17,7 +17,7 @@ import MyComponent from "./js/MyComponent"; // 내부에서 사용할 컴포넌�
 function App() {
     return (
         <div className="App">
-            <MyComponent name="리액트">마이컴포넌트</MyComponent> // 
+            <MyComponent name="리액트">마이컴포넌트</MyComponent>
         </div>
     );
 }
@@ -25,7 +25,7 @@ function App() {
 export default App;
 ```
 
-### 자식 컴포넌트
+### 함수형 자식 컴포넌트
 ```javascript
 import React from 'react';
 import PropTypes from 'prop-types'; // propTypes 사용시 import
@@ -50,6 +50,52 @@ MyComponent.propTypes = {
 export default MyComponent;
 ```
 
+
+## 클래스형 기본 형식
+### 클래스형 부모 컴포넌트
+```javascript
+import React, { Component } from 'react';
+import MyComponent from "./js/MyComponent";
+
+class App extends Component {
+    render() {
+        return (
+            <div className="App">
+                <MyComponent name="리액트">마이컴포넌트</MyComponent>
+            </div>
+        );
+    }
+}
+
+export default App;
+```
+
+### 클래스형 자식 컴포넌트
+```javascript
+import React, {Component} from 'react';
+import PropTypes from 'prop-types'; // propTypes 사용시 import
+
+class MyComponent extends Component {
+    static defaultProps = {
+        name: '기본이름', // name 값 없는경우 노출 텍스트
+    };
+    static propTypes = {
+        name: PropTypes.string // name 의 기본 값을 string 타입으로 강제함 (prop-types import 시에만 동작)
+    };
+    render() {
+        const {name, children} = this.props; // 비구조화 할당
+        return (
+            <div>
+                나의 새롭고 멋진 컴포넌트 {name} 입니다. // name = 리액트
+                children 값은 {children} // children = 마이컴포넌트
+            </div>
+        );
+    }
+}
+
+export default MyComponent;
+```
+
 ## JSX
 ### 요소 감싸기
 ```javascript
@@ -69,4 +115,6 @@ return (
 )
 ```
 위와 같이 &lt;div>&lt;/div> 혹은 &lt;Fragment>&lt;/Fragment> 혹은 &lt;>&lt;/>로 감싸주어야야 오류가 발생하지 않습니다.
+
+
 
