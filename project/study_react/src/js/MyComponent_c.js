@@ -16,7 +16,7 @@ class MyComponent_c extends Component {
                 children 값은 {children} {/* children = 마이컴포넌트 */}
             </div>
         );
-    }
-}
+    };
+};
 
 export default MyComponent_c;
