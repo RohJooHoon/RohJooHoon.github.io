@@ -17,7 +17,6 @@ body {
 
 a {
   color: $color-accent;
-  text-decoration: underline;
   -webkit-transition: background .3s ease, color .3s ease;
   transition: background .3s ease, color .3s ease;
 }
@@ -283,6 +282,7 @@ a.button {
   text-transform: uppercase;
   -webkit-transition: .3s ease;
   transition: .3s ease;
+  text-decoration: none;
 }
 
 button:hover,

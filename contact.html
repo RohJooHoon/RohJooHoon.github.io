@@ -10,51 +10,55 @@ title: Contact
 -->
 
 <main id="main" class="site-main">
-  <div class="post-full">
-    <header class="post-header">
-      <h1 class="post-title">Contact</h1>
-    </header>
-    {% if site.contact_page_description %}
-    <p>{{ site.contact_page_description }}</p>
-    {{else}}
-    {% endif %}
-    <section class="contact-form">
-      <form>
-        <div class="form-item">
-          <label class="form-label">Your Email <span>(required)</span></label>
-          <input type="text" name="email" placeholder="Your email address..." class="form-input" />
-        </div>
-
-        <div class="form-item">
-          <label class="form-label">Your Name <span>(required)</span></label>
-          <input type="text" name="name" placeholder="Your name..." class="form-input" />
-        </div>
-
-        <div class="form-item">
-          <label class="form-label">Your Message <span>(required)</span></label>
-          <textarea name="message" placeholder="Your message..." class="form-textarea"></textarea>
-        </div>
-
-        <div class="form-item">
-          <input name="submit" type="button" onclick="emailSubmit();" value="Send Message" class="button" />
-        </div>
-      </form>
-    </section>
-  </div><!-- .inner-->
+    <div class="post-full">
+        <header class="post-header">
+            <h1 class="post-title">Contact</h1>
+        </header>
+        {% if site.contact_page_description %}
+        <p>{{ site.contact_page_description }}</p>
+        {{else}}
+        {% endif %}
+        <section class="contact-form">
+            <form>
+                <div class="form-item">
+                    <label class="form-label">Your Name</label>
+                    <input type="text" name="name" placeholder="Your name..." class="form-input"/>
+                </div>
+                <div class="form-item">
+                    <label class="form-label">Your Phone number</label>
+                    <input type="text" name="tel" placeholder="Your phone number..." class="form-input"/>
+                </div>
+                <div class="form-item">
+                    <label class="form-label">Your Email</label>
+                    <input type="text" name="email" placeholder="Your email address..." class="form-input"/>
+                </div>
+                <div class="form-item">
+                    <label class="form-label">Your Message</label>
+                    <textarea name="message" placeholder="Your message..." class="form-textarea"></textarea>
+                </div>
+                <div class="form-item">
+                    <a id="submit" class="button" href="mailto:joohoon.roh@gmail.com" target="_blank">Send Message</a>
+                </div>
+            </form>
+        </section>
+    </div><!-- .inner-->
 </main>
 
 <script>
-    function emailSubmit() {
-        event.preventDefault();
-        console.log("emailSubmit event : ", event);
-        const emailSubmitData = {};
-        $(event.target).closest('form').find('input:not([name="submit"]), textarea').each(function (index, value) {
-            const $value = $(value);
-            emailSubmitData[$value.attr('name')] = $value.val();
-        })
-        console.log("emailSubmitData : ", emailSubmitData);
-
-        $submit.attr('href', `mailto:email@euro.co.kr?subject=문의사항${submitCompany.length ? '_' + submitCompany : ''}&body=${submitCompany.length ? '회사 : ' + submitCompany + '%0A' : ''}${submitEmail.length ? '이메일 : ' + submitEmail + '%0A' : ''}${submitTel.length ? '전화번호 : ' + submitTel + '%0A' : ''}${submitText.length ? '문의사항 : ' + submitText + '%0A' : ''}`)
-
-    }
+    $(document).ready(function () {
+        const $submit = $('#submit');
+        const submitData = {
+            name: '',
+            tel: '',
+            email: '',
+            message: ''
+        };
+        $('.contact-form .form-input, .contact-form .form-textarea').on("change keyup paste", function () {
+            const $this = $(this);
+            const nowName = $this.attr('name');
+            const nowVal = $this.val().replaceAll('\n', '%0A');
+            submitData[nowName] = nowVal;
+            $submit.attr('href', `mailto:joohoon.roh@gmail.com?subject=개발문의 [ ${submitData.name} ] &body=이름: ${submitData.name}%0A전화번호: ${submitData.tel}%0A이메일: ${submitData.email}%0A%0A${submitData.message}`);
+        });
+    })
 </script>
