@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Weather</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+</head>
+<body>
+<div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    // 날씨 api 호출 데이터
+    let q = 'Seoul,kr'; // 지역코드
+    let lang = 'kr'; // 언어코드
+    let mode = 'json'; // 응답 형식 (xml, html)
+    let units = 'metric'; // metric : 섭씨/미터/초, imperial : 화씨/마일/시간
+    let appid = 'acf191e1cb2ddda1db775cff43434ecd'; // 접속코드
+
+    // 로드 상태변수
+    let loadNowLength = 0;
+    let loadMaxLength = 2;
+    let allLoad = false;
+
+    // 날씨 기준 데이터
+    let toDayResponse = {};
+    let allDayResponse = {};
+    let myTemp = 0;
+    let standardTemp = 20;
+
+    callWeather();
+    function callWeather() {
+        $.ajax({
+            url: `https://api.openweathermap.org/data/2.5/weather?q=${q}&lang=${lang}&units=${units}&appid=${appid}`,
+            type: "GET",
+            dataType: "JSON",
+            success: function (response) {
+                toDayResponse = response;
+                loadNowLength++;
+                allLoadCheck();
+            }
+        });
+        $.ajax({
+            url: `https://api.openweathermap.org/data/2.5/forecast?q=${q}&lang=${lang}&units=${units}&appid=${appid}`,
+            type: "GET",
+            dataType: "JSON",
+            success: function (response) {
+                allDayResponse = response;
+                loadNowLength++;
+                allLoadCheck();
+            }
+        });
+    }
+
+    function discomfortIndexFunc(temp, humidity) {
+        let discomfortIndex = 1.8 * temp - 0.55 * (1 - humidity / 100) * (1.8 * temp - 26) + 32;
+        console.log("temp : ", temp);
+        console.log("humidity : ", humidity);
+        console.log("discomfortIndex : ", discomfortIndex);
+        if (discomfortIndex > 65) {
+            myTemp = temp + (discomfortIndex - 65) * 0.5;
+        } else {
+            myTemp = temp;
+        }
+        console.log(temp, myTemp);
+    }
+
+    function allLoadCheck() {
+        if (loadNowLength == loadMaxLength) { // ajax 로드 완료
+            loadNowLength = 0;
+            console.log("toDayResponse : ", toDayResponse);
+            discomfortIndexFunc(toDayResponse.main.feels_like, toDayResponse.main.humidity)
+            console.log("allDayResponse : ", allDayResponse);
+        }
+    }
+</script>
+</body>
+</html>
