@@ -9,7 +9,7 @@
     "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "start": "source ~/.bash_profile\nnvm use\nreact-scripts start",
+    "start": "nvm use\nreact-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject"
   },
