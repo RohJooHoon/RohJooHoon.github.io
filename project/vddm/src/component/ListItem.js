@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Modal(props) {
+function ListItem(props) {
     return (
         <div className="modal">
             <h2>제목</h2>
@@ -10,4 +10,4 @@ function Modal(props) {
     );
 }
 
-export default Modal;
+export default ListItem;
