@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import '../css/layout.css';
-import '../css/common.css';
+import './css/layout.css';
+import './css/common.css';
+import Modal from './component/Modal';
 
 function App() {
     let [list, listSet] = useState([
@@ -68,11 +69,7 @@ function App() {
                             <div className="listDate">{list[2].date}</div>
                         </li>
                     </ul>
-                    <div className="modal">
-                        <h2>제목</h2>
-                        <p>날짜</p>
-                        <p>상세내용</p>
-                    </div>
+                    <Modal></Modal>
                 </div>
             </div>
             <div className="footer">
