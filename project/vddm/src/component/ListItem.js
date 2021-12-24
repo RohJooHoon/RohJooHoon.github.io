@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 
 function ListItem(props) {
+    let value = props.value;
+    let index = props.index;
+    let listFunc = props.listFunc;
+    let nowClickIndexChange = props.nowClickIndexChange;
     return (
-        <div className="modal">
-            <h2>제목</h2>
-            <p>날짜</p>
-            <p>상세내용</p>
-        </div>
+        <li className="listItem" onClick={()=>{nowClickIndexChange(index)}}>
+            <button onClick={()=>{listFunc("changeTitle", index)}}>제목 변경</button>
+            <div className="listTitle">{value.name}<button onClick={() => {listFunc("likeUp", index)}}> 👍</button><span>{value.like}</span></div>
+            <div className="listDate">{value.date}</div>
+        </li>
     );
 }
 
