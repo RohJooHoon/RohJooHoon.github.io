@@ -5,13 +5,13 @@ import './css/common.css';
 function App() {
     let [list, listSet] = useState([
         {
-            name: "강남 고기 맛집",
-            date: "2월 17일 발행",
+            name: "신촌 닭발 맛집",
+            date: "2월 18일 발행",
             like: 0
         },
         {
-            name: "신촌 닭발 맛집",
-            date: "2월 18일 발행",
+            name: "강남 고기 맛집",
+            date: "2월 17일 발행",
             like: 0
         },
         {
@@ -26,6 +26,12 @@ function App() {
             newList[index].name = '제목을 입력하세요';
         } else if (type == "likeUp") {
             newList[index].like = newList[index].like  + 1;
+        } else if (type == "sorting") {
+            newList.sort(function (a, b) {
+                if(a.name > b.name) return 1;
+                if(a.name === b.name) return 0;
+                if(a.name < b.name) return -1;
+            });
         }
         listSet(newList);
     }
@@ -44,6 +50,7 @@ function App() {
             </header>
             <div className="body">
                 <div className="bodyInner">
+                    <button onClick={()=>{listFunc("sorting")}}>리스트 소팅</button>
                     <ul className="list">
                         <li className="listItem" key="0">
                             <button onClick={()=>{listFunc("changeTitle", 0)}}>제목 변경</button>
