@@ -32,9 +32,19 @@ function Body() {
                 if(a.name === b.name) return 0;
                 if(a.name < b.name) return -1;
             });
+        } else if (type == "add") {
+            let nowTitle = inputValue;
+            inputValueSet('');
+            newList.push({
+                name: nowTitle,
+                date: "2월 20일 발행",
+                like: 0
+            })
         }
         listSet(newList);
     }
+
+    let [inputValue, inputValueSet] = useState('');
 
     let [nowClickIndex, nowClickIndexSet] = useState(0);
     function nowClickIndexChange(index) {
@@ -55,8 +65,9 @@ function Body() {
     return (
         <div className="body">
             <div className="bodyInner">
-                <button onClick={()=>{listFunc("sorting")}}>리스트 소팅</button>
-                <button onClick={()=>{modalChange()}}>모달 전환</button>
+                <div><button onClick={()=>{listFunc("sorting")}}>리스트 소팅</button></div>
+                <div><button onClick={()=>{modalChange()}}>모달 전환</button></div>
+                <div><input onInput={(e)=>{inputValueSet(e.target.value)}} value={inputValue}/><button onClick={()=>{listFunc("add")}}>발행</button></div>
                 <List list={list} listFunc={listFunc} nowClickIndexChange={nowClickIndexChange}></List>
                 {modalUse ? <Modal list={list} nowClickIndex={nowClickIndex}></Modal> : ''}
             </div>
