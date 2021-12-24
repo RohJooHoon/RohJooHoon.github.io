@@ -37,6 +37,13 @@ body {
 ol, ul {
     list-style: none;
 }
+button, a {
+    color: inherit;
+    background: inherit;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
 blockquote, q {
     quotes: none;
 }
