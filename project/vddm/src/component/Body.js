@@ -1,25 +1,10 @@
 import React, { useState } from "react";
+import listData from 'js/listData';
 import List from 'component/List';
 import Modal from 'component/Modal';
 
 function Body() {
-    let [list, listSet] = useState([
-        {
-            name: "신촌 닭발 맛집",
-            date: "2월 18일 발행",
-            like: 0
-        },
-        {
-            name: "강남 고기 맛집",
-            date: "2월 17일 발행",
-            like: 0
-        },
-        {
-            name: "종로 곱창 맛집",
-            date: "2월 19일 발행",
-            like: 0
-        },
-    ]);
+    let [list, listSet] = useState(listData);
     function listFunc(type, index) {
         let newList = [...list];
         if (type == "changeTitle") {
