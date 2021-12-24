@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Modal from 'component/Modal';
 
 function Body() {
+    let test = false;
     let [list, listSet] = useState([
         {
             name: "신촌 닭발 맛집",
@@ -39,23 +40,17 @@ function Body() {
             <div className="bodyInner">
                 <button onClick={()=>{listFunc("sorting")}}>리스트 소팅</button>
                 <ul className="list">
-                    <li className="listItem" key="0">
-                        <button onClick={()=>{listFunc("changeTitle", 0)}}>제목 변경</button>
-                        <div className="listTitle">{list[0].name}<button onClick={() => {listFunc("likeUp", 0)}}> 👍</button><span>{list[0].like}</span></div>
-                        <div className="listDate">{list[0].date}</div>
-                    </li>
-                    <li className="listItem" key="1">
-                        <button onClick={()=>{listFunc("changeTitle", 1)}}>제목 변경</button>
-                        <div className="listTitle">{list[1].name}<button onClick={() => {listFunc("likeUp", 1)}}> 👍</button><span>{list[1].like}</span></div>
-                        <div className="listDate">{list[1].date}</div>
-                    </li>
-                    <li className="listItem" key="2">
-                        <button onClick={()=>{listFunc("changeTitle", 2)}}>제목 변경</button>
-                        <div className="listTitle">{list[2].name}<button onClick={() => {listFunc("likeUp", 2)}}> 👍</button><span>{list[2].like}</span></div>
-                        <div className="listDate">{list[2].date}</div>
-                    </li>
+                    {list.map(function (value, index) {
+                        return (
+                            <li className="listItem" key={index}>
+                                <button onClick={()=>{listFunc("changeTitle", index)}}>제목 변경</button>
+                                <div className="listTitle">{value.name}<button onClick={() => {listFunc("likeUp", index)}}> 👍</button><span>{value.like}</span></div>
+                                <div className="listDate">{value.date}</div>
+                            </li>
+                        )
+                    })}
                 </ul>
-                {/*<Modal></Modal>*/}
+                {test ? <Modal></Modal> : ''}
             </div>
         </div>
     );
