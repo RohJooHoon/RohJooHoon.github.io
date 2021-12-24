@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Modal from 'component/Modal';
 
 function Body() {
-    let test = false;
+    let [modalUse, modalUseSet] = useState(false);
     let [list, listSet] = useState([
         {
             name: "신촌 닭발 맛집",
@@ -20,6 +20,16 @@ function Body() {
             like: 0
         },
     ]);
+    function modalChange() {
+        modalUseSet(!modalUse);
+    }
+    function modalSwitch() {
+        if (modalUse) {
+            return <Modal></Modal>;
+        } else {
+            return '';
+        }
+    }
     function listFunc(type, index) {
         let newList = [...list];
         if (type == "changeTitle") {
@@ -38,6 +48,7 @@ function Body() {
     return (
         <div className="body">
             <div className="bodyInner">
+                <button onClick={()=>{modalChange()}}>모달 전환</button>
                 <button onClick={()=>{listFunc("sorting")}}>리스트 소팅</button>
                 <ul className="list">
                     {list.map(function (value, index) {
@@ -50,7 +61,8 @@ function Body() {
                         )
                     })}
                 </ul>
-                {test ? <Modal></Modal> : ''}
+                {modalSwitch()}
+                {modalUse ? <Modal></Modal> : ''}
             </div>
         </div>
     );
