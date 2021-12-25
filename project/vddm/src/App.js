@@ -6,6 +6,7 @@ import Index from 'component/page/Index';
 import Login from 'component/page/Login';
 import SignUp from 'component/page/SignUp';
 import Main from 'component/page/Main';
+
 function App() {
     return (
         <>

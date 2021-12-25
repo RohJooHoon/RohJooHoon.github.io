@@ -5,6 +5,11 @@
     column-gap: 9px;
     row-gap: 10px;
 }
+@media screen and (min-width: 768px) {
+    .mainThumbnailList {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
 .mainThumbnailItem {
     background-color: red;
     padding-bottom: 133.5329%;

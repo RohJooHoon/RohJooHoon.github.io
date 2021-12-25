@@ -1,6 +1,8 @@
 import React from "react";
 import 'css/main.css';
 import Header from "../layout/Header";
+import Footer from "../layout/Footer";
+
 function Main() {
     return (
         <>
@@ -19,6 +21,7 @@ function Main() {
                     </ul>
                 </div>
             </div>
+            <Footer></Footer>
         </>
     );
 }
