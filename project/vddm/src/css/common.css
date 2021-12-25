@@ -1,8 +1,28 @@
-.modal {
-
+/* ghostButton */
+.ghostButton {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    border: 2px solid #000000;
+    border-radius: 6px;
+    font-family: Apple SD Gothic Neo;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 13px;
+    line-height: 16px;
+    letter-spacing: 0.04em;
+    color: #000000;
 }
-.test {
-    font-size: 24px;
-    color: red;
-    line-height: 1;
+.ghostButton:disabled {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+.ghostButton.is_white {
+    color: #FFFFFF;
+    border-color: #FFFFFF;
+}
+.ghostButton.is_black {
+    color: #FFFFFF;
+    background-color: #000000;
 }

@@ -2,22 +2,22 @@ import React, { useState } from "react";
 import {Link, Route, Switch} from 'react-router-dom';
 import 'css/layout.css';
 import 'css/common.css';
-import Header from 'component/Header';
-import Body from 'component/Body';
-import Footer from 'component/Footer';
+import Index from 'component/page/Index';
+import Login from 'component/page/Login';
+import SignUp from 'component/page/SignUp';
 
 function App() {
     return (
         <>
             <Route exact path="/">
-                <Header></Header>
-                <Body></Body>
-                <Footer></Footer>
+                <Index></Index>
             </Route>
-            <Route exact path="/detail">
-                <div className="test">디테일페이지에요</div>
+            <Route exact path="/login">
+                <Login></Login>
             </Route>
-            {/*<Route path="/어쩌구" component={Modal}></Route>*/}
+            <Route exact path="/signup">
+                <SignUp></SignUp>
+            </Route>
         </>
     );
 }

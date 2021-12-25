@@ -1,4 +1,6 @@
-body {
+#root {
+    display: flex;
+    flex-direction: column;
     position: relative;
     width: 100%;
     height: 100vh;
@@ -20,7 +22,6 @@ body {
     max-width: 1280px;
     height: 44px;
     margin: auto;
-    padding: 0 18px;
     align-items: center;
 }
 .headerLeft {
@@ -30,12 +31,20 @@ body {
     height: 100%;
     align-items: center;
 }
+.headerBack {
+    width: 30px;
+    height: 44px;
+    background: no-repeat center / cover url(img/header_backArrow.png);
+}
+.headerBack.is_white {
+    background: no-repeat center / cover url(img/header_backArrow_white.png);
+}
 .headerLogo {
     display: inline-block;
     width: 118px;
     height: 30px;
     padding: 4px 0;
-    background: no-repeat center / contain url(../img/logo.svg);
+    background: no-repeat center / contain url(img/logo.svg);
 }
 .headerTitle {
     position: absolute;
@@ -62,12 +71,20 @@ body {
 
 /* body */
 .body {
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    flex: 1;
+    overflow: auto;
 }
 .bodyInner {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
     padding-top: 44px;
-    font-size: 12px;
-    line-height: 1.5;
+}
+.bodyInner.is_noneHeader {
+    padding-top: 0;
 }
 
 /* footer */
@@ -77,6 +94,4 @@ body {
     left: 0;
     width: 100%;
     z-index: 100;
-    font-size: 12px;
-    line-height: 1.5;
 }
