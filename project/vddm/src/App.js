@@ -6,6 +6,8 @@ import Index from 'component/page/Index';
 import Login from 'component/page/Login';
 import SignUp from 'component/page/SignUp';
 import Main from 'component/page/Main';
+import Profile from "./component/page/Profile";
+import MyMenu from "./component/page/MyMenu";
 
 function App() {
     return (
@@ -21,6 +23,12 @@ function App() {
             </Route>
             <Route exact path="/main">
                 <Main></Main>
+            </Route>
+            <Route exact path="/profile">
+                <Profile></Profile>
+            </Route>
+            <Route exact path="/mymenu">
+                <MyMenu></MyMenu>
             </Route>
         </>
     );

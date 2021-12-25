@@ -99,6 +99,7 @@
     width: 100%;
     padding: 9px 0 34px;
     background-color: #FFFFFF;
+    border-top: solid 1px #AAAAAA;
     z-index: 100;
 }
 .footerInner {
@@ -118,11 +119,23 @@
 .footerItem.is_active {
     background: linear-gradient(202.17deg, #FF00D6 8.58%, #FF4D00 91.42%);
 }
-.footerLink {
+.footerIcon {
     display: block;
     width: 100%;
     height: 100%;
-    background: no-repeat center / contain;
+    background: no-repeat left top / 150px;
+}
+.footerItem.is_active .footerIcon {
+    background-position-y: bottom;
+}
+.footerIcon.is_profile {
+
+}
+.footerIcon.is_home {
+
+}
+.footerIcon.is_my {
+
 }
 .footerLinkIcon {
 

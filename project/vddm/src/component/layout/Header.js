@@ -13,7 +13,7 @@ function Header(props) {
                 return props.headerValue.back ? <Link className="headerBack is_white" to={props.headerValue.back}></Link> : <a className="headerBack is_white" onClick={()=> {history.goBack();}}></a>;
             }
         } else if (type == "title" && props.headerValue.title) {
-
+            return props.headerValue.title;
         } else if (type == "right" && props.headerValue.right) {
 
         }
