@@ -15,12 +15,16 @@
     letter-spacing: 0.04em;
     color: #000000;
 }
-.ghostButton:disabled {
+.ghostButton[disabled] {
     background-color: rgba(0, 0, 0, 0.15);
 }
 .ghostButton.is_white {
     color: #FFFFFF;
     border-color: #FFFFFF;
+}
+.ghostButton.is_white[disabled] {
+    color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 .ghostButton.is_black {
     color: #FFFFFF;

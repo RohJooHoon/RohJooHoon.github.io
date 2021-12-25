@@ -1,3 +1,4 @@
+/* layout */
 .login {
     position: relative;
     background: no-repeat center / cover url('img/login_bg.jpg');
@@ -54,9 +55,6 @@
     display: flex;
     flex-direction: column;
 }
-.loginForm {
-
-}
 .loginBottom {
     display: flex;
     flex-direction: column;
@@ -74,4 +72,64 @@
     letter-spacing: 0.04em;
     text-decoration-line: underline;
     color: #FFFFFF;
+}
+
+/* form */
+.loginForm {
+
+}
+.loginInputWrap {
+
+}
+.loginInputWrap + .loginInputWrap {
+    margin-top: 40px;
+}
+.loginInputBox {
+    display: flex;
+}
+.loginInputBox + .loginInputBox {
+    margin-top: 6px;
+}
+.loginInputTitle {
+    display: block;
+    margin-bottom: 6px;
+    font-family: Asap;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+}
+.loginInputTitleTip {
+    font-weight: normal;
+    color: #666666;
+    margin-left: 8px;
+}
+.loginInput {
+    padding: 0 9px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    height: 34px;
+    font-family: Apple SD Gothic Neo;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    color: #FFFFFF;
+    border-bottom: solid 1px #FFFFFF;
+}
+.loginInput + .loginInput {
+    margin-left: 10px;
+}
+.loginInput.is_err {
+    color: #FF4D00;
+    border-bottom-color: #FF4D00;
+}
+.loginInput::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+.loginInput:placeholder-shown {
+    border-bottom-color: rgba(255, 255, 255, 0.3);
 }

@@ -37,9 +37,9 @@ body {
 ol, ul {
     list-style: none;
 }
-button, a {
+input, textarea, button, a {
     color: inherit;
-    background: inherit;
+    background-color: inherit;
     border: none;
     padding: 0;
     cursor: pointer;

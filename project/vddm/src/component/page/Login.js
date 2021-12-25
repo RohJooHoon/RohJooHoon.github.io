@@ -19,7 +19,14 @@ function Login(props) {
                     </div>
                     <div className="loginBottom">
                         <form className="loginForm" style={{margin: '92px 0'}}>
-
+                            <div className="loginInputWrap">
+                                <div className="loginInputBox">
+                                    <input className="loginInput" placeholder="이메일을 입력하세요" />
+                                </div>
+                                <div className="loginInputBox" style={{marginTop: '22px'}}>
+                                    <input className="loginInput" placeholder="비밀번호를 입력하세요" />
+                                </div>
+                            </div>
                         </form>
                         <Link className="ghostButton is_white" to="/main">로그인</Link>
                     </div>
