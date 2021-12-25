@@ -1,16 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from 'component/layout/Header';
 import {Link} from "react-router-dom";
 import 'css/login.css';
 
-function Login(props) {
-    let [headerValue, headerValueSet] = useState({
-        left: 'backWhite',
-    });
+function Login() {
     return (
         <>
-            <Header headerValue={headerValue}></Header>
-            <div className="bodyInner is_noneHeader login is_dim">
+            <Header headerValue={{left: 'backWhite', back: '/'}}></Header>
+            <div className="bodyInner is_noneHeader is_noneFooter login is_dim">
                 <div className="loginInner" style={{maxHeight: 'calc(400px + 55px * 2)'}}>
                     <div className="loginTop">
                         <h1 className="loginTitle">

@@ -1,16 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import 'css/login.css';
 import Header from "../layout/Header";
 import {Link} from "react-router-dom";
 
 function SignUp() {
-    let [headerValue, headerValueSet] = useState({
-        left: 'backWhite',
-    });
     return (
         <>
-            <Header headerValue={headerValue}></Header>
-            <div className="bodyInner is_noneHeader login is_dim">
+            <Header headerValue={{left: 'backWhite', back: '/'}}></Header>
+            <div className="bodyInner is_noneHeader is_noneFooter login is_dim">
                 <div className="loginInner">
                     <div className="loginBody">
                         <h1 className="loginTitle">

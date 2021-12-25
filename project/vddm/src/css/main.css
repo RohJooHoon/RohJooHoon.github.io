@@ -1,0 +1,11 @@
+.mainThumbnailList {
+    padding: 20px 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 9px;
+    row-gap: 10px;
+}
+.mainThumbnailItem {
+    background-color: red;
+    padding-bottom: 133.5329%;
+}

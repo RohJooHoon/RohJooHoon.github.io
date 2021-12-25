@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import {Link, Route, Switch} from 'react-router-dom';
+import React from "react";
+import {Link} from 'react-router-dom';
 import 'css/login.css';
 function Index() {
     return (
         <div className="body">
-            <div className="bodyInner is_noneHeader login">
+            <div className="bodyInner is_noneHeader is_noneFooter login">
                 <div className="loginInner" style={{maxHeight: 'calc(477px + 55px * 2)'}}>
                     <div className="loginTop">
                         <h2 className="loginSubTitle">

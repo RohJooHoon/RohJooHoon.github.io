@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import {Link, Route, Switch} from 'react-router-dom';
+import React from "react";
+import {Link, useHistory} from 'react-router-dom';
 
 function Header(props) {
-    console.log("Header props : ", props);
+    const history = useHistory();
     function headerContent(type) {
         if (type == "left" && props.headerValue.left) {
             if (props.headerValue.left == "logo") {
-                return <Link className="headerLogo" to="/main"></Link>;
+                return <Link className="headerLogo" to="/"></Link>;
             } else if (props.headerValue.left == "back") {
-                return <Link className="headerBack" to="/"></Link>;
+                return props.headerValue.back ? <Link className="headerBack" to={props.headerValue.back}></Link> : <a className="headerBack" onClick={()=> {history.goBack();}}></a>;
             } else if (props.headerValue.left == "backWhite") {
-                return <Link className="headerBack is_white" to="/"></Link>;
+                return props.headerValue.back ? <Link className="headerBack is_white" to={props.headerValue.back}></Link> : <a className="headerBack is_white" onClick={()=> {history.goBack();}}></a>;
             }
         } else if (type == "title" && props.headerValue.title) {
 
