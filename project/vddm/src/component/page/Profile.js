@@ -1,18 +1,25 @@
-import React from "react";
+import React, {useEffect} from "react";
 import 'css/main.css';
-import Header from "../layout/Header";
-import Footer from "../layout/Footer";
 
-function Profile() {
+function Profile(props) {
+    useEffect(() => {
+        props.layoutSet({
+            header: {
+                title: '업체 팔로우',
+            },
+            body: {
+                class: 'profile'
+            },
+            footer: {
+                onType: 'profile'
+            },
+        });
+    }, []);
     return (
         <>
-            <Header headerValue={{title: '업체 팔로우'}}></Header>
-            <div className="body">
-                <div className="bodyInner profile">
-                    profile
-                </div>
+            <div className="bodyInner profile">
+                profile
             </div>
-            <Footer></Footer>
         </>
     );
 }

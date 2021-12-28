@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Route} from 'react-router-dom';
 import 'css/layout.css';
 import 'css/common.css';
@@ -8,28 +8,37 @@ import SignUp from 'component/page/SignUp';
 import Main from 'component/page/Main';
 import Profile from "./component/page/Profile";
 import MyMenu from "./component/page/MyMenu";
+import Header from "./component/layout/Header";
+import Footer from "./component/layout/Footer";
 
 function App() {
+    let [layout, layoutSet] = useState({});
     return (
         <>
-            <Route exact path="/">
-                <Index></Index>
-            </Route>
-            <Route exact path="/login">
-                <Login></Login>
-            </Route>
-            <Route exact path="/signup">
-                <SignUp></SignUp>
-            </Route>
-            <Route exact path="/main">
-                <Main></Main>
-            </Route>
-            <Route exact path="/profile">
-                <Profile></Profile>
-            </Route>
-            <Route exact path="/mymenu">
-                <MyMenu></MyMenu>
-            </Route>
+            <Header layout={layout}></Header>
+            <div className="body">
+                <div className={"bodyInner " + (layout.body ? layout.body.class : '')}>
+                    <Route exact path="/">
+                        <Index layoutSet={layoutSet}></Index>
+                    </Route>
+                    <Route exact path="/login">
+                        <Login layoutSet={layoutSet}></Login>
+                    </Route>
+                    <Route exact path="/signup">
+                        <SignUp layoutSet={layoutSet}></SignUp>
+                    </Route>
+                    <Route exact path="/main">
+                        <Main layoutSet={layoutSet}></Main>
+                    </Route>
+                    <Route exact path="/profile">
+                        <Profile layoutSet={layoutSet}></Profile>
+                    </Route>
+                    <Route exact path="/mymenu">
+                        <MyMenu layoutSet={layoutSet}></MyMenu>
+                    </Route>
+                </div>
+            </div>
+            <Footer layout={layout}></Footer>
         </>
     );
 }
