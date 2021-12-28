@@ -2,14 +2,14 @@ import React, {useState} from "react";
 import {Route} from 'react-router-dom';
 import 'css/layout.css';
 import 'css/common.css';
-import Index from 'component/page/Index';
-import Login from 'component/page/Login';
-import SignUp from 'component/page/SignUp';
-import Main from 'component/page/Main';
-import Profile from "./component/page/Profile";
-import MyMenu from "./component/page/MyMenu";
-import Header from "./component/layout/Header";
-import Footer from "./component/layout/Footer";
+import Index from 'component/page/Index/Index';
+import Login from 'component/page/Login/Login';
+import SignUp from 'component/page/SignUp/SignUp';
+import Main from 'component/page/Main/Main';
+import Profile from "component/page/Profile/Profile";
+import MyMenu from "component/page/MyMenu/MyMenu";
+import Header from "component/layout/Header";
+import Footer from "component/layout/Footer";
 
 function App() {
     let [layout, layoutSet] = useState({});
