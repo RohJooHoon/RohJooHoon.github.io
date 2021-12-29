@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {Route} from 'react-router-dom';
 import 'css/layout.css';
 import 'css/common.css';
@@ -18,6 +18,10 @@ import SHA256 from "./js/SHA256";
 function App() {
     let [layout, layoutSet] = useState({});
     let [list, listSet] = useState([]); // 상품리스트
+
+    useEffect(() => {
+        console.log("list : ", list);
+    }, [list]);
 
     // 상품리스트 데이터 조회
     function getList() {
@@ -63,7 +67,7 @@ function App() {
                         <Route exact path="/main">
                             <Main layoutSet={layoutSet} list={list} getList={getList}></Main>
                         </Route>
-                        <Route exact path="/main/product/:id">
+                        <Route exact path="/main/product/:product_seq">
                             <Product layoutSet={layoutSet}></Product>
                         </Route>
                         <Route exact path="/company">
