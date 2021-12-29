@@ -43,7 +43,6 @@ function Main(props) {
     return (
         <div className="mainInner">
             <ul className="mainThumbnailList">
-                {listDraw}
                 {list.map(function (value, index) {
                     return <MainListItem value={value} key={list.length + index} onClick={getList}></MainListItem>
                 })}
