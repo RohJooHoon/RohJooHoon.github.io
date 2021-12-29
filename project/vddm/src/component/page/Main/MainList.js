@@ -16,7 +16,7 @@ function MainList(props) {
             return (
                 <li className="mainThumbnailItem" key={index} onClick={getList}>
                     <div className="mainThumbnailItemImg" style={{backgroundImage: `url(${value.vimeo_files ? JSON.parse(value.vimeo_files).preview.url : value.image_url})`}}></div>
-                    <div className="mainThumbnailItemTitle">{value.product_name}</div>
+                    {/*<div className="mainThumbnailItemTitle">{value.product_name}</div>*/}
                 </li>
             );
         })

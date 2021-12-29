@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import 'css/main.css';
+import 'css/myMenu.css';
 
 function MyMenu(props) {
     useEffect(() => {
@@ -8,16 +8,16 @@ function MyMenu(props) {
                 title: '내 정보',
             },
             body: {
-                class: 'mymenu'
+                class: 'myMenu'
             },
             footer: {
-                onType: 'mymenu'
+                onType: 'myMenu'
             },
         });
     }, []);
     return (
-        <div className="bodyInner mymenu">
-            mymenu
+        <div className="myMenuInner">
+            <div className="my">myMenu</div>
         </div>
     );
 }

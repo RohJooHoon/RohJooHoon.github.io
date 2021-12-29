@@ -16,7 +16,7 @@ function Footer(props) {
                         <Link className={"footerItem" + (footer.onType == 'main' ? ' is_active' : '')} to="/main">
                             <div className="footerIcon" style={{backgroundImage: `url(${footerLink})`, backgroundPositionX: '-50px'}}></div>
                         </Link>
-                        <Link className={"footerItem" + (footer.onType == 'mymenu' ? ' is_active' : '')} to="/mymenu">
+                        <Link className={"footerItem" + (footer.onType == 'myMenu' ? ' is_active' : '')} to="/mymenu">
                             <div className="footerIcon" style={{backgroundImage: `url(${footerLink})`, backgroundPositionX: '-100px'}}></div>
                         </Link>
                     </div>
