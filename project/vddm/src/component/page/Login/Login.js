@@ -36,7 +36,7 @@ function Login(props) {
                 </h1>
             </div>
             <div className="loginBottom">
-                <form className="loginForm" style={{margin: '92px 0'}}>
+                <form className="loginForm" style={{marginBottom: '92px'}}>
                     <div className="loginInputWrap">
                         <div className="loginInputBox">
                             <input className="loginInput" placeholder="이메일을 입력하세요"/>

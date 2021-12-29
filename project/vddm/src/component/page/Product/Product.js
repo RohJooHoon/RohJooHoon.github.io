@@ -1,27 +1,27 @@
 import React, {useEffect} from "react";
 
-function Profile(props) {
+function Product(props) {
     useEffect(() => {
         props.layoutSet({
             header: {
                 left: 'back',
-                back: '/company'
+                back: '/main'
             },
             body: {
-                class: 'profile'
+                class: 'product'
             },
             footer: {
-                onType: 'company'
+                onType: 'main'
             },
         });
     }, []);
     return (
         <>
-            <div className="profileInner">
-                Profile
+            <div className="productInner">
+                product
             </div>
         </>
     );
 }
 
-export default Profile;
+export default Product;

@@ -17,7 +17,10 @@ function MyMenu(props) {
     }, []);
     return (
         <div className="myMenuInner">
-            <div className="my">myMenu</div>
+            <div className="myMenuTop">
+
+            </div>
+            <div className="myMenuBottom">myMenu</div>
         </div>
     );
 }

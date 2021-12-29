@@ -1,14 +1,14 @@
 import React, {useEffect} from "react";
+import 'css/main.css';
 
-function Profile(props) {
+function Company(props) {
     useEffect(() => {
         props.layoutSet({
             header: {
-                left: 'back',
-                back: '/company'
+                title: '업체 팔로우',
             },
             body: {
-                class: 'profile'
+                class: 'company'
             },
             footer: {
                 onType: 'company'
@@ -17,11 +17,11 @@ function Profile(props) {
     }, []);
     return (
         <>
-            <div className="profileInner">
-                Profile
+            <div className="companyInner">
+                Company
             </div>
         </>
     );
 }
 
-export default Profile;
+export default Company;
