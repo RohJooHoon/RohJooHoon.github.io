@@ -1,14 +1,11 @@
 import React, {useEffect} from "react";
-import 'css/main.css';
+import 'css/company.css';
 
 function Company(props) {
     useEffect(() => {
         props.layoutSet({
             header: {
                 title: '업체 팔로우',
-            },
-            body: {
-                class: 'company'
             },
             footer: {
                 onType: 'company'
@@ -17,7 +14,7 @@ function Company(props) {
     }, []);
     return (
         <>
-            <div className="companyInner">
+            <div className="company">
                 Company
             </div>
         </>

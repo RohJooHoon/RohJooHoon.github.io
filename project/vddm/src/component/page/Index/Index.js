@@ -6,12 +6,12 @@ function Index(props) {
     useEffect(() => {
         props.layoutSet({
             body: {
-                class: 'login is_noneHeader is_noneFooter'
+                class: 'loginBg is_noneHeader is_noneFooter'
             },
         });
     }, []);
     return (
-        <div className="loginInner" style={{maxHeight: 'calc(477px + 55px * 2)'}}>
+        <div className="login" style={{maxHeight: 'calc(477px + 55px * 2)'}}>
             <div className="loginTop">
                 <h2 className="loginSubTitle">
                     모두에게 열린 공간

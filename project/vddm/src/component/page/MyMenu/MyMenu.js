@@ -7,16 +7,13 @@ function MyMenu(props) {
             header: {
                 title: '내 정보',
             },
-            body: {
-                class: 'myMenu'
-            },
             footer: {
                 onType: 'myMenu'
             },
         });
     }, []);
     return (
-        <div className="myMenuInner">
+        <div className="myMenu">
             <div className="myMenuTop">
 
             </div>

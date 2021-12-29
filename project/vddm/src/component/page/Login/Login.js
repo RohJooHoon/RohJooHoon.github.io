@@ -12,24 +12,15 @@ function Login(props) {
                 back: '/'
             },
             body: {
-                class: 'login is_dim is_noneHeader is_noneFooter'
+                class: 'loginBg is_dim is_noneHeader is_noneFooter'
             },
         });
 
-        // 테스트용 강제로그인
-        axios.get('https://devapi.kiwisnap.net/member/login', {
-            params: { mem_id: 'denma1', password: SHA256('111111') },
-        })
-        .then(response => {
-            console.log(response);
-            if (!response.data.error_msg) {
-                localStorage.setItem('token', response.data.token);
-                console.log(response.data.token);
-            } else alert('아이디와 비밀번호를 다시 확인해 주세요');
-        });
+        // 테스트용 강제 로그인
+        props.logIn();
     }, []);
     return (
-        <div className="loginInner" style={{maxHeight: 'calc(400px + 55px * 2)'}}>
+        <div className="login" style={{maxHeight: 'calc(400px + 55px * 2)'}}>
             <div className="loginTop">
                 <h1 className="loginTitle">
                     <span>L</span><span>O</span><span>G</span><span>I</span><span>N</span>

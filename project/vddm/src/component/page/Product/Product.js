@@ -1,4 +1,5 @@
 import React, {useEffect} from "react";
+import 'css/product.css';
 
 function Product(props) {
     useEffect(() => {
@@ -7,9 +8,6 @@ function Product(props) {
                 left: 'back',
                 back: '/main'
             },
-            body: {
-                class: 'product'
-            },
             footer: {
                 onType: 'main'
             },
@@ -17,7 +15,7 @@ function Product(props) {
     }, []);
     return (
         <>
-            <div className="productInner">
+            <div className="product">
                 product
             </div>
         </>

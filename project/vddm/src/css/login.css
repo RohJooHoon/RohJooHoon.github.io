@@ -1,9 +1,8 @@
 /* layout */
-.login {
-    position: relative;
+.loginBg {
     background: no-repeat center / cover url('img/login_bg.jpg');
 }
-.login.is_dim:after {
+.loginBg.is_dim:after {
     position: absolute;
     display: block;
     content: "";
@@ -13,7 +12,7 @@
     left: 0;
     top: 0;
 }
-.loginInner {
+.login {
     position: relative;
     z-index: 1;
     display: flex;
@@ -23,9 +22,6 @@
     max-width: 760px;
     margin: auto;
     padding: 55px 58px;
-}
-.loginTop {
-
 }
 .loginTitle {
     font-family: Asap;
@@ -77,12 +73,6 @@
 }
 
 /* form */
-.loginForm {
-
-}
-.loginInputWrap {
-
-}
 .loginInputWrap + .loginInputWrap {
     margin-top: 40px;
 }

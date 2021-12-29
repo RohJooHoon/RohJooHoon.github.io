@@ -31,12 +31,12 @@
     align-items: center;
 }
 .headerBack {
-    width: 30px;
+    width: 44px;
     height: 44px;
-    background: no-repeat center / cover url(img/header_backArrow.png);
+    background: no-repeat center / contain url(img/header_backArrow.png);
 }
 .headerBack.is_white {
-    background: no-repeat center / cover url(img/header_backArrow_white.png);
+    background: no-repeat center / contain url(img/header_backArrow_white.png);
 }
 .headerLogo {
     display: inline-block;
@@ -94,7 +94,7 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
-    overflow: auto;
+    overflow: hidden auto;
 }
 
 /* footer */

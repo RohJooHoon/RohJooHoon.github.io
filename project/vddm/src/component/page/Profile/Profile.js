@@ -1,4 +1,5 @@
 import React, {useEffect} from "react";
+import 'css/profile.css';
 
 function Profile(props) {
     useEffect(() => {
@@ -7,9 +8,6 @@ function Profile(props) {
                 left: 'back',
                 back: '/company'
             },
-            body: {
-                class: 'profile'
-            },
             footer: {
                 onType: 'company'
             },
@@ -17,7 +15,7 @@ function Profile(props) {
     }, []);
     return (
         <>
-            <div className="profileInner">
+            <div className="profile">
                 Profile
             </div>
         </>
