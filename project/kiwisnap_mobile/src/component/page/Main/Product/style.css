@@ -1,0 +1,119 @@
+.mainProduct {
+    margin: auto;
+    width: 100%;
+    max-width: 1000px;
+}
+.mainProductHero {
+    position: relative;
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+}
+.mainProductHero:before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.73) 90%);
+    z-index: 1;
+}
+.mainProductHeroImg {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: no-repeat center / cover;
+    z-index: 0;
+}
+.mainProductHeroVideo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+.mainProductHeroControl {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 19px 16px;
+    z-index: 5;
+}
+.mainProductHeroProfile{
+    cursor: pointer;
+}
+.mainProductHeroProfile .profileImg {
+    width: 36px;
+    height: 36px;
+}
+.mainProductHeroProfile .profileTitle {
+    font-family: Apple SD Gothic Neo;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+    color: #FFFFFF;
+}
+.mainProductHeroProfile .profileTag {
+    font-family: Apple SD Gothic Neo;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 0;
+}
+.mainProductBody {
+
+}
+.mainProductInfo {
+    display: flex;
+    flex-direction: column;
+    padding: 25px 18px;
+}
+.mainProductInfoTitle {
+    font-family: Apple SD Gothic Neo;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+    margin-bottom: 8px;
+}
+.mainProductInfoValue {
+    font-family: Apple SD Gothic Neo;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 34px;
+    line-height: 41px;
+    color: #000000;
+    margin-bottom: 8px;
+}
+.mainProductInfoDescription {
+    font-family: Apple SD Gothic Neo;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: #939393;
+}
+.mainProductTip {
+    width: calc(100% - 16px * 2);
+    margin: 0 16px;
+    padding: 53px 0 19px;
+    background: #FBFFF7 no-repeat calc(50% - 12.5px) 19px / 25px url(img/mainProductTip.svg);
+    font-family: Apple SD Gothic Neo;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    color: #939393;
+}

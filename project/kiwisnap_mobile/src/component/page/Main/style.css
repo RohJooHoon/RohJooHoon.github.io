@@ -1,0 +1,45 @@
+.main {
+    margin: auto;
+    width: 100%;
+    max-width: 800px;
+}
+.mainThumbnailList {
+    padding: 10px 16px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 9px;
+    row-gap: 10px;
+}
+@media screen and (min-width: 620px) {
+    .mainThumbnailList {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+.mainThumbnailItem {
+    position: relative;
+    padding-bottom: 133.5329%;
+    cursor: pointer;
+}
+.mainThumbnailItemImg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: no-repeat center / cover;
+}
+.mainThumbnailItemVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.mainThumbnailItemTitle {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: 18px;
+    line-height: 22px;
+    padding: 8px 12px;
+}

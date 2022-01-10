@@ -1,0 +1,18 @@
+.company {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 800px;
+}
+.companyProfileList {
+    padding: 14px 15px;
+}
+.companyProfileItem {
+    display: flex;
+    align-items: center;
+}
+.companyProfileItem + .companyProfileItem {
+    margin-top: 16px;
+}
+.companyProfileButton {
+    margin-left: 12px;
+}

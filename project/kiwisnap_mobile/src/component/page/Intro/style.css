@@ -1,0 +1,231 @@
+/* layout */
+.loginBg {
+    background: no-repeat center / cover url('img/login_bg.jpg');
+}
+.loginBg.is_dim:after {
+    position: absolute;
+    display: block;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    left: 0;
+    top: 0;
+}
+.login {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    width: 100%;
+    max-width: 760px;
+    margin: auto;
+    padding: 55px 58px;
+}
+.loginTitle {
+    font-family: Asap;
+    font-style: normal;
+    font-weight: bold;
+    text-align: center;
+    color: #FFFFFF;
+}
+.loginTitle span {
+    display: inline-block;
+    font-size: 36px;
+    line-height: normal;
+}
+.loginTitle span + span {
+    margin-left: 20px;
+}
+.loginSubTitle {
+    margin-bottom: 17px;
+    font-family: Asap;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+    color: #FFFFFF;
+}
+.loginBody {
+    display: flex;
+    flex-direction: column;
+}
+.loginBottom {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    padding-top: 60px;
+}
+.loginTextButton {
+    display: block;
+    margin: 23px auto 0;
+    font-family: Apple SD Gothic Neo;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 13px;
+    text-align: center;
+    line-height: 16px;
+    letter-spacing: 0.04em;
+    text-decoration-line: underline;
+    color: #FFFFFF;
+}
+
+/* form */
+.loginInputWrap + .loginInputWrap {
+    margin-top: 40px;
+}
+.loginInputBox {
+    display: flex;
+}
+.loginInputBox + .loginInputBox {
+    margin-top: 6px;
+}
+.loginInputTitle {
+    display: block;
+    margin-bottom: 6px;
+    font-family: Asap;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+}
+.loginInputTitleTip {
+    font-weight: normal;
+    color: #666666;
+    margin-left: 8px;
+}
+.loginInput {
+    padding: 0 9px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    height: 34px;
+    font-family: Apple SD Gothic Neo;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    color: #FFFFFF;
+    border-bottom: solid 1px #FFFFFF;
+}
+.loginInput + .loginInput {
+    margin-left: 10px;
+}
+.loginInput::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+.loginInput:placeholder-shown {
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+.is_error,
+.is_error:placeholder-shown {
+    color: #FF4D00;
+    border-bottom-color: #FF4D00;
+}
+.is_error_text {
+    margin-top: 3px;
+    font-family: Apple SD Gothic Neo;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: right;
+}
+/*checkBox*/
+.termsAgreeWrap {
+    margin-top: 50px;
+    font-size: 11px;
+    line-height: 13px;
+    font-family: Apple SD Gothic Neo;
+    color: rgba(255, 255, 255, 0.8);
+}
+.termsAgreeAll{
+    margin-bottom: 15px;
+}
+.termsAgreeAll .listlabelAllAgree{
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+}
+.termsAgreeWrap li {
+    display: flex;
+    justify-content: space-between;
+}
+.termsAgreeWrap li input {
+    display: none;
+}
+.termsAgreeEach + .termsAgreeEach {
+    margin-top: 10px;
+}
+.termsAgreeAll .listlabelAllAgree,
+.termsAgreeEach .termsEachAgree {
+    cursor: pointer;
+}
+.termsAgreeAll .listlabelAllAgree:before {
+    display: inline-block;
+    content: "";
+    position: relative;
+    margin: 0 7px -6px 0;
+    top: -1px;
+    width: 20px;
+    height: 20px;
+    background: #666666;
+    border-radius: 2px;
+}
+.termsAgreeAll .listlabelAllAgree.is_on:before {
+    background: linear-gradient(180deg, #ff00d6 0%, #ff4d00 100%);
+}
+.termsAgreeAll .listlabelAllAgree:after{
+    display: block;
+    content: "";
+    position: relative;
+    left: 2px;
+    top: -10px;
+    background: rgba(255, 255, 255, 0.5);
+    width: 2px;
+    height: 2px;
+    box-shadow: 2px 0 0 rgba(255, 255, 255, 0.5), 4px 0 0 rgba(255, 255, 255, 0.5), 6px 0 0 rgba(255, 255, 255, 0.5), 6px -2px 0 rgba(255, 255, 255, 0.5), 6px -4px 0 rgba(255, 255, 255, 0.5), 6px -6px 0 rgba(255, 255, 255, 0.5), 6px -8px 0 rgba(255, 255, 255, 0.5), 6px -10px 0 rgba(255, 255, 255, 0.5), 6px -12px 0 rgba(255, 255, 255, 0.5), 6px -14px 0 rgba(255, 255, 255, 0.5);
+    transform: rotate(45deg);
+}
+.termsAgreeAll .listlabelAllAgree.is_on:after{
+    background: #FFFFFF;
+    box-shadow: 2px 0 0 white, 4px 0 0 white, 6px 0 0 white, 6px -2px 0 white, 6px -4px 0 white, 6px -6px 0 white, 6px -8px 0 white, 6px -10px 0 white, 6px -12px 0 white, 6px -14px 0 white;
+}
+.termsAgreeEach .termsEachAgree:before{
+    display: inline-block;
+    content: "";
+    position: relative;
+    margin: 0 7px -5px 0;
+    top: -1px;
+    width: 16px;
+    height: 16px;
+    background: #666666;
+    border-radius: 2px;
+}
+.termsAgreeEach .termsEachAgree.is_on:before{
+    background: linear-gradient(180deg, #ff00d6 0%, #ff4d00 100%);
+}
+.termsAgreeEach .termsEachAgree:after {
+    display: block;
+    content: "";
+    position: relative;
+    left: 2px;
+    top: -7px;
+    background: rgba(255, 255, 255, 0.5);
+    width: 2px;
+    height: 2px;
+    box-shadow: 2px 0 0 rgba(255, 255, 255, 0.5), 4px 0 0 rgba(255, 255, 255, 0.5), 4px -2px 0 rgba(255, 255, 255, 0.5), 4px -4px 0 rgba(255, 255, 255, 0.5), 4px -6px 0 rgba(255, 255, 255, 0.5), 4px -8px 0 rgba(255, 255, 255, 0.5), 4px -10px 0 rgba(255, 255, 255, 0.5);
+    transform: rotate(45deg);
+}
+.termsAgreeEach .termsEachAgree.is_on:after {
+    background: #FFFFFF;
+    box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white, 4px -10px 0 white;
+}
+.termsAgreeEach a {
+    color: #3478f6;
+    text-decoration: underline;
+    cursor: pointer;
+}
+

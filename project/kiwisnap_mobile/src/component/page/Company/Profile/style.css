@@ -1,0 +1,165 @@
+.companyProfileHeader {
+    position: relative;
+    margin: auto;
+    width: 100%;
+}
+.companyProfileHeader:before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 197px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: no-repeat top / cover url('img/companyProfileHeader.png');
+    z-index: 0;
+}
+.companyProfileHeader:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 197px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, #FFFFFF 100%);
+    z-index: 1;
+}
+.companyProfileHeaderBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin: auto;
+    width: 100%;
+    max-width: 800px;
+    padding: 64px 54px 26px;
+    z-index: 5;
+}
+.companyProfileHeaderTitle {
+    font-family: Apple SD Gothic Neo;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 43px;
+    letter-spacing: -0.015em;
+    color: #000000;
+}
+.companyProfileHeaderAddress {
+    font-family: Apple SD Gothic Neo;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.04em;
+    color: #000000;
+    margin: 8px 0 34px;
+}
+.companyProfileHeaderButtonList {
+    margin-top: 34px;
+    padding: 0 54px;
+    white-space: nowrap;
+}
+.companyProfileHeaderButtonItem {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 52px;
+}
+.companyProfileHeaderButtonItem + .companyProfileHeaderButtonItem {
+    margin-left: 20px;
+}
+.companyProfileHeaderButton {
+    width: 52px;
+    height: 52px;
+    border-radius: 52px;
+    background-color: #000000;
+    font-size: 1px;
+    color: transparent;
+    overflow: hidden;
+}
+.companyProfileHeaderButton.is_call {
+    border: solid 2px #000000;
+    background-color: #FFFFFF;
+}
+.companyProfileHeaderButton div{
+    width:100%;
+    height:100%;
+}
+.companyProfileHeaderButton .is_kakaoStory {
+    background:no-repeat center / 80% url(img/stone01.png);
+}
+.companyProfileHeaderButton .is_kakaoTalk {
+    background:no-repeat center / 80% url(img/stone02.png);
+}
+.companyProfileHeaderButton .is_weChat {
+    background:no-repeat center / 80% url(img/stone03.png);
+}
+.companyProfileHeaderButton .is_call {
+    background:no-repeat center / 80% url(img/stone04.png);
+}
+.companyProfileBody {
+    margin: auto;
+    width: 100%;
+    max-width: 800px;
+}
+.companyProfileBodyBox {
+    padding:20px 16px;
+}
+.companyProfileBodyTitleBox {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+.companyProfileBodyTitle {
+    font-family: Apple SD Gothic Neo;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 15px;
+    letter-spacing: 0.04em;
+    color: #000000;
+}
+.companyProfileBodyButtonBox {
+    display: flex;
+    justify-content: space-between;
+    width:46px;
+}
+.companyProfileBodyButton {
+    position: relative;
+    width:17px;
+    height:17px;
+    background-color: #E5E5E5;
+}
+.companyProfileBodyButton.is_active {
+    background-color: #000000;
+}
+.companyProfileBodyButtonBar {
+    position: absolute;
+    background-color: #FFFFFF;
+    z-index: 1;
+}
+.companyProfileBodyButtonBar.is_horizon {
+    width: 100%;
+    height: 1px;
+    top: calc(50% - 0.5px);
+    left: 0;
+}
+.companyProfileBodyButtonBar.is_vertical {
+    width: 1px;
+    height: 100%;
+    top: 0;
+    left: calc(50% - 0.5px);
+}
+.productThumbnailList.grid_off .mainThumbnailItem {
+    padding-bottom:100%;
+}
+.productThumbnailList.grid_off .mainThumbnailItem + .mainThumbnailItem {
+    margin-top: 11px;
+}
+.productThumbnailList.grid_on {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 11px;
+    row-gap: 11px;
+}
