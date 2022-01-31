@@ -1,29 +1,23 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const path = require('path');
 const app = express();
+const port = 8080;
 
-app.use(bodyParser.urlencoded({express : true}));
-
-app.listen(8080, function (){
-    console.log('listening on 8080');
+app.listen(port, function (){
+    console.log(`listening on ${port}`);
 });
 
-// 라우터
-app.get('/', function (req, res){
-    res.sendFile(__dirname + '/index.html');
+app.use('/', express.static(path.join(__dirname, 'public')));
+app.use('/react', express.static(path.join(__dirname, 'react-project/build')));
+
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, 'public/index.html'));
 });
-app.get('/write', function (req, res){
-    res.sendFile(__dirname + '/write.html');
+
+app.get('/react', function (요청, 응답) {
+    응답.sendFile(path.join(__dirname, '/react-project/build/index.html'));
 });
 
-// form 데이터
-app.post('/add', function (req, res) {
-    // res.send('전송완료');
-    console.log("req.body : ", req.body);
-})
-
-// 페이지에 텍스트 삽입
-app.get('/dada', function (req, res){
-    res.send("나는 다다 입니다.");
-})
-
+// app.get('*', function (요청, 응답) {
+//     응답.sendFile(path.join(__dirname, '/react-project/build/index.html'));
+// });
