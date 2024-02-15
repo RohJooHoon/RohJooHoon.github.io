@@ -1,0 +1,125 @@
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col">
+            <h4 class="page-title text-dark">모델 등록</h4>
+        </div>
+        <div class="col-auto">
+            <button type="button" class="btn btn-success" onclick="javascript:create()">등록</button>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠 -->
+<form class="container-fluid" enctype="multipart/form-data" method="post" id="insertForm">
+
+    <!-- 상세 템플릿 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-header py-2">
+                    <div class="row">
+                        <div class="col py-1">
+                            <h5 class="font-weight-bold mb-1">모델</h5>
+                            <h6 class="m-0">상품 상세에서 사용할 모델 추가</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="model_name">모델이름<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="model_name" type="text" name="model_name" placeholder="모델 이름을 넣어주세요">
+                    </div>
+
+                    <div class="input-group mb-1">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="">프로필이미지<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <div class="custom-file">
+                            <input class="custom-file-input" id="profile_file" type="file" name="profile_file" onchange="changeFile(event);">
+                            <label class="custom-file-label" for="inputGroupFile01" data-content="업로드">선택된 파일 없음</label>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3">
+                            <img class="img-thumbnail img-responsive mb-1" id="profile_image" alt="" src="" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="height">키<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="height" type="text" name="height" placeholder="키를 넣어주세요">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="age">나이</label>
+                        </div>
+                        <input class="form-control" id="age" type="text" name="age" placeholder="나이를 넣어주세요">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="weight">몸무게</label>
+                        </div>
+                        <input class="form-control" id="weight" type="text" name="weight" placeholder="몸무게를 넣어주세요">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="top">TOP</label>
+                        </div>
+                        <input class="form-control" id="top" type="text" name="top" placeholder="TOP을 넣어주세요">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="bottom">BOTTOM</label>
+                        </div>
+                        <input class="form-control" id="bottom" type="text" name="bottom" placeholder="이미지 url을 넣어주세요">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //상세 템플릿 -->
+</form>
+<script type="text/javascript">
+    //파일 변경시
+    function changeFile(event){
+        const files = event.target.files;
+        for (let image of files) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                $('#profile_image').show().attr('src', event.target.result);
+            };
+            reader.readAsDataURL(image);
+        }
+    }
+
+    //등록
+    function create(){
+        if (inputImpotent()) {
+            $('#insertForm').attr('action', `${denma_api_url}/model/create`);
+            $('#insertForm').ajaxForm({
+                beforeSubmit: function (data,form,option) {
+                    return true;
+                },
+                success: function(response,status){
+                    //성공후 서버에서 받은 데이터 처리
+                    console.log("response:", response);
+                    if(response.hasOwnProperty('error_code')){
+                        alert(response.error_msg);
+                        return;
+                    }else{
+                        alert('등록 성공');
+                    }
+                },
+                error: function(error){
+                    $("#submitBtn").show();
+                    //에러발생을 위한 code페이지
+                    $("#spinner").hide();
+                    console.log('error:'+JSON.stringify(error));
+                }
+            }).submit();
+        }
+    }
+</script>

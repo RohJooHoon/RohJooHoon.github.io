@@ -1,0 +1,239 @@
+<style>
+    .td-center{text-align: center;}
+</style>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">상품 리스트</h4>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">정렬 조건</span>
+                        </div>
+                        <select class="custom-select is_underLine" id="order_filter" name="order_filter" onchange="productSearch()">
+                            <option value="DESC">최신순</option>
+                            <option value="ASC">오래된 순</option>
+                        </select>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">검색 조건</span>
+                        </div>
+                        <select class="custom-select is_underLine" id="search_condition" name="search_condition">
+                            <option value="" selected>선택</option>
+                            <option value="product_name">상품명</option>
+                            <option value="product_seq">상품번호</option>
+                            <option value="product_id">상품코드</option>
+                            <option value="homepage_name">쇼핑몰명</option>
+                            <option value="client_id">클라이언트 ID</option>
+                        </select>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">검색어</span>
+                        </div>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" id="search_word">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="button" onclick="productSearch()"><i class="ti-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="productTable table-bordered" id="product-table" style="width: 100%;">
+                    <thead>
+                    <tr style="text-align: center">
+                        <th class="text-dark font-weight-bold">상품번호</th>
+                        <th class="text-dark font-weight-bold">상품코드</th>
+                        <th class="text-dark font-weight-bold">상품명</th>
+                        <th class="text-dark font-weight-bold">상태</th>
+                        <th class="text-dark font-weight-bold">연동몰</th>
+                        <th class="text-dark font-weight-bold">쇼핑몰</th>
+                        <th class="text-dark font-weight-bold">클라이언트 ID</th>
+                        <th class="text-dark font-weight-bold">생성일</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    const params = getUrlParams();
+
+    // 엔터키 누를시 상품 검색.
+    document.addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+            productSearch();
+        }
+    });
+
+    $(function (){
+        productSearch();
+    });
+
+    // 전체 상품 리스트 조회.
+    function productSearch() {
+
+        const sendData = {
+            "order_filter" : $("#order_filter").val(),
+            "search_condition" : $("#search_condition").val(),
+            "search_word" : $("#search_word").val().trim(),
+        }
+
+        $(".productTable").dataTable().fnDestroy();
+        $('.productTable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "ordering": false,
+            "searching": false,
+            "info" : false,
+            "stateSave": false,
+            "pageLength": 30,
+            "ajax": {
+                "url" : `${denma_api_url}/api/product/list`,
+                "data" : sendData,
+            },
+            "columns" : [
+                {"data" : "product_seq"},
+                {"data" : "product_id"},
+                {"data" : "product_name"},
+                {"data" : "prod_status"},
+                {"data" : "link_mall_info"},
+                {"data" : "homepage_name"},
+                {"data" : "client_id"},
+                {"data" : "create_date"},
+            ],
+            "columnDefs": [
+                {
+                    "className": 'td-center',
+                    "width" : "8%",
+                    "render": function(data, type, row) {
+                        const hostService =  "<%=config.info.host_service%>";
+                        return `<a href='${hostService}/view/member/fastLogin?mem_id=${row.mem_id}&password=${row.password}' target="_blank">${data}</a>`;
+                    },
+                    "targets": 0
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "8%",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 1
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "10%",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 2
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "5%",
+                    "render": function(data, type, row) {
+                        return data != null? data : "-";
+                    },
+                    "targets": 3
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "15%",
+                    "render": function(data, type, row) {
+                        if (data == null) {
+                            return '-';
+                        } else {
+                            let mall_info_html = '';
+                            for (const mall_info of data) {
+                                let mall_tag = `<p><button class="waves-effect waves-light" data-mall-product-seq="${mall_info.mall_product_seq}" onclick="goProductSite(${mall_info.client_mall_seq}, ${mall_info.mall_product_no});">${mall_info.mall_type}</button> | ${mall_info.prod_status} | ${mall_info.mall_product_seq} | <button class="waves-effect waves-light" data-mall-product-seq="${mall_info.mall_product_seq}" onclick="resetMallLink($(this));">연동 초기화</button></p>`;
+                                mall_info_html += mall_tag;
+                            }
+                            return mall_info_html;
+                        }
+                    },
+                    "targets": 4
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "10%",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 5
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "10%",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 6
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "5%",
+                    "render": function(data, type, row) {
+                        return data !== null? data.split("T")[0] : '-';
+                    },
+                    "targets": 7
+                },
+            ],
+        });
+    }
+
+    function resetMallLink($this) {
+        const mall_product_seq = $this.attr('data-mall-product-seq');
+        const result = confirm(`${mall_product_seq}번 연동을 초기화 하시겠습니까?`);
+        if (result) {
+            $.ajax({
+                url : `${denma_nextdop_api_url}/product/resetConnect/${mall_product_seq}`,
+                type : "PUT",
+                data : '',
+                success : function(response) {
+                    console.log("response :: ", response);
+                    if (response.cnt != null) {
+                        showAlert(`${mall_product_seq}번 상품 연동 초기화 완료.`);
+                        $('.productTable').DataTable().ajax.reload(null, false);
+                    } else {
+                        showAlert("상품 연동 초기화 실패.");
+                    }
+                },
+                error : function(error) {
+                    console.log("error :: ", error);
+                }
+            });
+        }
+    }
+
+    function goProductSite(client_mall_seq, mall_product_no){
+        $.ajax({
+            type : "GET",
+            url : `${denma_nextdop_api_url}/mall/product/goProductSite?client_mall_seq=`+client_mall_seq+'&mall_product_no='+mall_product_no,
+            contentType: "application/json; charset=utf-8",
+            success : function(response) {
+                console.log("response :: ", response);
+                if(response.error !== "error"){
+
+                    window.open(response.path);
+                }else{
+                    alert("잠시 후 다시 시도하여주세요.")
+                }
+            },
+            error : function(error) {
+                console.log("error");
+                console.log(error);
+            }
+        })
+    }
+
+
+
+</script>

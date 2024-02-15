@@ -1,0 +1,169 @@
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col">
+            <h4 class="page-title">사이즈 정보</h4>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<form method="post" class="container-fluid" id="commonSizeForm">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header py-2">
+                    <div class="row">
+                        <div class="col py-1">
+                            <h5 class="font-weight-bold mb-1" id="permissionTitle"></h5>
+<!--                            <h6 class="m-0">상품 카테고리별 사용 사이즈 단위</h6>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row" id="input_list">
+
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-success float-right" onclick="mappingSave()" id="sendBtn">저장하기</button>
+                    <button type="button" class="btn btn-success float-right" onclick="goToManage()">목록으로</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!--스크립트-->
+<script type="text/javascript">
+
+
+    let permissionSeq;
+    $(document).ready(function () {
+        let urlParams = getUrlParams(window.location.href)
+        permissionSeq = urlParams.permissionSeq;
+        let permissionLevel = urlParams.permissionLevel;
+        console.log("permissionSeq : ", permissionSeq)
+        console.log("permissionLevel : ", permissionLevel)
+        if (isEmpty(permissionSeq)){
+            alert("선택된 등급이 없습니다. 권한 페이지로 이동합니다.")
+            location.href = '/view/permission/manage';
+        }
+        let title = "선택된 permission : "+permissionLevel
+        $('#permissionTitle').text(title);
+        settingMenu();
+        mappingMenuCheckSetting(kiwiApiAjax('get','/permission/menu/mapping/level/'+permissionLevel,null,false));
+    });
+
+    // 공통 사이즈 정보 리스트로 이동한다.
+    function goToManage() {
+        location.href = '/view/permission/manage';
+    }
+    function mappingUpdate(){
+        let sendData = mappingDataFactory();
+        if (isEmpty(sendData)){
+            alert("선택된 메뉴가 없습니다.")
+            return false
+        }
+        kiwiApiAjax('put','/permission/menu/mapping/'+permissionSeq,sendData,false)
+        location.reload();
+    }
+    function mappingSave(){
+        let sendData = mappingDataFactory();
+        if (isEmpty(sendData)){
+            alert("선택된 메뉴가 없습니다.")
+            return false
+        }
+        kiwiApiAjax('post','/permission/menu/mapping/'+permissionSeq,sendData,false)
+
+        location.reload();
+    }
+    function mappingDataFactory(){
+        let menuCheckArr = $("input:checkbox[name=menuCheckBox]:checked");
+        console.log("menuCheckArr : ",menuCheckArr )
+        let seqList = [];
+        menuCheckArr.each(function (index,value){
+            let seq = parseInt(($(value).attr('data-seq')))
+            seqList.push(seq);
+        })
+        return seqList;
+    }
+
+    function settingMenu(){
+        let permissionMenu = (kiwiApiAjax('get','/permission/menu/list',null,false)).get("data");
+        // console.log("permissionMenu : ", permissionMenu)
+        let htmlArr = [];
+            //
+            //
+            //
+            //     </ul>
+            // </nav>
+        // </div>
+        let html = `
+        <div>`;
+        for (const menuObj of permissionMenu) {
+            let menuHtml = menuMappingHtmlFactory(objToMap(menuObj));
+            // console.log("menuHtml : ", menuHtml)
+            htmlArr.push(menuHtml)
+            html+=menuHtml
+        }
+        html+= `
+        </div>`
+        // console.log("htmlArr : ", htmlArr)
+        $('#input_list').append(html);
+
+    }
+
+    function menuMappingHtmlFactory(menuMap) {
+        let html = `
+        <div style="border-bottom: 1px solid black">
+            <div>
+                <lavel>
+                     <input type="checkbox" name="menuCheckBox" id="menuCheckBox${menuMap.get("permission_menu_seq")}" data-seq="${menuMap.get("permission_menu_seq")}" />
+                </lavel>
+                <span>${menuMap.get("permission_menu_name")}</span>
+            </div>
+        `
+
+        let childNodes = menuMap.get("childNode");
+        for (const childNode of childNodes) {
+            let childObj = objToMap(childNode);
+            let childNodeHtml = `
+                <div>
+                    <lavel>
+                         <input type="checkbox" name="menuCheckBox" id="menuCheckBox${childObj.get("permission_menu_seq")}" data-seq="${childObj.get("permission_menu_seq")}" />
+                    </lavel>
+                    <span>${childObj.get("permission_menu_name")}</span><span>url = ${childObj.get("permission_menu_url")}</span>
+                </div>
+        `
+            html+= childNodeHtml;
+
+        }
+        html += `</div>`;
+        return html;
+    }
+
+    function mappingMenuCheckSetting(mappingMenuMap){
+        let seqArr = [];
+        for (const menuObj of mappingMenuMap) {
+
+            let permissionSeq = menuObj.get("permission_menu_seq");
+            seqArr.push(permissionSeq);
+            let childNodes = menuObj.get("childNode");
+            for (const childNode of childNodes) {
+                seqArr.push(childNode.permission_menu_seq);
+            }
+        }
+
+        for (const seqElement of seqArr) {
+            let seq= parseInt(seqElement)
+            $('#menuCheckBox'+seq).prop('checked',true);
+
+        }
+        if (!(isEmpty(seqArr))){
+            $('#sendBtn').attr('onclick','mappingUpdate()');
+            $('#sendBtn').text("수정하기")
+        }
+    }
+
+
+</script>
+

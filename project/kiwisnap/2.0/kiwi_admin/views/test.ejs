@@ -1,0 +1,254 @@
+
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+<!-- include summernote css/js -->
+<link href="/vendor/bootstrap-treeview.min.css" rel="stylesheet">
+<script src="/vendor/bootstrap-treeview.js"></script>
+
+<script src="/js/cafe24.js"></script>
+<style>
+	/* Dropdown button on hover & focus */
+	.dropbtn:hover, .dropbtn:focus {
+		background-color: #3e8e41;
+	}
+
+
+	/* The search field */
+	#myInput {
+		box-sizing: border-box;
+		background-image: url('searchicon.png');
+		background-position: 14px 12px;
+		background-repeat: no-repeat;
+		font-size: 16px;
+		padding: 14px 20px 12px 45px;
+		border: none;
+		border-bottom: 1px solid #ddd;
+	}
+
+	/* The search field when it gets focus/clicked on */
+	#myInput:focus {outline: 3px solid #ddd;}
+
+	/* The container <div> - needed to position the dropdown content */
+	.dropdown {
+		position: relative;
+		display: inline-block;
+	}
+
+	/* Dropdown Content (Hidden by Default) */
+	.dropdown-content {
+		display: none;
+		position: absolute;
+		top:50px;
+		left:72px;
+		background-color: #f6f6f6;
+		min-width: 230px;
+		border: 1px solid #ddd;
+		z-index: 1;
+		height: 300px;
+		overflow-y: auto;
+	}
+
+	/* Links inside the dropdown */
+	.dropdown-content a {
+		color: black;
+		padding: 12px 16px;
+		text-decoration: none;
+		display: block;
+	}
+
+	/* Change color of dropdown links on hover */
+	.dropdown-content a:hover {background-color: #f1f1f1}
+
+	/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+	.show {display:block;}
+</style>
+
+
+<div id="block" style="display: none;position:absolute;width: 100%;height: 100%;background: #000;opacity: 0.5;z-index: 9999">
+
+</div>
+<div class="spinner-border text-light spinner_clip" style="display: none;width: 5rem; height: 5rem;position: fixed;margin: auto;left: 0;right: 0;top: 0;bottom: 0;z-index: 99999;" role="status">
+	<span class="sr-only">Loading...</span>
+</div>
+<iframe style="position: fixed;
+    top: 50%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+    z-index: 9;display: none" id="miniPaint" src="/photoshop/index.html"></iframe>
+<div id="photoBack" style="background: #0c0c0d;opacity:0.6;position: absolute;width: 100%;height: 100%;z-index: 8;display: none">
+
+</div>
+<button type="button" id="photoClose" onclick="closePhoto();" class="btn btn-primary col-lg-3 mb-3" style="position: fixed;bottom: 10px;left: 50%;transform: translate(-50%, 0%);z-index: 9;display: none">닫기</button>
+
+<script>
+	var selectedPhotoObject;
+	function openPhoto(url,currentObj){
+		//var param={ url: "http://localhost:3000/photoshop/images/6_T-00626.jpg" }
+		var param={ url: url }
+		document.getElementById("miniPaint").contentWindow.postMessage(param, '*');
+		var ih=$(window).height();
+		var iw=$(window).width();
+		$("#miniPaint").css("width",iw*0.8);
+		$("#miniPaint").css("height",ih*0.8);
+		$("#miniPaint").show();
+		$("#photoBack").show();
+		$("#photoClose").show();
+
+		selectedPhotoObject=currentObj;
+	}
+	function closePhoto() {
+		$("#miniPaint").hide();
+		$("#photoBack").hide();
+		$("#photoClose").hide();
+		$("#miniPaint").attr("src","/photoshop/index.html");
+	}
+</script>
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+	<!-- Page Heading -->
+	<h1 class="h3 mb-4 text-gray-800"><%-product_id%></h1>
+
+	<!-- 360영역 -->
+	<div class="row" id="div_360" style="display:none;">
+		<div class="col-lg-6">
+			<div class="card shadow mb-4"  id="image_div">
+				<div class="card-header py-3">
+					<h6 class="m-0 font-weight-bold text-primary">마네킹 360 {IMG_360} </h6>
+				</div>
+				<div class="card-body">
+					<div class="text-center">
+						<div class="m_pd16" style="margin-top:20px">
+
+							<iframe id="frame_360" src="<%=config.info.host%>/template/360.html?cid=<%- client_id %>&pid=<%-product_id%>&product_type=product" scrolling="no" frameborder="0"  width="100%" style=""></iframe>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- /.container-fluid -->
+
+<!-- End of Main Content -->
+
+<script type="text/javascript">
+	let cafe24 = new cafe24Class('<%- client_id %>');
+
+	let select_category_nos = new Array();
+	let global_categories;	//mall 의 카테고리.
+
+	/*
+      초기 로딩
+    */
+	$(document).ready(function () {
+
+
+	});
+
+
+
+	//상품 상세 조회.
+	let global_product_info;
+	function selectDetail() {
+		let dataMap = {
+			"token" : $.cookie('cafe_token')
+		}
+		$.ajax({
+			type: "GET",
+			dataType: "json",
+			data: dataMap,
+			url : `${denma_api_url}/product/<%- product_seq %>`,
+			success: function (response) {
+				console.log("selectDetail.response: ", response);
+
+				global_product_info = response;
+
+
+
+			},
+			fail: function (data) {
+				console.log("error data: ", data);
+			}
+		})
+	}
+
+
+
+
+	function popupImage(src,obj){
+		openPhoto(src,obj);
+	}
+
+
+
+	function startLoading() {
+		$(".spinner_clip").show();
+		$("#block").show();
+	}
+
+	function stopLoading() {
+		$(".spinner_clip").hide();
+		$("#block").hide();
+	}
+
+	function downloadImg(){
+		var imgcount = imgRotate;
+		console.log("imgcount:"+imgcount);
+		var imgsrc = $("#img"+imgRotate).attr("src");
+		console.log("open img:"+imgsrc);
+		popupImage(imgsrc);
+	}
+
+</script>
+
+
+
+
+<script>
+	window.addEventListener('message', function(e) {
+		//console.log(e.data);
+		if(e.data.height!=undefined){
+			$('#frame_360').height(e.data.height);
+		}else if(e.data.blob !=undefined){
+			console.log("blobData:"+e.data.blob);
+			var reader = new FileReader();
+			reader.readAsDataURL(e.data.blob);
+			reader.onloadend = function() {
+				var base64data = reader.result;
+				console.log(base64data);
+				var imgTag=$(selectedPhotoObject).attr("src");
+				console.log("imgTag:"+imgTag);
+				$(selectedPhotoObject).attr("src",base64data);
+			}
+		}
+
+	});
+
+
+	function myFunction() {
+		document.getElementById("myDropdown").classList.toggle("show");
+	}
+
+
+	function replaceAll(str, searchStr, replaceStr) {
+
+		return str.split(searchStr).join(replaceStr);
+	}
+</script>

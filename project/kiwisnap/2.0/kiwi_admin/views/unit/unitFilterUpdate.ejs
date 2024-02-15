@@ -1,0 +1,186 @@
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col">
+            <h2 class="page-title text-dark">필터 수정</h2>
+        </div>
+        <div class="col-auto">
+            <!--            <button type="button" class="btn btn-success" onclick="">목록으로</button>-->
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠 -->
+<form class="container-fluid" enctype="multipart/form-data" method="post" id="insertForm">
+
+    <!-- 상세 템플릿 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-header py-2">
+                    <div class="row">
+                        <div class="col py-1">
+                            <h5 class="font-weight-bold mb-1">필터</h5>
+                            <h6 class="m-0">프레임에서 사용할 필터 수정.</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="filter_name">번호 <span class="text-danger ml-05">*</span></label>
+                                        </div>
+                                        <div class="input-group-text" id="filterSeqId"></div>
+                                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="filter_name">이름<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="filter_name" type="text" name="filter_name" placeholder="필터 이름을 넣어주세요">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="filter_type">타입<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_full">
+                            <select class="custom-select" name="filter_type" id="filter_type">
+                                <option value="CATEGORY">카테고리</option>
+                                <option value="SUB_CATEGORY">하위 카테고리</option>
+                                <option value="NEW_ROW">단수</option>
+                                <option value="NEW_STYLE">스타일</option>
+                                <option value="SEEZN">시즌</option>
+                                <option value="COLOR">컬러</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="filter_name">상태<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status" id="status_01" value="01" checked>
+                                <label class="form-check-label" for="status_01">활성</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status" id="status_02" value="99">
+                                <label class="form-check-label" for="status_02">비활성</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text" for="filter_keyword">연관검색어</label>
+                                            </div>
+                                            <input class="form-control is_impotent" id="filter_keyword" type="text" name="filter_keyword" >
+                                        </div>
+                    <div>
+                        <input type="hidden" id="filter_seq">
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="btn btn-success float-right" onclick="updateFilter()">수정 하기</button>
+                        <button type="button" class="btn btn-success float-right" onclick="toList()">필터 목록</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //상세 템플릿 -->
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        getFilterDetail();
+    });
+
+    function getFilterDetail() {
+
+        let param = getUrlParams();
+
+        let filter_seq = param.filter_seq;
+        $.ajax({
+           type : "GET",
+           url : `${denma_api_url}/api/unit/filter/${filter_seq}`,
+           data : "",
+           success : function (response) {
+                console.log("res :: ", response.data[0]);
+                $('#filter_name').val(response.data[0].filter_name);
+                $('#filter_type').val(response.data[0].filter_type).prop('selected', true);
+                $(`input[name=status][value="${response.data[0].status}"]`).attr('checked', true);
+                $('#filter_seq').val(response.data[0].filter_seq);
+                $("#filterSeqId").text(response.data[0].filter_seq);
+                $("#filter_keyword").val(response.data[0].keyword);
+           },
+           error : function (error) {
+                console.log("err :: ", error);
+           }
+        });
+    }
+
+    function updateFilter() {
+
+        checkImpotent(); // 수정 전에 유효성 검사.
+
+        let filter_seq = $("#filter_seq").val();
+        let filter_name = $("#filter_name").val();
+        let filter_type = $("#filter_type").val();
+        let filter_keyword = $("#filter_keyword").val();
+        let status = $('input[name="status"]:checked').val();
+        let depth = "";
+
+        if (filter_type == 'CATEGORY') {
+            depth = "1";
+        } else {
+            depth = "0";
+        }
+
+        let sendData = {
+            "filter_seq" : filter_seq,
+            "filter_name" : filter_name,
+            "filter_type" : filter_type,
+            "status" : status,
+            "depth" : depth,
+            "filter_keyword":filter_keyword
+        }
+
+        $.ajax({
+            type : "PUT",
+            dataType : "json",
+            data : sendData,
+            url : `${denma_api_url}/api/unit/filter/update`,
+            success : function(response) {
+                alert("필터 수정이 정상적으로 처리되었습니다.");
+                //location.href = "/view/unit/unitFilterList";
+                location.reload();
+            },
+            error : function(error) {
+                console.log("error :: ", error);
+            }
+        });
+    }
+
+    function toList() {
+        location.href = "/view/unit/unitFilterList";
+    }
+
+    // 필수 입력 유효성 검사.
+    function checkImpotent() {
+
+        $is_impotent = $(".is_impotent");
+
+        for(let i = 0; i < $is_impotent.length; i++) {
+
+            let $target = $is_impotent.eq(i);
+
+            if($target.is('input')) {
+                if(!$target.val()) {
+                    alert("필터 이름을 입력해주세요.");
+                    $target.focus();
+                    return false;
+                }
+            }
+
+        }
+
+        return true;
+    }
+
+</script>

@@ -1,0 +1,176 @@
+<style>
+    .td-center{text-align: center;}
+</style>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">도매 플랫폼 상품 리스트</h4>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                    </div>
+                </div>
+                <div class="col-auto pl-0">
+<!--                    <button type="button" onclick="goCreate()" class="btn mb-0 mr-0 waves-effect waves-light btn-success">정보 등록</button>-->
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="wholesaleTable table-bordered" id="dataTable" style="width: 100%;">
+                    <thead>
+                    <tr style="text-align: center">
+                        <th class="text-dark font-weight-bold">client_id</th>
+                        <th class="text-dark font-weight-bold">상품명</th>
+                        <th class="text-dark font-weight-bold">상품번호</th>
+                        <th class="text-dark font-weight-bold">플랫폼 코드</th>
+                        <th class="text-dark font-weight-bold">상태</th>
+                        <th class="text-dark font-weight-bold">이미지</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    const params = getUrlParams();
+    $(function (){
+        get();
+    });
+
+    // 도매 회원 리스트 조회.
+    function get(){
+        let sendData = {
+            //"client_id" : `${params.client_id}`
+        }
+
+        $(".wholesaleTable").dataTable().fnDestroy()
+        $('.wholesaleTable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "stateSave": false,
+            "ordering": false,
+            "searching": false,
+            "info" : false,
+            "pageLength": 20,
+            "ajax": {
+                "type" : "GET",
+                "url" : `${denma_nextdop_api_url}/wholesale/platform/notCompleteProduct/list`,
+                "data" : sendData,
+                dataSrc : function (response) {
+                    console.log('response :: ', response);
+                    return response.data;
+                }
+            },
+            "columns" : [
+                {"data": "client_id"},
+                {"data": "product_name"},
+                {"data": "product_seq"},
+                {"data": "platform_code"},
+                {"data": "status"},
+                {"data": "status"},
+            ],
+            "columnDefs": [
+                {
+                    "width" : "7%",
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 0
+                },
+                {
+                    "width" : "7%",
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 1
+                },
+                {
+                    "width" : "7%",
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 2
+                },
+                {
+                    "width" : "10%",
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data + '<br/>' + row.update_date + '<br/>' + row.status_desc_str;
+                    },
+                    "targets": 3
+                },
+
+                {
+                    "width" : "10%",
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        let options = [{"code": "10", "desc": "등록요청"}, {"code": "11", "desc": "등록요청중"}, {"code": "00", "desc": "등록완료"}, {"code": "99", "desc": "등록실패"}];
+
+                        let tag = `<select>`;
+                        for (let idx in options) {
+                            let option = options[idx];
+                            let selected = '';
+                            if (option.code == data) {
+                                selected = 'selected';
+                            }
+                            tag += `<option value="${option.code}" ${selected}>${option.desc}</option>`;
+                        }
+                        tag += `</select>`;
+                        tag += `<button type="button" class="btn btn-success float-center" onclick="updateStatus(this, '${row.client_id}', '${row.platform_code}', '${row.product_seq}')">변경</button>`;
+                        return tag;
+                    },
+                    "targets": 4
+                },
+                {
+                    "width" : "20%",
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        let imageTag = '';
+                        let images = row.image_url;
+                        for(let image_url of images) {
+                            imageTag+= `<img style="width:50px" src="${image_url}"/>`;
+                        }
+                        return imageTag;
+                    },
+                    "targets": 5
+                },
+            ],
+        });
+    }
+
+    // 상태 이동.
+    function updateStatus(event, clientId, platformCode, productSeq) {
+        let $this = $(event);
+        let status = $this.closest('td').find('select').eq(0).val();
+        const sendData = {
+            'client_id' : clientId,
+            platform_code : platformCode,
+            product_seq : productSeq,
+            status : status,
+        }
+
+        $.ajax({
+            type: 'PUT',
+            url: `${denma_nextdop_api_url}/wholesale/platform/product/status`,
+            data: sendData,
+            success: function (response) {
+                alert('정상적으로 수정되었습니다');
+            },
+            error: function (error) {
+                console.log('error :: ', error);
+            }
+        });
+    }
+</script>

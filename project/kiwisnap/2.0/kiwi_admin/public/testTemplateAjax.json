@@ -1,0 +1,71 @@
+[
+    {
+        "data": "11번가",
+        "subData": [
+            {
+                "subData1": "#",
+                "subData2": "212111",
+                "subData3": "11번가",
+                "subData4": "11번가 기본 템플릿",
+                "subData5": "0",
+                "subData6": "전영대",
+                "subData7": true
+            },
+            {
+                "subData1": "#",
+                "subData2": "212112",
+                "subData3": "11번가",
+                "subData4": "11번가 이벤트 템플릿",
+                "subData5": "0",
+                "subData6": "전영대",
+                "subData7": false
+            },
+            {
+                "subData1": "#",
+                "subData2": "212113",
+                "subData3": "11번가",
+                "subData4": "11번가 테스트 템플릿",
+                "subData5": "5",
+                "subData6": "전영대",
+                "subData7": false
+            }
+        ]
+    },
+    {
+        "data": "쿠팡",
+        "subData": [
+            {
+                "subData1": "#",
+                "subData2": "212114",
+                "subData3": "쿠팡",
+                "subData4": "쿠팡 기본 템플릿",
+                "subData5": "0",
+                "subData6": "전영대",
+                "subData7": true
+            }
+        ]
+    },
+    {
+        "data": "카페24",
+        "subData": [
+            {
+                "subData1": "#",
+                "subData2": "212115",
+                "subData3": "카페24",
+                "subData4": "카페24 기본 템플릿",
+                "subData5": "1",
+                "subData6": "전영대",
+                "subData7": true
+            },
+            {
+                "subData1": "#",
+                "subData2": "212116",
+                "subData3": "카페24",
+                "subData4": "카페24 이벤트 템플릿",
+                "subData5": "0",
+                "subData6": "전영대",
+                "subData7": false
+            }
+        ]
+    }
+]

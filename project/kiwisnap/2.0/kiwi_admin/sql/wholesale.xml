@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wholesale">
+
+    <!-- 도매와 매핑된 소매 리스트 조회. -->
+    <select id="selectRetailList">
+        SELECT *
+        FROM wholesale_retail_mapping
+        WHERE client_id = #{client_id}
+        ORDER BY create_date DESC
+        <if test="length != null and length != 0">
+            LIMIT ${start}, ${length}
+        </if>
+    </select>
+
+    <!-- 도매와 매핑된 소매 리스트 카운트 조회. -->
+    <select id="selectRetailListCount">
+        SELECT COUNT(*) as cnt
+        FROM wholesale_retail_mapping
+        WHERE
+            client_id = #{client_id}
+            <if test="receive_yn != null and receive_yn != ''">
+                AND receive_yn = #{receive_yn}
+            </if>
+    </select>
+
+    <!-- 도매와 매핑될 소매 업체 입력. -->
+    <insert id="insertMappingRetail">
+        INSERT INTO wholesale_retail_mapping
+                (
+                    client_id,
+                    name,
+                    phone,
+                    receive_yn,
+                    create_date
+                )
+                VALUES
+                <foreach collection="retailList" item="item" separator=",">
+                (
+                    #{client_id},
+                    #{item.name},
+                    #{item.phone},
+                    'Y',
+                    NOW()
+                )
+                </foreach>
+        ON DUPLICATE KEY UPDATE
+        name = values(name),
+        update_date = NOW()
+    </insert>
+
+
+    <select id="selectTagDataList">
+        select p.client_id, pt.*,
+               group_concat(t1.`kr_name`, '') as 'detail',
+               group_concat(t2.`kr_name`, '') as 'fit',
+               group_concat(t3.`kr_name`, '') as 'color',
+               group_concat(t4.`kr_name`, '') as 'category',
+               group_concat(t5.`kr_name`, '') as 'length',
+               group_concat(t6.`kr_name`, '') as 'look',
+               group_concat(t7.`kr_name`, '') as 'neckline',
+               group_concat(t8.`kr_name`, '') as 'print',
+               group_concat(t9.`kr_name`, '') as 'shape',
+               group_concat(t10.`kr_name`, '') as 'sleevelength',
+                group_concat(t11.`kr_name`, '') as 'texture'
+        from product p, product_tags pt, product_tags_info pti
+             left join tags t1 on t1.category = 'Detail' and pti.attribute_id = t1.attribute_id and pti.confidence > 0.5
+             left join tags t2 on t2.category = 'Fit' and pti.attribute_id = t2.attribute_id and pti.confidence > 0.5
+             left join tags t3 on t3.category = 'Color' and pti.attribute_id = t3.attribute_id and pti.confidence > 0.5
+             left join tags t4 on t4.category in ('ITEM-Botttoms', 'ITEM-Tops', 'ITEM-Wholebodies') and pti.attribute_id = t4.attribute_id and pti.confidence > 0.4
+             left join tags t5 on t5.category = 'Length' and pti.attribute_id = t5.attribute_id and pti.confidence > 0.5
+             left join tags t6 on t6.category = 'Look' and pti.attribute_id = t6.attribute_id and pti.confidence > 0.5
+             left join tags t7 on t7.category = 'Neckline' and pti.attribute_id = t7.attribute_id and pti.confidence > 0.5
+             left join tags t8 on t8.category = 'Print' and pti.attribute_id = t8.attribute_id and pti.confidence > 0.5
+             left join tags t9 on t9.category = 'Shape' and pti.attribute_id = t9.attribute_id and pti.confidence > 0.5
+             left join tags t10 on t10.category = 'Sleevelength' and pti.attribute_id = t10.attribute_id and pti.confidence > 0.5
+             left join tags t11 on t11.category = 'Texture' and pti.attribute_id = t11.attribute_id and pti.confidence > 0.5
+        where p.product_seq = pt.product_seq
+          and pt.product_tags_seq = pti.product_tags_seq
+          and p.client_id = #{client_id}
+        group by pt.product_tags_seq;
+    </select>
+
+    <!-- 도매 필터 맵핑 등록 -->
+    <insert id="insertWholesaleFilterMapping">
+        INSERT INTO wholesale_filter_mapping
+        (
+        client_id,
+        filter_seq,
+        create_date
+        )
+        VALUES
+        <foreach collection="filter_seq" item="item" separator=",">
+            (
+            #{client_id},
+            #{item},
+            now()
+            )
+        </foreach>
+    </insert>
+
+    <!-- 도매와 맵핑된 필터 모두 삭제 -->
+    <delete id="deleteWholesaleFilterMapping">
+        DELETE
+        FROM wholesale_filter_mapping
+        WHERE client_id = #{client_id}
+    </delete>
+
+    <!-- 도매 필터 그룹 조회 -->
+    <select id="selectWholesaleFilterGroup">
+        SELECT filter_type
+        FROM wholesale_filter
+        GROUP BY filter_type
+    </select>
+
+
+    <!-- 도매 필터 리스트 조회 -->
+    <select id="selectWholesaleFilterList">
+        SELECT wf.*, if(wfm.filter_seq is null, 'N', 'Y') as 'is_filter'
+        FROM wholesale_filter wf
+            LEFT JOIN wholesale_filter_mapping wfm ON wf.filter_seq = wfm.filter_seq
+                                                      AND wfm.client_id = #{client_id}
+        WHERE wf.filter_type = #{filter_type}
+          AND wf.status = '01'
+    </select>
+
+
+
+
+    <!-- 도매 업체 리스트 -->
+    <select id="selectWholesaleCompanyList">
+        SELECT *
+        FROM wholesale_company
+        WHERE 1 = 1
+        <if test="wholesale_name != null and wholesale_name != ''">
+            AND wholesale_name like concat('%', #{wholesale_name} ,'%')
+        </if>
+        ORDER BY wholesale_name ASC
+        LIMIT ${start}, ${length}
+    </select>
+
+    <!-- 도매 업체 카운트 조회. -->
+    <select id="selectWholesaleCompanyListCount">
+        SELECT COUNT(*) as cnt
+        FROM wholesale_company
+        WHERE 1 = 1
+        <if test="wholesale_name != null and wholesale_name != ''">
+            AND wholesale_name like concat('%', #{wholesale_name} ,'%')
+        </if>
+    </select>
+
+    <!-- 도매 업체 상세조회 -->
+    <select id="selectWholesaleCompany">
+        SELECT *
+        FROM wholesale_company
+        WHERE seq = #{seq}
+    </select>
+
+    <!-- 도매 업체 등록 -->
+    <insert id="insertWholesaleCompany">
+        INSERT INTO wholesale_company
+            (wholesale_name, store, floor, number, order_phone1, create_date)
+        VALUES
+            (#{wholesale_name}, #{store}, #{floor}, #{number}, #{order_phone1}, NOW());
+    </insert>
+
+
+    <!-- 도매 업체 수정 -->
+    <update id="updateWholesaleCompany">
+        UPDATE wholesale_company
+        SET update_date = NOW(),
+            wholesale_name = #{wholesale_name},
+            store = #{store},
+            floor = #{floor},
+            `number` = #{number},
+            order_phone1 = #{order_phone1}
+        WHERE seq = #{seq}
+    </update>
+
+
+
+</mapper>

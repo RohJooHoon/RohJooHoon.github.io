@@ -1,0 +1,725 @@
+<link href="/css/detailNormal.css" rel="stylesheet" type="text/css">
+<link href="/css/form.css" rel="stylesheet" type="text/css">
+<link href="/css/mallBody.css" rel="stylesheet" type="text/css">
+<style>
+  .td-center {
+    text-align: center;
+  }
+
+  .categoryViewBox_Logo img {
+    object-fit: cover;
+    vertical-align: center;
+  }
+
+  .categoryViewBox_detail .input-groupWrapBody {
+    padding: 20px;
+    border: none;
+  }
+
+  .serviceUsageInfoListTable,
+  .useDetailTable {
+    border: 2px solid #DCDCDD;
+    margin-bottom: 19px;
+  }
+
+  .paymentDetailTableBodyItem,
+  .useDetailTableBodyItem {
+    height: 34px;
+    border: solid #DCDCDD;
+    border-width: 0 1px 1px 0;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 0px 0px;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: left;
+    color: #000000;
+    padding: 0 12px;
+  }
+
+  .paymentDetailTableBodyItem.is_cost,
+  .useDetailTableBodyItem.is_cost {
+    text-align: right;
+  }
+
+  .paymentDetailTableBodyItem.is_title {
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 17px;
+    color: #96C60F;
+  }
+
+  .paymentDetailTotalCostWrap {
+    background-color: #F9F9F9;
+    height: 101px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+  }
+
+  .paymentDetailCostBox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .paymentDetailTotalCost {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .paymentDetailCostItem {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: #12121D;
+  }
+
+  .paymentDetailCostData {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 29px;
+    color: #12121D;
+    width: 110px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .paymentDetailImportantNotice {
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    color: #12121D;
+  }
+
+  .paymentDetailImportantNotice.is_title {
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 17px;
+    color: #12121D;
+  }
+
+  .paymentDetailImportantNotice:not(.is_title) {
+    margin-bottom: 15px;
+  }
+
+  .paymentDetailStrongStyle {
+    font-weight: bold;
+    text-decoration: underline
+  }
+
+  .paymentDetailAddBtn {
+    width: 50px;
+    height: 36px;
+    background: #96C60F;
+    border-radius: 2px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    border: none;
+  }
+
+
+  /* payment popup*/
+  .paymentPopupEditWrap {
+    padding: 10px 13px 14px 13px;
+  }
+
+  .paymentPopupEditItem {
+    padding-bottom: 21px;
+    align-items: center;
+    margin: 0;
+  }
+
+  .paymentPopupEditItemTitle {
+    width: 92px;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: #12121D;
+  }
+
+  .paymentPopupEditNewCard {
+    padding-top: 21px;
+    border-top: 1px solid #A8A8A8;
+    display: none;
+  }
+
+  .paymentPopupEditNewCard.is_open {
+    display: block;
+  }
+
+</style>
+
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col">
+            <h2 class="page-title text-dark">쿠폰 수정</h2>
+        </div>
+    </div>
+</div>
+
+<!-- 페이지 컨텐츠 -->
+<form class="container-fluid" enctype="multipart/form-data" method="post" id="insertForm">
+
+    <!-- 상세 템플릿 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-header py-2">
+                    <div class="row">
+                        <div class="col py-1">
+                            <h5 class="font-weight-bold mb-1">키위스냅 쿠폰 수정</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="">쿠폰이름<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="coupon_name" type="text" name="coupon_name" data-alram="이름">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="">쿠폰설명</label>
+                        </div>
+                        <input class="form-control" id="coupon_desc" type="text" name="coupon_desc">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="coupon_type">적용상품<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="couponProduct" id="couponProduct01" value="MEMBERSHIP"
+                                       checked>
+                                <label class="form-check-label" for="coupon_type01">멤버십</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="couponProduct" id="couponProduct02" value="CREDIT">
+                                <label class="form-check-label" for="coupon_type02">크레딧</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="coupon_type">쿠폰 타입</label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="coupon_type" id="coupon_type01" value="ISSUE"
+                                       checked>
+                                <label class="form-check-label" for="coupon_type01">발행쿠폰</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="coupon_type" id="coupon_type02" value="CODE">
+                                <label class="form-check-label" for="coupon_type02">코드쿠폰</label>
+                            </div>
+                            <input type="button" class="btn btn-outline-dark" value="커스텀 쿠폰코드 발행" onclick="inputCustomCodeCoupon();">
+                            <input type="button" class="btn btn-outline-dark" value="쿠폰코드 발행" onclick="checkCouponType();">
+                            <input type="button" class="btn btn-outline-dark" value="발행쿠폰 발행" onclick="showMemberList();">
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="coupon_code_type">쿠폰코드 발행타입</label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="coupon_code_type" id="coupon_code_type01" value="ONE"
+                                       checked>
+                                <label class="form-check-label" for="coupon_code_type01">단일쿠폰</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="coupon_code_type" id="coupon_code_type02" value="MANY">
+                                <label class="form-check-label" for="coupon_code_type02">여러쿠폰</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="discount_type">할인 타입</label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="discount_type" id="discount_type01" value="FIX" checked>
+                                <label class="form-check-label" for="expiry_type01">정액 할인</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="discount_type" id="discount_type02" value="RATIO">
+                                <label class="form-check-label" for="expiry_type02">정률 할인</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="max_discount_price">최대 할인 금액<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="max_discount_price" type=text name="max_discount_price"
+                               data-alram="최대 할인 금액" onkeyup="onlyNuMFun($(this))">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="discount_value">할인율/할인금액<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="discount_value" type=text name="discount_value" data-alram="할인율/할인금액"
+                               onkeyup="onlyNuMFun($(this))">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="issue_count">최대 발행 횟수<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="issue_count" type=text name="issue_count" data-alram="최대 발행 횟수"
+                               onkeyup="onlyNuMFun($(this))">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="expiry_type">만료 타입</label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="expiry_type" id="expiry_type01" value="ISSUEDATE"
+                                       checked>
+                                <label class="form-check-label" for="expiry_type01">발행일로부터</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="expiry_type" id="expiry_type02" value="FIXDATE">
+                                <label class="form-check-label" for="expiry_type02">정해진날까지</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="expiry_date">쿠폰 만료일</label>
+                        </div>
+                        <input class="form-control" id="expiry_date" type="date" name="expiry_date">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="expiry_term">쿠폰 만료기간</label>
+                        </div>
+                        <input class="form-control" id="expiry_term" type="text" name="expiry_term">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="precautions">주의사항</label>
+                        </div>
+                        <textarea id="precautions" name="precautions" rows="10" cols="150"></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="btn btn-success float-right" onclick="modifyCoupon()">쿠폰 수정</button>
+                        <button type="button" class="btn btn-success float-right" onclick='location.href = "/view/coupon/list"'>목록으로
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //상세 템플릿 -->
+</form>
+
+<script type="text/javascript">
+
+  const coupon_seq = getUrlParams().coupon_seq;
+
+  $(function () {
+
+    initSetting();
+  })
+
+  function initSetting() {
+
+    $.ajax({
+      type: "GET",
+      url: `${admin_api_url}/coupon/${coupon_seq}`,
+      success: function (response) {
+        console.log("쿠폰 조회 데이터 :::: ", response);
+        $("#coupon_name").val(response.coupon_name);
+        $("#discount_value").val(response.discount_value);
+        $("#max_discount_price").val(response.max_discount_price);
+        $("#issue_count").val(response.issue_count);
+        $("#expiry_date").val((response.expiry_date != null) ? response.expiry_date.split("T")[0] : "-");
+        $("#coupon_desc").val(response.coupon_desc);
+        $("#expiry_term").val(response.expiry_term);
+        $("#precautions").val(response.precautions);
+        $(`input[name=discount_type][value="${response.discount_type}"]`).attr('checked', true);
+        $(`input[name=expiry_type][value="${response.expiry_type}"]`).attr('checked', true);
+        $(`input[name=coupon_code_type][value="${response.coupon_code_type}"]`).attr('checked', true);
+        $(`input[name=coupon_type][value="${response.coupon_type}"]`).attr('checked', true);
+
+        let resCouponProductList = response.coupon_product_list;
+        let product_type = resCouponProductList[0].product_type;
+        $(`input[name=couponProduct][value="${product_type}"]`).attr('checked', true);
+      },
+      error: function (error) {
+
+      }
+    });
+  }
+
+  function modifyCoupon() {
+
+    if (ValidationInputData()) {
+
+      const couponProductList = [];
+      const obj = {};
+      obj.coupon_seq = coupon_seq;
+      obj.product_type = $("input:radio[name='couponProduct']:checked").val();
+      couponProductList.push(obj);
+
+      let sendData = {
+        coupon_seq: coupon_seq,
+        coupon_name: $("#coupon_name").val(),
+        discount_type: $("input:radio[name='discount_type']:checked").val(),
+        max_discount_price: $("#max_discount_price").val(),
+        discount_value: $("#discount_value").val(),
+        // discount_range: $("input:radio[name='discount_range']:checked").val(),
+        discount_range : "TOTAL",
+        issue_count: $("#issue_count").val(),
+        expiry_type: $("input:radio[name='expiry_type']:checked").val(),
+        expiry_date: $("#expiry_date").val(),
+        expiry_term: $("#expiry_term").val(),
+        coupon_desc: $("#coupon_desc").val(),
+        coupon_code_type: $("input:radio[name='coupon_code_type']:checked").val(),
+        coupon_type: $("input:radio[name='coupon_type']:checked").val(),
+        precautions: $("#precautions").val(),
+        coupon_product_list: couponProductList
+      }
+
+      if (sendData.expiry_type == 'ISSUEDATE') {
+        if (sendData.expiry_term == '') {
+          alert('쿠폰 만료기간을 입력해주세요.');
+          return false;
+        }
+        sendData.expiry_date = null;
+      }
+
+      if (sendData.expiry_type == 'FIXDATE') {
+        if (sendData.expiry_date == '') {
+          alert('쿠폰 만료일을 입력해주세요.');
+          return false;
+        }
+        sendData.expiry_term = null;
+      }
+
+      console.log("전송 데이터 : ", sendData);
+
+      $.ajax({
+        type: "PUT",
+        url: `${admin_api_url}/coupon/`,
+        data: JSON.stringify(sendData),
+        contentType: "application/json; charset=utf-8",
+        success: function (response) {
+          alert("쿠폰 수정에 성공했습니다.");
+          location.href = "/view/coupon/list";
+        },
+        error: function (error) {
+          alert("쿠폰 수정에 실패했습니다. 관리자에게 연락주세요.");
+        }
+      });
+
+    }
+  }
+
+  function ValidationInputData() {
+
+    const $is_impotent = $(".is_impotent");
+    for (let i = 0; i < $is_impotent.length; i++) {
+      let $target = $is_impotent.eq(i);
+      if ($target.is('input, textarea')) {
+        if (!$target.val()) {
+          let $alarmText = $target.attr('data-alram');
+          alert($alarmText + "을(를) 입력해주세요.");
+          $target.focus();
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  function onlyNuMFun($this) {
+
+    let num = $this.val().replace(/[^0-9]/g, "");
+    $this.val(num);
+  }
+
+  function strFormatToDateFormat(str) {
+
+    let year = str.substr(0, 4);
+    let month = str.substr(4, 2);
+    let day = str.substr(6, 2);
+    return year + "-" + month + "-" + day;
+  }
+
+  function checkCouponType() {
+
+    let coupon_type = $("input:radio[name='coupon_type']:checked").val();
+    let coupon_code_type = $("input:radio[name='coupon_code_type']:checked").val();
+
+    if (coupon_type != 'CODE') {
+      alert('쿠폰 타입이 코드 쿠폰인 경우만 쿠폰코드 발행이 가능 합니다.');
+      return false;
+    }
+
+    let issue_count = 1;
+
+    if (coupon_code_type == 'ONE') {
+      issueCouponCode(issue_count);
+    } else {
+      inputCustomIssueCount();
+    }
+  }
+
+  function inputCustomIssueCount() {
+    let html = `<div>
+                    <div id="addMenuWrap">
+                        <div class="popupdiv">
+                            <label>
+                                발행할 쿠폰 갯수
+                                <input type="text"  id="issueCouponCount" onkeyup="onlyNuMFun($(this))">
+                            </label>
+                <button onclick="issueCouponCode($('#issueCouponCount').val())" class="btn mb-0 mr-0 waves-effect waves-light btn-success">발행</button>
+                `;
+
+    openPopup({
+      type: 'EDIT',
+      title: '쿠폰 코드 발행',
+      html: html,
+      maxWidth: '500px',
+    }, true);
+
+  }
+
+  function issueCouponCode(issue_count) {
+
+    if (issue_count == undefined || issue_count == '' || issue_count == 0) {
+      alert('발행 갯수를 입력해주세요.');
+      return false;
+    }
+
+    let result = confirm("쿠폰코드를 발급하시겠습니까?");
+
+    if (result === true) {
+      let sendData = {
+        coupon_seq: coupon_seq,
+        issue_count: issue_count // 발행할 쿠폰 코드 갯수.
+      }
+
+      $.ajax({
+        type: "POST",
+        url: `${admin_api_url}/coupon/code`,
+        data: sendData,
+        success: function (response) {
+          alert("쿠폰 발행에 성공했습니다.");
+          closePopup();
+        },
+        error: function (error) {
+          alert(error.responseJSON.errorMsg);
+          closePopup();
+        }
+      });
+    }
+
+  }
+
+  function inputCustomCodeCoupon() {
+
+    let html = `<div>
+                    <div id="addMenuWrap">
+                        <div class="popupdiv">
+                            <label>
+                                쿠폰 코드
+                                <input type="text"  id="customCouponCode">
+                            </label>
+                <button onclick="issueCustomCodeCoupon($('#customCouponCode').val())" class="btn mb-0 mr-0 waves-effect waves-light btn-success">발행</button>
+                `;
+
+    openPopup({
+      type: 'EDIT',
+      title: '커스텀 쿠폰 코드 발행',
+      html: html,
+      maxWidth: '500px',
+    }, true);
+  }
+
+  function issueCustomCodeCoupon(customCouponCode) {
+
+    if (customCouponCode == undefined || customCouponCode == '') {
+      alert('커스텀 쿠폰 코드를 입력해주세요.');
+      return false;
+    }
+
+    let result = confirm("쿠폰코드 " + customCouponCode + "를 발급하시겠습니까?");
+
+    if (result === true) {
+
+      let sendData = {
+        coupon_seq: coupon_seq,
+        custom_coupon_code: customCouponCode
+      }
+
+      $.ajax({
+        type: "POST",
+        url: `${admin_api_url}/coupon/code/custom`,
+        data: sendData,
+        success: function (response) {
+          alert("쿠폰 발행에 성공했습니다.");
+          closePopup();
+        },
+        error: function (error) {
+          alert(error.responseJSON.errorMsg);
+          closePopup();
+        }
+      });
+    }
+
+  }
+
+  function showMemberList() {
+
+    let coupon_type = $("input:radio[name='coupon_type']:checked").val();
+
+    if (coupon_type !== 'ISSUE') {
+      alert('쿠폰 타입이 발행 쿠폰인 경우만 발행 쿠폰 발행이 가능 합니다.');
+      return false;
+    }
+
+    let html = `
+        <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">멤버 아이디</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" id="mem_id">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="button" onclick="callMemberList()"><i class="ti-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="table-responsive">
+        <table class="unitList table-bordered" id="dataTable" style="width: 100%;">
+            <thead>
+            <tr>
+                <th class="text-dark font-weight-bold">회원번호</th>
+                <th class="text-dark font-weight-bold">회원ID</th>
+                <th class="text-dark font-weight-bold">client_id</th>
+                <th class="text-dark font-weight-bold">쿠폰 발급</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>`;
+
+    openPopup({
+      type: 'EDIT',
+      title: '쿠폰 코드 발행',
+      html: html,
+      maxWidth: '1000px',
+    }, true);
+
+    callMemberList();
+  }
+
+  function publishIssueCoupon(mem_id, client_id) {
+
+    let result = confirm(mem_id + "에게 발행쿠폰을 발급하시겠습니까?");
+
+    if (result === true) {
+
+      const sendData = {
+        coupon_seq: coupon_seq,
+        client_id: client_id
+      }
+
+      $.ajax({
+        type: "POST",
+        url: `${admin_api_url}/coupon/issue`,
+        data: sendData,
+        success: function (response) {
+          alert("쿠폰 발행에 성공했습니다.");
+          closePopup();
+        },
+        error: function (error) {
+          if (error.responseJSON.errorMsg != undefined || error.responseJSON.errorMsg != null) {
+            alert(error.responseJSON.errorMsg);
+          } else {
+            alert("쿠폰 발행에 실패했습니다. 관리자에게 연락주세요.");
+          }
+          closePopup();
+        }
+      });
+    }
+
+  }
+
+  function callMemberList() {
+
+    const sendData = {
+      mem_id: $("#mem_id").val().trim(),
+    }
+
+    $(".unitList").dataTable().fnDestroy()
+    $('.unitList').DataTable({
+      "processing": true,
+      "serverSide": true,
+      "lengthChange": false,
+      "stateSave": true,
+      "ordering": false,
+      "searching": false,
+      "info": false,
+      "pageLength": 20,
+      "ajax": {
+        "url": `${denma_api_url}/member/list`,
+        "data": sendData,
+        dataSrc: function (response) {
+          console.log("response :: ", response);
+          return response.data;
+        }
+      },
+      "columnDefs": [
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return row.mem_no;
+          },
+          "targets": 0
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return row.mem_id;
+          },
+          "targets": 1
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return row.client_id;
+          },
+          "targets": 2
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return `<button class="btn mb-0 mr-0 waves-effect waves-light btn-success" onclick="publishIssueCoupon('${row.mem_id}', '${row.client_id}')">발급</button>`;
+          },
+          "targets": 3
+        },
+      ],
+    });
+  }
+
+</script>

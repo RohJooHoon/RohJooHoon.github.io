@@ -1,0 +1,210 @@
+<style>
+  .td-center {
+    text-align: center;
+  }
+</style>
+
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">회원에게 발행된 쿠폰 리스트</h4>
+        </div>
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center justify-content-end">
+                <div class="button-group">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">검색 조건</span>
+                            <select class="custom-select is_underLine" id="searchType" name="searchType">
+                                <option value="">전체</option>
+                                <option value="MEM_ID">회원 이메일</option>
+                                <option value="CLIENT_ID">클라이언트 ID</option>
+                                <option value="COUPON_NAME">쿠폰 이름</option>
+                            </select>
+                        </div>
+                        <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" id="searchWord">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="button" onclick="getIssuedCouponList()"><i class="ti-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto pl-0">
+                    <button type="button" onclick='location.href = "/view/coupon/create"'
+                            class="btn mb-0 mr-0 waves-effect waves-light btn-success">쿠폰 등록
+                    </button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="issuedCouponList table-bordered" id="issuedCouponData" style="width: 100%;">
+                    <thead>
+                    <tr>
+                        <th class="text-dark font-weight-bold text-center">발행 번호</th>
+                        <th class="text-dark font-weight-bold text-center">쿠폰 번호</th>
+                        <th class="text-dark font-weight-bold text-center">클라이언트 ID</th>
+                        <th class="text-dark font-weight-bold text-center">회원 이메일</th>
+                        <th class="text-dark font-weight-bold text-center">상점명</th>
+                        <th class="text-dark font-weight-bold text-center">쿠폰이름</th>
+                        <th class="text-dark font-weight-bold text-center">할인금액</th>
+                        <th class="text-dark font-weight-bold text-center">생성일</th>
+                        <th class="text-dark font-weight-bold text-center">사용일</th>
+                        <th class="text-dark font-weight-bold text-center">사용 여부</th>
+                        <th class="text-dark font-weight-bold text-center">삭제</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+  $(function () {
+    getIssuedCouponList();
+  });
+
+  function getIssuedCouponList() {
+
+    const sendData = {
+      "search_type" : $("#searchType").val(),
+      "search_word" : $("#searchWord").val(),
+    }
+
+    console.log("전송 데이터  :::: ", sendData);
+
+    $(".issuedCouponList").dataTable().fnDestroy()
+    $('.issuedCouponList').DataTable({
+      "processing": true,
+      "serverSide": true,
+      "lengthChange": false,
+      "stateSave": true,
+      "ordering": false,
+      "searching": false,
+      "info": false,
+      "pageLength": 15,
+      "ajax": {
+        "url": `${admin_api_url}/coupon/issue`,
+        "data": sendData
+      },
+      "columnDefs": [
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return row.seq;
+          },
+          "targets": 0
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return row.coupon_seq;
+          },
+          "targets": 1
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return (row.client_id != null)? row.client_id : "-";
+          },
+          "targets": 2
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return row.member.mem_id;
+          },
+          "targets": 3
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            let homepage_name = row.client_setting.homepage_name;
+            if (homepage_name === '' || homepage_name == null) {
+              return "-";
+            } else {
+              return homepage_name;
+            }
+          },
+          "targets": 4
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return row.coupon.coupon_name;
+          },
+          "targets": 5
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return (row.discount_price != null)? row.discount_price : "-";
+          },
+          "targets": 6
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return row.create_date.split("T")[0];
+          },
+          "targets": 7
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return (row.use_date != null)? row.use_date.split("T")[0] : "-";
+          },
+          "targets": 8
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return row.use_yn;
+          },
+          "targets": 9
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return `<button class="btn btn-outline-dark" onclick="deleteIssuedCoupon(${row.seq})">삭제</button>`;
+          },
+          "targets": 10
+        }
+      ],
+    });
+  }
+
+  function deleteIssuedCoupon(seq) {
+
+    let result = confirm("발행번호 " + seq + "번 쿠폰을 삭제하시겠습니까?");
+
+    if (result === true) {
+      $.ajax({
+        type : "DELETE",
+        url : `${admin_api_url}/coupon/issue/${seq}`,
+        success : function (response) {
+          alert('발행된 쿠폰이 삭제 되었습니다.');
+          $('.issuedCouponList').DataTable().ajax.reload(null, true);
+        },
+        error : function (error) {
+          alert('쿠폰 삭제중 오류가 발생했습니다. 관리자에게 연락해주세요.');
+        }
+      });
+    }
+
+  }
+
+
+</script>

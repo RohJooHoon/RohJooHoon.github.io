@@ -1,0 +1,1787 @@
+<!-- 상품리스트정보 -->
+<script id="render_ELEVENST" type="text/x-jsrender">
+    <div class="inputForm card shadow is_tabTarget {{:active}}" id="ELEVENST_body" data-tabTarget="domesticMall">
+        <div class="card-header">
+            <div class="row">
+                <div class="col d-flex nav align-items-center">
+                    <button class="m-0 nav-link is_tabTrigger is_opacity is_active is_btnFocus" type="button" data-tabTrigger="11st_{{:index}}" data-focusIndex="0">기본정보</button>
+                    <button class="m-0 nav-link is_tabTrigger is_opacity is_btnFocus" type="button" data-tabTrigger="11st_{{:index}}" data-focusIndex="1">옵션정보</button>
+                    <button class="m-0 nav-link is_tabTrigger is_opacity is_btnFocus" type="button" data-tabTrigger="11st_{{:index}}" data-focusIndex="2">배송정보</button>
+                    <button class="m-0 nav-link is_tabTrigger is_opacity is_btnFocus" type="button" data-tabTrigger="11st_{{:index}}" data-focusIndex="3">기타정보</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- Tab panes -->
+            <div class="tab-content tabcontent-border">
+                <!-- 기본정보 -->
+                <form method="post">
+                <div class="is_tabTarget is_active is_bodyFocus" data-tabTarget="11st_{{:index}}" data-focusIndex="0">
+                    <input type="hidden" id="mem_id_eleventh" name="mem_id">
+                    <input type="hidden" id="seq_eleventh" name="client_mall_seq" value="{{:mall_seq}}">
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit180">
+                                상품공통정보명
+                                <span class="text-danger ml-05">*</span>
+<!--                                <button class="question btn btn-sm p-0" data-toggle="dropdown" type="button"><i class="fas fa-question-circle"></i></button>-->
+<!--                                <div class="dropdown-menu">-->
+<!--                                    <h6 class="dropdown-header">안내문구 블라블라블라블라</h6>-->
+<!--                                </div>-->
+                            </div>
+                            <div class="input-groupWrapBody is_full">
+                                <input type="text" class="form-control is_impotent" placeholder="" data-alram="상품공통정보명" name="common_data_name" id="common_data_name" maxlength="50">
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit180">
+                                판매자 닉네임
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_full">
+                                <select class="custom-select is_underLine " name="seller_nickname">
+                                    <option value="">선택</option>
+                                    <option value="api닉네">판매자 닉네임 실시간 api</option>
+                                </select>
+                                <div class="form-text">
+                                    11번가 Seller office에 등록된 판매자 닉네임을 선택합니다.<br/>
+                                    판매자 닉네임의 신규 추가/수정은 11번가 Seller office 회원정보 > 판매자 정보관리 > 판매자 정보수정 에서 진행하시기 바랍니다.<br/>
+                                    * 일반 상품 등록 시 ‘닉네임’ 항목에 등록되며, 단일 상품 등록 시 ‘스토어명’ 항목으로 등록됩니다.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    -->
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit180">
+                                판매방식
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="sell_method" id="sell_method111_1" value="01" checked>
+                                    <label class="form-check-label" for="sell_method111_1">고정가판매</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="sell_method" id="sell_method111_2" value="04">
+                                    <label class="form-check-label" for="sell_method111_2">예약판매</label>
+                                </div>
+<!--                                <div class="form-check form-check-inline">-->
+<!--                                    <input class="form-check-input" type="radio" name="sell_method" id="sell_method111_3" value="05">-->
+<!--                                    <label class="form-check-label" for="sell_method111_3">중고판매</label>-->
+<!--                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <div class="input-groupWrap">-->
+<!--                            <div class="input-groupWrapHeader is_limit160">-->
+<!--                                판매기간-->
+<!--                                <span class="text-danger ml-05">*</span>-->
+<!--                            </div>-->
+<!--                            <div class="input-groupWrapBody is_full">-->
+<!--                                <div class="input-group">-->
+<!--                                    <select class="custom-select is_selectTrigger is_underLine" data-selectTrigger="sale_end_date112_1">-->
+<!--                                        <option value="">선택</option>-->
+<!--                                        <option value="1">직접선택</option>-->
+<!--                                    </select>-->
+<!--                                    <input class="form-control is_selectTarget is_underLine" type="date"  name="sale_end_date_str" data-selectTarget="sale_end_date112_1" data-selectValue="1" style="display: none;">-->
+<!--                                    <input type="hidden" class="is_impotent" name="sale_end_date" data-alram="판매기간" id="sale_end_date"/>-->
+<!--                                </div>-->
+<!--                                -->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text is_limit160">
+                                    판매기간
+                                </span>
+                            </div>
+                            <input type="date" class="form-control" value="" id="sale_end_date112_1">
+                            <input type="hidden" class="is_impotent" name="sale_end_date" data-alram="판매기간"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit180">
+                                상품상태
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="product_condition" id="product_condition113_1" value="01" checked>
+                                    <label class="form-check-label" for="product_condition113_1">새상품</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="product_condition" id="product_condition113_2" value="03">
+                                    <label class="form-check-label" for="product_condition113_2">재고상품</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="product_condition" id="product_condition113_3" value="10">
+                                    <label class="form-check-label" for="product_condition113_3">주문제작상품</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit180">
+                                최소구매수량
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_inner is_radio">
+                                <div class="is_impotent">
+                                    <div class="form-check form-check-inline is_tabTrigger is_active" data-tabTrigger="min_order_count_yn114">
+                                        <input class="form-check-input" type="radio" name="min_order_count_yn" id="min_order_count_yn114_1" value="00" checked>
+                                        <label class="form-check-label" for="min_order_count_yn114_1">제한 안함</label>
+                                    </div>
+                                    <div class="form-check form-check-inline is_tabTrigger" data-tabTrigger="min_order_count_yn114">
+                                        <input class="form-check-input" type="radio" name="min_order_count_yn" id="min_order_count_yn114_2" value="01">
+                                        <label class="form-check-label" for="min_order_count_yn114_2">1회제한</label>
+                                    </div>
+                                </div>
+                                <div class="form-tab is_tabTarget mt-0" data-tabTarget="min_order_count_yn114">
+                                    <!-- 1번탭 -->
+                                </div>
+                                <div class="form-tab is_tabTarget" data-tabTarget="min_order_count_yn114">
+                                    <div class="input-group">
+                                        <input type="tel" required="required" autocomplete="off" class="form-control is_checkImpotent is_onlyNum" data-alram="최소구매수량" data-checkimpotent="min_order_count_yn114_2" name="min_order_count"  maxlength="5">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">개</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit180">
+                                최대구매수량
+                                <span class="text-danger ml-05">*</span>
+                                <button class="question btn btn-sm p-0" data-toggle="dropdown" type="button"><i class="fas fa-question-circle"></i></button>
+                                <div class="dropdown-menu">
+                                    <h6 class="dropdown-header">11번가 기간제한은 30일까지 가능합니다.</h6>
+                                </div>
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="is_impotent">
+                                    <div class="form-check form-check-inline is_tabTrigger is_active" data-tabTrigger="max_order_count_yn115">
+                                        <input class="form-check-input" type="radio" name="max_order_count_yn" id="max_order_count_yn115_1" value="00" checked>
+                                        <label class="form-check-label" for="max_order_count_yn115_1">제한 안함</label>
+                                    </div>
+                                    <div class="form-check form-check-inline is_tabTrigger" data-tabTrigger="max_order_count_yn115">
+                                        <input class="form-check-input" type="radio" name="max_order_count_yn" id="max_order_count_yn115_2" value="01">
+                                        <label class="form-check-label" for="max_order_count_yn115_2">1회제한</label>
+                                    </div>
+                                    <div class="form-check form-check-inline is_tabTrigger" data-tabTrigger="max_order_count_yn115">
+                                        <input class="form-check-input" type="radio" name="max_order_count_yn" id="max_order_count_yn115_3" value="02">
+                                        <label class="form-check-label" for="max_order_count_yn115_3">기간제한</label>
+                                    </div>
+                                </div>
+                                <div class="form-tab is_tabTarget mt-0" data-tabTarget="max_order_count_yn115">
+                                    <!-- 1번탭 -->
+                                </div>
+                                <div class="form-tab is_tabTarget" data-tabTarget="max_order_count_yn115">
+                                    <div class="input-group">
+                                        <input type="tel" required="required" autocomplete="off" class="form-control is_checkImpotent is_onlyNum" data-alram="최대구매수량" data-checkimpotent="max_order_count_yn115_2" name="max_order_count" maxlength="5">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">개</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-tab is_tabTarget" data-tabTarget="max_order_count_yn115">
+                                    <div class="input-group">
+                                        <div class="input-text">한 ID당</div>
+                                        <input type="tel" required="required" autocomplete="off" class="form-control is_checkImpotent is_onlyNum" data-alram="최대구매수량" name="max_buy_person_period" data-checkimpotent="max_order_count_yn115_3" maxlength="3">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">일</div>
+                                        </div>
+                                        <div class="input-text">동안 최대</div>
+                                        <input type="tel" required="required" autocomplete="off" class="form-control is_checkImpotent is_onlyNum" data-alram="최대구매수량" name="max_buy_person" data-checkimpotent="max_order_count_yn115_3" maxlength="5">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">개</div>
+                                        </div>
+                                        <div class="input-text">까지 구매 가능합니다.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit180">
+                                관/부가세 정보 포함여부
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="import_fee_yn" id="import_fee_yn116_1" value="01">
+                                    <label class="form-check-label" for="import_fee_yn116_1">포함</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="import_fee_yn" id="import_fee_yn116_2" value="02">
+                                    <label class="form-check-label" for="import_fee_yn116_2">미포함</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="import_fee_yn" id="import_fee_yn116_3" value="03" checked>
+                                    <label class="form-check-label" for="import_fee_yn116_3">표시하지 않음</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <input type="hidden" name="overseas_purchase" id="overseas_purchase117_1" value="01">
+<!--                    <div class="form-group">-->
+<!--                        <div class="input-groupWrap">-->
+<!--                            <div class="input-groupWrapHeader is_limit160">-->
+<!--                                해외구매대행 상품-->
+<!--                                <span class="text-danger ml-05">*</span>-->
+<!--                            </div>-->
+<!--                            <div class="input-groupWrapBody is_inner">-->
+<!--                                <div class="form-check form-check-inline">-->
+<!--                                    <input class="form-check-input" type="radio" name="overseas_purchase" id="overseas_purchase117_1" value="01" checked>-->
+<!--                                    <label class="form-check-label" for="overseas_purchase117_1">아니오</label>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <div class="input-groupWrap">-->
+<!--                            <div class="input-groupWrapHeader is_limit160">-->
+<!--                                상품정보고시<br/>-->
+<!--                                타이틀사용여부-->
+<!--                            </div>-->
+<!--                            <div class="input-groupWrapBody is_inner">-->
+<!--                                <div class="form-check form-check-inline">-->
+<!--                                    <input class="form-check-input" type="radio" name="product_noti_title" id="product_noti_title118_1" value="Y">-->
+<!--                                    <label class="form-check-label" for="product_noti_title118_1">예</label>-->
+<!--                                </div>-->
+<!--                                <div class="form-check form-check-inline">-->
+<!--                                    <input class="form-check-input" type="radio" name="product_noti_title" id="product_noti_title118_2" value="N" checked>-->
+<!--                                    <label class="form-check-label" for="product_noti_title118_2">아니오</label>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <div class="input-groupWrap">-->
+<!--                            <div class="input-groupWrapHeader is_limit160">-->
+<!--                                중복등록 처리-->
+<!--                            </div>-->
+<!--                            <div class="input-groupWrapBody is_full">-->
+<!--                                <select class="custom-select" name="edit_yn" id="edit_yn119">-->
+<!--                                    <option value="err">오류처리</option>-->
+<!--                                    <option value="edit">수정처리</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
+
+                <!-- 옵션정보 -->
+                <div class="is_tabTarget is_bodyFocus" data-tabTarget="11st_{{:index}}" data-focusIndex="1">
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                옵션 등록 순서
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="option_order" id="option_order120_1" value="00" checked>
+                                    <label class="form-check-label" for="option_order120_1">등록순</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="option_order" id="option_order120_2" value="01" >
+                                    <label class="form-check-label" for="option_order120_2">옵션값 가나다순</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="option_order" id="option_order120_3" value="02">
+                                    <label class="form-check-label" for="option_order120_3">옵션값 가나다역순</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 배송정보 -->
+                <div class="is_tabTarget is_bodyFocus" data-tabTarget="11st_{{:index}}" data-focusIndex="2">
+                    <input type="hidden" name="delivery_world_yn" id="delivery_world_yn130_1" value="N">
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                배송가능지역
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_full">
+                                <select class="custom-select" name="delivery_possible_area">
+                                    <option value="01">전국</option>
+                                    <option value="02">전국(제주 도서산간지역 제외)</option>
+                                    <option value="03">서울</option>
+                                    <option value="04">인천</option>
+                                    <option value="05">광주</option>
+                                    <option value="06">대구</option>
+                                    <option value="07">대전</option>
+                                    <option value="08">부산</option>
+                                    <option value="09">울산</option>
+                                    <option value="10">경기</option>
+                                    <option value="11">강원</option>
+                                    <option value="12">충남</option>
+                                    <option value="13">충북</option>
+                                    <option value="14">경남</option>
+                                    <option value="15">경북</option>
+                                    <option value="16">전남</option>
+                                    <option value="17">전북</option>
+                                    <option value="18">제주</option>
+                                    <option value="19">서울/경기</option>
+                                    <option value="20">서울/경기/대전</option>
+                                    <option value="21">충북/충남</option>
+                                    <option value="22">경북/경남</option>
+                                    <option value="23">전북/전남</option>
+                                    <option value="24">부산/울산</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <div class="input-groupWrap">-->
+<!--                            <div class="input-groupWrapHeader is_limit160">-->
+<!--                                전세계배송-->
+<!--                            </div>-->
+<!--                            <div class="input-groupWrapBody is_inner">-->
+<!--                                <div class="form-check form-check-inline">-->
+<!--                                    <input class="form-check-input" type="radio" name="delivery_world_yn" id="delivery_world_yn130_1" value="N" checked>-->
+<!--                                    <label class="form-check-label" for="delivery_world_yn130_1">이용안함</label>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                배송방법
+                            </div>
+                            <div class="input-groupWrapBody is_full">
+                                <select class="custom-select" name="delivery_method">
+                                    <option value="01">택배</option>
+                                    <option value="02">우편/소포 등기</option>
+                                    <option value="03">직접전달(화물배달)</option>
+                                    <option value="04">퀵서비스</option>
+                                    <option value="05">배송필요없음</option>
+                                </select>
+<!--                                <div class="input-groupWrapBody is_inner">-->
+<!--                                    <p>방문수령추가</p>-->
+<!--                                    <div class="form-check form-check-inline">-->
+<!--                                        <input class="form-check-input" type="radio" name="pick_up_yn" id="pick_up_yn131_1" value="N" checked>-->
+<!--                                        <label class="form-check-label" for="pick_up_yn131_1">이용안함</label>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                발송마감정책
+                                <span class="text-danger ml-05">*</span>
+<!--                                <button class="question btn btn-sm p-0" data-toggle="dropdown" type="button"><i class="fas fa-question-circle"></i></button>-->
+<!--                                <div class="dropdown-menu">-->
+<!--                                    <h6 class="dropdown-header">안내문구 블라블라블라블라</h6>-->
+<!--                                </div>-->
+                            </div>
+                            <div class="input-groupWrapBody is_full">
+                                <select class="custom-select is_impotent" id="delivery_close_info132" name="delivery_close_info" data-alram="발송마감정책">
+                                    <option value="">선택</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                발송택배사
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_full">
+                                <select class="custom-select is_impotent" name="delivery_company_code" data-alram="발송택배사">
+                                    <option value="">선택</option>
+                                    <option value="00023">ACI</option>
+                                    <option value="00025">WIZWA</option>
+                                    <option value="00026">경동택배</option>
+                                    <option value="00027">천일택배</option>
+                                    <option value="00038">LG전자물류</option>
+                                    <option value="00034">CJ대한통운</option>
+                                    <option value="00035">합동택배</option>
+                                    <option value="00036">삼성전자 물류</option>
+                                    <option value="00002">로젠택배</option>
+                                    <option value="00007">우체국택배</option>
+                                    <option value="00008">우편등기</option>
+                                    <option value="00011">한진택배</option>
+                                    <option value="00012">롯데(현대)택배</option>
+                                    <option value="00099">기타</option>
+                                    <option value="00039">DHL</option>
+                                    <option value="00063">SLX택배</option>
+                                    <option value="00021">대신택배</option>
+                                    <option value="00022">일양로지스</option>
+                                    <option value="00037">건영택배</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                출고지
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_full">
+                                <select class="custom-select is_impotent" id="out_place_address133" name="out_place" data-alram="출고지">
+                                <option value="">선택</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                반품/교환지
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_full">
+                                <select class="custom-select is_impotent" id="return_address134" name="return_address" data-alram="반품/교환지">
+                                <option value="">선택</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <div class="input-groupWrap">-->
+<!--                            <div class="input-groupWrapHeader is_limit160">-->
+<!--                                배송비-->
+<!--                                <span class="text-danger ml-05">*</span>-->
+<!--                            </div>-->
+<!--                            <div class="input-groupWrapBody is_inner">-->
+<!--                                <div class="form-check form-check-inline">-->
+<!--                                    <input class="form-check-input" type="radio" id="radio135_1" checked>-->
+<!--                                    <label class="form-check-label" for="radio135_1">온라인상품 정보 사용</label>-->
+<!--                                </div>-->
+<!--                                <div class="form-text">-->
+<!--                                    온라인상품 [기본정보 > 배송비 종류/금액]정보를 사용합니다.-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                반품/교환 배송비
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody">
+                                <table class="table table-sm table-bordered m-b-0">
+                                    <thead>
+                                        <tr>
+                                            <th>부담</th>
+                                            <th>배송비 종류</th>
+                                            <th>배송비</th>
+                                            <th scope="col">기타</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="2">구매자</td>
+                                            <td>반품 배송비</td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text is_title">
+                                                                편도
+                                                            </span>
+                                                        </div>
+                                                        <input type="tel" required="required" autocomplete="off" class="form-control is_impotent is_comma is_onlyNum" name="return_charge" data-maxValue="200000" id="return_charge136_1" maxlength="9" data-alram="반품 배송비" onkeyup="changeEleventhFee($(this).val())">
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">원</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td style="width:40%;">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" name="round_trip_yn" id="checkbox136_2" value="01" onclick="javascript:offCalculate()" checked>
+                                                    <label class="form-check-label" for="checkbox136_2">초기 배송비가 무료인 경우, 구매자에게 왕복 배송비 <b id="checkbox136_3">-</b>원 부과합니다.</label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>교환 배송비</td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text is_title">
+                                                                왕복
+                                                            </span>
+                                                        </div>
+                                                        <input type="tel" required="required" autocomplete="off" class="form-control is_impotent is_comma is_onlyNum" name="exchange_charge" data-maxValue="200000" id="exchange_charge136_3" maxlength="9" data-alram="교환 배송비">
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">원</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                A/S 안내
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_full">
+                                <textarea class="form-check-textarea is_impotent" placeholder="" name="as_info" maxlength="100" data-alram="A/S 안내"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                반품/교환 안내
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_full">
+                                <textarea class="form-check-textarea is_impotent" placeholder="" name="exchange_info" maxlength="100" data-alram="반품/교환 안내"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 기타정보 -->
+                <div class="is_tabTarget is_bodyFocus" data-tabTarget="11st_{{:index}}" data-focusIndex="3">
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                가격비교 사이트 등록
+<!--                                <button class="question btn btn-sm p-0" data-toggle="dropdown" type="button"><i class="fas fa-question-circle"></i></button>-->
+<!--                                <div class="dropdown-menu">-->
+<!--                                    <h6 class="dropdown-header">11번가 자체 정책에 의해 11번가 이용정책 에 위반되거나 금지행위를 한 셀러의 경우, ‘등록함’을 선택해도 노출되지 않을 수 있습니다.</h6>-->
+<!--                                </div>-->
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="price_comparison_yn" id="price_comparison_yn140_1" value="N" checked>
+                                    <label class="form-check-label" for="price_comparison_yn140_1">등록 안함</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="price_comparison_yn" id="price_comparison_yn140_2" value="Y">
+                                    <label class="form-check-label" for="price_comparison_yn140_2">등록함</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                희망후원 설정
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="wish_support_yn" id="wish_support_yn141_1" value="N" checked>
+                                    <label class="form-check-label" for="wish_support_yn141_1">설정 안함</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="wish_support_yn" id="wish_support_yn141_2" value="Y">
+                                    <label class="form-check-label" for="wish_support_yn141_2">설정함</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</script>
+
+<!-- 상품리스트정보 -->
+<script id="render_COUPANG" type="text/x-jsrender">
+    <div class="inputForm card shadow is_tabTarget {{:active}}" id="COUPANG_body" data-tabTarget="domesticMall">
+        <div class="card-header">
+            <div class="row">
+                <div class="col d-flex nav align-items-center">
+                    <button class="m-0 nav-link is_tabTrigger is_opacity is_active is_btnFocus" type="button" data-tabTrigger="coupang_{{:index}}"  data-focusIndex="0">기본정보</button>
+                    <button class="m-0 nav-link is_tabTrigger is_opacity is_btnFocus" type="button" data-tabTrigger="coupang_{{:index}}"  data-focusIndex="1">옵션정보</button>
+                    <button class="m-0 nav-link is_tabTrigger is_opacity is_btnFocus" type="button" data-tabTrigger="coupang_{{:index}}"  data-focusIndex="2">배송정보</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- Tab panes -->
+            <div class="tab-content tabcontent-border">
+
+                <!-- 기본정보 -->
+                <form method="post">
+                <div class="is_tabTarget is_active is_bodyFocus" data-tabTarget="coupang_{{:index}}" data-focusIndex="0">
+                    <input type="hidden" id="mem_id_coupang" name="mem_id">
+                    <input type="hidden" id="seq_coupang" name="client_mall_seq"  value="{{:mall_seq}}">
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                상품공통정보명
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_full">
+                                <input type="text" class="form-control is_impotent" placeholder="" name="common_data_name" data-alram="상품공통정보명" maxlength="50">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                할인율 기준가
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_inner is_radio">
+                                <div class="is_impotent">
+                                    <div class="form-check form-check-inline is_tabTrigger is_active" data-tabTrigger="discount_flag221">
+                                        <input class="form-check-input" type="radio" name="discount_flag" id="discount_flag221_1" value="DISCOUNT_PERCENT" checked>
+                                        <label class="form-check-label" for="discount_flag221_1">할인율 직접입력</label>
+                                    </div>
+                                    <div class="form-check form-check-inline is_tabTrigger" data-tabTrigger="discount_flag221">
+                                        <input class="form-check-input" type="radio" name="discount_flag" id="discount_flag221_2" value="DISCOUNT_MARKETPRICE">
+                                        <label class="form-check-label" for="discount_flag221_2">온라인상품 시중가 정보 사용</label>
+                                    </div>
+                                    <div class="form-check form-check-inline is_tabTrigger" data-tabTrigger="discount_flag221">
+                                        <input class="form-check-input" type="radio" name="discount_flag" id="discount_flag221_3" value="DISCOUNT_PRICE">
+                                        <label class="form-check-label" for="discount_flag221_3">온라인상품 판매가 정보 사용</label>
+                                    </div>
+                                </div>
+                                <div class="form-tab is_tabTarget is_active" data-tabTarget="discount_flag221">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control is_checkImpotent" data-checkimpotent="discount_flag221_1" id="discount_rate222_1" name="discount_rate" data-alram="할인율 기준가" onkeyup="checkNumbers($(this).val())" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="parallel_imported" id="parallel_imported212_2" value="NOT_PARALLEL_IMPORTED">
+<!--                    <div class="form-group">-->
+<!--                        <div class="input-groupWrap">-->
+<!--                            <div class="input-groupWrapHeader is_limit160">-->
+<!--                                병행수입여부-->
+<!--                                <span class="text-danger ml-05">*</span>-->
+<!--                            </div>-->
+<!--                            <div class="input-groupWrapBody is_inner">-->
+<!--                                <div class="form-check form-check-inline">-->
+<!--                                    <input class="form-check-input" type="radio" name="parallel_imported" id="parallel_imported212_2" value="NOT_PARALLEL_IMPORTED" checked>-->
+<!--                                    <label class="form-check-label" for="parallel_imported212_2">아니요</label>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <div class="input-groupWrap">-->
+<!--                            <div class="input-groupWrapHeader is_limit160">-->
+<!--                                해외구매대행여부-->
+<!--                                <span class="text-danger ml-05">*</span>-->
+<!--                            </div>-->
+<!--                            <div class="input-groupWrapBody is_inner">-->
+<!--                                <div class="form-check form-check-inline">-->
+<!--                                    <input class="form-check-input" type="radio" name="overseas_purchase" id="overseas_purchase213_2" value="NOT_OVERSEAS_PURCHASED" checked>-->
+<!--                                    <label class="form-check-label" for="overseas_purchase213_2">아니요</label>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <input type="hidden" name="overseas_purchase" id="overseas_purchase213_2" value="NOT_OVERSEAS_PURCHASED">
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                인당 최대 구매수량
+                                <span class="text-danger ml-05">*</span>
+<!--                                <button class="question btn btn-sm p-0" data-toggle="dropdown" type="button"><i class="fas fa-question-circle"></i></button>-->
+<!--                                <div class="dropdown-menu">-->
+<!--                                    <h6 class="dropdown-header">안내문구 블라블라블라블라</h6>-->
+<!--                                </div>-->
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="input-group">
+                                    <input type="tel" required="required" autocomplete="off" class="form-control is_impotent is_onlyNum" name="max_buy_person" id="max_buy_person" maxlength="5" data-alram="인당 최대 구매수량">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">개</div>
+                                    </div>
+                                    <input type="tel" required="required" autocomplete="off" class="form-control ml-2 is_impotent is_onlyNum" name="max_buy_person_period" id="max_buy_person_period" maxlength="3" data-alram="인당 최대 구매수량">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">일</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                노출상품명 설정
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="display_product_name" id="display_product_name215_1" value="N" checked>
+                                    <label class="form-check-label" for="display_product_name215_1">노출상품명 자동 등록</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="display_product_name" id="display_product_name215_2" value="Y">
+                                    <label class="form-check-label" for="display_product_name215_2">노출상품명 등록</label>
+                                </div>
+                                <div class="form-text">
+                                    노출상품명 등록 선택 시, [브랜드][제품명] 형태로 전송됩니다.<br/>
+                                    노출상품명 자동 선택 시, 솔루션에서는 전송하지 않으며 쿠팡 사이트 자체에서 [브랜드] [제품명] 으로 입력되거나, [등록상품명] 으로 노출될 수 있습니다.<br/>
+                                    제품명, 등록상품명은 상품상세 > 쇼핑몰정보 > 추가항목에서 설정 가능하며, 미입력 시 온라인상품명으로 기본 전송됩니다.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 옵션정보 -->
+                <div class="is_tabTarget is_bodyFocus" data-tabTarget="coupang_{{:index}}" data-focusIndex="1">
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                상품옵션 수정여부
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="option_change_yn" id="option_change_yn220_1" value="Y">
+                                    <label class="form-check-label" for="option_change_yn220_1">수정함</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="option_change_yn" id="option_change_yn220_2" value="N" checked>
+                                    <label class="form-check-label" for="option_change_yn220_2">수정 안함</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="option_image_yn" value="N">
+<!--                    <div class="form-group">-->
+<!--                        <div class="input-groupWrap">-->
+<!--                            <div class="input-groupWrapHeader is_limit160">-->
+<!--                                옵션 이미지 사용여부-->
+<!--                            </div>-->
+<!--                            <div class="input-groupWrapBody is_inner">-->
+<!--                                <div class="form-check form-check-inline">-->
+<!--                                    <input class="form-check-input" type="radio" name="option_image_yn" id="option_image_yn221_1" value="Y">-->
+<!--                                    <label class="form-check-label" for="option_image_yn221_1">사용함</label>-->
+<!--                                </div>-->
+<!--                                <div class="form-check form-check-inline">-->
+<!--                                    <input class="form-check-input" type="radio" name="option_image_yn" id="option_image_yn222_2" value="N" checked>-->
+<!--                                    <label class="form-check-label" for="option_image_yn222_2">사용안함</label>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
+
+                <!-- 배송정보 -->
+                <div class="is_tabTarget is_bodyFocus" data-tabTarget="coupang_{{:index}}" data-focusIndex="2">
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                배송방법
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_full">
+                                <select class="custom-select" name="delivery_method">
+                                    <option value="SEQUENCIAL">일반배송</option>
+                                    <option value="VENDOR_DIRECT">설치배송 또는 판매자 직접 전달</option>
+                                    <option value="AGENT_BUY">구매대행</option>
+                                    <option value="COLD_FRESH">신선냉동</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                묶음배송여부
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="union_delivery_type" id="union_delivery_type231_1" value="UNION_DELIVERY" checked>
+                                    <label class="form-check-label" for="union_delivery_type231_1">가능</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="union_delivery_type" id="union_delivery_type231_2" value="NOT_UNION_DELIVERY">
+                                    <label class="form-check-label" for="union_delivery_type231_2">불가</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                도서산간배송여부
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="remote_delivery" id="remote_delivery232_1" value="Y" checked>
+                                    <label class="form-check-label" for="remote_delivery232_1">가능</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="remote_delivery" id="remote_delivery232_2" value="N">
+                                    <label class="form-check-label" for="remote_delivery232_2">불가</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                출고지 설정
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody">
+                                <div class="input-groupWrap">
+                                    <div class="input-groupWrapHeader is_limit160">
+                                        출고지
+                                        <span class="text-danger ml-05">*</span>
+                                    </div>
+                                    <div class="input-groupWrapBody is_full">
+                                        <select class="custom-select is_impotent" id="out_place233_1" name="out_place" data-alram="출고지 설정" onchange="javascript:getCoupangInfo()">
+                                            <option value="">출고지 선택</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="input-groupWrap">
+                                    <div class="input-groupWrapHeader is_limit160">
+                                        출고지 이름
+                                        <span class="text-danger ml-05">*</span>
+                                    </div>
+                                    <div class="input-groupWrapBody is_full">
+                                        <input type="text" class="form-control is_impotent" id="out_place_name233_2" name="out_place_name" placeholder="" readonly="true">
+                                    </div>
+                                </div>
+                                <div class="input-groupWrap">
+                                    <div class="input-groupWrapHeader is_limit160">
+                                        연락처
+                                        <span class="text-danger ml-05">*</span>
+                                    </div>
+                                    <div class="input-groupWrapBody is_full">
+                                        <input type="text" class="form-control is_impotent" id="out_place_phone233_3" name="out_place_phone" placeholder="" readonly="true">
+                                    </div>
+                                </div>
+                                <div class="input-groupWrap">
+                                    <div class="input-groupWrapHeader is_limit160">
+                                        주소
+                                        <span class="text-danger ml-05">*</span>
+                                    </div>
+                                    <div class="input-groupWrapBody is_full">
+                                        <input type="text" class="form-control is_impotent" id="out_place_address233_4" name="out_place_address" placeholder="" readonly="true">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                택배사
+                                <span class="text-danger ml-05">*</span>
+<!--                                <button class="question btn btn-sm p-0" data-toggle="dropdown" type="button"><i class="fas fa-question-circle"></i></button>-->
+<!--                                <div class="dropdown-menu">-->
+<!--                                    <h6 class="dropdown-header">안내문구 블라블라블라블라</h6>-->
+<!--                                </div>-->
+                            </div>
+                            <div class="input-groupWrapBody is_full">
+                                <select class="custom-select is_impotent" id="delivery_company_code233_4" name="delivery_company_code">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                배송비 종류
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_full">
+                                <select class="custom-select" name="delivery_charge_type" id="delivery_charge_type236" onchange="changefreeShipFee($(this).find(':selected').attr('data-free-ship'))">
+                                    <option value="FREE" data-free-ship="">무료배송</option>
+                                    <option value="CONDITIONAL_FREE" data-free-ship="condition">조건부 무료배송</option>
+                                    <option value="CONDITIONAL_FREE" data-free-ship="9800">9800이상 무료배송</option>
+                                    <option value="CONDITIONAL_FREE" data-free-ship="19800">19800이상 무료배송</option>
+                                    <option value="CONDITIONAL_FREE" data-free-ship="30000">30000이상 무료배송</option>
+                                    <option value="NOT_FREE" data-free-ship="">유료배송</option>
+<!--                                    <option value="CHARGE_RECEIVED" data-free-ship="">착불배송</option>-->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text is_title is_limit160">
+                                    기본 배송비
+                                    <span class="text-danger ml-05">*</span>
+                                </span>
+                            </div>
+                            <input type="tel" required="required" autocomplete="off" class="form-control is_impotent is_comma" data-maxValue="250000" name="delivery_charge" maxlength="9" data-alram="기본 배송비">
+                            <div class="input-group-append">
+                                <div class="input-group-text">원</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text is_title is_limit160">
+                                    조건부 무료
+                                    <span class="text-danger ml-05">*</span>
+                                </span>
+                            </div>
+                            <input type="tel" required="required" autocomplete="off" class="form-control is_onlyNum" name="free_ship_amount" id="free_ship_amount237" maxlength="9" readonly="true">
+                            <div class="input-group-append">
+                                <div class="input-group-text">원</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                반품지 설정
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody">
+                                <div class="input-groupWrap">
+                                    <div class="input-groupWrapHeader is_limit160">
+                                        반품지
+                                        <span class="text-danger ml-05">*</span>
+                                    </div>
+                                    <div class="input-groupWrapBody is_full">
+                                        <select class="custom-select is_impotent" id="return_center_code239_1" name="return_center_code" data-alram="반품지" onchange="changeCoupangAddress($(this).val())">
+                                            <option value="">반품지 선택</option>
+                                        </select>
+                                    </div>
+                                    <input type="hidden" id="return_name238_1" name="return_name"/>
+                                    <input type="hidden" id="return_phone238_2" name="return_phone"/>
+                                    <input type="hidden" id="return_zipcode238_3" name="return_zipcode"/>
+                                    <input type="hidden" id="return_address238_4" name="return_address"/>
+                                    <input type="hidden" id="return_address_detail238_5" name="return_address_detail"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text is_title is_limit160">
+                                    초도 반품비(편도)
+                                    <span class="text-danger ml-05">*</span>
+<!--                                    <button class="question btn btn-sm p-0" data-toggle="dropdown" type="button"><i class="fas fa-question-circle"></i></button>-->
+<!--                                    <div class="dropdown-menu">-->
+<!--                                        <h6 class="dropdown-header">안내문구 블라블라블라블라</h6>-->
+<!--                                    </div>-->
+                                </span>
+                            </div>
+                            <input type="tel" required="required" autocomplete="off" class="form-control is_impotent is_comma" data-maxValue="250000" name="delivery_charge_return" id="delivery_charge_return239_2" value="2500" maxlength="9" data-alram="초도 반품비">
+                            <div class="input-group-append">
+                                <div class="input-group-text">원</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text is_title is_limit160">
+                                    반품 반품비(편도)
+                                    <span class="text-danger ml-05">*</span>
+                                </span>
+                            </div>
+                            <input type="tel" required="required" autocomplete="off" class="form-control is_impotent is_comma" data-maxValue="250000" name="return_charge" value="2500" maxlength="9" data-alram="반품 반품비">
+                            <div class="input-group-append">
+                                <div class="input-group-text">원</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                착불여부
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="return_charge_yn" id="radio233_1" value="Y" checked="">
+                                    <label class="form-check-label" for="radio233_1">착불</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="return_charge_yn" id="radio233_2" value="N">
+                                    <label class="form-check-label" for="radio233_2">선불</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                A/S 안내
+                            </div>
+                            <div class="input-groupWrapBody is_full">
+                                <textarea class="form-check-textarea" placeholder="" name="as_info" maxlength="100"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text is_title is_limit160">
+                                    A/S 전화번호
+                                </span>
+                            </div>
+                            <input type="tel" required="required" autocomplete="off" class="form-control is_onlyNum" name="as_phone" placeholder="전화번호 입력" maxlength="11">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text is_title is_limit160">
+                                    출고소요기간
+                                    <span class="text-danger ml-05">*</span>
+<!--                                    <button class="question btn btn-sm p-0" data-toggle="dropdown" type="button"><i class="fas fa-question-circle"></i></button>-->
+<!--                                    <div class="dropdown-menu">-->
+<!--                                        <h6 class="dropdown-header">안내문구 블라블라블라블라</h6>-->
+<!--                                    </div>-->
+                                </span>
+                            </div>
+                            <input type="tel" required="required" autocomplete="off" class="form-control is_impotent is_onlyNum" name="out_period" value="1" maxlength="3" data-alram="출고소요기간">
+                            <div class="input-group-append">
+                                <div class="input-group-text">일</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</script>
+
+<!-- 상품리스트정보 -->
+<script id="render_CAFE24" type="text/x-jsrender">
+    <div class="inputForm card shadow is_tabTarget {{:active}}" id="CAFE24_body" data-tabTarget="domesticMall">
+        <div class="card-header">
+            <div class="row">
+                <div class="col d-flex nav align-items-center">
+                    <button class="m-0 nav-link is_tabTrigger is_opacity is_active is_btnFocus" type="button" data-tabTrigger="cafe24_{{:index}}" data-focusIndex="0">기본정보</button>
+                    <button class="m-0 nav-link is_tabTrigger is_opacity is_btnFocus" type="button" data-tabTrigger="cafe24_{{:index}}" data-focusIndex="1">판매정보</button>
+                    <button class="m-0 nav-link is_tabTrigger is_opacity is_btnFocus" type="button" data-tabTrigger="cafe24_{{:index}}" data-focusIndex="2">옵션/재고 설정</button>
+<!--                    <button class="m-0 nav-link is_tabTrigger is_opacity" type="button" data-tabTrigger="cafe24_{{:index}}">배송정보</button>-->
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- Tab panes -->
+            <div class="tab-content tabcontent-border">
+
+                <!-- 기본정보 -->
+                <form method="post">
+                <div class="is_tabTarget is_active is_bodyFocus" data-tabTarget="cafe24_{{:index}}" data-focusIndex="0">
+                    <input type="hidden" id="mem_id_cafe24" name="mem_id">
+                    <input type="hidden" id="seq_cafe24" name="client_mall_seq" value="{{:mall_seq}}">
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                상품공통정보명
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_full">
+                                <input type="text" class="form-control is_impotent" name="common_data_name" data-alram="상품공통정보명" placeholder="" maxlength="50">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                상품상태
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="product_condition" id="product_condition311_1" value="N" checked="">
+                                    <label class="form-check-label" for="product_condition311_1">신상품</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="product_condition" id="product_condition311_2" value="B">
+                                    <label class="form-check-label" for="product_condition311_2">반품</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="product_condition" id="product_condition311_3" value="R">
+                                    <label class="form-check-label" for="product_condition311_3">재고</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="product_condition" id="product_condition311_4" value="U">
+                                    <label class="form-check-label" for="product_condition311_4">중고</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <div class="input-groupWrap">-->
+<!--                            <div class="input-groupWrapHeader is_limit160">-->
+<!--                                유효기간 사용유무-->
+<!--                            </div>-->
+<!--                            <div class="input-groupWrapBody is_inner">-->
+<!--                                <div class="is_nonImpotent">-->
+<!--                                    <div class="form-check form-check-inline is_tabTrigger" data-tabTrigger="sale_date_yn">-->
+<!--                                        <input class="form-check-input" type="radio" name="sale_date_yn" id="sale_date_yn312_1" value="Y">-->
+<!--                                        <label class="form-check-label" for="sale_date_yn312_1">사용함</label>-->
+<!--                                    </div>-->
+<!--                                    <div class="form-check form-check-inline is_tabTrigger" data-tabTrigger="sale_date_yn">-->
+<!--                                        <input class="form-check-input" type="radio" name="sale_date_yn" id="sale_date_yn312_2" value="N" checked>-->
+<!--                                        <label class="form-check-label" for="sale_date_yn312_2">사용안함</label>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-tab is_tabTarget" data-tabTarget="sale_date_yn">-->
+<!--                                <div class="input-group">-->
+<!--                                    <div class="input-text">시작일</div>-->
+<!--                                        <input type="date" class="form-control is_nonCheckImpotent" name="sale_start_date" data-checkimpotent="sale_date_yn312_1">-->
+
+<!--                                    <div class="input-text">종료일</div>-->
+<!--                                        <input type="date" class="form-control is_nonChekImpotent" name="sale_end_date" data-checkimpotent="sale_date_yn312_1">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                이미지 추가 등록
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="option_image_yn313_1"  value="Y">
+                                    <input type="hidden" name="option_image_yn" id="option_image_yn313_2" value="">
+                                    <label class="form-check-label" for="option_image_yn313_2">추가이미지 등록</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <div class="input-groupWrap">-->
+<!--                            <div class="input-groupWrapHeader is_limit160">-->
+<!--                                상품 정보 고시</br>-->
+<!--                                타이틀 사용 여부-->
+<!--                            </div>-->
+<!--                            <div class="input-groupWrapBody is_inner">-->
+<!--                                <div class="form-check form-check-inline">-->
+<!--                                    <input class="form-check-input" type="radio" name="product_noti_title" id="product_noti_title314_1" value="Y">-->
+<!--                                    <label class="form-check-label" for="product_noti_title314_1">타이틀 사용함</label>-->
+<!--                                </div>-->
+<!--                                <div class="form-check form-check-inline">-->
+<!--                                    <input class="form-check-input" type="radio" name="product_noti_title" id="product_noti_title314_2" value="N" checked>-->
+<!--                                    <label class="form-check-label" for="product_noti_title314_2">타이틀 사용 안함</label>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="input-groupWrapBody">-->
+<!--                        <div class="input-groupWrap">-->
+<!--                            <div class="input-groupWrapHeader is_limit160">-->
+<!--                                중복등록 처리-->
+<!--                            </div>-->
+<!--                            <div class="input-groupWrapBody is_full">-->
+<!--                                <select class="custom-select" name="edit_yn">-->
+<!--                                    <option value="err">오류처리</option>-->
+<!--                                    <option value="edit">수정처리</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
+
+                <!-- 판매정보 -->
+                <div class="is_tabTarget is_bodyFocus" data-tabTarget="cafe24_{{:index}}" data-focusIndex="1">
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                과세여부
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="tax_type" id="tax_type321_1" value="A" checked>
+                                    <label class="form-check-label" for="tax_type321_1">과세상품</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="tax_type" id="tax_type321_2" value="B">
+                                    <label class="form-check-label" for="tax_type321_2">면세상품</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="tax_type" id="tax_type321_3" value="C">
+                                    <label class="form-check-label" for="tax_type321_3">영세상품</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text is_title is_limit160">
+                                    과세율
+                                    <span class="text-danger ml-05">*</span>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control is_impotent" id="tax_ratio321_1" name="tax_ratio" value="10" data-alram="과세율" onkeyup="checkNumbers($(this).val())" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                            <div class="input-group-append">
+                                <div class="input-group-text">%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                네이버 페이 서비스
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="naver_pay_yn" id="naver_pay_yn324_1" value="T">
+                                    <label class="form-check-label" for="naver_pay_yn324_1">사용함</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="naver_pay_yn" id="naver_pay_yn324_2" value="F" checked>
+                                    <label class="form-check-label" for="naver_pay_yn324_2">사용안함</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 옵션/재고 설정 -->
+                <div class="is_tabTarget is_bodyFocus" data-tabTarget="cafe24_{{:index}}" data-focusIndex="2">
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                옵션/재고 수정여부
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="option_change_yn" id="option_change_yn331_1" value="Y" checked>
+                                    <label class="form-check-label" for="option_change_yn331_1">수정함</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="option_change_yn" id="option_change_yn331_2" value="N">
+                                    <label class="form-check-label" for="option_change_yn331_2">수정안함</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                옵션 표시방식
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="option_display_method" id="option_display_method332_1" value="C" checked>
+                                    <label class="form-check-label" for="radio332_1">일체선택형</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 배송정보 -->
+<!--                <div class="is_tabTarget" data-tabTarget="cafe24_{{:index}}">-->
+<!--                    배송정보-->
+<!--                </div>-->
+            </form>
+            </div>
+        </div>
+    </div>
+</script>
+
+<!-- 상품리스트정보 -->
+<script id="render_GODO" type="text/x-jsrender">
+    <div class="inputForm card shadow is_tabTarget {{:active}}" id="GODO_body" data-tabTarget="domesticMall">
+        <div class="card-header">
+            <div class="row">
+                <div class="col d-flex nav align-items-center">
+                    <button class="m-0 nav-link is_tabTrigger is_opacity is_active is_btnFocus" type="button" data-tabTrigger="godo_{{:index}}" data-focusIndex="0">기본정보</button>
+                    <button class="m-0 nav-link is_tabTrigger is_opacity is_btnFocus" type="button" data-tabTrigger="godo_{{:index}}" data-focusIndex="1">옵션정보</button>
+                    <button class="m-0 nav-link is_tabTrigger is_opacity is_btnFocus" type="button" data-tabTrigger="godo_{{:index}}" data-focusIndex="2">배송정보</button>
+<!--                    <button class="m-0 nav-link is_tabTrigger is_opacity is_btnFocus" type="button" data-tabTrigger="godo_{{:index}}" data-focusIndex="3">기타정보</button>-->
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- Tab panes -->
+            <div class="tab-content tabcontent-border">
+
+                <!-- 기본정보 -->
+                <form method="post">
+                <div class="is_tabTarget is_active is_bodyFocus" data-tabTarget="godo_{{:index}}" data-focusIndex="0">
+                    <input type="hidden" id="mem_id_godo" name="mem_id">
+                    <input type="hidden" name="client_mall_seq" id="seq_godo" value="{{:mall_seq}}">
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                상품공통정보명
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_full">
+                                <input type="text" class="form-control is_impotent" name="common_data_name" data-alram="상품공통정보명" placeholder="" maxlength="50">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                모바일쇼핑몰 설정
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody">
+                                <div class="input-groupWrap">
+                                    <div class="input-groupWrapHeader">
+                                        노출상태
+                                    </div>
+                                    <div class="input-groupWrapBody is_inner">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="mobile_display_yn" id="radio411_1" value="Y">
+                                            <label class="form-check-label" for="radio411_1">노출함</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="mobile_display_yn" id="radio411_2" value="N" checked="">
+                                            <label class="form-check-label" for="radio411_2">노출안함</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-groupWrap">
+                                    <div class="input-groupWrapHeader">
+                                        판매상태
+                                    </div>
+                                    <div class="input-groupWrapBody is_inner">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="mobile_sell_yn" id="radio412_1" value="Y">
+                                            <label class="form-check-label" for="radio412_1">판매함</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="mobile_sell_yn" id="radio412_2"  value="N" checked="">
+                                            <label class="form-check-label" for="radio412_2">판매안함</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-text">
+                                    PC쇼핑몰은 자동으로 노출/판매 됩니다.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                상품상태
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="product_condition" id="radio413_1" value="N" checked="">
+                                    <label class="form-check-label" for="radio413_1">신상품</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="product_condition" id="radio413_2" value="U">
+                                    <label class="form-check-label" for="radio413_2">중고상품</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="product_condition" id="radio413_3" value="R">
+                                    <label class="form-check-label" for="radio413_3">반품/재고상품</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                구매가능 회원등급
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="product_permission" id="radio413_4" value="ALL" checked>
+                                    <label class="form-check-label" for="radio413_4">전체(회원+비회원)</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="product_permission" id="radio413_5" value="MEMBER">
+                                    <label class="form-check-label" for="radio413_5">회원전용(비회원제외)</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="product_permission" id="radio413_6" value="GROUP">
+                                    <label class="form-check-label" for="radio413_6">특정회원등급</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                공급사
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_full">
+                                <select class="custom-select is_impotent" name="scm_no" data-alram="공급사">
+                                    <option value="">공급사 선택</option>
+                                    <option value="1">본사(기본)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                이미지 저장소
+                            </div>
+                            <div class="input-groupWrapBody is_full">
+                                <select class="custom-select" name="image_storage" id="image_storage_415_1">
+                                    <option value="local">기본경로</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 옵션정보 -->
+                <div class="is_tabTarget is_bodyFocus" data-tabTarget="godo_{{:index}}" data-focusIndex="1">
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                옵션/재고 수정여부
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="option_change_yn" id="option_change_yn421_1" value="Y" checked>
+                                    <label class="form-check-label" for="option_change_yn421_1">수정함</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="option_change_yn" id="option_change_yn421_2" value="N">
+                                    <label class="form-check-label" for="option_change_yn421_2">수정안함</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                옵션 표시방식
+                            </div>
+                            <div class="input-groupWrapBody is_inner">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="option_display_method" id="option_display_method422_1" value="D" checked>
+                                    <label class="form-check-label" for="option_display_method422_1">일체형</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="option_display_method" id="option_display_method423_2" value="S" >
+                                    <label class="form-check-label" for="option_display_method423_2">분리형</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 배송정보 -->
+                <div class="is_tabTarget is_bodyFocus" data-tabTarget="godo_{{:index}}" data-focusIndex="2">
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                배송비정보
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_full">
+                                <select class="custom-select is_underLine is_impotent" id="delivery_charge_info430_1" name="delivery_charge_info" data-alram="배송비 정보">
+                                    <option value="">배송비 선택</option>
+                                </select>
+                                <div class="form-text">
+                                    배송비는 어드민의 기본설정>배송 정책>배송비조건 관리에서 추가할 수 있습니다.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                배송안내
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_inner is_radio">
+                                <div class="is_impotent">
+                                    <div class="form-check form-check-inline is_tabTrigger is_active" data-tabTrigger="delivery_info_yn431">
+                                        <input class="form-check-input" type="radio" name="delivery_info_yn" id="delivery_info_yn431_1" value="N" checked>
+                                        <label class="form-check-label" for="delivery_info_yn431_1">사용안함</label>
+                                    </div>
+                                    <div class="form-check form-check-inline is_tabTrigger" data-tabTrigger="delivery_info_yn431">
+                                        <input class="form-check-input" type="radio" name="delivery_info_yn" id="delivery_info_yn431_2" value="Y">
+                                        <label class="form-check-label" for="delivery_info_yn431_2">사용함</label>
+                                    </div>
+                                    <div class="form-text">
+                                        배송안내는 어드민의 기본설정>상품정책>상품상세이용안내 관리에서 추가할 수 있습니다.
+                                    </div>
+                                </div>
+                                <div class="form-tab is_tabTarget mt-0" data-tabTarget="delivery_info_yn431">
+                                    <!-- 1번탭 -->
+                                </div>
+                                <div class="form-tab is_tabTarget" data-tabTarget="delivery_info_yn431">
+                                    <div class="input-groupWrapBody is_full">
+                                        <select class="custom-select is_underLine is_checkImpotent" data-checkimpotent="delivery_info_yn431_2" id="delivery_info431" name="delivery_info" data-alram="배송안내">
+                                            <option value="">배송안내 선택</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                A/S안내
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_inner is_radio">
+                                <div class="is_impotent">
+                                    <div class="form-check form-check-inline is_tabTrigger is_active" data-tabTrigger="as_info_yn432">
+                                        <input class="form-check-input" type="radio" name="as_info_yn" id="as_info_yn432_1" value="N" checked>
+                                        <label class="form-check-label" for="as_info_yn432_1">사용안함</label>
+                                    </div>
+                                    <div class="form-check form-check-inline is_tabTrigger is_active" data-tabTrigger="as_info_yn432">
+                                        <input class="form-check-input" type="radio" name="as_info_yn" id="as_info_yn432_2" value="Y">
+                                        <label class="form-check-label" for="as_info_yn432_2">사용함</label>
+                                    </div>
+                                    <div class="form-text">
+                                        A/S안내는 어드민의 기본설정>상품정책>상품상세이용안내 관리에서 추가할 수 있습니다.
+                                    </div>
+                                </div>
+                                <div class="form-tab is_tabTarget mt-0" data-tabTarget="as_info_yn432">
+                                    <!-- 1번탭 -->
+                                </div>
+                                <div class="form-tab is_tabTarget" data-tabTarget="as_info_yn432">
+                                    <div class="input-groupWrapBody is_full">
+                                        <select class="custom-select is_underLine is_checkImpotent" data-checkimpotent="as_info_yn432_2" id="as_info431" name="as_info" data-alram="A/S안내">
+                                            <option value="">A/S안내 선택</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                환불안내
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_inner is_radio">
+                                <div class="is_impotent">
+                                    <div class="form-check form-check-inline is_tabTrigger is_active" data-tabTrigger="refund_info_yn433">
+                                        <input class="form-check-input" type="radio" name="refund_info_yn" id="refund_info_yn433_1" value="N" checked>
+                                        <label class="form-check-label" for="refund_info_yn433_1">사용안함</label>
+                                    </div>
+                                    <div class="form-check form-check-inline is_tabTrigger is_active" data-tabTrigger="refund_info_yn433">
+                                        <input class="form-check-input" type="radio" name="refund_info_yn" id="refund_info_yn433_2" value="Y">
+                                        <label class="form-check-label" for="refund_info_yn433_2">사용함</label>
+                                    </div>
+                                    <div class="form-text">
+                                        환불안내는 어드민의 기본설정>상품정책>상품상세이용안내 관리에서 추가할 수 있습니다.
+                                    </div>
+                                </div>
+                                <div class="form-tab is_tabTarget mt-0" data-tabTarget="refund_info_yn433">
+                                    <!-- 1번탭 -->
+                                </div>
+                                <div class="form-tab is_tabTarget" data-tabTarget="refund_info_yn433">
+                                    <div class="input-groupWrapBody is_full">
+                                        <select class="custom-select is_underLine is_checkImpotent" data-checkimpotent="refund_info_yn433_2" id="refund_info_yn433" name="refund_info" data-alram="환불안내">
+                                            <option value="">환불안내 선택</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-groupWrap">
+                            <div class="input-groupWrapHeader is_limit160">
+                                교환안내
+                                <span class="text-danger ml-05">*</span>
+                            </div>
+                            <div class="input-groupWrapBody is_inner is_radio">
+                                <div class="is_impotent">
+                                    <div class="form-check form-check-inline is_tabTrigger is_active" data-tabTrigger="exchange_info_yn434">
+                                        <input class="form-check-input" type="radio" name="exchange_info_yn" id="exchange_info_yn434_1" value="N" checked>
+                                        <label class="form-check-label" for="exchange_info_yn434_1">사용안함</label>
+                                    </div>
+                                    <div class="form-check form-check-inline is_tabTrigger is_active" data-tabTrigger="exchange_info_yn434">
+                                        <input class="form-check-input" type="radio" name="exchange_info_yn" id="exchange_info_yn434_2" value="Y">
+                                        <label class="form-check-label" for="exchange_info_yn434_2">사용함</label>
+                                    </div>
+                                    <div class="form-text">
+                                        교환안내는 어드민의 기본설정>상품정책>상품상세이용안내 관리에서 추가할 수 있습니다.
+                                    </div>
+                                </div>
+                                <div class="form-tab is_tabTarget mt-0" data-tabTarget="exchange_info_yn434">
+                                    <!-- 1번탭 -->
+                                </div>
+                                <div class="form-tab is_tabTarget" data-tabTarget="exchange_info_yn434">
+                                    <div class="input-groupWrapBody is_full">
+                                        <select class="custom-select is_underLine is_checkImpotent" data-checkimpotent="exchange_info_yn434_2" id="exchange_info434" name="exchange_info" data-alram="교환안내">
+                                            <option value="">교환안내 선택</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 기타정보 -->
+<!--                <div class="is_tabTarget" data-tabTarget="godo_{{:index}}">-->
+<!--                    기타정보-->
+<!--                </div>-->
+            </form>
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<!-- 연동몰별 필요항목 정보  -->
+<script id="multi_ELEVENST1" type="text/x-jsrender">
+<div class="card is_tabTarget" data-tabTarget="mall" data-type="ELEVENST">
+    <div class="card-body {{:active}}" data-tabTarget="multiMall">
+        <h6 class="mb-3 account_info" >11번가 연동에 필요한 항목을 입력</h6>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text is_limit120" for="eleven_user_id">ID<span class="text-danger ml-05">*</span></label>
+            </div>
+            <input class="form-control is_impotent" id="eleven_user_id" type="text" name="user_id" placeholder="정확한 11번가 ID를 입력해주세요. 연동 꼭 필요합니다.">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="eleven_mall_key">OPEN API KEY<span class="text-danger ml-05">*</span></label>
+            </div>
+            <input class="form-control is_impotent" id="eleven_mall_key" type="text" name="mall_key1" placeholder="OPEN API KEY를 넣어주세요">
+        </div>
+        <div class="row">
+            <div class="col-auto" style="margin-left: auto;">
+                <button type="button" class="btn btn-secondary" onclick="javascript:mallCxl()">삭제</button>
+                <button type="button" class="btn btn-success" onclick="javascript:mallSetting()">등록</button>
+            </div>
+        </div>
+    </div>
+</div>
+</script>
+<!-- 연동몰별 필요항목 정보  -->
+<script id="multi_COUPANG1" type="text/x-jsrender">
+<div class="card is_tabTarget" data-tabTarget="mall" data-type="COUPANG">
+    <div class="card-body {{:active}}" data-tabTarget="multiMall">
+        <h6 class="mb-3 account_info" >쿠팡 연동에 필요한 항목을 입력</h6>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text is_limit120" for="coupang_user_id">ID<span class="text-danger ml-05">*</span></label>
+            </div>
+            <input class="form-control is_impotent" id="coupang_user_id" type="text" name="user_id" placeholder="정확한 쿠팡 Wing ID를 입력해주세요. 연동 꼭 필요합니다.">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text is_limit120" for="coupangAcc_key">Access Key<span class="text-danger ml-05">*</span></label>
+            </div>
+            <input class="form-control is_impotent" id="coupangAcc_key" type="text" name="mall_key1" placeholder="Access Key를 넣어주세요">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text is_limit120" for="coupangScrt_key">Secret Key<span class="text-danger ml-05">*</span></label>
+            </div>
+            <input class="form-control is_impotent" id="coupangScrt_key" type="password" name="mall_key2" placeholder="Secret Key를 넣어주세요">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text is_limit120" for="coupangCode_key">업체코드<span class="text-danger ml-05">*</span></label>
+            </div>
+            <input class="form-control is_impotent" id="coupangCode_key" type="text" name="mall_key3" placeholder="업체코드를 넣어주세요">
+        </div>
+        <div class="row">
+            <div class="col-auto" style="margin-left: auto;">
+                <button type="button" class="btn btn-secondary" onclick="javascript:mallCxl()">삭제</button>
+                <button type="button" class="btn btn-success" onclick="javascript:mallSetting()">등록</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</script>
+<!-- 연동몰별 필요항목 정보  -->
+<script id="multi_CAFE241" type="text/x-jsrender">
+<div class="card is_tabTarget" data-tabTarget="mall" data-type="CAFE24">
+    <div class="card-body {{:active}}" data-tabTarget="multiMall">
+        <div class="card-body-info">
+            <h6 class="mb-3 account_info" >카페24 연동에 필요한 항목을 입력</h6>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text is_limit120" for="cafe_mall_key">CAFE24 ID<span class="text-danger ml-05">*</span></label>
+            </div>
+            <input class="form-control is_impotent" id="cafe_user_id" type="text" name="user_id" placeholder="CAFE24 ID를 넣어주세요">
+        </div>
+<!--        <div class="input-group mb-3">-->
+<!--            <div class="input-group-prepend">-->
+<!--                <label class="input-group-text is_limit120" for="cafe_token_expire_date">토큰 만료일<span class="text-danger ml-05"></span></label>-->
+<!--            </div>-->
+<!--            <input class="form-control" id="cafe_token_expire_date" type="text" name="token_expire_date" placeholder="" disabled readonly>-->
+<!--        </div>-->
+        <div class="row">
+            <div class="col-auto" style="margin-left: auto;">
+                <button type="button" class="btn btn-secondary" onclick="javascript:mallCxl()">삭제</button>
+                <button type="button" class="btn btn-success" onclick="javascript:mallSetting()">등록</button>
+            </div>
+        </div>
+    </div>
+</div>
+</script>
+<!-- 연동몰별 필요항목 정보  -->
+<script id="multi_GODO1" type="text/x-jsrender">
+<div class="card is_tabTarget" data-tabTarget="mall" data-type="GODO">
+    <div class="card-body {{:active}}" data-tabTarget="multiMall">
+        <h6 class="mb-3 account_info" >고도몰 연동에 필요한 항목을 입력</h6>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text is_limit120" for="godo_user_id">ID<span class="text-danger ml-05">*</span></label>
+            </div>
+            <input class="form-control is_impotent" id="godo_user_id" type="text" name="user_id" placeholder="정확한 고도몰 ID를 입력해주세요. 연동 꼭 필요합니다.">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text is_limit120" for="godo_mall_key">사용자 Key<span class="text-danger ml-05">*</span></label>
+            </div>
+            <input class="form-control is_impotent" id="godo_mall_key" type="text" name="mall_key2" placeholder="사용자 Key를 넣어주세요">
+            <button type="button" class="btn btn-success" onclick="javascript:userKeyIssue();">사용자키 신청</button>
+        </div>
+        <small>* 사용자키 신청 -> 사용자인증(email) -> email로 발급된 사용자키 입력 -> 우측 상단 등록 버튼 선택</small>
+        <div class="row">
+            <div class="col-auto" style="margin-left: auto;">
+                <button type="button" class="btn btn-secondary" onclick="javascript:mallCxl()">삭제</button>
+                <button type="button" class="btn btn-success" onclick="javascript:mallSetting()">등록</button>
+            </div>
+        </div>
+    </div>
+</div>
+</script>

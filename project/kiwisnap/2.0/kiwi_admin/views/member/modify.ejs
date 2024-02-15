@@ -1,0 +1,159 @@
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col">
+            <h4 class="page-title text-dark">회원 정보 수정</h4>
+        </div>
+        <div class="col-auto">
+            <button type="button" class="btn btn-success" onclick="javascript:modify()">수정</button>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠 -->
+<form class="container-fluid" enctype="multipart/form-data" method="post" id="insertForm">
+
+    <!-- 상세 템플릿 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-header py-2">
+                    <div class="row">
+                        <div class="col py-1">
+                            <h5 class="font-weight-bold mb-1">회원</h5>
+                            <h6 class="m-0">회운 정보 수정</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="mem_id">회원아이디</label>
+                        </div>
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" id="mem_id"></label>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-3">
+                            <img class="img-thumbnail img-responsive mb-1" id="profile_image" alt="" src=""
+                                 style="display: none;">
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="phone">phone<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="phone" type="text" name="phone"
+                               placeholder="phone를 넣어주세요">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="homepage_name">홈페이지명</label>
+                        </div>
+                        <input class="form-control" id="homepage_name" type="text" name="homepage_name" placeholder="홈페이지명을 넣어주세요">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="seller_level">셀러레벨</label>
+                        </div>
+                        <select id="seller_level">
+                            <option value="">-</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="kiwi_partners_yn">키위파트너스</label>
+                        </div>
+                        <select id="kiwi_partners_yn">
+                            <option value="N">N</option>
+                            <option value="Y">Y</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="test_yn">테스트계정</label>
+                        </div>
+                        <select id="test_yn">
+                            <option value="N">N</option>
+                            <option value="Y">Y</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //상세 템플릿 -->
+</form>
+<script type="text/javascript">
+    /*
+      초기 로딩
+    */
+    $(document).ready(function () {
+        select();
+    });
+
+    //상세조회
+    let memberInfo;
+    function select() {
+        let dataMap = {
+            'mem_no': '<%- mem_no %>'
+        }
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            data: dataMap,
+            url: `${denma_api_url}/member/info`,
+            success: function (response) {
+                console.log('response :: ', response);
+                memberInfo = response.data;
+
+                $('#mem_id').text(memberInfo.mem_id);
+                $('#phone').val(memberInfo.phone);
+                $('#homepage_name').val(memberInfo.homepage_name);
+                $('#seller_level').val(memberInfo.seller_level);
+                $('#kiwi_partners_yn').val(memberInfo.kiwi_partners_yn);
+                $('#test_yn').val(memberInfo.test_yn);
+            },
+            error: function (error) {
+                console.log("error", error);
+            }
+        });
+    }
+
+    //수정
+    function modify() {
+        if (inputImpotent()) {
+            const sendData = {
+                client_id: memberInfo.client_id,
+                phone: $('#phone').val(),
+                homepage_name: $('#homepage_name').val(),
+                seller_level: $('#seller_level').val(),
+                kiwi_partners_yn: $('#kiwi_partners_yn').val(),
+                test_yn: $('#test_yn').val(),
+            }
+
+            $.ajax({
+                type: 'PUT',
+                url: `${denma_api_url}/member/<%- mem_no %>`,
+                data: sendData,
+                success: function (response) {
+                    alert('수정되었습니다.');
+                    location.reload();
+                },
+                error: function (error) {
+                    alert('수정실패!!!!!!!');
+                    console.log('error :: ', error);
+                }
+            });
+        }
+    }
+</script>

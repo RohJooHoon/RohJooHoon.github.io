@@ -1,0 +1,197 @@
+<style>
+    .td-center{text-align: center;}
+</style>
+
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">배너 리스트</h4>
+        </div>
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center justify-content-end">
+                <div class="button-group">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">배너위치</span>
+                        </div>
+                        <select class="custom-select is_underLine" id="location" name="location" onchange="getList()">
+                            <option value="">전체</option>
+                            <option value="DASHBOARD">대시보드</option>
+                            <option value="MALL">연동몰</option>
+                            <option value="PRODUCT_LIST">상품리스트</option>
+                        </select>
+
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">활성</span>
+                        </div>
+                        <select class="custom-select is_underLine" id="use_flag" name="use_flag" onchange="getList()">
+                            <option value="">전체</option>
+                            <option value="Y">활성</option>
+                            <option value="N">비활성</option>
+                        </select>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">타이틀</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" id="title">
+
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="button" onclick="getList()"><i class="ti-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto pl-0">
+                    <button type="button" onclick="goCreate()" class="btn mb-0 mr-0 waves-effect waves-light btn-success">등록</button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="dataList table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th class="text-dark font-weight-bold text-center">No.</th>
+                        <th class="text-dark font-weight-bold text-center">배너명</th>
+                        <th class="text-dark font-weight-bold text-center">위치</th>
+                        <th class="text-dark font-weight-bold text-center">이미지</th>
+                        <th class="text-dark font-weight-bold text-center">배너순서</th>
+                        <th class="text-dark font-weight-bold text-center">시작일</th>
+                        <th class="text-dark font-weight-bold text-center">종료일</th>
+                        <th class="text-dark font-weight-bold text-center">활성</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        getList();
+    });
+
+    // 알림 리스트를 불러온다.
+    function getList() {
+
+        const sendData = {
+            location : $('#location').val(),
+            title : $('#title').val(),
+            use_flag : $('#use_flag').val(),
+        }
+        console.log('getList 2::', sendData);
+        $(".dataList").dataTable().fnDestroy()
+        $('.dataList').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "stateSave": true,
+            "ordering": false,
+            "searching": false,
+            "pageLength": 15,
+            "ajax": {
+                "url" : `${denma_api_url}/api/banner/list`,
+                "data" : sendData,
+                dataSrc : function (response) {
+                    return response.data;
+                }
+            },
+            "columns" : [
+                {"data": "banner_seq"},
+                {"data": "title"},
+                {"data": "location"},
+                {"data": "image_url"},
+                {"data": "banner_order"},
+                {"data": "start_date"},
+                {"data": "end_date"},
+                {"data": "use_flag"},
+            ],
+            "columnDefs": [
+                {
+                    "width" : "5%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return `<a href='/view/banner/modify?banner_seq=${data}'>${data}</a>`;
+                    },
+                    "targets": 0
+                },
+                {
+                    "width" : "20%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 1
+                },
+                {
+                    "width" : "20%",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 2
+                },
+                {
+                    "width" : "15%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        //return data.split('T')[0].replaceAll('-', '.');
+                        return `<img src="${data}" style="width:120px;"/>`
+                    },
+                    "targets": 3
+                },
+                {
+                    "width" : "12%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        //return data.split('T')[0].replaceAll('-', '.');
+                        return getFormatStrDate(data, '-');
+                    },
+                    "targets": 4
+                },
+                {
+                    "width" : "12%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        //return data.split('T')[0].replaceAll('-', '.');
+                        return getFormatStrDate(data, '-');
+                    },
+                    "targets": 5
+                },
+                {
+                    "width" : "12%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        //return data.split('T')[0].replaceAll('-', '.');
+                        return getFormatStrDate(data, '-');
+                    },
+                    "targets": 6
+                },
+                {
+                    "width" : "12%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        //return data.split('T')[0].replaceAll('-', '.');
+                        return getFormatStrDate(data, '-');
+                    },
+                    "targets": 6
+                },
+            ],
+        });
+    }
+
+    // 등록 화면으로 이동
+    function goCreate() {
+        location.href = '/view/banner/create';
+    }
+</script>

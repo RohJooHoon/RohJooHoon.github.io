@@ -1,0 +1,28 @@
+{
+	"left_product" : "Product",
+	"producct_list" : "product list",
+	"producct_no" : "no",
+	"product_id" : "id",
+	"product_image" : "image",
+	"product_brand" : "brand",
+	"product_name" : "product name",
+	"product_barcode" : "barcode",
+	"product_create_date" : "create date",
+	"product_stat" : "stat",
+	"product_stat_all" : "all",
+	"product_stat_complete" : "complete",
+	"product_stat_request" : "request",
+	"product_stat_omnious" : "omnious complete",
+	"product_stat_temp" : "temporary save",
+	"product_stat_error" : "error",
+	"shoulder" : "shoulder",
+	"chest" : "chest",
+	"total_length" : "total_length",
+	"arm_length" : "arm_length",
+	"waist" : "waist",
+	"hip" : "hip",
+	"bottom_up" : "밑위",
+	"thigh" : "thigh",
+	"bottom_down" : "밑단"
+
+}

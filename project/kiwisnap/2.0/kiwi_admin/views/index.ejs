@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="facebook-domain-verification" content="62zv1o89146mqgimapigd1z3vxny42" />
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+
+    <script>
+      console.log(location.host);
+      if(location.host.indexOf('www.kiwisnap.net') > -1){
+        location.href = '/landing4/index.html';
+      }else{
+        location.href = '/view/main';
+      }
+
+    </script>
+
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+  </body>
+</html>

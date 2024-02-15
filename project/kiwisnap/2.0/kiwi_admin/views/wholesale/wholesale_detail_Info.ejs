@@ -1,0 +1,364 @@
+<link href="/css/common.css" rel="stylesheet" type="text/css">
+<link href="/css/detailNormal.css" rel="stylesheet" type="text/css">
+<link href="/css/payment.css" rel="stylesheet" type="text/css">
+<style>
+    .td-center{text-align: center;}
+    .paymentDetailTable,
+    .useDetailTable {
+        border:2px solid #DCDCDD;
+        margin-bottom: 19px;
+    }
+    .paymentDetailTableBodyItem,
+    .useDetailTableBodyItem {
+        height: 34px;
+        border: solid #DCDCDD;
+        border-width: 0 1px 1px 0;
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        margin: 0px 0px;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 17px;
+        text-align: left;
+        color: #000000;
+        padding: 0 12px;
+    }
+    .paymentDetailTableBodyItem.is_cost,
+    .useDetailTableBodyItem.is_cost {
+        text-align: right;
+    }
+    .paymentDetailTableBodyItem.is_title {
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 17px;
+        color: #96C60F ;
+    }
+    .paymentDetailTableBodyItem.is_title:hover,
+    .paymentPopup:hover {
+        text-decoration: underline;
+    }
+
+    .paymentDetailTotalCostWrap {
+        background-color: #F9F9F9;
+        height: 101px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0 20px;
+    }
+    .paymentDetailCostBox{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    .paymentDetailTotalCost {
+        display: flex;
+        flex-direction: row;
+    }
+    .paymentDetailCostItem {
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        color: #12121D;
+    }
+    .paymentDetailCostData {
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 29px;
+        color: #12121D;
+        width: 110px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .paymentDetailImportantNotice {
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 17px;
+        color: #12121D;
+    }
+    .paymentDetailImportantNotice.is_title {
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 17px;
+        color: #12121D;
+    }
+    .paymentDetailImportantNotice:not(.is_title) {
+        margin-bottom: 15px;
+    }
+    .paymentDetailStrongStyle {
+        font-weight: bold; text-decoration: underline
+    }
+    .paymentDetailAddBtn {
+        width: 50px;
+        height: 36px;
+        background: #96C60F;
+        border-radius: 2px;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 20px;
+        text-align: center;
+        color: #FFFFFF;
+        border: none;
+    }
+    .paymentDetailFunc.is_hover:hover {
+        color: #96C60F;
+    }
+
+
+    /* payment popup*/
+    .paymentPopupEditWrap {
+        padding: 10px 13px 14px 13px;
+    }
+    .paymentPopupEditItem {
+        padding-bottom: 21px;
+        align-items: center;
+        margin: 0;
+    }
+
+    .paymentPopupEditItemTitle {
+        width: 92px;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        color: #12121D;
+    }
+    .paymentPopupEditNewCard {
+        padding-top: 21px;
+        border-top: 1px solid #A8A8A8;
+        display: none;
+    }
+    .paymentPopupEditNewCard.is_open {
+        display: block;
+    }
+</style>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">상품 리스트</h4>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="table-responsive">
+                <table class="productList table-bordered" id="dataTable" style="width: 100%;">
+                    <thead>
+                    <tr style="text-align: center">
+                        <th class="text-dark font-weight-bold">이미지</th>
+                        <th class="text-dark font-weight-bold">상품명</th>
+                        <th class="text-dark font-weight-bold">등록일</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="button-group">
+                <button type="button" class="btn btn-success float-right" onclick="showMessageForm()">친구톡 발송</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    const queryParams = getUrlParams();
+    const wholeSaleInfo = {};
+
+    $(function (){
+        getWholeSaleMemberProductList();
+        getWholeSaleInfo();
+    });
+
+    // 도매 업체와 관련된 정보를 조회 한다.
+    function getWholeSaleInfo() {
+        const sendData = {
+            "client_id" : queryParams.client_id,
+            "msg_form" : "AT_WHOLESALE_NEW_PRODUCT",
+            "receive_yn" : "Y",
+        }
+
+        $.ajax({
+            type : "GET",
+            url : `${denma_api_url}/api/message/form/detail`,
+            data : sendData,
+            success : function (response) {
+                wholeSaleInfo.message_form = response.data[0];
+            },
+            error : function (error) {
+                console.log("error :: ", error)
+            }
+        })
+
+        $.ajax({
+            type : "GET",
+            url : `${denma_api_url}/api/wholesale/retail/list`,
+            data : sendData,
+            success : function (response) {
+                wholeSaleInfo.retailList = response.data;
+                wholeSaleInfo.recordsFiltered = response.recordsFiltered;
+            },
+            error : function (error) {
+                console.log("error :: ", error);
+            }
+        });
+
+        $.ajax({
+            type : 'GET',
+            url : `${denma_api_url}/member/info`,
+            data : sendData,
+            success : function (response) {
+                wholeSaleInfo.memberInfo = response.data;
+            },
+            error : function (error) {
+                console.log("error : ", error);
+            }
+        });
+
+    }
+
+    // 도매 회원이 등록한 상품 리스트 조회.
+    function getWholeSaleMemberProductList(){
+
+        let sendData = {
+            "client_id" : queryParams.client_id,
+        }
+
+        $(".productList").dataTable().fnDestroy()
+        $('.productList').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "stateSave": false,
+            "ordering": false,
+            "searching": false,
+            "info" : false,
+            "pageLength": 10,
+            "ajax": {
+                "type" : "GET",
+                "url" : `${denma_api_url}/api/product/list`,
+                "data" : sendData,
+                dataSrc : function (response) {
+                    return response.data;
+                }
+            },
+            "columns" : [
+                {"data": "image_url"},
+                {"data": "product_name"},
+                {"data": "create_date"},
+            ],
+            "columnDefs": [
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return `<img src="${data}" style="width:150px;">`;
+                    },
+                    "targets": 0
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 1
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        const create_date = data.split("T")[0];
+                        return create_date;
+                    },
+                    "targets": 2
+                },
+            ],
+        });
+    }
+
+    function showMessageForm(){
+        wholeSaleInfo.memberInfo.link = `https://service.kiwisnap.net/front/wholesale/list?client_id=${queryParams.client_id}`;
+
+        for(let key of Object.keys(wholeSaleInfo.memberInfo)) {
+            wholeSaleInfo.message_form.msg_subject = wholeSaleInfo.message_form.msg_subject.replaceAll(`#{${key}}`, wholeSaleInfo.memberInfo[key]);
+            wholeSaleInfo.message_form.msg_content = wholeSaleInfo.message_form.msg_content.replaceAll(`#{${key}}`, wholeSaleInfo.memberInfo[key]);
+        }
+
+        openPopup({
+            type: 'EDIT',
+            title: '친구톡 메시지',
+            html: `
+                    <div class="paymentPopupEditInner" style="flex-direction: column; height: 320px;">
+                        <div class="form-text">
+                            <textarea cols="50" rows="12" readonly="readonly">${wholeSaleInfo.message_form.msg_content}</textarea>
+                        <div>
+                        <div style="text-align: center; margin-top: 10px;">
+                        <button class="btn btn-success" onclick="sendAtMessage()">확인</button>
+                        </div>
+                    </div>
+                `,
+            maxWidth: '382px',
+        }, true);
+    }
+
+    // json 객체로 만들때
+    function jsonEscape(str)  {
+        return str.replace(/\n/g, "\\n").replace(/\r/g, "\\r").replace(/\t/g, "\\t");
+    }
+
+    // 알림톡을 전송한다.
+    function sendAtMessage() {
+        console.log("wholeSaleInfo :: ", wholeSaleInfo);
+        if ((parseInt(wholeSaleInfo.recordsFiltered) === 0) || (wholeSaleInfo.recordsFiltered == null)) {
+            alert("등록된 소매업체가 없습니다. 소매 업체를 먼저 등록해주세요.");
+            return false;
+        }
+
+        const result = confirm(`${wholeSaleInfo.recordsFiltered} 개의 소매업체에 친구톡을 전송하시겠습니까?`);
+
+        if (result === true) {
+            const messageList = [];
+            const sendData = {};
+            for(let retail of wholeSaleInfo.retailList) {
+                if (retail.receive_yn === 'Y') {
+
+                    const jsonObj = {
+                        "phone" : retail.phone,
+                        "sender_key" : wholeSaleInfo.message_form.sender_key,
+                        "template_code" : wholeSaleInfo.message_form.template_code,
+                        "content" : jsonEscape(wholeSaleInfo.message_form.msg_content)
+                    }
+
+                    let data = JSON.stringify(jsonObj, null, 2);
+
+                    const messageObj = {
+                        "msg_title" : jsonEscape(wholeSaleInfo.message_form.msg_subject),
+                        "msg_type" : "FT",
+                        "msg_data" : data
+                    }
+
+                    messageList.push(messageObj);
+                }
+            }
+
+            sendData.messageList = messageList;
+
+            $.ajax({
+                type : "POST",
+                url : `${denma_api_url}/api/message/create`,
+                data : sendData,
+                success : function (response) {
+                    console.log("response :: ", response);
+                    alert("친구톡 전송 예약이 완료되었습니다.");
+                },
+                error : function (error) {
+                    console.log("error :: ", error);
+                    alert("친구톡 전송 예약중 오류가 발생했습니다. 관리자에게 연락해주세요.");
+                }
+            });
+
+        }
+    }
+
+</script>

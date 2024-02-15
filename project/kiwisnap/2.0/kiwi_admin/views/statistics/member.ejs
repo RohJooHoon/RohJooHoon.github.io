@@ -1,0 +1,238 @@
+<link href="/css/common.css" rel="stylesheet" type="text/css">
+<link href="/css/detailNormal.css" rel="stylesheet" type="text/css">
+<link href="/css/payment.css" rel="stylesheet" type="text/css">
+
+<!-- chart   -->
+<link href="/nice_bootstrap/assets/libs/morris.js/morris.css" rel="stylesheet">
+<script src="/nice_bootstrap/dist/js/pages/morris/morris-data.js"></script>
+<script src="/nice_bootstrap/assets/libs/morris.js/morris.min.js"></script>
+<script src="/nice_bootstrap/assets/libs/raphael/raphael.min.js"></script>
+
+<style>
+
+</style>
+
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">회원 통계</h4>
+        </div>
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center justify-content-end">
+                <div class="button-group">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="payment">
+                <div class="paymentDetailWrap">
+                    <div class="paymentDetailInner" style="width: 375px;">
+                        <div class="paymentDetailInnerHead">날짜 검색</div>
+                        <div class="paymentDetailInnerBody">
+                            <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                <span class="paymentDetailDesc">시작 날짜</span>
+                                <input type="date" id="startDay" onchange="goSearch();">
+                            </div>
+                            <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                <span class="paymentDetailDesc">종료 날짜</span>
+                                <input type="date" id="endDay" onchange="goSearch();">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive" id="trafficClientDiv">
+                    <table class="trafficClient table-bordered" id="trafficClient"
+                           style="width: 50%;">
+                        <thead>
+                        <tr>
+                            <th class="text-dark font-weight-bold">date</th>
+                            <th class="text-dark font-weight-bold">신규</th>
+                            <th class="text-dark font-weight-bold">재결제</th>
+                            <th class="text-dark font-weight-bold">업그레이드</th>
+                            <th class="text-dark font-weight-bold">다운그레이드</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <br/>
+                <br/>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Bar Chart</h4>
+                    <div id="morris-bar-chart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(function () {
+        settingDefaultDate();
+        goSearch();
+
+        ccc();
+    });
+
+    //시작, 종료 날짜 기본 값을 현재에서 2주 간격으로 설정.
+    function settingDefaultDate() {
+        $("#startDay").val(convertDateFormat(new Date(Date.now() - 12096e5))); // 오늘에서 2주를 뺀 날자로 설정.
+        $("#endDay").val(convertDateFormat(new Date())); // 오늘 날짜를 종료일로 설정.
+    }
+
+    //조회
+    function goSearch() {
+        let requestData = {
+            "startDay": $('#startDay').val().replaceAll('-', ''),
+            "endDay": $('#endDay').val().replaceAll('-', ''),
+            "type": "CLIENT"
+        }
+
+        $(".trafficClient").dataTable().fnDestroy()
+        $('.trafficClient').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "stateSave": true,
+            "ordering": false,
+            "searching": false,
+            "info": false,
+            "paging": false,
+            "pageLength": "50",
+            "ajax": {
+                "url": `${denma_api_url}/api/statistics/selectPaymentCountByDaily`,
+                "data": requestData,
+                "async": false,
+            },
+            "drawCallback": function (response) {
+                // Here the response
+                console.log('response', response.json);
+            },
+            "columns": [
+                {"data": "date"},
+                {"data": "10"},
+                {"data": "40"},
+                {"data": "20"},
+                {"data": "30"},
+            ],
+            "columnDefs": [
+                {
+                    "width": "40px;",
+                    "className": 'td-center',
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 0
+                },
+                {
+                    "width": "40px;",
+                    "className": 'td-center',
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 1
+                },
+                {
+                    "width": "40px;",
+                    "className": 'td-center',
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 2
+                },
+                {
+                    "width": "40px;",
+                    "className": 'td-center',
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 3
+                },
+                {
+                    "width": "40px;",
+                    "className": 'td-center',
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 4
+                },
+            ],
+        });
+    }
+
+    function ccc() {
+        // Morris bar chart
+        Morris.Bar({
+            element: 'morris-bar-chart',
+            data: [{
+                y: '2006',
+                a: 100,
+                b: 90,
+                c: 60
+            }, {
+                y: '2007',
+                a: 75,
+                b: 65,
+                c: 40
+            }, {
+                y: '2008',
+                a: 50,
+                b: 40,
+                c: 30
+            }, {
+                y: '2009',
+                a: 75,
+                b: 65,
+                c: 40
+            }, {
+                y: '2010',
+                a: 50,
+                b: 40,
+                c: 30
+            }, {
+                y: '2011',
+                a: 75,
+                b: 65,
+                c: 40
+            }, {
+                y: '2012',
+                a: 100,
+                b: 90,
+                c: 40
+            }],
+            xkey: 'y',
+            ykeys: ['a', 'b', 'c'],
+            labels: ['A', 'B', 'C'],
+            barColors:['#55ce63', '#2f3d4a', '#2962FF'],
+            hideHover: 'auto',
+            gridLineColor: '#eef0f2',
+            resize: true
+        });
+    }
+
+
+    //날짜 포맷을 yyyy-MM-dd 형식으로 변경.
+    function convertDateFormat(date) {
+        let year = date.getFullYear();              //yyyy
+        let month = (1 + date.getMonth());          //M
+        month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+        let day = date.getDate();                   //d
+        day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+        return year + '-' + month + '-' + day;     //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+    }
+</script>

@@ -1,0 +1,448 @@
+<style>
+    .input-group-text{width: 120px;}
+    .note-editable ul{
+        list-style: disc !important;
+        list-style-position: inside !important;
+    }
+
+    .note-editable ol {
+        list-style: decimal !important;
+        list-style-position: inside !important;
+    }
+</style>
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+<script src="/js/summernote/summernote-image-attributes.js"></script>
+<script src="/js/summernote/lang/ko-KR.js"></script>
+<!-- include summernote css/js -->
+<script type="text/javascript">
+
+    const bucketName = 'nextdop';
+    const bucketRegion = 'ap-northeast-2';
+    const IdentityPoolId = 'ap-northeast-2:7bac1f23-f1be-435c-887b-db3889ab1e13';
+    AWS.config.update({
+        region: bucketRegion,
+        credentials: new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: IdentityPoolId
+        })
+    });
+    const s3 = new AWS.S3({
+        apiVersion: '2006-03-01',
+        params: {Bucket: bucketName}
+    });
+
+    const query = getUrlParams();
+    $(function () {
+        $('#summernote').summernote({
+            height: 700,      // set editor height
+            minHeight: null,  // set minimum height of editor
+            maxHeight: null,  // set maximum height of editor
+            lang: 'ko-KR',
+            // toolbar: [
+            //     // [groupName, [list of button]]
+            //     ['fontname', ['fontname']],
+            //     ['fontsize', ['fontsize']],
+            //     ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+            //     ['color', ['forecolor','color']],
+            //     ['table', ['table']],
+            //     ['para', ['ul', 'ol', 'paragraph']],
+            //     ['height', ['height']],
+            //     ['insert',['picture','link','video']],
+            //     ['view', ['fullscreen', 'help']]
+            // ],
+            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+            fontNamesIgnoreCheck:['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+            fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+            callbacks: {
+                onImageUpload: function(files, editor, welEditable) {
+                    console.log("FILE",welEditable);
+                    for (var i = files.length - 1; i >= 0; i--) {
+                        sendFile(files[i], this);
+                    }
+                },
+                // onImageLinkInsert: function(url) {
+                //     // url is the image url from the dialog
+                //     $img = $('<img>').attr({ src: url })
+                //     $summernote.summernote('insertNode', $img[0]);
+                // }
+                onImageLinkInsert: function(url, $editable) {
+
+                        // url is the image url from the dialog
+                        console.log("onImageLinkInsert", url, $editable);
+                    $img = $('<img>').attr({ src: url })
+                    $('#summernote').summernote('insertNode', $img[0]);
+                },
+            },
+            popover: {
+                image: [
+                    ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+                    ['custom', ['imageAttributes']],
+
+                    ['float', ['floatLeft', 'floatRight', 'floatNone']],
+                    ['remove', ['removeMedia']]
+                ],
+            },
+            imageAttributes:{
+                imageDialogLayout:'default',
+                icon:'<i class="note-icon-pencil"/>',
+                removeEmpty:false, // true = remove attributes | false = leave empty if present
+                disableUpload: false // true = don't display Upload Options | Display Upload Options
+            }
+
+        });
+
+        // $('#summernote').on('summernote.image.link.insert', function(we, url) {
+        //     // url is the image url from the dialog
+        //     console.log('IMAGE');
+        //     $img = $('<img>').attr({ src: url })
+        //     $('#summernote').summernote('insertNode', $img[0]);
+        // });
+
+
+    });
+
+
+    function sendFile(file, el) {
+        var form_data = new FormData();
+        form_data.append('file', file);
+        console.log(file)
+
+        let imageType = file.type.split("/")[1];
+        const file_name = getTimeStamp() + '_' + getRandomStr(3) + '.' + imageType;
+        //$('#image_url').val(file_name);
+
+        console.log(file_name);
+
+        const params = {
+            Key: `popup/${file_name}`,
+            Body: file,
+         //   ACL: 'public-read',
+            ContentType: getContentType("jpg"),
+        };
+
+        const options = {partSize: 10 * 1024 * 1024, queueSize: 1};
+        s3.upload(params, options).on('httpUploadProgress', function (evt) {
+            console.log("Uploaded : ", parseInt((evt.loaded * 100) / evt.total) + '%');
+        }).send(function (err, uploadData) {
+            if (!err) {
+                console.log("uploadData :: ", uploadData);
+                $(el).summernote('editor.insertImage', uploadData.Location);
+                $('#imageBoard > ul').append('<li><img src="'+uploadData.Location+'" width="480" height="auto"/></li>');
+
+
+            }else{
+                console.log('error', err);
+            }
+        });
+    }
+
+
+
+
+
+
+</script>
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col">
+            <h2 class="page-title text-dark">공지 팝업 관리</h2>
+        </div>
+        <div class="col-auto">
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠 -->
+<form class="container-fluid" id="insertForm">
+<input type="hidden" name="dashboard_popup_seq" id="dashboard_popup_seq">
+    <!-- 상세 템플릿 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-header py-2">
+                    <div class="row">
+                        <div class="col py-1">
+                            <h5 class="font-weight-bold mb-1">공지 팝업 관리</h5>
+                            <h6 class="m-0">-</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="referrer_code">타이틀</label>
+                        </div>
+                        <input class="form-control is_impotent" id="title" type="text" name="title" placeholder="공지 팝업 타이틀">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="referrer_code">설명</label>
+                        </div>
+                        <input class="form-control is_impotent" id="comment" type="text" name="comment" placeholder="공지 팝업 설명">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="referrer_code">팝업위치</label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="location" id="location1" value="D" checked >
+                                <label class="form-check-label" for="location1">대시보드</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="location" id="location2" value="L">
+                                <label class="form-check-label" for="location2">랜딩페이지</label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="referrer_code">텍스트/이미지</label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="popup_type" id="popup_type01"  value="TEXT">
+                                    <label class="form-check-label" for="popup_type01">Text/Html</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="popup_type"  id="popup_type02"  value="IMAGE">
+                                    <label class="form-check-label" for="popup_type02">Image</label>
+                                </div>
+
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="">시작일</label>
+                        </div>
+                        <input class="form-control" type="date"  id="startDay">
+                        <input type="hidden" name="start_date" id="start_date">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="referrer_code">종료일</label>
+                        </div>
+                        <input class="form-control" type="date"  id="endDay">
+                        <input type="hidden" name="end_date" id="end_date">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="referrer_code">사용여부</label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="use_flag" id="template_type01" value="Y">
+                                <label class="form-check-label" for="template_color02">사용</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="use_flag" id="template_type02" value="N">
+                                <label class="form-check-label" for="template_color03">미사용</label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="referrer_code">순서</label>
+                        </div>
+                        <input class="form-control is_impotent" id="popup_order" type="text" name="popup_order" placeholder="팝업순서">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="referrer_code">내용(text)</label>
+                        </div>
+                        <textarea id="summernote" class="mb-3" name="html"></textarea>
+                    </div>
+<!--                    <div class="input-group mb-3">-->
+<!--                        <div class="input-group-prepend">-->
+<!--                            <label class="input-group-text" for="referrer_code">내용(image)</label>-->
+<!--                        </div>-->
+<!--                        <div class="custom-file">-->
+<!--                            <input class="custom-file-input" accept="image/jpeg, image/jpg, image/png" type="file" onchange="uploadImageHandle(this.files, 'template')">-->
+<!--                            <label class="custom-file-label" data-content="업로드">선택된 파일 없음</label>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="input-group mb-3">-->
+<!--                        <div class="input-group-prepend">-->
+<!--                            <label class="input-group-text" for="">링크</label>-->
+<!--                        </div>-->
+<!--                        <input class="form-control is_impotent" id="link" type="text" name="link" placeholder="이미지 클릭 시 이동 링크">-->
+<!--                    </div>-->
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="">등록일</label>
+                        </div>
+                        <div id="create_date"></div>
+<!--                        -->
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="">수정일</label>
+                        </div>
+                        <div id="update_date"></div>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" id="" class="btn btn-success float-right" onclick="goList()">목록보기</button>
+                        <button type="button" id="" class="btn btn-success float-right" onclick="registPopup()">저장</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //상세 템플릿 -->
+</form>
+<script type="text/javascript">
+
+    jQuery.fn.serializeObject = function() {
+        var obj = null;
+        try {
+            if (this[0].tagName && this[0].tagName.toUpperCase() == "FORM") {
+                var arr = this.serializeArray();
+                if (arr) {
+                    obj = {};
+                    jQuery.each(arr, function() {
+                        obj[this.name] = this.value;
+                    });
+                }//if ( arr ) {
+            }
+        } catch (e) {
+            alert(e.message);
+        } finally {
+        }
+
+        return obj;
+    };
+
+    $(document).ready(function () {
+        viewPopup();
+    });
+
+    function leftPad(value) { if (value >= 10) { return value; } return `0${value}`; }
+
+
+    function toStringByFormatting(source)
+    {
+        const year = source.getFullYear();
+        const month = leftPad(source.getMonth() + 1);
+        const day = leftPad(source.getDate());
+        return [year, month, day].join('-');
+    }
+
+    function viewPopup(){
+
+        const params = getUrlParams();
+        const seq = params.seq;
+
+        if( seq != undefined) {
+
+            $.ajax({
+                type: 'GET',
+                url: `${denma_nextdop_api_url}/mall/popup/dashboard/${seq}`,
+                data: '',
+                success: function (response) {
+                    console.log("response :: ", response);
+                    $("#title").val(response.title);
+                    $("#dashboard_popup_seq").val(response.dashboardPopupSeq);
+                    $("#comment").val(response.comment);
+
+                    $('#summernote').summernote('code', response.html);
+                    $("#link").val(response.link);
+                    $("#popup_order").val(response.popupOrder);
+
+                    $("#startDay").val(toStringByFormatting(new Date(response.startDate)));
+                    $("#endDay").val(toStringByFormatting(new Date(response.endDate)));
+                    $(`input:radio[name=popup_type]:radio[value="${response.popupType}"]`).prop('checked', true);
+                    $(`input:radio[name=use_flag]:radio[value="${response.useFlag}"]`).prop('checked', true);
+                    $(`input:radio[name=location]:radio[value="${response.location}"]`).prop('checked', true);
+                    $('#create_date').text(response.createDate);
+                    $('#update_date').text(response.updateDate);
+
+                },
+                error: function (error) {
+                    console.log("error :: ", error);
+                }
+            });
+        }
+    }
+
+    function goList(){
+        location.href='/view/popup/list';
+    }
+
+
+
+
+    function  registPopup(){
+
+        var seq = $('#dashboard_popup_seq').val();
+        var isInsert = false;
+        console.log('seq',seq);
+        if(seq == '' || seq == undefined)
+            isInsert = true;
+
+
+        console.log(isInsert);
+
+
+        $('#start_date').val($('#startDay').val() +' 00:00:00');
+        $('#end_date').val($('#endDay').val() +' 23:23:23');
+
+        if (inputImpotent()) {
+            if(isInsert) {
+                var sendData =  JSON.stringify($('#insertForm').serializeObject());
+                console.log(sendData);
+                $.ajax({
+                    url : `${denma_nextdop_api_url}/mall/popup/dashboard/`,
+                    type : 'POST',
+                    contentType: 'application/json',
+                    data : sendData,
+                    success : function (response) {
+                        console.log("response : ", response);
+                        if(response.result == 'success') {
+                            alert('등록되었습니다.');
+                            goList();
+
+                        }
+                    },
+                    error : function (error)  {
+                        console.log("error : ", error);
+                    }
+                });
+
+            }else{
+
+                var sendData =  JSON.stringify($('#insertForm').serializeObject());
+                console.log(sendData);
+                $.ajax({
+                    url : `${denma_nextdop_api_url}/mall/popup/dashboard/${seq}`,
+                    type : 'PUT',
+                    contentType: 'application/json',
+                    data : sendData,
+                    success : function (response) {
+                        console.log("response : ", response);
+                        if(response.result == 'success') {
+                            alert(' 수정되었습니다.');
+                            goList();
+
+                        }
+                    },
+                    error : function (error)  {
+                        console.log("error : ", error);
+                    }
+                });
+            }
+
+
+        }
+    }
+
+</script>

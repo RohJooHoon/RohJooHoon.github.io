@@ -1,0 +1,71 @@
+<!-- 상품리스트정보 -->
+<script id="goodsCard" type="text/x-jsrender">
+    <div class="goodsCard limitBox card shadow" {{if id}}id="{{:id}}"{{/if}} {{if hide}}style="display: none;"{{/if}} data-title="{{:title}}" data-key="{{:key}}" data-type="{{:type}}">
+        <div class="card-header handle">
+            <div class="row">
+                <div class="col d-flex align-items-center handle">
+                    <h6 class="mb-0">
+                        {{if type == 'custom'}}
+                            <i class="mdi mdi-bookmark mr-1"></i>
+                        {{/if}}
+                        {{:title}}
+
+                        {{if title == '360'}}
+                        <a href="#" id="btn_deep_remove" onclick='javascript:deepMoveSpin()'>[전체누끼]</a>
+                        <i id="text_deep_remove"></i>
+                        {{/if}}
+
+                        {{if useList}}
+                            <small class="font-weight-bold">( <span class="card-length">{{if length}}{{:length}}{{else}}0{{/if}}</span> )</small>
+                        {{/if}}
+                    </h6>
+                    {{if !unUse}}
+                        <button class="card-btnUp btn btn-sm p-0 ml-2" type="button"><i class="mdi mdi-chevron-up"></i></button>
+                        <button class="card-btnDown btn btn-sm p-0" type="button"><i class="mdi mdi-chevron-down"></i></button>
+                    {{/if}}
+                    {{if question}}
+                        <button class="question btn btn-sm p-0" data-toggle="dropdown" type="button"><i class="fas fa-question-circle"></i></button>
+                        <div class="dropdown-menu">
+                            {{:question}}
+                        </div>
+                    {{/if}}
+                    {{if reverse}}
+                        <button class="reverse btn btn-sm p-0 ml-1" type="button">회전방향전환<i class="mdi mdi-arrow-right ml-1"></i><i class="mdi mdi-arrow-left ml-1"></i></button>
+                    {{/if}}
+                </div>
+                <div class="col-auto d-flex align-items-center">
+                    {{if unUse}}
+                        <button class="card-btnInsert btn btn-sm p-0" type="button"><i class="mdi mdi-plus"></i></button>
+                    {{else}}
+                        {{if type == 'custom'}}
+                            <button class="card-btnEdit btn btn-sm p-0 ml-2" type="button"><i class="mdi mdi-pencil"></i></button>
+                        {{/if}}
+                        {{if useList}}
+                            <button class="card-btnOpen btn btn-sm p-0 ml-2" type="button"><i class="mdi mdi-arrow-expand"></i><i class="mdi mdi-arrow-compress"></i></button>
+                        {{/if}}
+                        {{if add}}
+                            <button class="card-btnPlusLabel btn btn-sm p-0 ml-2" type="button"><i class="mdi mdi-library-plus"></i>
+                                <input class="card-btnPlus btn-input" type="file" multiple onchange="addImage(event)">
+                            </button>
+                        {{/if}}
+                        <button class="card-btnDelete btn btn-sm p-0 ml-2" type="button" data-key="{{:key}}"><i class="mdi mdi-minus"></i></button>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        {{if !unUse}}
+            {{if type == 'custom'}}
+                <div class="card-body">
+                    <div class="card-imgBox" style="background-image: url('{{:customImg}}')" data-data='{{:customData}}'></div>
+                </div>
+            {{/if}}
+            {{if useList}}
+                <div class="card-body">
+                    <div class="card-thumbnailList">
+                        {{:imgList}}
+                    </div>
+                </div>
+            {{/if}}
+        {{/if}}
+    </div>
+</script>

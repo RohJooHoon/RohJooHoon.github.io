@@ -1,0 +1,178 @@
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">모델 리스트</h4>
+        </div>
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center justify-content-end">
+                <div class="button-group">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text text-dark">모델명</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" id="model_name">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="button" onclick="javascript:goSearch()"><i class="ti-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto pl-0">
+                    <button type="button" onclick="javascript:location.href='/view/model/create'" class="btn mb-0 mr-0 waves-effect waves-light btn-success">등록</button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th class="text-dark font-weight-bold">번호</th>
+                        <th class="text-dark font-weight-bold">모델이름</th>
+                        <th class="text-dark font-weight-bold">이미지</th>
+                        <th class="text-dark font-weight-bold">나이</th>
+                        <th class="text-dark font-weight-bold">키</th>
+                        <th class="text-dark font-weight-bold">삭제</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        goSearch();
+
+        $('input').keydown(function(key) {
+            if (key.keyCode == 13) {
+                goSearch();
+            }
+        });
+    });
+
+
+    // 리스트 조회
+    function goSearch(){
+
+        $(".table").dataTable().fnDestroy()
+        $('.table').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "stateSave": true,
+            "pageLength": 20,
+            "ajax": {
+                "url" : `${denma_api_url}/model/dataList`,
+                "data" : {
+                    "model_name": $('#model_name').val()
+                }
+            },
+            "columns" : [
+                {"data": "model_seq"},
+                {"data": "model_name"},
+                {"data": "profile_image"},
+                {"data": "age"},
+                {"data": "height"},
+                {"data": "model_seq"}
+            ],
+            "ordering": false,
+            "searching": false,
+            "columnDefs": [
+                {
+                    "width" : "10%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        /*<![CDATA[*/
+                        return data;
+                        /*]]>*/
+                    },
+                    "targets": 0
+                },
+                {
+                    "render": function(data, type, row) {
+                        /*<![CDATA[*/
+                        return '<a href="/view/model/modify?model_seq=' + row.model_seq + '"/>' + data + '</a>';
+                        /*]]>*/
+                    },
+                    "targets": 1
+                },
+                {
+                    "render": function(data, type, row) {
+                        /*<![CDATA[*/
+                        return `<a href="/view/model/modify?model_seq=${row.model_seq}"/><img src="${data}" width="100px;"/></a>`;
+                        /*]]>*/
+                    },
+                    "targets": 2
+                },
+                {
+                    "render": function(data, type, row) {
+                        /*<![CDATA[*/
+                        return `<a href="javascript:deleteModel(${row.model_seq})"/>삭제</a>`;
+                        /*]]>*/
+                    },
+                    "targets": 5
+                }
+
+            ],
+            "drawCallback": function(response) {
+                var api = this.api();
+                api.$('#editPopup').click(function() {
+                    var value = this.attributes["value"].value;
+                    setEditPopup(value);
+                });
+                api.$('#removePopup').click(function() {
+                    var value = this.attributes["value"].value;
+                    setRemovePopup(value);
+                });
+
+                if ( response._iDisplayStart != oldStart ) {
+                    var targetOffset = $('.table').offset().top;
+                    $('html,body').animate({scrollTop: targetOffset}, 500);
+                    oldStart = response._iDisplayStart;
+                }
+            }
+        });
+    }
+    var oldStart = 0;
+
+    /**
+     * 삭제.
+     */
+    function deleteModel(model_seq){
+        if(confirm('삭제 하시겠습니까?')){
+            $.ajax({
+                type: "DELETE",
+                dataType: "json",
+                crossDomain : true,
+                url : `${denma_api_url}/model/${model_seq}`,
+                success : function(response) {
+                    console.log("response :" , response);
+                    if(response.hasOwnProperty('error_code')){
+                        alert(response.error_msg);
+                        return;
+                    }else{
+                        alert('삭제 성공');
+                        location.reload();
+                    }
+                },
+                error : function(error) {
+                    console.log("error", error);
+                }
+            });
+        }
+    }
+
+</script>

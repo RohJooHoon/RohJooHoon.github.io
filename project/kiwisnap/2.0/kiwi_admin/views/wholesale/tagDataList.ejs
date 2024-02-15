@@ -1,0 +1,206 @@
+<style>
+    .td-center{text-align: center;}
+</style>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">도매 상품 태그 데이터</h4>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                    </div>
+                </div>
+                <div class="col-auto pl-0">
+
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="wholesaleTable table-bordered" id="dataTable" style="width: 100%;">
+                    <thead>
+                    <tr style="text-align: center">
+                        <th class="text-dark font-weight-bold">client_id</th>
+                        <th class="text-dark font-weight-bold">상품번호</th>
+                        <th class="text-dark font-weight-bold">이미지</th>
+                        <th class="text-dark font-weight-bold">detail</th>
+                        <th class="text-dark font-weight-bold">fit</th>
+                        <th class="text-dark font-weight-bold">color</th>
+                        <th class="text-dark font-weight-bold">category</th>
+                        <th class="text-dark font-weight-bold">length</th>
+                        <th class="text-dark font-weight-bold">look</th>
+                        <th class="text-dark font-weight-bold">neckline</th>
+                        <th class="text-dark font-weight-bold">print</th>
+                        <th class="text-dark font-weight-bold">shape</th>
+                        <th class="text-dark font-weight-bold">sleevelength</th>
+                        <th class="text-dark font-weight-bold">texture</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    const params = getUrlParams();
+    $(function (){
+        get();
+    });
+
+    // 도매 회원 리스트 조회.
+    function get(){
+        let sendData = {
+            "client_id" : `${params.client_id}`
+        }
+
+        $(".wholesaleTable").dataTable().fnDestroy()
+        $('.wholesaleTable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "stateSave": false,
+            "ordering": false,
+            "searching": false,
+            "info" : false,
+            "pageLength": 20,
+            "ajax": {
+                "type" : "GET",
+                "url" : `${denma_api_url}/api/wholesale/tagData/list`,
+                "data" : sendData,
+                dataSrc : function (response) {
+                    console.log('response :: ', response);
+                    return response.data;
+                }
+            },
+            "columns" : [
+                {"data": "client_id"},
+                {"data": "product_seq"},
+                {"data": "image_url"},
+                {"data": "detail"},
+                {"data": "fit"},
+                {"data": "color"},
+                {"data": "category"},
+                {"data": "length"},
+                {"data": "look"},
+                {"data": "neckline"},
+                {"data": "print"},
+                {"data": "shape"},
+                {"data": "sleevelength"},
+                {"data": "texture"},
+            ],
+            "columnDefs": [
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 0
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 1
+                },
+                {
+                    "class" : "td-center",
+                    "width" : "100px",
+                    "render": function(data, type, row) {
+                        return `<img src="${data}" style="width:200px"/>`;
+                    },
+                    "targets": 2
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 3
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 4
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 5
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 6
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 7
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 8
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 9
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 10
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 11
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 12
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 13
+                },
+
+            ],
+        });
+    }
+
+    // 등록으로 이동.
+    function goCreate() {
+        location.href = `/view/wholesale/platformInfo?client_id=${params.client_id}`;
+    }
+</script>

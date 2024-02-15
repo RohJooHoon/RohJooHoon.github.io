@@ -1,0 +1,1927 @@
+<link href="/css/common.css" rel="stylesheet" type="text/css">
+<link href="/css/detailNormal.css" rel="stylesheet" type="text/css">
+<link href="/css/payment.css" rel="stylesheet" type="text/css">
+<style>
+    .serviceUsageInfoListTable,
+    .useDetailTable {
+        border: 2px solid #DCDCDD;
+        margin-bottom: 19px;
+    }
+
+    .paymentDetailTableBodyItem,
+    .useDetailTableBodyItem {
+        height: 34px;
+        border: solid #DCDCDD;
+        border-width: 0 1px 1px 0;
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        margin: 0px 0px;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 17px;
+        text-align: left;
+        color: #000000;
+        padding: 0 12px;
+    }
+
+    .paymentDetailTableBodyItem.is_cost,
+    .useDetailTableBodyItem.is_cost {
+        text-align: right;
+    }
+
+    .paymentDetailTableBodyItem.is_title {
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 17px;
+        color: #96C60F;
+    }
+
+    .paymentDetailTotalCostWrap {
+        background-color: #F9F9F9;
+        height: 101px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    .paymentDetailCostBox {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    .paymentDetailTotalCost {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .paymentDetailCostItem {
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        color: #12121D;
+    }
+
+    .paymentDetailCostData {
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 29px;
+        color: #12121D;
+        width: 110px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .paymentDetailImportantNotice {
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 17px;
+        color: #12121D;
+    }
+
+    .paymentDetailImportantNotice.is_title {
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 17px;
+        color: #12121D;
+    }
+
+    .paymentDetailImportantNotice:not(.is_title) {
+        margin-bottom: 15px;
+    }
+
+    .paymentDetailStrongStyle {
+        font-weight: bold;
+        text-decoration: underline
+    }
+
+    .paymentDetailAddBtn {
+        width: 50px;
+        height: 36px;
+        background: #96C60F;
+        border-radius: 2px;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 20px;
+        text-align: center;
+        color: #FFFFFF;
+        border: none;
+    }
+
+
+    /* payment popup*/
+    .paymentPopupEditWrap {
+        padding: 10px 13px 14px 13px;
+    }
+
+    .paymentPopupEditItem {
+        padding-bottom: 21px;
+        align-items: center;
+        margin: 0;
+    }
+
+    .paymentPopupEditItemTitle {
+        width: 92px;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        color: #12121D;
+    }
+
+    .paymentPopupEditNewCard {
+        padding-top: 21px;
+        border-top: 1px solid #A8A8A8;
+        display: none;
+    }
+
+    .paymentPopupEditNewCard.is_open {
+        display: block;
+    }
+</style>
+<div class="detail is_page" id="step1">
+    <div class="detailHeader">
+        <div class="detailHeaderContainer">
+            <div class="detailHeaderTitle">회원 멤버십 관리</div>
+        </div>
+    </div>
+    <div class="detailBody" style="overflow:auto;">
+        <div class="detailBodyContainer is_block">
+            <div class="payment">
+                <!--  멤버십 정보 / 크레딧 정보   -->
+                <div class="paymentDetail" style="margin-bottom: 12px">
+                    <div class="paymentDetailWrap">
+                        <div class="paymentDetailInner" style="width: 375px;">
+                            <div class="paymentDetailInnerHead">멤버십 정보</div>
+                            <div class="paymentDetailInnerBody">
+                                <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                    <span class="paymentDetailDesc">클라이언트 ID</span>
+                                    <div class="paymentDetailValue" style="font-weight: normal;" id="client_id"></div>
+                                </div>
+                                <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                    <span class="paymentDetailDesc">회원아이디</span>
+                                    <div class="paymentDetailValue" style="font-weight: normal;" id="mem_id"></div>
+                                </div>
+                                <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                    <span class="paymentDetailDesc">멤버십유형</span>
+                                    <div class="paymentDetailValue"><span class="paymentDetailVersion"
+                                                                          style="font-weight: normal; width:119px;"
+                                                                          id="membership_seq">ENTERPRISE</span></div>
+                                    <span class="refundFunc" onclick="MembershipRefund()">환불</span>
+                                </div>
+                                <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                    <span class="paymentDetailDesc">결제일</span>
+                                    <div class="paymentDetailValue" style="font-weight: normal;"
+                                         id="payment_date"></div>
+                                    <button class="paymentDetailFunc" onclick="membershipTerminationRequest()">해지</button>
+                                </div>
+                                <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                    <span class="paymentDetailDesc">시작일</span>
+                                    <div class="paymentDetailValue" style="font-weight: normal;" id="start_date"></div>
+                                </div>
+                                <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                    <span class="paymentDetailDesc">만료일</span>
+                                    <div class="paymentDetailValue" style="font-weight: normal;" id="end_date"></div>
+                                </div>
+                                <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                    <span class="paymentDetailDesc">자동결제</span>
+                                    <div class="paymentDetailValue" style="font-weight: normal;"
+                                         id="auto_payment_yn"></div>
+                                </div>
+                                <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                    <span class="paymentDetailDesc">패키지 사용</span>
+                                    <div class="paymentDetailValue" style="font-weight: normal;" id="package_yn"></div>
+                                </div>
+                                <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                    <span class="paymentDetailDesc">상태</span>
+                                    <div class="paymentDetailValue" style="font-weight: normal;" id="status"></div>
+                                </div>
+                                <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                    <span class="paymentDetailDesc">멤버십 변경</span>
+                                    <div class="paymentDetailValue" style="font-weight: normal;" id="">
+                                        <input type="button" class="btn btn-outline-dark" value="멤버십 변경하기" onclick="changeMembershipPopup()";>
+
+                                    </div>
+                                </div>
+                                <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                    <span class="paymentDetailDesc">2주 비즈니스 프로모션 멤버십   </span>
+                                    <div class="paymentDetailValue" style="font-weight: normal;" id="">
+                                        <input type="button" class="btn btn-outline-dark" value="프로모션 멤버십 셋팅" onclick="setPromotionMembership()";>
+                                        <div id="promotionMessage" style="color: red;"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="paymentDetailInner" style="width: 375px;">
+                            <div class="paymentDetailInnerHead">멤버십 서비스 정보</div>
+                            <div class="paymentDetailInnerBody">
+                                <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                    <span class="paymentDetailDesc">배경 제거</span>
+                                    <div class="paymentDetailValue" style="font-weight: normal;"
+                                         id="bg_month_cnt"></div>
+                                </div>
+                                <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                    <span class="paymentDetailDesc">360 업로드</span>
+                                    <div class="paymentDetailValue" style="font-weight: normal;"
+                                         id="spin_upload_month_cnt"></div>
+                                </div>
+                                <!--                                <div class="paymentDetailBox" style="margin-bottom: 10px;">-->
+                                <!--                                    <span class="paymentDetailDesc">GIF 업로드</span>-->
+                                <!--                                    <div class="paymentDetailValue" style="font-weight: normal;" id="gif_upload_month_cnt"></div>-->
+                                <!--                                </div>-->
+                                <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                    <span class="paymentDetailDesc">영상 업로드</span>
+                                    <div class="paymentDetailValue" style="font-weight: normal;"
+                                         id="video_upload_month_cnt"></div>
+                                </div>
+                                <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                    <span class="paymentDetailDesc">상품당 영상 업로드</span>
+                                    <div class="paymentDetailValue" style="font-weight: normal;"
+                                         id="video_upload_product_cnt"></div>
+                                </div>
+                                <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                    <span class="paymentDetailDesc">마스터 상품 등록</span>
+                                    <div class="paymentDetailValue" style="font-weight: normal;"
+                                         id="product_count"></div>
+                                </div>
+                                <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                    <span class="paymentDetailDesc">상품당 이미지 업로드</span>
+                                    <div class="paymentDetailValue" style="font-weight: normal;"
+                                         id="image_count_per_prod"></div>
+                                </div>
+                                <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                    <span class="paymentDetailDesc">VDDM 다운로드</span>
+                                    <div class="paymentDetailValue" style="font-weight: normal;"
+                                         id="vddm_download_count"></div>
+                                </div>
+                                <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                    <span class="paymentDetailDesc">서비스 추가</span>
+                                    <div class="paymentDetailValue">
+                                        <select id="serviceCharger">
+
+                                            <option value="bg_month_cnt" selected>배경 제거</option>
+                                            <option value="spin_upload_month_cnt">360 업로드</option>
+                                            <!--                                            <option value = "gif_upload_month_cnt">GIF 업로드</option>-->
+                                            <option value="video_upload_month_cnt">영상 업로드</option>
+                                            <option value="video_upload_product_cnt">상품당 영상 업로드</option>
+                                            <option value="product_count">마스터 상품 등록</option>
+                                            <option value="image_count_per_prod">상품당 이미지 업로드</option>
+                                            <option value="vddm_download_count">VDDM 다운로드</option>
+
+                                        </select>
+                                        <input type="text" maxlength="3" style="width: 50px;" id="serviceCount"
+                                               onkeyup="onlyNuMService($(this).val())">
+                                        <span class="serviceChargeFunc" onclick="fillUpServiceCount()">충전</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="paymentDetailInner" style="width: 375px;">
+                            <div class="paymentDetailInnerHead">크레딧 정보</div>
+                            <div class="paymentDetailInnerBody">
+                                <div class="paymentDetailBox">
+                                    <span class="paymentDetailDesc">보유크레딧</span>
+                                    <div class="paymentDetailValue"><span class="creditIcon"></span><span
+                                                class="paymentDetailCredit" id="credit_count_show"></span></div>
+                                    <span class="creditChargeFunc" onclick="creditChargePopup()">충전</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--   결제이력 / 사용이력  -->
+                <div class="paymentDetail" style="margin-bottom: 12px">
+                    <div class="paymentDetailList">
+                        <div class="paymentDetailTab">
+                            <div class="paymentDetailTabGroup">
+                                <button class="paymentDetailTabBtn is_tabTrigger is_active" type="button"
+                                        data-tabtrigger="payTriggerTarget">서비스 사용 내역
+                                </button>
+                                <button class="paymentDetailTabBtn is_tabTrigger" type="button"
+                                        data-tabtrigger="payTriggerTarget">크레딧 구매 내역
+                                </button>
+                                <button class="paymentDetailTabBtn is_tabTrigger" type="button"
+                                        data-tabtrigger="payTriggerTarget">멤버십 구매 내역
+                                </button>
+                            </div>
+                        </div>
+                        <div class="paymentDetailTarget is_tabTarget is_active" data-tabTarget="payTriggerTarget">
+                            <table class="serviceUsageInfoListTable" style="width: 100%;">
+                                <thead class="paymentDetailTableHead">
+                                <tr class="paymentDetailTableRow">
+                                    <th class="paymentDetailTableHeadItem" style="width:100px;">사용일</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:auto;">클라이언트 ID</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:100px;">상세 내역</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:100px;text-align: center;">차감
+                                        타입
+                                    </th>
+                                    <th class="paymentDetailTableHeadItem" style="width:100px;">사용 갯수</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="paymentDetailTarget is_tabTarget" data-tabTarget="payTriggerTarget">
+                            <table class="creditHistoryListTable useDetailTable" style="width: 100%;">
+                                <thead class="useDetailTableHead">
+                                <tr class="useDetailTableRow">
+                                    <th class="paymentDetailTableHeadItem" style="width:100px;">구매일</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:100px;">결제 금액</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:100px;">크레딧 금액</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:100px;">부가세</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:100px;">총 크레딧</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:100px;">사용한 크레딧</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:100px;">보너스</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:auto;">결제번호</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:80px;">연장 횟수</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:100px;">크레딧 만료일</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:100px;">상태</th>
+                                    <!--                                    <th class="paymentDetailTableHeadItem" style="width:100px;">연장</th>-->
+                                    <th class="paymentDetailTableHeadItem" style="width:100px;">환불</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="paymentDetailTarget is_tabTarget" data-tabTarget="payTriggerTarget">
+                            <table class="clientMembershipHistoryListTable useDetailTable" style="width: 100%;">
+                                <thead class="useDetailTableHead">
+                                <tr class="useDetailTableRow">
+                                    <th class="paymentDetailTableHeadItem" style="width:80px;">결제일</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:80px;">시작일</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:80px;">종료일</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:auto;">결제 ID</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:80px;">멤버십</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:80px;">가격</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:80px;">부가세</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:80px;">결제 번호</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:80px;">상태</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:80px;">패키지</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:80px;">자동결제</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:80px;">배경제거</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:80px;">360 업로드</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:80px;">GIF 업로드</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:80px;">영상 업로드</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:80px;">상품당 영상업로드</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:80px;">마스터상품 등록</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:80px;">상품당 이미지업로드</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    const params = getUrlParams();
+    const commonData = {
+        "client_id": params.client_id,
+        "client_membership_seq": params.client_membership_seq
+    }
+    getClientToken(); // 해당 클라이언트의 토큰을 가져온다.
+
+    $(function () {
+        setTabTrigger();
+        showHideEditOption();
+        customSelectBox();
+        getMembershipDetail();
+        getClientCreditInfo();
+        getUsageInfoList();
+        getClientCreditHistoryList();
+        getClientMembershipHistoryList();
+    });
+
+    // 크레딧 만료일 연장 신청
+    $(document).on('click', '.creditExtend', function () {
+        let client_credit_history_seq = $(this).attr('data-client-credit-history-seq');
+        if (confirm(`${client_credit_history_seq}번 크레딧 구매 내역을 연장하시겠습니까?`)) {
+            const sendData = {
+                "client_credit_history_seq": client_credit_history_seq
+            }
+
+            $.ajax({
+                type: "PUT",
+                url: `${denma_nextdop_api_url}/credit/extension`,
+                data: sendData,
+                success: function (response) {
+                    console.log("response :: ", response);
+                    alert(`${client_credit_history_seq}번 크레딧의 만료일이 1년 연장되었습니다.`);
+                    getClientCreditHistoryList();
+                },
+                error: function (error) {
+                    console.log("error :: ", error);
+                    alert(error.responseJSON.error_msg);
+                }
+            });
+        }
+    });
+
+    // 크레딧 환불 정보 팝업 생성
+    // $(document).on('click', '.creditRefund', function () {
+    //     const client_credit_history_seq = $(this).attr('data-client-credit-history-seq');
+    //     const sendData = {
+    //         "client_credit_history_seq": client_credit_history_seq
+    //     }
+    //     $.ajax({
+    //         type: "GET",
+    //         url: `${denma_nextdop_api_url}/credit/refund`,
+    //         data: sendData,
+    //         success: function (response) {
+    //             console.log("response :: ", response);
+    //             openPopup({
+    //                 type: 'EDIT',
+    //                 title: '크레딧 환불 정보',
+    //                 html: `
+    //             <div class="paymentPopupEditInner" style="flex-direction: column; height: 400px;">
+    //                 <div class="paymentPopupEdit">
+    //                     <div class="paymentPopupEditOrderInfo">
+    //                         <div class="paymentPopupEditTitle">크레딧 환불 금액 정보</div>
+    //                         <ul class="paymentPopupEditWrap">
+    //                            <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+    //                                 <span class="paymentPopupEditTxt is_title">주문번호</span>
+    //                                 <span class="paymentPopupEditTxt">${response.payment_no}</span>
+    //                            </li>
+    //                            <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+    //                                 <span class="paymentPopupEditTxt is_title">사용일</span>
+    //                                 <span class="paymentPopupEditTxt">${response.usedDay}</span>
+    //                            </li>
+    //                            <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+    //                                 <span class="paymentPopupEditTxt is_title">결제 금액</span>
+    //                                 <span class="paymentPopupEditTxt">${response.originPrice}</span>
+    //                            </li>
+    //                            <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+    //                                 <span class="paymentPopupEditTxt is_title">부가세</span>
+    //                                 <span class="paymentPopupEditTxt">${response.tax}</span>
+    //                            </li>
+    //                            <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+    //                                 <span class="paymentPopupEditTxt is_title">구매한 크레딧</span>
+    //                                 <span class="paymentPopupEditTxt">${response.credit}</span>
+    //                            </li>
+    //                            <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+    //                                 <span class="paymentPopupEditTxt is_title">사용한 크레딧</span>
+    //                                 <span class="paymentPopupEditTxt">${response.use_count}</span>
+    //                            </li>
+    //                            <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+    //                                 <span class="paymentPopupEditTxt is_title">잔여 크레딧</span>
+    //                                 <span class="paymentPopupEditTxt">${response.restCredit}</span>
+    //                            </li>
+    //                            <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+    //                                 <span class="paymentPopupEditTxt is_title">크레딧 사용 가격</span>
+    //                                 <span class="paymentPopupEditTxt">- ${response.usedCreditPrice}</span>
+    //                            </li>
+    //                            <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+    //                                 <span class="paymentPopupEditTxt is_title">환불 예상 금액</span>
+    //                                 <span class="paymentPopupEditTxt" style="color: #F04D57">${response.refundPrice} 원</span>
+    //                            </li>
+    //                         </ul>
+    //                     </div>
+    //
+    //                 </div>
+    //                 <div class="paymentDetailBtnWrap" style="padding: 0">
+    //                     <button type="button" class="paymentDetailBtn" onclick="closePopup()">취소</button>
+    //                     <button type="button" class="paymentDetailBtn is_next" onclick="creditRefund(${response.client_credit_history_seq})">환불하기</button>
+    //                 </div>
+    //             </div>
+    //         `,
+    //                 maxWidth: '382px',
+    //             }, true);
+    //         },
+    //         error: function (error) {
+    //             console.log("error :: ", error);
+    //             alert(error.responseJSON.error_msg);
+    //         }
+    //     });
+    // });
+
+    // 크레딧 환불
+    function creditRefund(client_credit_history_seq, payment_no) {
+
+      let result = confirm("결제번호 " + payment_no + ' 를 환불하시겠습니까?');
+
+      if (result === true) {
+
+        const sendData = {
+          "client_credit_history_seq": client_credit_history_seq
+        }
+
+        $.ajax({
+          type: "POST",
+          url: `${denma_nextdop_api_url}/credit/refund`,
+          data: sendData,
+          success: function (response) {
+            if (response.code == '500') {
+              alert('크레딧 환불 신청중 오류가 발생했습니다. 관리자에게 연락바랍니다.');
+              return false;
+            } else {
+              alert(`${client_credit_history_seq}번 크레딧의 구매내역이 환불완료 되었습니다.`);
+              closePopup();
+              getClientCreditInfo();
+              getClientCreditHistoryList();
+            }
+          },
+          error: function (error) {
+            console.log("크레딧 환불 응답 :: ", error);
+            alert(error.responseJSON.error_msg);
+          }
+        });
+      } else {
+        closePopup();
+      }
+
+    }
+
+    // 해당 클라이언트 토큰 조회.
+    function getClientToken() {
+        const sendData = {
+            "client_id": commonData.client_id
+        }
+
+        // next_dop api 호출시 현재 상세페이지에 있는 클라이언트의 정보가 담기도록 토큰 세팅.
+        settingClientToken(sendData);
+
+        function settingClientToken(sendData) {
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    type: 'GET',
+                    url: `${denma_api_url}/member/info`,
+                    data: sendData,
+                    success: function (response) {
+                        resolve(response);
+                    },
+                    error: function (error) {
+                        reject(error);
+                    }
+                });
+            }).then(function (response) {
+                sendData.mem_id = response.data.mem_id;
+                sendData.password = response.data.password;
+                $.ajax({
+                    type: 'GET',
+                    url: `${denma_api_url}/member/getMemberToken`,
+                    data: sendData,
+                    success: function (response) {
+                        $(document).ajaxSend(function (event, jqxhr, settings) {
+                            jqxhr.setRequestHeader("Authorization", `Bearer ${response.token}`);
+                        });
+                    },
+                    error: function (error) {
+                        console.log("error :: ", error);
+                    }
+                });
+            }).catch(function (error) {
+                console.log("error :: ", error);
+            });
+        }
+    }
+
+    // 클라이언트의 멤버십 상세정보 조회.
+    function getMembershipDetail() {
+        $.ajax({
+            type: "GET",
+            url: `${denma_api_url}/api/membership/client-membership/detail`,
+            data: commonData,
+            success: function (response) {
+                const data = response.data[0];
+
+                console.log(data);
+                const membershipStatus = response.membershipReserve[0];
+                let endDayText = data.rest_day + '일 남음';
+                if ((membershipStatus) && (membershipStatus.reserv_type == "TERMINATION")) {
+                    endDayText = "해지 예약중";
+                }
+                $('#client_id').text(data.client_id);
+                $('#mem_id').text(data.mem_id);
+                $('#payment_date').text(timestampToDate(data.payment_date));
+                $('#start_date').text(timestampToDate(data.start_date));
+                $('#end_date').text(timestampToDate(data.end_date) + ` (${endDayText})`);
+                $('#status').text(data.status);
+                $('#auto_payment_yn').text(data.auto_payment_yn);
+                $('#package_yn').text(data.package_yn);
+                $('#credit_count_show').text(data.credit_count);
+                $('#bg_month_cnt').text(data.bg_month_cnt);
+                $('#spin_upload_month_cnt').text(data.spin_upload_month_cnt);
+                // $('#gif_upload_month_cnt').text(data.gif_upload_month_cnt);
+                $('#video_upload_month_cnt').text(data.video_upload_month_cnt);
+                $('#video_upload_product_cnt').text(data.video_upload_product_cnt);
+                $('#product_count').text(data.product_count);
+                $('#image_count_per_prod').text(data.image_count_per_prod);
+                $('#vddm_download_count').text(data.vddm_download_count);
+                $('#membership_seq').text(data.membership_seq);
+
+                console.log('response.promotionHistoryCount:',response.promotionHistoryCount[0]);
+
+                if(response.promotionHistoryCount[0].cnt >= 2){
+                  $('#promotionMessage').text('비즈니스 프로모션 멤버십 횟수초과  ');
+                }
+            },
+            error: function (error) {
+                console.log("error :: ", error);
+            }
+        });
+    }
+
+    // 클라이언트의 크레딧 정보 조회.
+    function getClientCreditInfo() {
+        $.ajax({
+            type: "GET",
+            url: `${denma_api_url}/api/credit/client_credit/detail`,
+            data: commonData,
+            success: function (response) {
+                const data = response.data[0];
+                if (data === undefined) {
+                    $('#credit_count_show').text('0');
+                } else {
+                    $('#credit_count_show').text(data.credit_count);
+                }
+            },
+            error: function (error) {
+                console.log("error :: ", error);
+            }
+        });
+    }
+
+    // 해당 클라이언트의 서비스 사용 내역 리스트 조회.
+    function getUsageInfoList() {
+        const sendData = {
+            "client_id": commonData.client_id
+        };
+
+        $(".serviceUsageInfoListTable").dataTable().fnDestroy();
+        $('.serviceUsageInfoListTable').DataTable({
+            "processing": true,
+            "serverSide": false,
+            "lengthChange": false,
+            "stateSave": true,
+            "ordering": false,
+            "searching": false,
+            "info": false,
+            "pageLength": 10,
+            "language": {
+                emptyTable: "서비스 사용 내역이 없습니다."
+            },
+            "ajax": {
+                "type": "GET",
+                "url": `${denma_api_url}/api/membership/usages/list`,
+                "data": sendData,
+            },
+            "columns": [
+                {"data": "usage_date"},
+                {"data": "client_id"},
+                {"data": "usage_code"},
+                {"data": "usage_type"},
+                {"data": "use_count"},
+            ],
+            "columnDefs": [
+                {
+                    width: "20%",
+                    class: "useDetailTableBodyItem is_date",
+                    "render": function (data, type, row) {
+                        return convertDateFormat(data);
+                    },
+                    "targets": 0
+                },
+                {
+                    width: "18%",
+                    class: "useDetailTableBodyItem is_id",
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 1
+                },
+                {
+                    data: "notice_title",
+                    class: "paymentDetailTableBodyItem",
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 2
+                },
+                {
+                    width: "10%",
+                    class: "useDetailTableBodyItem is_cost",
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 3
+                },
+                {
+                    width: "10%",
+                    class: "useDetailTableBodyItem is_paymentMethod",
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 4
+                }
+            ]
+        });
+    }
+
+    // 크레딧 구매 내역 리스트 조회.
+    function getClientCreditHistoryList() {
+        const sendData = {
+            "client_id": commonData.client_id
+        };
+
+        $(".creditHistoryListTable").dataTable().fnDestroy();
+        $('.creditHistoryListTable').DataTable({
+            "processing": true,
+            "serverSide": false,
+            "lengthChange": false,
+            "stateSave": false,
+            "ordering": false,
+            "searching": false,
+            "info": false,
+            "pageLength": 10,
+            "language": {
+                emptyTable: "크레딧 구매 내역이 없습니다."
+            },
+            "ajax": {
+                "type": "GET",
+                "url": `${denma_api_url}/api/credit/client-credit/list`,
+                "data": sendData,
+            },
+            "columns": [
+                {"data": "create_date"},
+                {"data": "price"},
+                {"data": "real_prcie"},
+                {"data": "tax"},
+                {"data": "credit_count"},
+                {"data": "use_count"},
+                {"data": "bonus_yn"},
+                {"data": "payment_no"},
+                {"data": "extension_count"},
+                {"data": "read_expiration_date"}, // DB에 있는 날짜보다 하루가 적게 출력되어 xml쿼리 문에서 하루를 더한 값으로 가져오도록함.
+                {"data": "status"}
+            ],
+            "columnDefs": [
+                {
+                    width: "15%",
+                    class: "useDetailTableBodyItem is_date",
+                    "render": function (data, type, row) {
+                        return convertDateFormat(data);
+                    },
+                    "targets": 0
+                },
+                {
+                    width: "10%",
+                    class: "useDetailTableBodyItem is_cost",
+                    "render": function (data, type, row) {
+                        return (data !== null ? data : '-');
+                    },
+                    "targets": 1
+                },
+                {
+                    width: "10%",
+                    class: "useDetailTableBodyItem is_cost",
+                    "render": function (data, type, row) {
+                        return (data !== null ? data : '-');
+                    },
+                    "targets": 2
+                },
+                {
+                    width: "10%",
+                    class: "useDetailTableBodyItem is_cost",
+                    "render": function (data, type, row) {
+                        return (data !== null ? data : '-');
+                    },
+                    "targets": 3
+                },
+                {
+                    width: "10%",
+                    class: "useDetailTableBodyItem is_cost",
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 4
+                },
+                {
+                    width: "10%",
+                    class: "useDetailTableBodyItem is_cost",
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 5
+                },
+                {
+                    data: "notice_title",
+                    class: "paymentDetailTableBodyItem",
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 6
+                },
+                {
+                    data: "notice_title",
+                    class: "paymentDetailTableBodyItem",
+                    "render": function (data, type, row) {
+                        return (data !== null ? data : '-');
+                    },
+                    "targets": 7
+                },
+                {
+                    width: "15%",
+                    class: "useDetailTableBodyItem is_cost",
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 8
+                },
+                {
+                    width: "15%",
+                    class: "useDetailTableBodyItem is_date",
+                    "render": function (data, type, row) {
+                        return (data !== null ? timestampToDate(data) : '-');
+                    },
+                    "targets": 9
+                },
+                {
+                    data: "notice_title",
+                    class: "paymentDetailTableBodyItem",
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 10
+                },
+                // {
+                //     data: "notice_title",
+                //     class: "paymentDetailTableBodyItem",
+                //     "render": function(data, type, row) {
+                //         return `<span class="creditExtend" data-client-credit-history-seq="${row.client_credit_history_seq}">연장</span>`;
+                //     },
+                //     "targets": 11
+                // },
+                {
+                    data: "notice_title",
+                    class: "paymentDetailTableBodyItem",
+                    "render": function (data, type, row) {
+                      let seq = row.client_credit_history_seq;
+                      let payment_no = row.payment_no;
+                        return `<span class="creditRefund" onclick="creditRefund('${seq}', '${payment_no}')">환불</span>`;
+                    },
+                    "targets": 11
+                },
+            ]
+        });
+    }
+
+    // 멤버십 구매 이력 리스트 조회
+    function getClientMembershipHistoryList() {
+        const sendData = {
+            "client_id": commonData.client_id
+        };
+
+        $(".clientMembershipHistoryListTable").dataTable().fnDestroy();
+        $('.clientMembershipHistoryListTable').DataTable({
+            "processing": true,
+            "serverSide": false,
+            "lengthChange": false,
+            "stateSave": false,
+            "ordering": false,
+            "searching": false,
+            "info": false,
+            "pageLength": 10,
+            "language": {
+                emptyTable: "멤버십 구매 내역이 없습니다."
+            },
+            "ajax": {
+                "type": "GET",
+                "url": `${denma_api_url}/api/membership/client-membership-history/list`,
+                "data": sendData,
+            },
+            "columns": [
+                {"data": "payment_date"},
+                {"data": "start_date"},
+                {"data": "end_date"},
+                {"data": "client_id"},
+                {"data": "membership_seq"},
+                {"data": "price"},
+                {"data": "tax"},
+                {"data": "payment_no"},
+                {"data": "status"},
+                {"data": "package_yn"},
+                {"data": "auto_payment_yn"},
+                {"data": "bg_month_cnt"},
+                {"data": "spin_upload_month_cnt"},
+                {"data": "gif_upload_month_cnt"},
+                {"data": "video_upload_month_cnt"},
+                {"data": "video_upload_product_cnt"},
+                {"data": "product_count"},
+                {"data": "image_count_per_prod"},
+            ],
+            "columnDefs": [
+                {
+                    width: "15%",
+                    class: "useDetailTableBodyItem is_date",
+                    "render": function (data, type, row) {
+                        return convertDateFormat(data);
+                    },
+                    "targets": 0
+                },
+                {
+                    width: "15%",
+                    class: "useDetailTableBodyItem is_date",
+                    "render": function (data, type, row) {
+                        return convertDateFormat(data);
+                    },
+                    "targets": 1
+                },
+                {
+                    width: "15%",
+                    class: "useDetailTableBodyItem is_date",
+                    "render": function (data, type, row) {
+                        return convertDateFormat(data);
+                    },
+                    "targets": 2
+                },
+                {
+                    width: "18%",
+                    class: "useDetailTableBodyItem is_id",
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 3
+                },
+                {
+                    width: "10%",
+                    class: "useDetailTableBodyItem is_cost",
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 4
+                },
+                {
+                    data: "notice_title",
+                    class: "paymentDetailTableBodyItem",
+                    "render": function (data, type, row) {
+                        return (data !== null ? data : '-');
+                    },
+                    "targets": 5
+                },
+                {
+                    data: "notice_title",
+                    class: "paymentDetailTableBodyItem",
+                    "render": function (data, type, row) {
+                        return (data !== null ? data : '-');
+                    },
+                    "targets": 6
+                },
+                {
+                    data: "notice_title",
+                    class: "paymentDetailTableBodyItem",
+                    "render": function (data, type, row) {
+                        return (data !== null ? data : '-');
+                    },
+                    "targets": 7
+                },
+                {
+                    data: "notice_title",
+                    class: "paymentDetailTableBodyItem",
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 8
+                },
+                {
+                    data: "notice_title",
+                    class: "paymentDetailTableBodyItem",
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 9
+                },
+                {
+                    data: "notice_title",
+                    class: "paymentDetailTableBodyItem",
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 10
+                },
+                {
+                    width: "10%",
+                    class: "useDetailTableBodyItem is_cost",
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 11
+                },
+                {
+                    width: "10%",
+                    class: "useDetailTableBodyItem is_cost",
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 12
+                },
+                {
+                    width: "10%",
+                    class: "useDetailTableBodyItem is_cost",
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 13
+                },
+                {
+                    width: "10%",
+                    class: "useDetailTableBodyItem is_cost",
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 14
+                },
+                {
+                    width: "10%",
+                    class: "useDetailTableBodyItem is_cost",
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 15
+                },
+                {
+                    width: "10%",
+                    class: "useDetailTableBodyItem is_cost",
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 16
+                },
+                {
+                    width: "10%",
+                    class: "useDetailTableBodyItem is_cost",
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 17
+                },
+            ]
+        });
+    }
+
+    // 날짜 포맷 변환(yyyy-mm-dd hh:ii:ss)
+    function convertDateFormat(timeZoneDate) {
+
+       // console.log(timeZoneDate);
+        if( timeZoneDate != null)
+            return timeZoneDate.split("T")[0] +" "+ (timeZoneDate.split("T")[1]).split(".")[0];
+        else
+            return "";
+
+    }
+
+    // 타임스탬프에서 시간 자르기
+    function timestampToDate(timestamp) {
+        if ((timestamp != null) && (timestamp != '')) {
+            return timestamp.split("T")[0];
+        } else {
+            return timestamp;
+        }
+    }
+
+    // 숫자만 입력 가능한 함수.
+    function onlyNuMService(str) {
+        if (str) {
+            let num = Number(str.replace(/[^0-9]/g, ""));
+            $('#serviceCount').val(num);
+        }
+    }
+
+    // 크레딧 충전시 숫자만 입력.
+    function onlyNuMCredit(str) {
+        if (str) {
+            let num = Number(str.replace(/[^0-9]/g, ""));
+            $('#credit_count').val(num);
+        }
+    }
+
+    // 클라이언트의 서비스 사용 횟수를 충전해준다.
+    function fillUpServiceCount() {
+
+        const serviceType = $("#serviceCharger").val();
+
+        const plusServiceCount = $('#serviceCount').val();
+
+        if ((plusServiceCount === '')) {
+            alert('추가할 서비스 갯수를 입력해주세요.');
+            return false;
+        }
+
+        const sendData = {
+            "client_id": commonData.client_id,
+            "client_membership_seq": commonData.client_membership_seq,
+            "plusServiceCount": plusServiceCount,
+            "serviceType": serviceType
+        }
+
+        $.ajax({
+            type: "PUT",
+            url: `${denma_api_url}/api/membership/client-membership-history/update`,
+            data: sendData,
+            success: function (response) {
+                $('#serviceCount').val('');
+                alert(`서비스가 성공적으로 충전되었습니다.`);
+                getMembershipDetail();
+            },
+            error: function (error) {
+                console.log("error :: ", error);
+                alert("서비스 추가중 오류가 발생했습니다.");
+            }
+        })
+    }
+
+    // 크레딧을 충전해준다.
+    function fillUpCredit() {
+
+        const credit_count = $('#credit_count').val();
+
+        if ((credit_count === '') || (credit_count === "0")) {
+            alert('충전할 크레딧 갯수를 입력해주세요.');
+            return false;
+        }
+
+        if (confirm(`크레딧을 ${credit_count}개 충전하시겠습니까?`)) {
+            const sendData = {
+                "client_id": commonData.client_id,
+                "client_membership_seq": commonData.client_membership_seq,
+                "credit_count": credit_count,
+                "status": "01"
+            }
+
+            $.ajax({
+                type: "PUT",
+                url: `${denma_api_url}/api/credit/client_credit/update`,
+                data: sendData,
+                success: function (response) {
+                    alert(`${credit_count}개 만큼 크레딧이 충전되었습니다.`);
+                    closePopup();
+                    getClientCreditInfo();
+                    getClientCreditHistoryList();
+                },
+                error: function (error) {
+                    console.log("error :: ", error);
+                    alert("크레딧 충전중 오류가 발생했습니다.");
+                }
+            })
+        } else {
+            alert("크레딧 충전을 취소하였습니다..");
+        }
+    }
+
+    // 크레딧 충전 팝업창 호출.
+    function creditChargePopup() {
+        openPopup({
+            type: 'EDIT',
+            title: '크레딧 충전',
+            html: `
+                <div class="paymentPopupEditInner" style="flex-direction: column; height: 210px; padding-top: 10px">
+                    <div class="paymentPopupEdit" style="height: 150px; overflow:auto;">
+                        <ul>
+                           <li class="paymentPopupEditItem">
+                                    <div class="paymentDetailCustomWrap">
+                                    <li class="paymentPopupEditItem">
+                                    <span class="paymentPopupEditItemTitle">충전할 크레딧</span>
+                                    <input type="text" maxlength="5" placeholder="충전할 크레딧 갯수를 입력해주세요." style="width:240px" id="credit_count" onkeyup="onlyNuMCredit($(this).val())">
+                                    </li>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="paymentDetailBtnWrap" style="padding: 0">
+                        <button type="button" class="paymentDetailBtn" onclick="closePopup()">취소</button>
+                        <button type="button" class="paymentDetailBtn is_next" onclick="fillUpCredit()">충전하기</button>
+                    </div>
+                </div>`,
+            maxWidth: '382px',
+        }, true);
+        customSelectBox();
+    }
+
+    // 멤버십 해지 요청
+    function membershipTerminationRequest() {
+
+      let result = confirm("멤버십을 해지하시겠습니까?");
+      if (result == true) {
+        const sendData = {
+          "client_membership_seq": commonData.client_membership_seq,
+          "reason_code": "ADMIN",
+          "reason": "관리자가 직업 해지 신청."
+        }
+
+        $.ajax({
+          type: "POST",
+          url: `${denma_nextdop_api_url}/membership/termination`,
+          data: sendData,
+          success: function (response) {
+            console.log("response :: ", response);
+            const result = Object.values(response);
+            if (result.length !== 0) {
+              for (let message of result) {
+                alert(message);
+              }
+            } else {
+              alert('멤버십 해지 요청이 완료되었습니다.');
+            }
+            getClientCreditInfo();
+            getMembershipDetail();
+            getClientMembershipHistoryList();
+            closePopup();
+          },
+          error: function (error) {
+            console.log("error :: ", error);
+            alert(error.responseJSON.error_msg);
+          }
+        });
+      }
+    }
+
+    // 멤버십 해지에 대한 정보를 보여준다.
+    function showMembershipTermination() {
+        $.ajax({
+            type: "GET",
+            url: `${denma_nextdop_api_url}/membership/termination`,
+            data: commonData,
+            success: function (response) {
+              console.log("응답 :::: ", response);
+             //    const responseLength = response.length;
+             //    let index = 1;
+             //    let totalPrice = 0;
+             //    let totalRefundPrice = 0;
+             //    let popUpBody = '';
+             //    for (let list of response) {
+             //        totalPrice += list.totalPrice; //총 결제금액 더하기.
+             //        totalRefundPrice += list.refundPrice; //총 환불 예상 금액.
+             //        popUpBody += `
+             //                       <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+             //                           <span class="paymentPopupEditTxt is_title">결제 번호</span>
+             //                           <span class="paymentPopupEditTxt">${list.payment_no}</span>
+             //                       </li>
+             //                       <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+             //                           <span class="paymentPopupEditTxt is_title">총 결제 금액</span>
+             //                           <span class="paymentPopupEditTxt">${list.totalPrice} 원</span>
+             //                       </li>
+             //                       <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+             //                           <span class="paymentPopupEditTxt is_title">멤버십 결제 금액</span>
+             //                           <span class="paymentPopupEditTxt">${list.originPrice} 원</span>
+             //                       </li>
+             //                       <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+             //                           <span class="paymentPopupEditTxt is_title">부가세</span>
+             //                           <span class="paymentPopupEditTxt">${list.taxPrice} 원</span>
+             //                       </li>
+             //                       <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+             //                           <span class="paymentPopupEditTxt is_title">결제일</span>
+             //                           <span class="paymentPopupEditTxt"> ${list.paymentDate} 일</span>
+             //                       </li>
+             //                        <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+             //                            <span class="paymentPopupEditTxt is_title">멤버십 사용일</span>
+             //                            <span class="paymentPopupEditTxt">${list.usedDay} 일</span>
+             //                        </li>
+             //                       <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+             //                           <span class="paymentPopupEditTxt is_title">예상 환불 금액</span>
+             //                           <span class="paymentPopupEditTxt" style="color: #F04D57">${list.refundPrice} 원</span>
+             //                       </li>
+             //                       <p>--------------------------------------------------------------</p>
+             //                        `
+             //        if (index == responseLength) {
+             //            popUpBody += `
+             //                       <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+             //                           <span class="paymentPopupEditTxt is_title">총 결제 금액</span>
+             //                           <span class="paymentPopupEditTxt">${totalPrice} 원</span>
+             //                       </li>
+             //                       <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+             //                           <span class="paymentPopupEditTxt is_title">서비스 이용 금액</span>
+             //                           <span class="paymentPopupEditTxt">- ${list.usedServicePrice} 원</span>
+             //                       </li>
+             //                       <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+             //                           <span class="paymentPopupEditTxt is_title">예상 환불 금액</span>
+             //                           <span class="paymentPopupEditTxt" style="color: #F04D57">${totalRefundPrice} 원</span>
+             //                       </li>
+             //            `
+             //        }
+             //        index++;
+             //    }
+             //    openPopup({
+             //        type: 'EDIT',
+             //        title: '멤버십 해지 정보',
+             //        html: `
+             //     <div class="paymentPopupEditInner" style="flex-direction: column; height: 550px;">
+             //         <div class="paymentPopupEdit">
+             //             <div class="paymentPopupEditOrderInfo">
+             //                 <div class="paymentPopupEditTitle">멤버십 해지 금액 정보</div>
+             //                 <ul class="paymentPopupEditWrap">
+             //                    ` + popUpBody + `
+             //                 </ul>
+             //             </div>
+             //         </div>
+             //         <div class="paymentDetailBtnWrap" style="padding: 10px;">
+             //             <button type="button" class="paymentDetailBtn" onclick="closePopup()">취소</button>
+             //             <button type="button" class="paymentDetailBtn is_next" onclick="membershipTerminationRequest()">해지하기</button>
+             //         </div>
+             //     </div>
+             // `,
+             //        maxWidth: '382px',
+             //    }, true);
+            },
+            error: function (error) {
+                console.log("error :: ", error);
+                alert(error.responseJSON.error_msg);
+            }
+        });
+    }
+
+    // 멤버십 환불에 대한 정보를 보여준다.
+    function showMembershipRefundInfo() {
+        $.ajax({
+            type: "GET",
+            url: `${denma_nextdop_api_url}/membership/refund`,
+            data: commonData,
+            success: function (response) {
+                console.log("response :: ", response);
+                const responseLength = response.length;
+                let index = 1;
+                let totalPrice = 0;
+                let totalRefundPrice = 0;
+                let totalUseMembershipPrice = 0;
+                let popUpBody = '';
+                for (list of response) {
+                    if (list.usedDay < 7) {
+                        totalPrice += list.totalPrice; //부가세 포함 금액.
+                    } else {
+                        totalPrice += list.originPrice;//부가세 제외 금액.
+                        list.usedServicePrice = '0'; //7일 경과시 멤버십 서비스 사용 금액은 차감 금액에 포함 안함.
+                    }
+
+                    totalRefundPrice += list.refundPrice; //총 환불 예상 금액.
+                    totalUseMembershipPrice += list.usedMembershipPrice;
+                    popUpBody += `
+                                <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                    <span class="paymentPopupEditTxt is_title">주문번호</span>
+                                    <span class="paymentPopupEditTxt">${list.payment_no}</span>
+                                </li>
+                                <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                       <span class="paymentPopupEditTxt is_title">총 결제 금액</span>
+                                       <span class="paymentPopupEditTxt">${list.totalPrice} 원</span>
+                                </li>
+                                <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                    <span class="paymentPopupEditTxt is_title">결제금액</span>
+                                    <span class="paymentPopupEditTxt">${list.originPrice} 원</span>
+                                </li>
+                                <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                    <span class="paymentPopupEditTxt is_title">부가세</span>
+                                    <span class="paymentPopupEditTxt">${list.taxPrice} 원</span>
+                                </li>
+                                <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                    <span class="paymentPopupEditTxt is_title">결제일</span>
+                                    <span class="paymentPopupEditTxt">${list.paymentDate} 일</span>
+                                </li>
+                                <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                    <span class="paymentPopupEditTxt is_title">멤버십 사용일</span>
+                                    <span class="paymentPopupEditTxt">${list.usedDay} 일</span>
+                                </li>
+                                <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                    <span class="paymentPopupEditTxt is_title">멤버십 사용 금액</span>
+                                    <span class="paymentPopupEditTxt">${list.usedMembershipPrice} 원</span>
+                                </li>
+                                <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                    <span class="paymentPopupEditTxt is_title">환불 예상 금액</span>
+                                    <span class="paymentPopupEditTxt" style="color: #F04D57">${list.refundPrice} 원</span>
+                                </li>
+                                <p>--------------------------------------------------------------</p>
+                                `
+
+                    if (index == responseLength) {
+                        popUpBody += `
+                                   <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                       <span class="paymentPopupEditTxt is_title">총 결제 금액</span>
+                                       <span class="paymentPopupEditTxt">${totalPrice} 원</span>
+                                   </li>
+                                   <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                       <span class="paymentPopupEditTxt is_title">서비스 이용 횟수</span>
+                                       <span class="paymentPopupEditTxt">${list.usedServiceCount} 번</span>
+                                   </li>
+                                   <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                       <span class="paymentPopupEditTxt is_title">서비스 이용 금액</span>
+                                       <span class="paymentPopupEditTxt">- ${list.usedServicePrice} 원</span>
+                                   </li>
+                                   <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                       <span class="paymentPopupEditTxt is_title">멤버십 사용 금액</span>
+                                       <span class="paymentPopupEditTxt">- ${totalUseMembershipPrice} 원</span>
+                                   </li>
+                                   <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                       <span class="paymentPopupEditTxt is_title">예상 환불 금액</span>
+                                       <span class="paymentPopupEditTxt" style="color: #F04D57">${totalRefundPrice} 원</span>
+                                   </li>
+                                   `
+                    }
+                    index++;
+                }
+
+                openPopup({
+                    type: 'EDIT',
+                    title: '멤버십 환불 정보',
+                    html: `
+                    <div class="paymentPopupEditInner" style="flex-direction: column; height: 410px;">
+                        <div class="paymentPopupEdit">
+                            <div class="paymentPopupEditOrderInfo">
+                                <div class="paymentPopupEditTitle">멤버십 환불 금액 정보</div>
+                                <ul class="paymentPopupEditWrap">
+                                ` + popUpBody + `
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="paymentDetailBtnWrap" style="padding: 5px;">
+                            <button type="button" class="paymentDetailBtn" onclick="closePopup()">취소</button>
+                            <button type="button" class="paymentDetailBtn is_next" onclick="MembershipRefund()">환불하기</button>
+                        </div>
+                    </div>
+                `,
+                    maxWidth: '382px',
+                }, true);
+            },
+            error: function (error) {
+                console.log("error :: ", error);
+                alert(error.responseJSON.error_msg);
+            }
+        });
+    }
+
+    // 멤버십을 환불한다.
+    function MembershipRefund() {
+
+        const sendData = {
+            "client_membership_seq": commonData.client_membership_seq
+        }
+
+        let result = confirm("멤버십을 환불 하시겠습니까?");
+        if (result == true) {
+          $.ajax({
+            type: "POST",
+            url: `${denma_nextdop_api_url}/membership/refund`,
+            data: sendData,
+            success: function (response) {
+              console.log("response :: ", response);
+              const result = Object.values(response);
+              if (result.length !== 0) {
+                for (let message of result) {
+                  alert(message);
+                }
+              } else {
+                alert('멤버십 환불 요청이 완료되었습니다.');
+              }
+              getClientCreditInfo();
+              getClientMembershipHistoryList();
+              getMembershipDetail();
+              closePopup();
+            },
+            error: function (error) {
+              console.log("error :: ", error);
+              alert(error.responseJSON.error_msg);
+            }
+          });
+        }
+    }
+
+    // 날짜 객체를 yyyy-mm-dd hh:mm:ss 형식으로 변환한다.
+    function myDateFormat(date) {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let hour = date.getHours();
+        let minute = date.getMinutes();
+        let second = date.getSeconds();
+
+        month = month >= 10 ? month : '0' + month;
+        day = day >= 10 ? day : '0' + day;
+        hour = hour >= 10 ? hour : '0' + hour;
+        minute = minute >= 10 ? minute : '0' + minute;
+        second = second >= 10 ? second : '0' + second;
+        return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+    }
+
+    /** 이하 부분은 danma-tagging에서 가져온 함수. **/
+    function paymentPopup(type, paymentNo) {
+        if (type == 'membershipChange') {
+            openPopup({
+                type: 'EDIT',
+                title: '결제수단 변경',
+                html: `
+                    <div class="paymentPopupEditInner" style="flex-direction: column; height: 500px; padding-top: 32px">
+                        <div class="paymentPopupEdit" style="height: 410px; overflow:auto;">
+                            <ul>
+                                <li class="paymentPopupEditItem">
+                                    <span class="paymentPopupEditItemTitle">카드</span>
+                                    <div class="paymentDetailCustomWrap is_customSelect">
+                                    <div class="paymentDetailCustomSelected is_customSelected" style="width: 240px;" id="payCardNickName" data-seq="">신한카드(0924)</div>
+                                        <ul class="paymentDetailCustomSelect is_customSelectList" style="width: 240px; margin:0; "id="creditCharge">
+                                            <li class="paymentDetailCustomOption is_customOption" value="100" onclick="registerNewCard('newCard')">+새 카드 등록</li>
+                                            <li class="paymentDetailCustomOption is_customOption" value="200"selected  onclick="registerNewCard('originCard')">신한카드(0924)</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ol class="paymentPopupEditNewCard">
+                                <li class="paymentPopupEditItem">
+                                    <span class="paymentPopupEditItemTitle">카드이름</span>
+                                    <input type="text" maxlength="15" placeholder="카드 별명을 입력하세요." style="width:240px" id="sendCardNickName">
+                                </li>
+                                <li class="paymentPopupEditItem">
+                                    <span class="paymentPopupEditItemTitle">카드번호</span>
+                                    <div style="display: flex">
+                                        <input type="text" maxlength="4" placeholder="0000" style="width: 54px; margin-right: 8px;" id="payCardNum1">
+                                        <input type="text" maxlength="4" placeholder="0000" style="width: 54px; margin-right: 8px;" id="payCardNum2">
+                                        <input type="text" maxlength="4" placeholder="0000" style="width: 54px; margin-right: 8px;" id="payCardNum3">
+                                        <input type="text" maxlength="4" placeholder="0000" style="width: 54px;" id="payCardNum4">
+                                    </div>
+                                </li>
+                                <li class="paymentPopupEditItem">
+                                    <span class="paymentPopupEditItemTitle">유효기간</span>
+                                    <div>
+                                        <input type="text" maxlength="2" placeholder="월(MM)" style="width: 60px;" id="payMonth"> <span style="color: #12121d; padding:0 8px">/</span>
+                                        <input type="text" maxlength="2" placeholder="년(MM)" style="width: 60px;" id="payYear">
+                                    </div>
+                                </li>
+                                <li class="paymentPopupEditItem">
+                                    <span class="paymentPopupEditItemTitle">생년월일</span>
+                                    <div>
+                                        <input type="text" maxlength="8" placeholder="ex)210324" style="width: 140px;" id="payBirth">
+                                    </div>
+                                </li>
+                                <li class="paymentPopupEditItem">
+                                    <span class="paymentPopupEditItemTitle">비밀번호</span>
+                                    <div>
+                                        <input type="password" maxlength="2" placeholder="ex)00" style="width: 54px; margin-right: 8px" id="payPw">
+                                        <span class="paymentPopupEditItemTitle">앞 2자리</span>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="paymentDetailBtnWrap" style="padding: 0">
+                            <button type="button" class="paymentDetailBtn" onclick="closePopup()">취소</button>
+                            <button type="button" class="paymentDetailBtn is_next">변경</button>
+                        </div>
+                    </div>`,
+                maxWidth: '382px',
+            }, true);
+        } else if (type == 'purchaseInfo') {
+            console.clear();
+            let sendData = {'paymentNo': paymentNo}
+            let paymentInfo = kiwiApiAjax('GET', '/membership/payment/item', sendData, false);
+            console.log("paymentInfo : ", paymentInfo)
+            let purchaseInfo = convertPurchaseInfo(paymentInfo);
+            openPopup({
+                type: 'EDIT',
+                title: '구매 정보',
+                html: `
+                    <div class="paymentPopupEditInner" style="flex-direction: column; height: 492px;">
+                        <div class="paymentPopupEdit">
+                            <div class="paymentPopupEditOrderInfo">
+                                <div class="paymentPopupEditTitle">주문 상품 정보</div>
+                                <ul class="paymentPopupEditWrap">
+                                   <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                        <span class="paymentPopupEditTxt is_title">주문번호</span>
+                                        <span class="paymentPopupEditTxt">${purchaseInfo.payment_no}</span>
+                                   </li>
+                                   <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                        <span class="paymentPopupEditTxt is_title">상품명</span>
+                                        <span class="paymentPopupEditTxt">${purchaseInfo.productName}</span>
+                                   </li>
+                                    <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                        <span class="paymentPopupEditTxt is_title">구매일자</span>
+                                        <span class="paymentPopupEditTxt">${purchaseInfo.buyTime}</span>
+                                   </li>
+                                    <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                        <span class="paymentPopupEditTxt is_title">결제금액</span>
+                                        <span class="paymentPopupEditTxt" style="color: #F04D57">${purchaseInfo.price} 원</span>
+                                   </li>
+                                </ul>
+                            </div>
+                            <div class="paymentPopupEditOrderInfo">
+                                <div class="paymentPopupEditTitle">결제 정보</div>
+                                <ul class="paymentPopupEditWrap">
+                                   <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                        <span class="paymentPopupEditTxt is_title">결제 구분</span>
+                                        <span class="paymentPopupEditTxt">${purchaseInfo.cardName}</span>
+                                   </li>
+                                   <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                        <span class="paymentPopupEditTxt is_title">카드번호</span>
+                                        <span class="paymentPopupEditTxt">${purchaseInfo.cardNum}</span>
+                                   </li>
+                                    <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                        <span class="paymentPopupEditTxt is_title">할부개월</span>
+                                        <span class="paymentPopupEditTxt">일시불</span>
+                                   </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                maxWidth: '382px',
+            }, true);
+        }
+        customSelectBox();
+    }
+
+    function convertPurchaseInfo(paymentInfo) {
+        let payment = paymentInfo.get("payment")
+        let orderItem = paymentInfo.get("orderItem")
+        let paymentItem = paymentInfo.get("paymentItem")
+
+        let productName = (orderItem[0].buyItem.membership_name) + ' ' + (orderItem[0].order_month) + '개월 연장';
+        if (orderItem.length > 1) {
+            productName += '외 ' + (parseInt(orderItem.size()) - 1)
+        }
+
+        let price = 0;
+        let cardNum;
+        let cardName;
+        for (let item of paymentItem) {
+            if (item.payment_method === 'CARD') {
+                price += item.price
+                cardName = item.card_name
+                cardNum = '****-****-****-' + item.card_num
+            }
+        }
+
+        return {
+            payment_no: payment.payment_no,
+            productName: productName,
+            buyTime: (payment.create_date.replace("T", ' ')).split('.')[0],
+            price: price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","),
+            cardNum: cardNum,
+            cardName: cardName
+        };
+    }
+
+    //결제수단 변경 (옵션 선택 시)
+    function registerNewCard(type) {
+        if (type == 'newCard') {
+            $('.paymentPopupEditNewCard').addClass('is_open');
+            $('.paymentDetailBtn.is_next').text('등록');
+            $('.paymentDetailBtn.is_next').attr('onclick', 'businessPayment()');
+            //    businessPayment()
+        } else {
+            $('.paymentPopupEditNewCard').removeClass('is_open');
+            $('.paymentDetailBtn.is_next').text('변경');
+        }
+    }
+
+    //해지하기 버튼 클릭 시
+    function membershipCancellation() {
+        openPopup({
+            title: '알림',
+            html: ` 6개월이상 멤버십 환불 및 해지는 </br>채널톡을 통해 문의해 주시기 바랍니다.`,
+            close: false,
+            agreeFunc: `closePopup();`
+        });
+
+        location.href = 'membershipCancelAsk'
+    }
+
+    function businessPayment() {
+        let phoneNumber;
+        let buyerName;
+        let buyerEmail;
+        // let payMethod = param;
+
+        $.ajax({
+            type: "GET",
+            async: false,
+            dataType: "json",
+            url: `${denma_api_url}/member`,
+            success: function (response) {
+                phoneNumber = response.phone;
+                buyerName = response.mem_id;
+                buyerEmail = response.mem_id;
+            },
+            error: function (error) {
+                console.log("error", error);
+            }
+        });
+
+        let payCardNum1 = $('#payCardNum1').val();
+        let payCardNum2 = $('#payCardNum2').val();
+        let payCardNum3 = $('#payCardNum3').val();
+        let payCardNum4 = $('#payCardNum4').val();
+        let sendCardNickName = $('#sendCardNickName').val();
+        let payMonth = $('#payMonth').val();
+        let payYear = $('#payYear').val();
+        let payBirth = $('#payBirth').val();
+        let payPw = $('#payPw').val();
+
+        const payCardNum = payCardNum1 + '-' + payCardNum2 + '-' + payCardNum3 + '-' + payCardNum4;
+        const expiry = '20' + payYear + '-' + payMonth
+
+
+        let sendData = {
+            buyer_name: buyerName,
+            buyer_tel: phoneNumber,
+            buyer_email: buyerEmail,
+            price: 100,
+            pg: "NICE",
+            pay_method: "CARD",
+            payment_method: "CARD",
+            payment_type: "MEMBERSHIP",
+            card_number: payCardNum,
+            expiry: expiry,
+            birth: payBirth,
+            pwd_2digit: payPw,
+            card_name: sendCardNickName
+        }
+
+        // createBillingPay(sendData);
+    }
+
+    //보정 창에서 보정 옵션 리스트 보여주기
+    function showHideEditOption() {
+        //1.저장한 보정 리스트가 있는지 확인 한다.
+        let optionList = $(".popupEditOptionList .popupEditOptionItem");
+        if (optionList != undefined && optionList.length > 0) {
+            console.log("$(\".popupEditOptionList\")", $(".popupEditOptionList").hasClass("is_hide"));
+            if ($(".popupEditOptionList").hasClass("is_hide")) {
+                console.log("remove ishide");
+                $(".popupEditOptionList").removeClass("is_hide");
+            } else {
+                $(".popupEditOptionList").addClass("is_hide");
+            }
+        }
+    }
+
+
+
+    function changeMembershipPopup() {
+
+        let membershipInfo = kiwiApiAjax('get','/membership/list',null,false);
+        let html = `<select class="custom-select" name="changeMembershipSeq" id="changeMembershipSeq">
+            <option value="">선택하세요</option>`;
+
+            console.log("membershipInfo : ", membershipInfo);
+            for (const membership of membershipInfo) {
+            html+=`<option value="${membership.get("membership_seq")}">${membership.get("membership_name")}</option>`
+            }
+            html +=  `</select>`;
+
+        openPopup({
+            type: 'EDIT',
+            title: '멤버십 변경',
+            html: `
+
+                <div class="paymentPopupEditInner" style="flex-direction: column; height: 450px; padding-top: 10px">
+                <form name="changeMembershipForm" id="changeMembershipForm">
+                    <input type="hidden" name="clientId" value="${params.client_id}">
+                    <div class="paymentPopupEdit" style="height: 350px; overflow:auto;">
+                        <ul>
+                            <li class="paymentPopupEditItem">
+                                <span class="paymentPopupEditItemTitle">멤버십 선택</span>
+                                ${html}
+
+
+                            </li>
+                        </ul>
+                        <ul style="padding-top: 20px;">결제 주기 변경여부
+                            <li class="">
+
+                                <input type="radio"  name="isChangeExpiredate" value="false"  checked>
+                                <span class="paymentPopupEditItemTitle" style="width:150px">결제 주기 변경하지 않음</span>
+                                <input type="radio"  name="isChangeExpiredate" value="true" >
+                                <span class="paymentPopupEditItemTitle" style="width:150px">결제 주기 지금으로 변경</span>
+
+                            </li>
+                        </ul>
+                        <ul style="padding-top: 20px;"> 다음달 결제여부
+                            <li class="">
+                                <input type="radio"  name="isChangeStatus" value=""  checked>
+                                <span class="paymentPopupEditItemTitle" style="width:150px">변경없음</span>
+                            </li>
+                            <li class="">
+                                <input type="radio"  name="isChangeStatus" value="true" >
+                                <span class="paymentPopupEditItemTitle" style="width:150px">신규 보너스 요금제로 설정,다음달에 프리로 떨어짐</span>
+                            </li>
+                            <li class="">
+                                <input type="radio"  name="isChangeStatus" value="false" >
+                                <span class="paymentPopupEditItemTitle" style="width:150px">매달 계속 결제로 이어진다.</span>
+
+                            </li>
+                        </ul>
+                        <ul style="padding-top: 20px;"> 매달 갱신시 결제여부
+                            <li class="">
+                                <input type="radio"  name="isAutopayment" value=""  checked>
+                                <span class="paymentPopupEditItemTitle" style="width:150px">변경없음</span>
+                            </li>
+                            <li class="">
+                                <input type="radio"  name="isAutopayment" value="true"  >
+                                <span class="paymentPopupEditItemTitle" style="width:150px">매달 결제가 되면서 갱신된다.</span>
+                            </li>
+                            <li class="">
+                                <input type="radio"  name="isAutopayment" value="false" >
+                                <span class="paymentPopupEditItemTitle" style="width:150px">매달 결제없이 갱신만 된다.</span>
+
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="paymentDetailBtnWrap" style="padding: 0">
+                        <button type="button" class="paymentDetailBtn" onclick="closePopup()">취소</button>
+                        <button type="button" class="paymentDetailBtn is_next" onclick="changeMembership()">변경하기</button>
+                    </div>
+                </form>
+                </div>`,
+            maxWidth: '382px',
+        }, true);
+        customSelectBox();
+    }
+
+    function changeMembership(){
+        var params = $("#changeMembershipForm").serializeObject();
+        //JSON.stringify(params),
+        console.log(  params);
+        console.log(params.changeMembershipSeq);
+
+        if($("#changeMembershipSeq").val() == undefined || $("#changeMembershipSeq").val() == ''){
+            alert('변경할 멤버십을 선택해주세요.');
+            return false;
+        }
+
+        if(confirm('멤버십 변경을 진행하시겠습니까?')){
+
+
+            $.ajax({
+                type: "PUT",
+                url: `${denma_nextdop_api_url}/membership/change`,
+                data: JSON.stringify(params),
+                dataType: "json",
+                contentType : "application/json; charset=utf-8",
+                success: function (response) {
+                    console.log("response :: ", response);
+                    alert('멤버십이 변경되었습니다.');
+                    closePopup();
+                    location.reload();
+                },
+                error: function (error) {
+                    console.log("error :: ", error);
+                    alert(error);
+                }
+            });
+
+        }
+
+
+    }
+
+
+    function setPromotionMembership(){
+
+
+      var params = {'clientId':commonData.client_id};
+
+      if(confirm('멤버십 변경을 진행하시겠습니까?')){
+
+
+        $.ajax({
+          type: "PUT",
+          url: `${denma_nextdop_api_url}/membership/promotion`,
+          data: params,
+        //  dataType: "json",
+        //  contentType : "application/json; charset=utf-8",
+          success: function (response) {
+           // console.log("response :: ", response.responseJSON);
+
+            alert('멤버십이 변경되었습니다.');
+
+            location.reload();
+          },
+          error: function (error) {
+            //console.log("error :: ", error);
+            //console.log("response :: ", error.responseJSON.error_msg);
+            alert(error.responseJSON.error_msg);
+          }
+        });
+
+      }
+
+
+    }
+
+    jQuery.fn.serializeObject = function() {
+        var obj = null;
+        try {
+            if (this[0].tagName && this[0].tagName.toUpperCase() == "FORM") {
+                var arr = this.serializeArray();
+                if (arr) {
+                    obj = {};
+                    jQuery.each(arr, function() {
+                        obj[this.name] = this.value;
+                    });
+                }//if ( arr ) {
+            }
+        } catch (e) {
+            alert(e.message);
+        } finally {
+        }
+
+        return obj;
+    };
+
+</script>

@@ -1,0 +1,174 @@
+<style>
+    .td-center{text-align: center;}
+</style>
+
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">템플릿 관리</h4>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                    </div>
+                </div>
+                <div class="col-auto pl-0">
+                    <button type="button" onclick="goToCreateTemplate()" class="btn mb-0 mr-0 waves-effect waves-light btn-success">템플릿 등록</button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="templateList table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th class="text-dark font-weight-bold">번호</th>
+                        <th class="text-dark font-weight-bold">이름</th>
+                        <th class="text-dark font-weight-bold">타입</th>
+                        <th class="text-dark font-weight-bold">정렬값</th>
+                        <th class="text-dark font-weight-bold">썸네일 이미지</th>
+                        <th class="text-dark font-weight-bold">등록일</th>
+                        <th class="text-dark font-weight-bold">삭제</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        getTemplateList();
+    });
+
+    function getTemplateList() {
+        const sendData = {};
+
+        $('.templateList').dataTable().fnDestroy()
+        $('.templateList').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "stateSave": true,
+            "ordering": false,
+            "searching": false,
+            "pageLength": 10,
+            "ajax": {
+                "url" : `${denma_api_url}/api/template/list`,
+                "data" : sendData,
+                dataSrc : function (response) {
+                    return response.data;
+                }
+            },
+            "columns" : [
+                {"data": "template_seq"},
+                {"data": "template_name"},
+                {"data": "template_type"},
+                {"data": "idx"},
+                {"data": "thumbnail_image"},
+                {"data": "create_data"},
+                {"data": "template_seq"},
+            ],
+            "columnDefs": [
+                {
+                    "width" : "10%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return `<a href='/view/template/modify?template_seq=${data}'>${data}</a>`;
+                    },
+                    "targets": 0
+                },
+                {
+                    "width" : "15%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 1
+                },
+                {
+                    "width" : "10%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 2
+                },
+                {
+                    "width" : "5%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return data!=null? data : "X";
+                    },
+                    "targets": 3
+                },
+                {
+                    "width" : "40%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return `<img src='${data}' style='width: 200px;'>`;
+                    },
+                    "targets": 4
+                },
+                {
+                    "width" : "15%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 5
+                },
+                {
+                    "width" : "10%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return `<button value="${data}" class='template_delete'>삭제</button>`;
+                    },
+                    "targets": 6
+                },
+            ],
+        });
+    }
+
+    // 템플릿 생성 페이지로 이동.
+    function goToCreateTemplate() {
+        location.href = '/view/template/create';
+    }
+
+    $(document).on('click', '.template_delete', function (event) {
+        const template_seq = $(this).val();
+        console.log("template_seq : ", template_seq);
+        const result = confirm('삭제후에는 복구할 수 없습니다. 그래도 삭제 하시겠습니까?');
+        if(result === true) {
+            const sendData = {
+                "template_seq" : template_seq
+            }
+            $.ajax({
+                type : 'DELETE',
+                url : `${denma_api_url}/api/template/delete`,
+                data : sendData,
+                success : function(response) {
+                    if(response[0].affectedRows !== 0) {
+                        alert('해당 템플릿이 삭제되었습니다.');
+                        $('.templateList').DataTable().ajax.reload();
+                    }else {
+                        alert('요청 처리중에 오류가 발생했습니다. 다시 시도해주세요.');
+                    }
+                },
+                error : function(error) {
+                    console.log("error : ", error);
+                    alert('요청 처리중에 오류가 발생했습니다. 다시 시도해주세요.');
+                }
+            });
+        }else {
+            return;
+        }
+    });
+
+</script>

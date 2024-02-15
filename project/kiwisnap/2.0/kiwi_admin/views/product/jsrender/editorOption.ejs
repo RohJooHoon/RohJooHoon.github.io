@@ -1,0 +1,36 @@
+<style>
+
+</style>
+
+<script id="editorOption" type="text/x-jsrender">
+<div class="popupEditSelectBox is_select" data-role="selectBox">
+    <span class="popupEditOptionValue selected-option" date-value="optValue" onclick="showHideEditOption()" >보정설정을 선택해주세요.</span>
+    <ul class="popupEditOptionList is_hide" style="z-index: 10;">
+        {{for result}}
+        <li onclick="applyEditorState(this)" class="popupEditOptionItem is_select" edit_option_seq={{:edit_option_seq}} edit_option_data='{{:edit_option_data}}'><span>{{:edit_option_name}}</span><span edit_option_seq={{:edit_option_seq}} onclick="removeEditorOption(this)" class="popupEditOptionItemClose"></span></li>
+        {{/for}}
+    </ul>
+</div>
+<div style="width: 1px; height: 24px; background-color:#DCDCDD; margin:0 12px;"></div>
+<!--<button class="popupEditButton" type="button" style="width: 41px; height: 26px; background: #96C60F;" onclick="historyGet()">GET</button>-->
+<button class="popupEditButton" type="button" style="width: 41px; height: 26px; background: #96C60F;" onclick="openPopupEditImage('EDIT_SAVE')">완료</button>
+</script>
+
+<script id="defaultOption" type="text/x-jsrender">
+<div class="selectBox is_select" data-role="selectBox">
+    <span class="selectOptionValue selected-option" date-value="optValue" onclick="showHideEditOption()" >{{:optionTxt ? optionTxt: "설정을 선택해주세요."}}</span>
+    <ul class="selectOptionList is_hide" style="z-index: 10;">
+        {{for result}}
+        <li class="selectOptionItem is_select">
+            <span>{{:select_option_name}}</span>
+            {{if optionDelete !== false}}
+                <span edit_option_seq={{:select_option_seq}} onclick="removeEditorOption(this)" class="popupEditOptionItemClose"></span>
+            {{/if}}
+        </li>
+        {{/for}}
+    </ul>
+</div>
+<div style="width: 1px; height: 24px; background-color:#DCDCDD; margin:0 12px;"></div>
+<!--<button class="popupEditButton" type="button" style="width: 41px; height: 26px; background: #96C60F;" onclick="historyGet()">GET</button>-->
+<button class="popupEditButton" type="button" style="width: 41px; height: 26px; background: #96C60F;" onclick="openPopupEditImage('EDIT_SAVE')">완료</button>
+</script>

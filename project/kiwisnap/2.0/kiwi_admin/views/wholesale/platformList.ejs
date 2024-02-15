@@ -1,0 +1,114 @@
+<style>
+    .td-center{text-align: center;}
+</style>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">도매 플랫폼 리스트</h4>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                    </div>
+                </div>
+                <div class="col-auto pl-0">
+                    <button type="button" onclick="goCreate()" class="btn mb-0 mr-0 waves-effect waves-light btn-success">정보 등록</button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="wholesaleTable table-bordered" id="dataTable" style="width: 100%;">
+                    <thead>
+                    <tr style="text-align: center">
+                        <th class="text-dark font-weight-bold">client_id</th>
+                        <th class="text-dark font-weight-bold">플랫폼 코드</th>
+                        <th class="text-dark font-weight-bold">플랫폼 아이디</th>
+                        <th class="text-dark font-weight-bold">수정</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    const params = getUrlParams();
+    $(function (){
+        get();
+    });
+
+    // 도매 회원 리스트 조회.
+    function get(){
+        let sendData = {
+            "client_id" : `${params.client_id}`
+        }
+
+        $(".wholesaleTable").dataTable().fnDestroy()
+        $('.wholesaleTable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "stateSave": false,
+            "ordering": false,
+            "searching": false,
+            "info" : false,
+            "pageLength": 20,
+            "ajax": {
+                "type" : "GET",
+                "url" : `${denma_nextdop_api_url}/wholesale/platform/list`,
+                "data" : sendData,
+                dataSrc : function (response) {
+                    console.log('response :: ', response);
+                    return response.data;
+                }
+            },
+            "columns" : [
+                {"data": "client_id"},
+                {"data": "platform_code"},
+                {"data": "platform_id"},
+            ],
+            "columnDefs": [
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 0
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 1
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 2
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return `<a href="/view/wholesale/platformInfo?client_id=${row.client_id}&platform_code=${row.platform_code}">수정</a>`;
+                    },
+                    "targets": 3
+                },
+
+            ],
+        });
+    }
+
+    // 등록으로 이동.
+    function goCreate() {
+        location.href = `/view/wholesale/platformInfo?client_id=${params.client_id}`;
+    }
+</script>

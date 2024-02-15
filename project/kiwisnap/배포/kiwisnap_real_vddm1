@@ -1,0 +1,1 @@
+ssh -v  -i denma.pem  ubuntu@13.125.180.53 -p22

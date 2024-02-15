@@ -1,0 +1,282 @@
+<link href="/css/common.css" rel="stylesheet" type="text/css">
+<link href="/css/detailNormal.css" rel="stylesheet" type="text/css">
+<link href="/css/payment.css" rel="stylesheet" type="text/css">
+<style>
+    .td-center {
+        text-align: center;
+    }
+
+    .paymentDetailTable,
+    .useDetailTable {
+        border: 2px solid #DCDCDD;
+        margin-bottom: 19px;
+    }
+
+    .paymentDetailTableBodyItem,
+    .useDetailTableBodyItem {
+        height: 34px;
+        border: solid #DCDCDD;
+        border-width: 0 1px 1px 0;
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        margin: 0px 0px;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 17px;
+        text-align: left;
+        color: #000000;
+        padding: 0 12px;
+    }
+
+    .paymentDetailTableBodyItem.is_cost,
+    .useDetailTableBodyItem.is_cost {
+        text-align: right;
+    }
+
+    .paymentDetailTableBodyItem.is_title {
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 17px;
+        color: #96C60F;
+    }
+
+    .paymentDetailTableBodyItem.is_title:hover,
+    .paymentPopup:hover {
+        text-decoration: underline;
+    }
+
+    .paymentDetailTotalCostWrap {
+        background-color: #F9F9F9;
+        height: 101px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    .paymentDetailCostBox {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    .paymentDetailTotalCost {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .paymentDetailCostItem {
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        color: #12121D;
+    }
+
+    .paymentDetailCostData {
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 29px;
+        color: #12121D;
+        width: 110px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .paymentDetailImportantNotice {
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 17px;
+        color: #12121D;
+    }
+
+    .paymentDetailImportantNotice.is_title {
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 17px;
+        color: #12121D;
+    }
+
+    .paymentDetailImportantNotice:not(.is_title) {
+        margin-bottom: 15px;
+    }
+
+    .paymentDetailStrongStyle {
+        font-weight: bold;
+        text-decoration: underline
+    }
+
+    .paymentDetailAddBtn {
+        width: 50px;
+        height: 36px;
+        background: #96C60F;
+        border-radius: 2px;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 20px;
+        text-align: center;
+        color: #FFFFFF;
+        border: none;
+    }
+
+    .paymentDetailFunc.is_hover:hover {
+        color: #96C60F;
+    }
+
+
+    /* payment popup*/
+    .paymentPopupEditWrap {
+        padding: 10px 13px 14px 13px;
+    }
+
+    .paymentPopupEditItem {
+        padding-bottom: 21px;
+        align-items: center;
+        margin: 0;
+    }
+
+    .paymentPopupEditItemTitle {
+        width: 92px;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        color: #12121D;
+    }
+
+    .paymentPopupEditNewCard {
+        padding-top: 21px;
+        border-top: 1px solid #A8A8A8;
+        display: none;
+    }
+
+    .paymentPopupEditNewCard.is_open {
+        display: block;
+    }
+</style>
+
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">상품 연동 통계 정보</h4>
+        </div>
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center justify-content-end">
+                <div class="button-group">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="payment">
+                <div class="paymentDetailWrap">
+                    <div class="paymentDetailInner" style="width: 375px;">
+                        <div class="paymentDetailInnerHead">날짜 검색</div>
+                        <div class="paymentDetailInnerBody">
+                            <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                <span class="paymentDetailDesc">시작 날짜</span>
+                                <input type="date" id="startDay" onchange="goSearch();">
+                            </div>
+                            <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                <span class="paymentDetailDesc">종료 날짜</span>
+                                <input type="date" id="endDay" onchange="goSearch();">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="connectInfoList table-bordered" id="connectInfoList" style="width: 50%;">
+                        <thead>
+                        <tr>
+                            <th class="text-dark font-weight-bold">날짜</th>
+                            <th class="text-dark font-weight-bold">총 연동 상품</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(function () {
+        settingDefaultDate();
+        goSearch();
+    });
+
+    //시작, 종료 날짜 기본 값을 현재에서 2주 간격으로 설정.
+    function settingDefaultDate() {
+        $("#startDay").val(convertDateFormat(new Date(Date.now() - 12096e5))); // 오늘에서 2주를 뺀 날자로 설정.
+        $("#endDay").val(convertDateFormat(new Date())); // 오늘 날짜를 종료일로 설정.
+    }
+
+    // 상품 연동 통계 조회.
+    function goSearch() {
+
+        let requestData = {
+            "startDay": $('#startDay').val(),
+            "endDay": $('#endDay').val(),
+        }
+
+        $(".connectInfoList").dataTable().fnDestroy()
+        $('.connectInfoList').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": true,
+            "stateSave": true,
+            "ordering": false,
+            "searching": false,
+            "info": false,
+            "paging": true,
+            "lengthMenu": [25, 30, 50, 75, 100],
+            "pageLength": "30",
+            "ajax": {
+                "url": `${denma_api_url}/api/statistics/connection/product/list`,
+                "data": requestData,
+                "async": false,
+            },
+            "columns": [
+                {"data": "connect_date"},
+                {"data": "connect_product_count"},
+            ],
+            "columnDefs": [
+                {
+                    "width": "30px;",
+                    "className": 'td-center',
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 0
+                },
+                {
+                    "width": "40px;",
+                    "className": 'td-center',
+                    "render": function (data, type, row) {
+                        return data;
+                    },
+                    "targets": 1
+                },
+            ]
+        });
+    }
+
+    //날짜 포맷을 yyyy-MM-dd 형식으로 변경.
+    function convertDateFormat(date) {
+        let year = date.getFullYear();              //yyyy
+        let month = (1 + date.getMonth());          //M
+        month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+        let day = date.getDate();                   //d
+        day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+        return year + '-' + month + '-' + day;     //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+    }
+
+</script>

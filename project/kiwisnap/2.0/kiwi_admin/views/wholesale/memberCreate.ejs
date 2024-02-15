@@ -1,0 +1,191 @@
+<link href="/css/detailNormal.css" rel="stylesheet" type="text/css">
+<link href="/css/form.css" rel="stylesheet" type="text/css">
+<link href="/css/mallBody.css" rel="stylesheet" type="text/css">
+<script src="/js/sha256.js"></script>
+<style>
+    .categoryViewBox_Logo img {
+        object-fit: cover;
+        vertical-align: center;
+    }
+</style>
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col">
+            <h2 class="page-title text-dark">도매회원 등록</h2>
+        </div>
+        <div class="col-auto">
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠 -->
+<form class="container-fluid" method="post" id="insertForm">
+
+    <!-- 상세 템플릿 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-header py-2">
+                    <div class="row">
+                        <div class="col py-1">
+                            <h5 class="font-weight-bold mb-1">등록 화면</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="mem_id">아이디<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="mem_id" type="text"
+                               name="mem_id" placeholder="아이디를 입력해주세요" data-alram="아이디">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="password">비밀번호<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="password" type="text"
+                               name="password" placeholder="비밀번호를 입력해주세요" data-alram="비밀번호">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="password_re">비밀번호확인<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="password_re" type="text"
+                               name="password_re" placeholder="비밀번호를 입력해주세요" data-alram="비밀번호를 확인">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="homepage_name">도매명<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="homepage_name" type="text"
+                               name="homepage_name" placeholder="도매명을 입력해주세요" data-alram="도매명">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="phone">휴대폰번호<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="phone" type="text"
+                               name="phone" placeholder="휴대폰번호를 입력해주세요" data-alram="휴대폰번호">
+                    </div>
+
+                    <!-- hidden -->
+                    <!-- 마케팅동의 , client_type:WHOLESALE -->
+<!--                    <input id="country_cd" name="country_cd" type="hidden" value="+82"/>-->
+<!--                    <input id="mem_type" name="mem_type" type="hidden" value="NORMAL"/>-->
+<!--                    <input id="marketing_agree" name="marketing_agree" type="hidden" value="N"/>-->
+<!--                    <input id="client_type" name="client_type" type="hidden" value="WHOLESALE"/>-->
+                    <!-- hidden -->
+
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-success float-right"
+                                onclick="createMember()">등록하기
+                        </button>
+                        <!--                        <button type="button" class="btn btn-success float-right"-->
+                        <!--                                onclick="goToNoticeList()">목록으로-->
+                        <!--                        </button>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //등록 템플릿 -->
+</form>
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<!-- include summernote css/js -->
+<script type="text/javascript">
+
+    $(function () {
+        $('#summernote').summernote({
+            height: 700,      // set editor height
+            minHeight: null,  // set minimum height of editor
+            maxHeight: null,  // set maximum height of editor
+        });
+    });
+
+    //등록
+    function createMember() {
+        if (checkImpotent()) {
+            let guide_type = '';
+            // if ($("#notice_type").selected().val() == 'NOTICE') {
+            //     guide_type = $("input:radio[name='guide_type']:checked").val();
+            // }
+
+            //비밀번호 같은지..
+            if($('#password').val() !== $('#password_re').val()){
+                alert('비밀번호가 동일 하지 않습니다.');
+                return;
+            }
+
+            //비밀번호 암호화
+            let password = SHA256($('#password').val())
+
+            const sendData = {
+                mem_id: $("#mem_id").val(),
+                password: password,
+                homepage_name: $("#homepage_name").val(),
+                phone: $("#phone").val(),
+                country_cd: '+82',
+                mem_type: 'NORMAL',
+                marketing_agree: 'N',
+                client_type: 'WHOLESALE',
+            }
+
+
+            $.ajax({
+                type: 'POST',
+                url: `${denma_nextdop_api_url}/member/join`,
+                data: sendData,
+                success: function (response) {
+                    console.log('response :: ', response);
+                    if (response.hasOwnProperty('error_msg')) {
+                        alert('등록 안되었습니다 : ' + response.error_msg);
+                    } else {
+                        alert('정상적으로 등록되었습니다.');
+                        location.href = '/view/wholesale/wholesale_list';
+                    }
+                },
+                error: function (error) {
+                    console.log('error :: ', error);
+                }
+            });
+        }
+    }
+
+    function checkImpotent() {
+
+        const $is_impotent = $(".is_impotent");
+
+        for (let i = 0; i < $is_impotent.length; i++) {
+
+            let $target = $is_impotent.eq(i);
+
+            if ($target.is('input')) {
+                if (!$target.val()) {
+                    const alramText = $target.attr('data-alram');
+
+                    alert(alramText + "을(를) 입력해주세요.");
+                    $target.focus();
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+
+</script>

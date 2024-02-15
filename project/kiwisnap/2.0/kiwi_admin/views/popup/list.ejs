@@ -1,0 +1,274 @@
+<style>
+    .td-center{text-align: center;}
+</style>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">공지 팝업 리스트 </h4>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">검색 조건</span>
+                        </div>
+
+                        <select class="custom-select is_underLine" id="search_condition" name="search_condition">
+                            <option value="title">타이틀</option>
+
+                        </select>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">검색어</span>
+                        </div>
+
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" id="searchTitle" >
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">팝업위치</span>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="location" id="location0" value="" checked >
+                                <label class="form-check-label" for="location0">전체</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="location" id="location1" value="D" >
+                                <label class="form-check-label" for="location1">대시보드</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="location" id="location2" value="L">
+                                <label class="form-check-label" for="location2">랜딩페이지</label>
+                            </div>
+                        </div>
+<!--                        <div class="input-group-prepend">-->
+<!--                            <span class="input-group-text">사용여부</span>-->
+<!--                        </div>-->
+<!--                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">-->
+<!--                            <div class="form-check form-check-inline">-->
+<!--                                <input class="form-check-input" type="radio" name="location" id="location0" value="" checked >-->
+<!--                                <label class="form-check-label" for="location0">전체</label>-->
+<!--                            </div>-->
+<!--                            <div class="form-check form-check-inline">-->
+<!--                                <input class="form-check-input" type="radio" name="location" id="location1" value="D" >-->
+<!--                                <label class="form-check-label" for="location1">사용</label>-->
+<!--                            </div>-->
+<!--                            <div class="form-check form-check-inline">-->
+<!--                                <input class="form-check-input" type="radio" name="location" id="location2" value="L">-->
+<!--                                <label class="form-check-label" for="location2">미사용</label>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                    </div>
+                    <div >
+
+<!--                        <div class="input-group-append">-->
+                            <button style="float: right;width: 100px;" class="btn btn-success" type="button" onclick="productSearch()"><i class="ti-search"></i></button>
+<!--                        </div>-->
+
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">정렬 조건</span>
+                        </div>
+                        <select class="custom-select is_underLine" id="sortColumn" name="sortColumn" onchange="productSearch()">
+                            <option value="dashboardPopupSeq">등록 최신순</option>
+                            <option value="popupOrder">팝업 순서 순</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="" class="btn btn-success float-right" onclick="location.href='/view/popup/view'">등록하기</button>
+            </div>
+            <div class="table-responsive">
+                <table class="productTable table-bordered" id="product-table" style="width: 100%;">
+                    <thead>
+                    <tr style="text-align: center">
+                        <th class="text-dark font-weight-bold">번호</th>
+                        <th class="text-dark font-weight-bold">위치</th>
+                        <th class="text-dark font-weight-bold">타이틀</th>
+                        <th class="text-dark font-weight-bold">시작일</th>
+                        <th class="text-dark font-weight-bold">종료일</th>
+                        <th class="text-dark font-weight-bold">사용여부</th>
+
+                        <th class="text-dark font-weight-bold">순서</th>
+                        <th class="text-dark font-weight-bold">타입</th>
+                        <th class="text-dark font-weight-bold">등록일</th>
+                        <th class="text-dark font-weight-bold">수정일</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>
+<script type="text/javascript">
+    const params = getUrlParams();
+
+    // 엔터키 누를시 상품 검색.
+    document.addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+            productSearch();
+        }
+    });
+
+    $(function (){
+        productSearch();
+    });
+
+    // 전체 상품 리스트 조회.
+    function productSearch() {
+
+        var sortColumn = $("#sortColumn").val();
+        var location = $('input[name="location"]:checked').val();
+        var sortDirection = "DESC";
+
+        if($("#sortColumn").val() == '') {
+            sortColumn = "dashboard_popup_seq";
+            sortDirection = "DESC";
+        }
+
+        if(sortColumn == "dashboard_popup_seq")
+            sortDirection = "DESC";
+
+        const sendData = {
+            "searchTitle" : $("#searchTitle").val(),
+            "sortColumn" : sortColumn,
+            "sortDirection" : sortDirection,
+            "searchUseFlag" : '',
+            "location" : location
+
+        }
+
+        console.log(sendData);
+
+        $(".productTable").dataTable().fnDestroy();
+        $('.productTable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "ordering": false,
+            "searching": false,
+            "info" : false,
+            "stateSave": false,
+            "pageLength": 30,
+            "ajax": {
+                "url" : `${denma_nextdop_api_url}/mall/popup/dashboard/all`,
+                "data" : sendData,
+            },
+            "columns" : [
+                {"data" : "dashboardPopupSeq"},
+                {"data" : "location"},
+                {"data" : "title"},
+                {"data" : "start_date"},
+                {"data" : "end_date"},
+                {"data" : "useFlag"},
+                {"data" : "popupOrder"},
+                {"data" : "popupType"},
+                {"data" : "create_date"},
+                {"data" : "update_date"}
+
+            ],
+            "columnDefs": [
+                {
+                    "className": 'td-center',
+                    "width" : "8%",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 0
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "8%",
+                    "render": function(data, type, row) {
+                        if(data == 'L')
+                            return '랜딩';
+                        else(data == 'D')
+                            return '대시보드';
+
+                    },
+                    "targets": 1
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "18%",
+                    "render": function(data, type, row) {
+                        data = '<a href=/view/popup/view?seq='+row.dashboardPopupSeq+'>'+row.title+'</a>';
+                        return data;
+
+                    },
+                    "targets": 2
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "8%",
+                    "render": function(data, type, row) {
+                      return moment(row.startDate).format('YYYY/MM/DD');
+                    },
+                    "targets": 3
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "8%",
+                    "render": function(data, type, row) {
+                      return moment(row.endDate).format('YYYY/MM/DD');
+                    },
+                    "targets": 4
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "4%",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 5
+                },{
+                    "className": 'td-center',
+                    "width" : "5%",
+                    "render": function(data, type, row) {
+
+                        return data;
+                    },
+
+                    "targets": 6
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "5%",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 7
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "8%",
+                    "render": function(data, type, row) {
+                      return moment(row.createDate).format('YYYY/MM/DD HH:mm');
+                    },
+                    "targets": 8
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "8%",
+                    "render": function(data, type, row) {
+                      return moment(row.updateDate).format('YYYY/MM/DD HH:mm');
+                    },
+                    "targets": 9
+                }
+            ]
+        });
+    }
+
+
+</script>

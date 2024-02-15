@@ -1,0 +1,151 @@
+<link href="/css/detailNormal.css" rel="stylesheet" type="text/css">
+<link href="/css/form.css" rel="stylesheet" type="text/css">
+<link href="/css/mallBody.css" rel="stylesheet" type="text/css">
+<style>
+    .categoryViewBox_Logo img {
+        object-fit: cover;
+        vertical-align: center;
+    }
+
+</style>
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col">
+            <h2 class="page-title text-dark">소매 사업자 인증서 검수</h2>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠 -->
+<form class="container-fluid" enctype="multipart/form-data" method="post" id="insertForm">
+    <!-- 상세 템플릿 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="client_id">클라이언트 ID</label>
+                        </div>
+                        <input class="form-control is_impotent" id="client_id" type="text" placeholder="클라이언트 아이디" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="homepage_name">쇼핑몰 이름</label>
+                        </div>
+                        <input class="form-control is_impotent" id="homepage_name" type="text" placeholder="쇼핑몰 이름 미등록" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="homepage_name">쇼핑몰</label>
+                        </div>
+                        <div class="form-control" id="homepage">
+
+                        </div>
+
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="filter_name">요청 상태</label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="business_license_certification" id="business_license_certification_01" value="REQUEST">
+                                <label class="form-check-label" for="business_license_certification_01">요청중</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="business_license_certification" id="business_license_certification_02" value="FAIL">
+                                <label class="form-check-label" for="business_license_certification_02">승인 거절</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="business_license_certification" id="business_license_certification_03" value="COMPLETE">
+                                <label class="form-check-label" for="business_license_certification_03">승인 수락</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="">사업자 인증 이미지</label>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-10">
+                                <img class="img-thumbnail img-responsive mb-1" id="business_license_image_url" alt="사업자 인증 이미지" src="">
+                                <p id="no_image_message"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="btn btn-success float-right" onclick="updateClientInfo()">인증하기</button>
+                        <button type="button" class="btn btn-success float-right" onclick='location.href = "/view/member/list"'>회원목록</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //상세 템플릿 -->
+</form>
+
+<script type="text/javascript">
+
+    const params = getUrlParams();
+
+    $(function () {
+        setClientInfo();
+    })
+
+    //해당 클라이언트 정보 세팅
+    function setClientInfo() {
+        $.ajax({
+            type : "GET",
+            url : `${denma_api_url}/api/setting/client/detail`,
+            data : {"client_id" : params.client_id},
+            success : function (response) {
+                $("#client_id").val(response.client_id);
+                $("#homepage_name").val(response.homepage_name);
+                $("#business_license_image_url").attr('src', response.business_license_image_url);
+                if (response.business_license_image_url == null || response.business_license_image_url === "") {
+                    $("#no_image_message").text("등록된 사업자 이미지가 없습니다.");
+                }
+                $(`input[name=business_license_certification][value="${response.business_license_certification}"]`).attr('checked', true);
+
+                $('#homepage').html(`<a href="${response.homepage}" target="_blank">${response.homepage}</a>`);
+
+
+            },
+            error : function (error) {
+
+            }
+        });
+    }
+
+    //사업자 인증 결과 업데이트
+    function updateClientInfo () {
+        const business_license_certification = $("input[name='business_license_certification']:checked").val();
+
+        if (business_license_certification === 'REQUEST') {
+            alert("요청 상태 변경은 수락 또는 거절만 가능합니다.");
+            return false;
+        }
+
+        const sendData = {
+            "client_id" : params.client_id,
+            "mem_no" : params.mem_no,
+            "business_license_certification" : business_license_certification
+        }
+
+        $.ajax({
+            type : "PUT",
+            url : `${denma_api_url}/api/vddm/license/update`,
+            data : sendData,
+            success : function() {
+                alert("사업자 인증 심사가 완료되었습니다.");
+                location.href = "/view/member/list";
+            },
+            error : function(error) {
+                console.log("error :: ", error);
+                alert("사업자 인증 심사중 오류가 발생했습니다.");
+            }
+        });
+    }
+
+</script>

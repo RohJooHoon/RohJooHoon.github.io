@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+    <!--회원 리스트를 불러온다.-->
+    <select id="memberList">
+        SELECT m.mem_no, m.mem_id, m.password, m.client_id, m.phone, m.marketing_agree, date_format(m.create_date, '%Y-%m-%d %T') as create_date, cs.homepage_name,
+                ps.permission_level, cs.client_type, cs.business_license_certification, cs.test_yn
+        FROM member m LEFT JOIN client_setting cs ON m.client_id = cs.client_id
+        LEFT JOIN permission ps on m.permission_seq = ps.permission_seq
+        WHERE 1 = 1
+            <if test="mem_id != null and mem_id != ''">
+                AND ( `mem_id` like concat('%', #{mem_id} ,'%') OR `phone` = #{mem_id} OR cs.client_id = #{mem_id} )
+            </if>
+            <if test="client_type != null and client_type != ''">
+                AND cs.client_type = #{client_type}
+            </if>
+            <if test="business_license_certification != null and business_license_certification != ''">
+                AND cs.business_license_certification = #{business_license_certification}
+            </if>
+            <if test="kiwi_partners_yn != null and kiwi_partners_yn != ''">
+                AND cs.kiwi_partners_yn = #{kiwi_partners_yn}
+            </if>
+        ORDER BY m.mem_no DESC
+        LIMIT ${start}, ${length}
+    </select>
+
+    <!--회원 리스트 카운트 -->
+    <select id="memberListCnt">
+        SELECT COUNT(*) as cnt
+        FROM member m LEFT JOIN client_setting cs on m.client_id = cs.client_id
+        WHERE 1 = 1
+        <if test="mem_id != null and mem_id != ''">
+            AND ( `mem_id` like concat('%', #{mem_id} ,'%') )
+        </if>
+        <if test="client_type != null and client_type != ''">
+            AND cs.client_type = #{client_type}
+        </if>
+        <if test="business_license_certification != null and business_license_certification != ''">
+            AND cs.business_license_certification = #{business_license_certification}
+        </if>
+        <if test="kiwi_partners_yn != null and kiwi_partners_yn != ''">
+            AND cs.kiwi_partners_yn = #{kiwi_partners_yn}
+        </if>
+    </select>
+
+    <!-- 회원 정보 조회 -->
+    <select id="selectMemberInfo">
+        SELECT a.*, b.homepage_name, b.homepage, b.etc_info, b.seller_level, b.kiwi_partners_yn, b.test_yn
+        FROM member a, client_setting b
+        WHERE b.client_id = a.client_id
+        <if test="client_id != null and client_id != ''">
+            AND a.client_id = #{client_id}
+        </if>
+        <if test="mem_no != null and mem_no != ''">
+            AND a.mem_no = #{mem_no}
+        </if>
+    </select>
+
+    <!-- 회원정보 수정 -->
+    <update id="updateMember">
+        UPDATE member
+        SET update_date = NOW()
+        <if test="phone != null and phone != ''">
+            ,phone = #{phone}
+        </if>
+        where client_id = #{client_id}
+    </update>
+
+    <!-- client_setting 수정 -->
+    <update id="updateClientSetting">
+        UPDATE client_setting
+        SET update_date = NOW()
+        <if test="test_yn != null and test_yn != ''">
+            ,test_yn = #{test_yn}
+        </if>
+        <if test="homepage_name != null and homepage_name != ''">
+            ,homepage_name = #{homepage_name}
+        </if>
+        <if test="seller_level != null">
+            ,seller_level = #{seller_level}
+        </if>
+        <if test="kiwi_partners_yn != null and kiwi_partners_yn != ''">
+            ,kiwi_partners_yn = #{kiwi_partners_yn}
+        </if>
+        WHERE client_id = #{client_id}
+    </update>
+
+
+    <insert id="insertOutMembers">
+        INSERT INTO out_member
+        (
+            mem_no,
+            mem_id,
+            password,
+            client_id,
+            lang,
+            country_cd,
+            phone,
+            marketing_agree,
+            mem_type,
+            join_path,
+            create_date,
+            referrer_code,
+            out_date,
+            out_reason
+        )
+        select mem_no, mem_id,
+               password,
+               client_id,
+               lang,
+               country_cd,
+               phone,
+               marketing_agree,
+               mem_type,
+               join_path,
+               create_date ,
+               referrer_code,
+               now(),
+               #{out_reason}
+        from member where client_id= #{client_id};
+    </insert>
+
+    <insert id="insertOutClientMall">
+        insert into out_client_mall
+        (
+            client_mall_seq,
+            client_id,
+            mall_type,
+            mall_key1,
+            mall_key2,
+            mall_key3,
+            user_id,
+            token_expire_date,
+            refresh_token_expire_date,
+            create_date,
+            update_date,
+            out_date
+        )
+        select
+            client_mall_seq,
+            client_id,
+            mall_type,
+            mall_key1,
+            mall_key2,
+            mall_key3,
+            user_id,
+            token_expire_date,
+            refresh_token_expire_date,
+            create_date,
+            update_date,
+            now()
+        from client_mall where client_id= #{client_id}
+    </insert>
+
+    <delete id="deleteClientMall">
+        delete from client_mall
+        where client_id = #{client_id}
+    </delete>
+
+    <delete id="deleteMember">
+        delete from member where client_id = #{client_id}
+    </delete>
+
+    <select id="selectClientMall">
+        SELECT *
+        FROM client_mall
+        WHERE client_id = #{client_id}
+    </select>
+
+    <delete id="deleteClientMallBySeq">
+        delete from client_mall
+        where client_mall_seq = #{client_mall_seq}
+    </delete>
+
+
+</mapper>

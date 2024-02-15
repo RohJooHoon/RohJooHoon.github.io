@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="help">
+
+    <select id="selectHelpCategoryList">
+        SELECT *
+        FROM help
+        WHERE 1 = 1
+            <if test="type != null and type != ''">
+                AND type = #{type}
+            </if>
+            <if test="depth != null and depth != ''">
+                AND depth = #{depth}
+            </if>
+        ORDER BY help_seq DESC
+        <if test="length != null and length != ''">
+            LIMIT ${start}, ${length}
+        </if>
+    </select>
+
+    <select id="selectHelpCategoryListCnt">
+        SELECT COUNT(*) as cnt
+        FROM help
+        WHERE 1 = 1
+            <if test="type != null and type != ''">
+                AND type = #{type}
+            </if>
+            <if test="depth != null and depth != ''">
+                AND depth = #{depth}
+            </if>
+    </select>
+
+    <insert id="insertHelpCategory">
+        INSERT INTO help
+            (
+                title,
+                depth,
+                type,
+                parent_help_seq,
+                create_date
+            )
+            VALUES
+            (
+                #{title},
+                #{depth},
+                #{type},
+                #{parent_help_seq},
+                NOW()
+            )
+    </insert>
+
+    <insert id="insertHelpContent">
+        INSERT INTO help
+            (
+                title,
+                depth,
+                parent_help_seq,
+                content,
+                type,
+                create_date
+            )
+            VALUES
+            (
+                #{title},
+                #{depth},
+                #{parent_help_seq},
+                #{content},
+                #{type},
+                NOW()
+            )
+    </insert>
+
+    <update id="updateHelp">
+        UPDATE help
+            SET update_date = NOW()
+                <if test="title != null and title != ''">
+                    ,title = #{title}
+                </if>
+                <if test="parent_help_seq != null and parent_help_seq != ''">
+                    ,parent_help_seq = #{parent_help_seq}
+                </if>
+                <if test="content != null and content != ''">
+                    ,content = #{content}
+                </if>
+                <if test="sort != null and sort != ''">
+                    ,sort = #{sort}
+                </if>
+        WHERE help_seq = #{help_seq}
+    </update>
+
+    <select id="selectChildCategoryCnt">
+        SELECT COUNT(*) as cnt
+        FROM help
+        WHERE parent_help_seq = #{help_seq}
+    </select>
+
+    <delete id="deleteHelp">
+        DELETE FROM help
+        WHERE help_seq = #{help_seq}
+    </delete>
+
+    <select id="selectChildDetail">
+        SELECT *
+        FROM help
+        WHERE parent_help_seq = #{help_seq}
+    </select>
+
+</mapper>

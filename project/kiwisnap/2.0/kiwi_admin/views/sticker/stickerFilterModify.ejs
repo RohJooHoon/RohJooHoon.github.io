@@ -1,0 +1,162 @@
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col">
+            <h2 class="page-title text-dark">스티커 필터 수정</h2>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠 -->
+<form class="container-fluid" enctype="multipart/form-data" method="post" id="insertForm">
+
+    <!-- 상세 템플릿 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-header py-2">
+                    <div class="row">
+                        <div class="col py-1">
+                            <h5 class="font-weight-bold mb-1">스티커 필터</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="unit_sticker_filter_seq">번호 <span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control" id="unit_sticker_filter_seq" type="text" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="filter_name">이름<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="filter_name" type="text" name="filter_name" placeholder="필터 이름을 넣어주세요">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="filter_type">타입<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_full">
+                            <select class="custom-select" name="filter_type" id="filter_type">
+                                <option value="CATEGORY">카테고리</option>
+                                <option value="SUB_CATEGORY">서브 카테고리</option>
+                                <option value="ROW">단수</option>
+                                <option value="STYLE">스타일</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="filter_name">상태<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status" id="status_01" value="01" checked>
+                                <label class="form-check-label" for="status_01">활성</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status" id="status_02" value="99">
+                                <label class="form-check-label" for="status_02">비활성</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="keyword">연관 키워드<span class="text-danger ml-05"></span>
+                                <button class="question btn btn-sm p-0" data-toggle="dropdown" type="button"><i
+                                            class="fas fa-question-circle"></i></button>
+                                <div class="dropdown-menu">
+                                    <h6 class="dropdown-header">스티커 필터 연관 키워드 콤마로 각 단어를 구분한다. EX) 여름,바다,휴가</h6>
+                                </div>
+                            </label>
+                        </div>
+                        <input class="form-control" id="filter_keyword" type="text" placeholder=",로 구분된 키워드를 입력해주세요.">
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="btn btn-success float-right" onclick="updateUnitStickerFilter()">수정 하기</button>
+                        <button type="button" class="btn btn-success float-right" onclick="location.href='/view/sticker/stickerFilterList'">
+                            필터 목록
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //상세 템플릿 -->
+</form>
+<script type="text/javascript">
+
+  $(function () {
+    initUnitStickerFilter();
+  });
+
+  function initUnitStickerFilter() {
+
+    const unit_sticker_filter_seq = getUrlParams().unit_sticker_filter_seq;
+
+    $.ajax({
+      type: "GET",
+      url: `${admin_api_url}/units/stickers/filters/${unit_sticker_filter_seq}`,
+      success: function (res) {
+        $("#unit_sticker_filter_seq").val(res.unit_sticker_filter_seq);
+        $("#filter_name").val(res.filter_name);
+        $("#filter_type").val(res.filter_type);
+        $(`input[name=status][value="${res.status}"]`).attr('checked', true);
+        $("#filter_keyword").val(res.filter_keyword);
+      },
+      error: function (error) {
+        console.log("에러 ::::", error);
+      }
+    });
+  }
+
+  function updateUnitStickerFilter() {
+
+    const unit_sticker_filter_seq = getUrlParams().unit_sticker_filter_seq;
+
+    const sendData = {
+      "unit_sticker_filter_seq": unit_sticker_filter_seq,
+      "filter_name": $("#filter_name").val().trim(),
+      "filter_type": $("#filter_type").val(),
+      "status": $('input[name="status"]:checked').val(),
+      "filter_keyword": $("#filter_keyword").val()
+    };
+
+    $.ajax({
+      type: "PUT",
+      url: `${admin_api_url}/units/stickers/filters`,
+      data: JSON.stringify(sendData),
+      contentType: "application/json",
+      success: function (res) {
+        alert("유닛 스티커 필터 수정이 정상적으로 완료되었습니다.");
+        location.href = "/view/sticker/stickerFilterList";
+      },
+      error: function (error) {
+        console.log("에러 :::: ", error);
+      }
+    });
+
+  }
+
+  function checkImpotent() {
+    let $is_impotent = $(".is_impotent");
+    for (let i = 0; i < $is_impotent.length; i++) {
+
+      let $target = $is_impotent.eq(i);
+
+      if ($target.is('input')) {
+        if (!$target.val()) {
+          alert("필터 이름을 입력해주세요.");
+          $target.focus();
+          return false;
+        }
+      }
+
+    }
+
+    return true;
+  }
+
+</script>

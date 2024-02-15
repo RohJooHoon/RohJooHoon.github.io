@@ -1,0 +1,659 @@
+<link href="/css/common.css" rel="stylesheet" type="text/css">
+<link href="/css/detailNormal.css" rel="stylesheet" type="text/css">
+<link href="/css/payment.css" rel="stylesheet" type="text/css">
+<style>
+    .paymentDetailTable,
+    .useDetailTable {
+        border:2px solid #DCDCDD;
+        margin-bottom: 19px;
+    }
+    .paymentDetailTableBodyItem,
+    .useDetailTableBodyItem {
+        height: 34px;
+        border: solid #DCDCDD;
+        border-width: 0 1px 1px 0;
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        margin: 0px 0px;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 17px;
+        text-align: left;
+        color: #000000;
+        padding: 0 12px;
+    }
+    .paymentDetailTableBodyItem.is_cost,
+    .useDetailTableBodyItem.is_cost {
+        text-align: right;
+    }
+    .paymentDetailTableBodyItem.is_title {
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 17px;
+        color: #96C60F ;
+    }
+    .paymentDetailTableBodyItem.is_title:hover,
+    .paymentPopup:hover {
+        text-decoration: underline;
+    }
+
+    .paymentDetailTotalCostWrap {
+        background-color: #F9F9F9;
+        height: 101px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0 20px;
+    }
+    .paymentDetailCostBox{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    .paymentDetailTotalCost {
+        display: flex;
+        flex-direction: row;
+    }
+    .paymentDetailCostItem {
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        color: #12121D;
+    }
+    .paymentDetailCostData {
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 29px;
+        color: #12121D;
+        width: 110px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .paymentDetailImportantNotice {
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 17px;
+        color: #12121D;
+    }
+    .paymentDetailImportantNotice.is_title {
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 17px;
+        color: #12121D;
+    }
+    .paymentDetailImportantNotice:not(.is_title) {
+        margin-bottom: 15px;
+    }
+    .paymentDetailStrongStyle {
+        font-weight: bold; text-decoration: underline
+    }
+    .paymentDetailAddBtn {
+        width: 50px;
+        height: 36px;
+        background: #96C60F;
+        border-radius: 2px;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 20px;
+        text-align: center;
+        color: #FFFFFF;
+        border: none;
+    }
+    .paymentDetailFunc.is_hover:hover {
+        color: #96C60F;
+    }
+
+
+    /* payment popup*/
+    .paymentPopupEditWrap {
+        padding: 10px 13px 14px 13px;
+    }
+    .paymentPopupEditItem {
+        padding-bottom: 21px;
+        align-items: center;
+        margin: 0;
+    }
+
+    .paymentPopupEditItemTitle {
+        width: 92px;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        color: #12121D;
+    }
+    .paymentPopupEditNewCard {
+        padding-top: 21px;
+        border-top: 1px solid #A8A8A8;
+        display: none;
+    }
+    .paymentPopupEditNewCard.is_open {
+        display: block;
+    }
+</style>
+<div class="detail is_page" id="step1">
+    <div class="detailHeader">
+        <div class="detailHeaderContainer">
+            <div class="detailHeaderTitle">결제정보</div>
+        </div>
+    </div>
+    <div class="detailBody" style="overflow:auto;">
+        <div class="detailBodyContainer is_block">
+            <div class="payment">
+                <!--   결제이력 / 사용이력  -->
+                <div class="paymentDetail" style="margin-bottom: 12px">
+                    <div class="paymentDetailWrap">
+                            <div class="paymentDetailInner" style="width: 375px;">
+                                    <div class="paymentDetailInnerHead">ID 검색</div>
+                                    <div class="paymentDetailInnerBody">
+                                        <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                            <span class="paymentDetailDesc">결제 ID</span>
+<!--                                            <div class="paymentDetailValue" style="font-weight: normal;" id="client_id"></div>-->
+                                            <input type="text" id="userId">
+                                        </div>
+                                        <div class="paymentDetailBox" style="margin-bottom: 5px;">
+                                            <span class="paymentDetailDesc">(+)총 거래액</span>
+                                            <p style="color: black; font-size: medium; margin: auto;" id="totalPaymentPrice"></p>
+                                        </div>
+                                        <div class="paymentDetailBox" style="margin-bottom: 5px;">
+                                            <span class="paymentDetailDesc">(-)부분 취소액</span>
+                                            <p style="color: black; font-size: medium; margin: auto;" id="totalPartialRefundAmount"></p>
+                                        </div>
+                                        <div class="paymentDetailBox" style="margin-bottom: 5px;">
+                                            <span class="paymentDetailDesc">(=)총 매출액</span>
+                                            <p style="color: black; font-size: medium; margin: auto;" id="totalSalesPrice"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="paymentDetailInner" style="width: 375px;">
+                                    <div class="paymentDetailInnerHead">날짜 검색</div>
+                                <div class="paymentDetailInnerBody">
+                                    <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                        <span class="paymentDetailDesc">시작 날짜</span>
+                                        <input type="date" id="startDay">
+<!--                                        <div class="paymentDetailValue" style="font-weight: normal;" id="bg_month_cnt"></div>-->
+                                    </div>
+                                    <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                        <span class="paymentDetailDesc">종료 날짜</span>
+                                        <input type="date" id="endDay">
+                                        <!--                                        <div class="paymentDetailValue" style="font-weight: normal;" id="bg_month_cnt"></div>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="paymentDetailInner" style="width: 375px;">
+                                <div class="paymentDetailInnerHead">멤버십 / 크레딧 검색</div>
+                                <div class="paymentDetailInnerBody">
+                                    <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                        <span class="paymentDetailDesc">테스트 계정 포함</span>
+                                        <select id="testYn" style="width: 72px;">
+                                            <option value="" selected>포함</option>
+                                            <option value="N">제외</option>
+                                        </select>
+                                    </div>
+                                    <div class="paymentDetailBox" style="margin-bottom: 10px;">
+                                        <span class="paymentDetailDesc">결제 상태</span>
+                                        <select id="paymentStatus" style="width: 72px;">
+                                            <option value="" selected>모두</option>
+                                            <option value="01">결제완료</option>
+                                            <option value="90">환불완료</option>
+                                            <option value="91">부분취소</option>
+                                            <option value="98">결제오류</option>
+                                        </select>
+                                    </div>
+                                    <div class="paymentDetailBox">
+                                        <span class="paymentDetailDesc">검색 타입</span>
+                                        <select id="searchType" style="width: 72px;">
+                                            <option value="ALL" selected>ALL</option>
+                                            <option value="MEMBERSHIP">멤버십</option>
+                                            <option value="CREDIT">크레딧</option>
+                                        </select>
+
+                                        <button class="btn btn-primary" onclick="paymentDataTable()" style="margin-left: 5px;">검색</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="paymentDetailList">
+                        <div class="paymentDetailTarget is_tabTarget is_active" data-tabTarget="payTriggerTarget">
+                            <table class="paymentDetailTable" style="width: 100%;">
+                                <thead class="paymentDetailTableHead">
+                                <tr class="paymentDetailTableRow">
+                                    <th class="paymentDetailTableHeadItem" style="width:98px;">결제일</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:110px;">클라이언트 ID</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:auto;">결제 ID</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:128px;">주문번호</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:100px;text-align: center;">결제금액</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:100px;text-align: center;">환불금액</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:auto;">결제상태</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:auto;text-align: center">실패사유</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:100px;">상세내역</th>
+                                    <th class="paymentDetailTableHeadItem" style="width:100px;">더 보기</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(function (){
+        setTabTrigger();
+        getClientToken(); // 해당 클라이언트의 토큰을 가져온다.
+        //임시로 넣어봄
+        paymentDataTable();
+    })
+
+    function getClientToken() {
+        const sendData = {
+            "client_id" : 'denmastudio'
+        }
+
+        // next_dop api 호출시 현재 상세페이지에 있는 클라이언트의 정보가 담기도록 토큰 세팅.
+        settingClientToken(sendData);
+
+        function settingClientToken(sendData) {
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    type : 'GET',
+                    url : `${denma_api_url}/member/info`,
+                    data : sendData,
+                    success : function (response) {
+                        resolve(response);
+                    },
+                    error : function (error) {
+                        reject(error);
+                    }
+                });
+            }).then(function (response) {
+                sendData.mem_id = response.data.mem_id;
+                sendData.password = response.data.password;
+                $.ajax({
+                    type : 'GET',
+                    url : `${denma_api_url}/member/getMemberToken`,
+                    // url : `https://admin.kiwisnap.net/member/getMemberToken`,
+                    data : sendData,
+                    success : function (response) {
+                        $( document ).ajaxSend(function( event, jqxhr, settings ) {
+                            jqxhr.setRequestHeader("Authorization", `Bearer ${response.token}`);
+                        });
+                    },
+                    error : function (error) {
+                        console.log("error :: ", error);
+                    }
+                });
+            }).catch(function (error) {
+                console.log("error :: ", error);
+            });
+        }
+    }
+
+    function sendParamFactory(){
+        let userID = $('#userId').val();
+        let startDay = $('#startDay').val();
+        let endDay = $('#endDay').val();
+        let searchType = $('#searchType').val();
+        let paymentStatus = $("#paymentStatus").val();
+        let testYn = $("#testYn").val();
+        console.log("userID : ", userID);
+        console.log("searchType : ", searchType);
+        console.log("paymentStatus : ", paymentStatus);
+        console.log("testYn : ", testYn);
+
+        var start = new Date(startDay);
+        var end = new Date(endDay)
+
+        if (startDay !== '' && endDay !== '') {
+          startDay += ' 00:00:00';
+          endDay += ' 23:59:59';
+        }
+
+        console.log("startDay : ", startDay);
+        console.log("endDay : ", endDay);
+
+        if(start > end){
+            alert("종료 날짜와 시작 날짜를 확인하여주세요.")
+            event.stopImmediatePropagation();
+            return;
+        }
+
+        return {
+            startDate : startDay,
+            endDate : endDay,
+            userId : userID.trim(),
+            type: searchType,
+            paymentStatus : paymentStatus,
+            testYn : testYn
+        };
+    }
+
+    function paymentDataTable() {
+        console.log("paymentDataTable")
+        let sendData = sendParamFactory();
+        $('.paymentDetailTable').dataTable().fnDestroy();
+        $('.paymentDetailTable').DataTable({
+            processing: true,
+            serverSide: true,
+            pageLength: 30,
+            lengthChange: false,
+            // paging: false,
+            searching: false,
+            stateSave: true,
+            autoWidth: false,
+            bInfo : false,
+            language: {
+                emptyTable: "데이터가 없습니다."
+            },
+            ajax: {
+                type : "GET",
+                url: `${denma_nextdop_api_url}/payment/admin`,
+                data : sendData,
+                async: false,
+                dataSrc : function (response) {
+                  let dataList = response.data.adminPaymentParamVOList;
+                  let totalPaymentAmount = (response.data.totalPaymentAmount === undefined? 0: response.data.totalPaymentAmount);
+                  let totalPartialRefundAmount = (response.data.totalPartialRefundAmount === undefined)? 0: response.data.totalPartialRefundAmount;
+                  let totalSalesPrice = totalPaymentAmount - totalPartialRefundAmount;
+
+                  $("#totalPaymentPrice").text(totalPaymentAmount.toLocaleString() + ' 원');
+                  $("#totalPartialRefundAmount").text(totalPartialRefundAmount.toLocaleString() + ' 원');
+                  $("#totalSalesPrice").text(totalSalesPrice.toLocaleString() + ' 원');
+                  return (dataList !== undefined? dataList : []);
+                }
+            },
+            columns : [
+                {
+                    width: "10%",
+                    class: "paymentDetailTableBodyItem is_date",
+                    render: function (data, type, full, meta) {
+                        return full.create_date.replace("T", ' ').split(".")[0];
+                    }
+                },
+                {
+                    width: "10%",
+                    class: "paymentDetailTableBodyItem is_id",
+                    render: function (data, type, full, meta) {
+                      return full.client_id;
+                    }
+                },
+                {
+                    width: "18%",
+                    class: "paymentDetailTableBodyItem is_id",
+                    render: function (data, type, full, meta) {
+                        return full.mem_id;
+                    }
+                },
+                {
+                    width: "10%",
+                    class: "paymentDetailTableBodyItem is_orderNum",
+                    render: function (data, type, full, meta) {
+                        return full.payment_no ;
+                    }
+                },
+                {
+                    width: "8%",
+                    class: "paymentDetailTableBodyItem is_cost",
+                    render: function (data, type, full, meta) {
+                      return full.price.toLocaleString();
+                    }
+                },
+                {
+                    width: "8%",
+                    class: "paymentDetailTableBodyItem is_cost",
+                    render: function (data, type, full, meta) {
+                      return (full.refund_price == null? '' : full.refund_price.toLocaleString());
+                    }
+                },
+                // {
+                //     width: "10%",
+                //     class: "paymentDetailTableBodyItem is_paymentMethod",
+                //
+                //     render: function (data, type, full, meta) {
+                //         return '카드결제'
+                //     }
+                // },
+                {
+                    width: "10%",
+                    class: "paymentDetailTableBodyItem is_status",
+                    render: function (data, type, full, meta) {
+                        let status;
+                        if (full.status === "01"){
+                            status = '결제완료'
+                        }else if(full.status === '98'){
+                            status = '결제오류'
+                        }else if(full.status === '99'){
+                            status = '결제취소'
+                        }else if(full.status === '91'){
+                          status = '부분취소'
+                        }else if(full.status === '90'){
+                          status = '환불완료'
+                        }else{
+                            status = '결제실패'
+                        }
+                        return  status;
+                    }
+                },
+              {
+                width: "10%",
+                class: "paymentDetailTableBodyItem is_status",
+                render: function (data, type, full, meta) {
+                  return (full.error_message == null? "" : full.error_message);
+                }
+              },
+                {
+                    // data: "notice_title",
+                    class: "paymentDetailTableBodyItem is_status",
+                    render: function (data, type, full, meta) {
+                        let productName = '';
+                        if(isEmpty(full.orderItemList)){
+                            return '데이터 없음';
+                        }
+                        for (let i = 0; i < full.orderItemList.length; i++) {
+                            let orderData = full.orderItemList[i]
+                            if(isEmpty(orderData.buyItem)){
+                                return '데이터 없음';
+                            }
+                            if(orderData.order_type === "MEMBERSHIP"){
+                                productName += (orderData.buyItem.membership_name) + ' ' + (orderData.package_month)+'개월 /';
+                            }else{
+                                productName += (' '+(orderData.buyItem.credit_name))+' /';
+                            }
+                        }
+                        return productName.slice(0, -1);
+                    }
+                },
+                {
+                    data: "notice_title",
+                    class: "paymentDetailTableBodyItem is_title",
+                    render: function (data, type, full, meta) {
+                        return `<button class="paymentPopup" target="_blank" onclick="purchaseInfoPopUp('${full.payment_no}');" style="font-weight: bold; color: #96C60F">더 보기</button>`;
+                    }
+                },
+            ],
+        });
+    }
+    function purchaseInfoPopUp(paymentNo){
+        console.clear();
+        let sendData = {'paymentNo' : paymentNo}
+        let paymentInfo = kiwiApiAjax('GET','/membership/payment/item',sendData,false);
+        console.log("paymentInfo : ", paymentInfo)
+        let purchaseInfo = convertPurchaseInfo(paymentInfo);
+        openPopup({
+            type: 'EDIT',
+            title: '구매 정보',
+            html: `
+                    <div class="paymentPopupEditInner" style="flex-direction: column; height: 492px;">
+                        <div class="paymentPopupEdit">
+                            <div class="paymentPopupEditOrderInfo">
+                                <div class="paymentPopupEditTitle">주문 상품 정보</div>
+                                <ul class="paymentPopupEditWrap">
+                                   <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                        <span class="paymentPopupEditTxt is_title">주문번호</span>
+                                        <span class="paymentPopupEditTxt">${purchaseInfo.payment_no}</span>
+                                   </li>
+                                   <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                        <span class="paymentPopupEditTxt is_title">상품명</span>
+                                        <span class="paymentPopupEditTxt">${purchaseInfo.productName}</span>
+                                   </li>
+                                    <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                        <span class="paymentPopupEditTxt is_title">구매일자</span>
+                                        <span class="paymentPopupEditTxt">${purchaseInfo.buyTime}</span>
+                                   </li>
+                                    <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                        <span class="paymentPopupEditTxt is_title">결제금액</span>
+                                        <span class="paymentPopupEditTxt" style="color: #F04D57">${purchaseInfo.price} 원</span>
+                                   </li>
+                                </ul>
+                            </div>
+                            <div class="paymentPopupEditOrderInfo">
+                                <div class="paymentPopupEditTitle">결제 정보</div>
+                                <ul class="paymentPopupEditWrap">
+                                   <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                        <span class="paymentPopupEditTxt is_title">결제 구분</span>
+                                        <span class="paymentPopupEditTxt">${purchaseInfo.cardName}</span>
+                                   </li>
+                                   <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                        <span class="paymentPopupEditTxt is_title">카드번호</span>
+                                        <span class="paymentPopupEditTxt">${purchaseInfo.cardNum}</span>
+                                   </li>
+                                    <li class="paymentPopupEditItem" style="padding-bottom: 12px; justify-content: space-between">
+                                        <span class="paymentPopupEditTxt is_title">할부개월</span>
+                                        <span class="paymentPopupEditTxt">일시불</span>
+                                   </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `,
+            maxWidth: '382px',
+        },true);
+    }
+    // price: price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+    /*
+        nextapi중 리턴타입이 ResponseEntity 인 경우 사용가능
+     */
+    function kiwiApiAjax(method,url,sendData,async){
+        try{
+            const httpMethod = method.toUpperCase();
+            if (httpMethod === "GET" || httpMethod === "DELETE") {
+                return objToMap(requestParamMethod(httpMethod, url, sendData, async));
+            } else if (httpMethod === "POST" || httpMethod === "PUT") {
+                return objToMap(requestBodyMethod(httpMethod, url, sendData, async));
+            } else {
+                return new Map([["error", true],["error_msg", "Http Method를 잘못 입력하였습니다"]]);
+            }
+        }catch (e){
+            return new Map([["error", true]]);
+        }
+    }
+    function requestParamMethod(method,url,sendData,async) {
+        return JSON.parse(
+            $.ajax({
+                type: method,
+                url: `${denma_nextdop_api_url}`+url,
+                data: sendData,
+                dataType: "json",
+                async : async,
+                success: function (data) {
+                    console.log("kiwiApiAjax url = ",url," / result : ",data);
+                },
+                error: function (data) {
+                    console.log("kiwiApiAjax url = ",url," / error : ",data);
+                }
+            }).responseText);
+    }
+
+    function requestBodyMethod(method,url,sendData,async){
+        return JSON.parse($.ajax({
+            type: method,
+            url: `${denma_nextdop_api_url}`+url,
+            data: JSON.stringify(sendData),
+            dataType: "json",
+            async : async,
+            contentType : "application/json; charset=utf-8",
+            success: function (data) {
+                console.log("kiwiApiAjax url = ",url," / result : ",data);
+            },
+            error: function (data) {
+                console.log("kiwiApiAjax url = ",url," / error : ",data);
+            }
+        }).responseText);
+    }
+    function objToMap(obj){
+        if(obj instanceof Array){
+            return objToListInMap(obj);
+        }else {
+            return new Map(
+                Object
+                    .keys(obj)
+                    .map(
+                        key => [key, obj[key]]
+                    )
+            )
+        }
+    }
+
+    function objToListInMap(obj){
+        let result = []
+        for (let value of obj) {
+            const myMap = new Map(
+                Object
+                    .keys(value)
+                    .map(
+                        key => [key, value[key]]
+                    )
+            )
+            result.push(myMap);
+        }
+        return result;
+    }
+
+    function convertPurchaseInfo(paymentInfo){
+        let payment = paymentInfo.get("payment")
+        let orderItem = paymentInfo.get("orderItem")
+        let paymentItem = paymentInfo.get("paymentItem")
+
+        let productName = '';
+
+        if(orderItem[0].order_type === "MEMBERSHIP"){
+            productName += (orderItem[0].buyItem.membership_name);
+            if(orderItem[0].package_month != 0){
+                productName += ' ' + (orderItem[0].package_month)+'개월'
+            }
+        }else{
+            productName += (orderItem[0].buyItem.credit_name);
+        }
+
+
+        if (orderItem.length > 1){
+            productName += ' 외 '+ (parseInt(orderItem.length) - 1) + ' 건 '
+        }
+
+        let price = 0;
+        let cardNum
+        let cardName;
+        for(let item of paymentItem){
+            if(item.payment_method === 'CARD'){
+                price += item.price
+                cardName = item.card_name
+                cardNum = '****-****-****-' + item.card_num
+            }
+        }
+
+        return {
+            payment_no: payment.payment_no,
+            productName: productName,
+            buyTime: (payment.create_date.replace("T", ' ')).split('.')[0],
+            price: price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","),
+            cardNum: cardNum,
+            cardName: cardName
+        };
+    }
+
+</script>

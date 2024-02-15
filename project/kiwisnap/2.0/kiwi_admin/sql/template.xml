@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="template">
+
+    <!-- 템플릿 리스트 조회   -->
+    <select id="selectTemplateList">
+        SELECT template_seq, template_name, thumbnail_image, date_format(create_date, '%Y-%m-%d %T') as create_data, template_type, idx
+        FROM template
+        WHERE 1=1
+            AND client_id = 'kiwisnap_basic'
+        ORDER BY idx ASC, template_seq DESC
+        <if test="length != null and length != 0">
+            LIMIT ${start}, ${length}
+        </if>
+    </select>
+
+    <!-- 템플릿 리스트 카운트 -->
+    <select id="selectTemplateCnt">
+        SELECT COUNT(*) as cnt
+        FROM template
+        WHERE 1=1
+            AND client_id = 'kiwisnap_basic'
+    </select>
+
+    <!-- 템플릿 등록 -->
+    <insert id="insertTemplate">
+        INSERT INTO template
+                (
+                    client_id,
+                    template_name,
+                    type_name,
+                    template,
+                    template_image,
+                    thumbnail_image,
+                    template_type,
+                    idx,
+                    create_date
+                )
+                VALUES
+                (
+                    'kiwisnap_basic',
+                    #{template_name},
+                    #{type_name},
+                    #{template},
+                    #{template_image},
+                    #{thumbnail_image},
+                    #{template_type},
+                    #{idx},
+                    NOW()
+                )
+    </insert>
+
+    <!-- 템플릿 상세조회 -->
+    <select id="selectTemplateInfo">
+        SELECT *
+        FROM template
+        WHERE template_seq = #{template_seq}
+    </select>
+
+    <!-- 해당 템플릿과 맵핑된 필터 리스트 조회 -->
+    <select id="selectMappedFilterList">
+        SELECT filter_seq
+        FROM template_filter_mapping
+        WHERE template_seq = #{template_seq}
+    </select>
+
+    <!-- 템플릿 수정 -->
+    <update id="updateTemplate">
+        UPDATE template
+        SET update_date = NOW()
+            <if test="temp_var_one != null and temp_var_one != ''">
+                ,template_image = #{temp_var_one}
+            </if>
+            <if test="temp_var_two != null and temp_var_two != ''">
+                ,template_type = #{temp_var_two}
+            </if>
+            <if test="temp_var_three != null and temp_var_three != ''">
+                ,template_name = #{temp_var_three}
+            </if>
+            <if test="type_name != null and type_name != ''">
+                ,type_name = #{type_name}
+            </if>
+            <if test="idx != null and idx != ''">
+                ,idx = #{idx}
+            </if>
+            <if test="thumbnail_image != null and thumbnail_image != ''">
+                ,thumbnail_image = #{thumbnail_image}
+            </if>
+            <if test="temp_var_four != null and temp_var_four != ''">
+                ,template_photos_cnt = #{temp_var_four}
+            </if>
+            <if test="temp_var_five != null">
+                ,template_category = #{temp_var_five}
+            </if>
+            <if test="temp_var_six != null and temp_var_six != ''">
+                ,template = #{temp_var_six}
+            </if>
+            <if test="temp_var_seven != null and temp_var_seven != ''">
+                ,status = #{temp_var_seven}
+            </if>
+        WHERE template_seq = #{template_seq}
+    </update>
+
+    <!-- 템플릿과 맵핑된 필터 모두 삭제 -->
+    <delete id="deleteTemplateFilterMapping">
+        DELETE
+        FROM template_filter_mapping
+        WHERE template_seq = #{template_seq}
+    </delete>
+
+    <!-- 템플릿 등록시 필터와 맵핑 -->
+    <insert id="insertTemplateFilterMapping">
+        INSERT INTO template_filter_mapping
+                (
+                    template_seq,
+                    filter_seq,
+                    create_date
+                )
+        VALUES
+        <foreach collection="filter_seq" item="filter_seq" separator=",">
+                (
+                    #{template_seq},
+                    #{filter_seq},
+                    now()
+                )
+        </foreach>
+    </insert>
+
+    <!-- 템플릿 삭제 -->
+    <delete id="deleteTemplate">
+        DELETE
+        FROM template
+        WHERE template_seq = #{template_seq}
+    </delete>
+
+    <!-- 템플릿 필터 리스트 조회 -->
+    <select id="selectTemplateFilterList">
+        SELECT *
+        FROM template_filter
+        WHERE 1 = 1
+        <if test="filter_type != null and filter_type != ''">
+            AND filter_type = #{filter_type}
+        </if>
+        <if test="status != null and status != ''">
+            AND status = "01"
+        </if>
+        ORDER BY filter_seq DESC
+        <if test="length != null and length != 0">
+            LIMIT ${start}, ${length}
+        </if>
+    </select>
+    
+    <!-- 템플릿 필터 리스트 개수 조회 -->
+    <select id="selectTemplateFilterListCnt">
+        SELECT COUNT(*) as cnt
+        FROM template_filter
+        WHERE 1 = 1
+        <if test="filter_type != null and filter_type != ''">
+            AND filter_type = #{filter_type}
+        </if>
+    </select>
+</mapper>

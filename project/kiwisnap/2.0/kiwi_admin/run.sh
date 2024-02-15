@@ -1,0 +1,1 @@
+pm2 start bin/admin --watch ./ --env local --log-date-format "YYYY-MM-DD HH:mm:ss Z"

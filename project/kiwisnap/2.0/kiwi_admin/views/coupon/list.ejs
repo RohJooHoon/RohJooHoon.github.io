@@ -1,0 +1,208 @@
+<style>
+  .td-center {
+    text-align: center;
+  }
+</style>
+
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">쿠폰 리스트</h4>
+        </div>
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center justify-content-end">
+                <div class="button-group">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">쿠폰 타입</span>
+                        </div>
+                        <select class="custom-select is_underLine" id="couponType" name="couponType" onchange="getCouponList()">
+                            <option value="">전체</option>
+                            <option value="ISSUE">발행쿠폰</option>
+                            <option value="CODE">코드쿠폰</option>
+                        </select>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">쿠폰 이름</span>
+<!--                            <select class="custom-select is_underLine" id="searchType" name="searchType">-->
+<!--                                <option value="">전체</option>-->
+<!--                                <option value="coupon_name">쿠폰 이름</option>-->
+<!--                            </select>-->
+                        </div>
+                        <input type="text" class="form-control" placeholder="쿠폰 이름을 입력 해주세요." aria-describedby="basic-addon1" id="couponName">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="button" onclick="getCouponList()"><i class="ti-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto pl-0">
+                    <button type="button" onclick='location.href = "/view/coupon/create"'
+                            class="btn mb-0 mr-0 waves-effect waves-light btn-success">쿠폰 등록
+                    </button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="couponList table-bordered" id="couponData" style="width: 100%;">
+                    <thead>
+                    <tr>
+                        <th class="text-dark font-weight-bold text-center">번호</th>
+                        <th class="text-dark font-weight-bold text-center">쿠폰이름</th>
+                        <th class="text-dark font-weight-bold text-center">쿠폰타입</th>
+                        <th class="text-dark font-weight-bold text-center">할인타입</th>
+                        <th class="text-dark font-weight-bold text-center">금액/할인율</th>
+                        <th class="text-dark font-weight-bold text-center">생성일</th>
+                        <th class="text-dark font-weight-bold text-center">만료타입</th>
+                        <th class="text-dark font-weight-bold text-center">만료일(남은만료기간)</th>
+                        <th class="text-dark font-weight-bold text-center">다운수</th>
+                        <th class="text-dark font-weight-bold text-center">사용수</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+  $(function () {
+    getCouponList();
+  });
+
+  function getCouponList() {
+
+    const couponSearchDto = {
+      "coupon_type" : $("#couponType").val(),
+      "coupon_name" : $("#couponName").val()
+      // "search_type" : $("#searchType").val(),
+      // "search_word" : $("#searchWord").val()
+    }
+
+    console.log("전송 데이터 :::: ", couponSearchDto);
+
+    $(".couponList").dataTable().fnDestroy()
+    $('.couponList').DataTable({
+      "processing": true,
+      "serverSide": true,
+      "lengthChange": false,
+      "stateSave": true,
+      "ordering": false,
+      "searching": false,
+      "info": false,
+      "pageLength": 15,
+      "ajax": {
+        "url": `${admin_api_url}/coupon/`,
+        "data": couponSearchDto,
+        // "data": JSON.stringify(couponSearchDto),
+        // "contentType": "application/json; charset=utf-8",
+      },
+      "columnDefs": [
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return `<a href='/view/coupon/modify?coupon_seq=${row.coupon_seq}'>${row.coupon_seq}</a>`;
+          },
+          "targets": 0
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return row.coupon_name;
+          },
+          "targets": 1
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            if (row.coupon_type == 'ISSUE') {
+              return "발행쿠폰";
+            } else {
+              return "코드쿠폰";
+            }
+          },
+          "targets": 2
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            if (row.discount_type == 'FIX') {
+              return "정액할인";
+            } else {
+              return "정률할인";
+            }
+          },
+          "targets": 3
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            if (row.discount_type == 'RATIO') {
+              return row.discount_value + "%";
+            } else {
+              return row.discount_value + "원";
+            }
+          },
+          "targets": 4
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return row.create_date.split("T")[0];
+          },
+          "targets": 5
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            if (row.expiry_type === 'FIXDATE') {
+              return "고정일";
+            } else {
+              return "발행일";
+            }
+          },
+          "targets": 6
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            if (row.expiry_type === 'FIXDATE') {
+              return row.expiry_date.split("T")[0];
+            } else {
+              return "-";
+              // return row.expiry_term;
+            }
+          },
+          "targets": 7
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return row.download_count;
+          },
+          "targets": 8
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return row.used_count;
+          },
+          "targets": 9
+        }
+      ],
+    });
+  }
+
+</script>
