@@ -1,0 +1,414 @@
+<link href="/css/detailNormal.css" rel="stylesheet" type="text/css">
+<link href="/css/form.css" rel="stylesheet" type="text/css">
+<link href="/css/mallBody.css" rel="stylesheet" type="text/css">
+<style>
+  .categorySetBoxItem {
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    align-items: center;
+    letter-spacing: -0.02em;
+  }
+
+  .categorySetBox {
+    padding: 15px 21px 21px 21px;
+    border: none !important;
+    color: #12121D;
+  }
+
+  .categorySetWrap {
+    border: 1px solid rgba(220, 220, 221, 0.3);
+    box-sizing: border-box;
+    height: 100%;
+  }
+
+  .categorySetHeader {
+    padding: 20px 15px 0;
+  }
+
+  .categorySetHeaderTitle {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 29px;
+    letter-spacing: -0.02em;
+    color: #12121D;
+    margin: 0;
+  }
+
+  .categorySetBody {
+    height: calc(100% - 49px);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .categoryViewBox {
+    font-weight: normal;
+    font-size: 14px;
+    color: #12121D;
+  }
+
+  .categoryManage_btnAdd {
+    width: 40%;
+    height: 36px;
+    border: 1px solid #000000;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    color: #000000;
+    border-radius: 2px;
+    margin: 0px auto 0;
+  }
+
+  .categoryManage_btnAdd:hover,
+  .categoryBoxNoneBtn:hover {
+    /*background-color: rgba(150, 198, 15, 0.1);*/
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    color: #000000;
+  }
+
+  .categorySetTitle {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 29px;
+    margin: 20px 0 20px 0;
+    font-weight: 500;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    color: #12121D;
+  }
+
+  .categoryBtitle {
+    font-weight: bold;
+    font-size: 14px;
+    padding: 0 !important
+  }
+
+  .categoryBtitle_icon {
+    background-image: url("/img/list/mall_icon/ic-polygon.svg");
+    cursor: pointer;
+    width: 12px;
+    height: 20px;
+    background-size: 12px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    margin-right: 9px;
+    position: relative;
+    top: 50%;
+    margin-top: -10px;
+  }
+
+  .categoryViewBox_Logo {
+    min-width: 128px;
+    min-height: 36px;
+    border-right: 1px solid #DCDCDD;
+    vertical-align: center;
+    text-align: center;
+    line-height: 36px;
+  }
+
+  .categoryViewBox_Logo img {
+    object-fit: cover;
+    vertical-align: center;
+  }
+
+  .categoryViewBox_inputHD, .categoryViewBox_inputBD {
+    border: none !important;
+    border-right: 1px solid #DCDCDD !important;
+    min-height: 36px;
+    color: #12121D;
+  }
+
+  .categoryViewBox_inputHD {
+    min-width: 110px;
+    background-color: #fff;
+    padding: 8px 12px;
+  }
+
+  .categoryViewBox_inputBD {
+    overflow: hidden;
+    color: #A8A8A8;
+    padding: 10px 0px 5px 0px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .categoryViewBox_item {
+    background: #96C60F;
+    border-radius: 2px;
+    /*height: 24px;*/
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 17px;
+    padding: 3px 36px 3px 12px;
+    word-break: break-all;
+    margin: 0px 10px 5px 0px;
+    box-sizing: border-box;
+
+  }
+
+  .input-groupWrap {
+    border: 1px solid #DCDCDD;
+    /*height: 38px;*/
+    box-sizing: border-box;
+    margin-top: 20px;
+  }
+
+  .categoryViewBox_detail {
+    margin: 0 !important;
+    border-top: none;
+    height: auto !important;
+  }
+
+  .categoryViewBox_detail .input-groupWrapBody {
+    padding: 20px;
+    border: none;
+  }
+
+  .input-groupWrapToggle {
+    border: none;
+    flex: 1;
+    padding: 20px 20px 26px 20px;
+
+  }
+
+  .icon_toggleAccordion {
+    background-image: url("/img/list/ic-down.svg");
+    background-color: #fff;
+    border-width: 0 0 0 1px;
+  }
+
+  .form-control-itemClose {
+    cursor: pointer;
+    position: absolute;
+    right: 8px;
+    top: calc(50% - 6px);
+    width: 12px;
+    height: 12px;
+    background: no-repeat center url('/img/list/mall_icon/Subtract-white.svg');
+    background-size: 12px;
+  }
+
+  .overflow_letter {
+    width: 100px;
+    overflow: hidden;
+    word-wrap: break-word;
+    white-space: nowrap;
+  }
+
+  .categoryBoxItemButton.is_save {
+    background-color: #fff;
+    width: 35px;
+    height: 19px;
+    margin: 5px 5px 0 0;
+    border-radius: 2px;
+    line-height: 19px;
+  }
+
+  .categoryBoxItemButton.is_save:hover {
+    background-color: #9AC941;
+    color: #fff;
+
+  }
+
+  .categoryBoxItemButton.ic_plus {
+    background: center no-repeat url("/img/list/mall_icon/btn-add.svg");
+    background-size: 24px;
+  }
+
+  .categoryBoxItemButton.ic_minus {
+    background: center no-repeat url("/img/list/mall_icon/btn-subtract.svg");
+    background-size: 24px;
+  }
+
+  .addicon {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 8px;
+    background: center no-repeat url("/img/list/mall_icon/btn-add-green.svg");
+  }
+
+  .catemsg1 {
+    color: #A8A8A8;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: -0.02em;
+    text-align: center;
+  }
+
+  .catemsg2 {
+    color: #A8A8A8;
+    font-weight: normal;
+    font-size: 12px;
+    letter-spacing: -0.02em;
+    text-align: center;
+  }
+
+  .catemsg3 {
+    color: #96C60F;
+    font-style: normal;
+    font-weight: normal;
+  }
+
+  .categoryBoxNone {
+    padding-top: 95px;
+  }
+
+  .categoryBoxNoneBtn {
+    width: 247px;
+    height: 56px;
+    margin: 10px 0 0 0px !important;
+    background: center no-repeat url("/img/list/mall_icon/btn-add-24green.svg");
+    background-size: 25px;
+    background-position-x: 40px;
+  }
+
+</style>
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col">
+            <h2 class="page-title text-dark">필터 등록</h2>
+        </div>
+        <div class="col-auto">
+            <!--            <button type="button" class="btn btn-success" onclick="">목록으로</button>-->
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠 -->
+<form class="container-fluid" enctype="multipart/form-data" method="post" id="insertForm">
+
+    <!-- 상세 템플릿 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-header py-2">
+                    <div class="row">
+                        <div class="col py-1">
+                            <h5 class="font-weight-bold mb-1">필터</h5>
+                            <h6 class="m-0">프레임에서 사용할 필터 추가</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="filter_name">이름<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="filter_name" type="text" name="filter_name" placeholder="필터 이름을 넣어주세요">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="filter_type">타입<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_full">
+                            <select class="custom-select" name="filter_type" id="filter_type">
+                                <option value="CATEGORY" selected>카테고리</option>
+                                <option value="SUB_CATEGORY">하위 카테고리</option>
+                                <option value="NEW_ROW">단수</option>
+                                <option value="NEW_STYLE">스타일</option>
+                                <option value="SEEZN">시즌</option>
+                                <option value="COLOR">컬러</option>
+                                <option value="UNIT_SET">프레임 세트</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3" id="category-depth2-div">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="">하위 요소</label>
+                        </div>
+                        <div class="card-body">
+                            <button class="categoryManage_btnAdd categoryBoxItemButton is_add ml-auto" type="button"></span>
+                                <span>하위 카테고리 추가</span></button>
+                            <ul id="childCategory">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="filter_name">상태<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status" id="status_01" value="01" checked>
+                                <label class="form-check-label" for="status_01">활성</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status" id="status_02" value="99">
+                                <label class="form-check-label" for="status_02">비활성</label>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="depth" name="depth">
+                    <div class="button-group">
+                        <button type="button" class="btn btn-success float-right" onclick="createFilter()">등록 하기</button>
+                        <button type="button" class="btn btn-success float-right" onclick='location.href = "/view/unit/unitFilterList"'>필터
+                            목록
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //상세 템플릿 -->
+</form>
+
+<script type="text/javascript">
+
+  $(function () {
+    $("#category-depth2-div").hide();
+  })
+
+  function createFilter() {
+    if (checkImpotent()) {
+      const filter_name = $("#filter_name").val();
+      const filter_type = $("#filter_type").val();
+      const status = $('input[name="status"]:checked').val();
+      let depth = $('#depth').val();
+
+      if ($("#filter_type").val() == 'CATEGORY') {
+        depth = "1";
+      }
+
+      let sendData = {
+        "filter_name": filter_name,
+        "filter_type": filter_type,
+        "status": status,
+        "depth": depth,
+      }
+
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        data: sendData,
+        url: `${denma_api_url}/api/unit/filter/create`,
+        success: function (response) {
+          alert("필터 등록이 정상적으로 처리되었습니다.");
+          location.href = "/view/unit/unitFilterList";
+        },
+        error: function (error) {
+          console.log("error :: ", error);
+        }
+      });
+    }
+  }
+
+  // 필수 입력 유효성 검사.
+  function checkImpotent() {
+    const $is_impotent = $(".is_impotent");
+    for (let i = 0; i < $is_impotent.length; i++) {
+      let $target = $is_impotent.eq(i);
+      if ($target.is('input')) {
+        if (!$target.val()) {
+          alert("필터 이름을 입력해주세요.");
+          $target.focus();
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+</script>

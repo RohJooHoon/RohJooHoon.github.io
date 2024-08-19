@@ -1,0 +1,165 @@
+<style>
+    .template {
+        border: 1px solid #ccc;
+        height: calc(100vh - 64px);
+    }
+    .templateTitle {
+        font-size: 24px;
+        line-height: 1.4479166667;
+        letter-spacing: -0.02em;
+        color: #12121D;
+    }
+    .templateHeader {
+        width: 100%;
+        height: 80px;
+        line-height: 80px;
+        padding-left: 20px;
+    }
+    .templateBody {
+        width: 100%;
+        height: calc(100% - 80px);
+        display: flex;
+        flex-direction: row;
+    }
+    .template_list {
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-content: flex-start;
+        flex-wrap: wrap;
+        flex : 1;
+    }
+    .template_list li {
+        width: 220px;
+        height: 260px;
+        margin: 31px 0 0 20px;
+    }
+    .templateImage {
+        display: block;
+        width: 100%;
+        height: 190px;
+        background-image: url("http://placehold.it/220x190");
+    }
+    .templateDesc {
+        display: block;
+        width: 100%;
+        height: 78px;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        padding-left: 19px;
+    }
+    .templateDesc_font {
+        color: #12121D;
+        font-size: 14px;
+        line-height: 1.4478571429;
+    }
+    .template_preview {
+        width: 350px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        flex: none;
+        box-sizing: border-box;
+        background-color: #dcdcdd;
+    }
+    .preview_box {
+        width: 100%;
+        height: 60px;
+        background-color: white;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .previewTitle {
+        line-height: 60px;
+        padding: 0;
+        margin-left: 20px;
+        font-size: 20px;
+        letter-spacing: -0.02em;
+        color: #12121D;
+    }
+    .preview_btn {
+        width: 100px;
+        height: 36px;
+        line-height: 36px;
+        background-color: #96c60f;
+        border-radius: 90px;
+        margin-right: 12px;
+    }
+    .preview_detail {
+        padding: 34px;
+        box-sizing: border-box;
+        overflow-y: scroll;
+    }
+    .details {
+        width: 240px;
+        height: 2400px;
+        background-color: #ccc;
+        margin: 0 auto;
+    }
+</style>
+
+<div class="template">
+    <div class="templateHeader" style="border-bottom: 1px solid #ccc">
+        <strong class="templateTitle">템플릿 라이브러리</strong>
+    </div>
+    <div class="templateBody">
+        <ul class="template_list">
+            <li class="templateCard">
+                <div class="templateImage"></div>
+                <div class="templateDesc">
+                    <span>Basic</span>
+                    <span class="templateDesc_font">블로그형, 기본스타일</span>
+                </div>
+            </li>
+            <li class="templateCard">
+                <div class="templateImage"></div>
+                <div class="templateDesc">
+                    <span>Basic</span>
+                    <span class="templateDesc_font">블로그형, 기본스타일</span>
+                </div>
+            </li>
+            <li class="templateCard">
+                <div class="templateImage"></div>
+                <div class="templateDesc">
+                    <span>Basic</span>
+                    <span class="templateDesc_font">블로그형, 기본스타일</span>
+                </div>
+            </li>
+            <li class="templateCard">
+                <div class="templateImage"></div>
+                <div class="templateDesc">
+                    <span>Basic</span>
+                    <span class="templateDesc_font">블로그형, 기본스타일</span>
+                </div>
+            </li>
+            <li class="templateCard">
+                <div class="templateImage"></div>
+                <div class="templateDesc">
+                    <span>Basic</span>
+                    <span class="templateDesc_font">블로그형, 기본스타일</span>
+                </div>
+            </li>
+        </ul>
+        <div class="template_preview">
+            <div class="preview_box">
+                <strong class="previewTitle">미리보기</strong>
+                <button type="button" class="preview_btn">사용하기</button>
+            </div>
+            <div class="preview_detail">
+                <div class="details">
+                    <div>내용</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

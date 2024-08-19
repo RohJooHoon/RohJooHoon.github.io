@@ -1,0 +1,757 @@
+.button-outlined-linkBtn {
+    width:100%;
+    height:65px;
+    line-height: 65px;
+    border:1px solid #96C60F;
+    background-color: transparent;
+    border-radius: 5px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/*btn-size*/
+.btnFlex-24 {
+    height : 24px ;
+    font-weight: 400;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 2px;
+}
+.btnFlex-32 {
+    width: 79px;
+    height : 32px;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+    padding: 0 12px;
+    border-radius: 2px;
+}
+.btn-35 {
+    width: 79px;
+    height : 35px;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+    padding: 0 12px;
+    border-radius: 2px;
+}
+.btn-36{
+    width: 128px;
+    height : 36px;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 4px;
+    background-color: #FFF;
+}
+.btn-36w{
+    width: 246px;
+    height: 36px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    color: #96C60F;
+    background-color: #FFF;
+    border: 1px solid #96C60F;
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+.btn-35:hover,.btn-36w:hover {
+    background-color: #81AC09;
+    color:#FFF;
+}
+.btn-36:hover {
+    background-color: #81AC09;
+}
+.btnFlex-36 {
+    width: 148px;
+    height : 36px;
+    font-weight: 500;
+    font-size: 12px;
+    text-align: center;
+    padding: 0 12px;
+    border-radius: 4px;
+    background-color: #FFF;
+}
+.btnTitle {
+    height : 24px;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+}
+.btn-fill-mainly {
+    width: 128px;
+    height : 36px;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    padding: 0 19px;
+}
+.btn-outline-mainly {
+    width: 128px;
+    height : 36px;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    padding: 0 19px;
+}
+.btnAdd {
+    width: 128px;
+    height : 36px;
+    font-weight: 500;
+    font-size: 12px;
+    text-align: center;
+}
+.is_btnOpacity {
+    background: rgba(150, 198, 15, 0.1);
+    border: 1px solid #96C60F;
+    text-align: center;
+}
+.is_btnBgColor{
+    background: #96C60F;
+    color: #FFFFFF;
+    border-radius: 2px;
+}
+.is_btnBgWhite{
+    background-color: #FFFFFF;
+    border : 1px solid #DCDCDD;
+    color: #DCDCDD;
+    font-weight: 700;
+}
+.is_btnBgWhite_sm{
+    width: 62px;
+    background-color: #FFFFFF;
+    border: 1px solid #A8A8A8;
+    border-radius: 2px;
+    color: #A8A8A8;
+    font-weight: 500;
+    font-size: 14px;
+}
+.is_borderStyle {
+    background: #FFFFFF;
+    border: 1px solid #DCDCDD !important;
+    border-radius: 0px 2px 2px 0px;
+
+}
+.detailModifyBtn.is_btnBgWhite_sm{
+    width: auto;
+    padding: 2px 5px 2px 5px;
+    white-space: nowrap;
+}
+.is_btnBgWhite:hover {
+    border: 1px solid #96C60F;
+    color: #96C60F;
+    background-color: #FFF;
+}
+/* list btns */
+.defaultBg {
+    background-color:#F9F9F9;
+    border:1px solid #DCDCDD;
+    font-weight:normal;
+}
+.linkagefailBg {
+    background-color:rgba(218,92,99,0.1);
+    border:1px solid #DCDCDD;
+}
+.masterCKboxBg {
+    background-color:rgba(150,198,15,0.2);
+    border:1px solid #DCDCDD;
+}
+.drawCallbacCkboxBg {
+    background-color:rgba(202,239,124,0.1);
+    border:1px solid #DCDCDD;
+}
+.stateIngBtn {
+    min-width: 56px;
+    height: 24px;
+    line-height: 24px !important;
+    color:#A8A8A8;
+    font-weight:500;
+    font-size:10px;
+    line-height:14px;
+    background-color:#FFFFFF;
+    border:1px solid rgba(18,18,29,0.05);
+    box-sizing:border-box;
+    border-radius:2px;
+    align-items: center;
+    text-align: center;
+}
+.logCkBtn{
+    width: 67px;
+    height: 24px;
+    font-weight:500;
+    font-size:14px;
+    display:flex;
+    align-items:flex-end;
+    color:#A8A8A8;
+}
+.stateBtn {
+    width: 56px;
+    height: 24px;
+    color:#FFFFFF;
+    font-weight:500;
+    font-size:10px;
+    line-height:14px;
+    align-items:flex-end;
+    box-sizing:border-box;
+    border-radius:2px;
+}
+.listSearchBtn {
+    width: 128px;
+    height : 36px;
+    color:#FFFFFF;
+    font-weight:bold;
+    font-size:14px;
+    line-height:20px;
+    display:flex;
+    align-items:flex-end;
+    text-align:center;
+    background-color:#96C60F;
+    border-radius:2px;
+}
+.allCkbtn {
+    width: 75px;
+    height : 34px;
+    background-color: rgba(150, 198, 15, 0.1);
+    border: 1px solid #DCDCDD;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.02em;
+    color: #96C60F;
+}
+.pdStatusSync {
+    width: 134px;
+    height: 36px;
+    color: #A8A8A8;
+    /*background-color: #FFFFFF;*/
+    border: 1px solid #DCDCDD;
+    box-sizing: border-box;
+    border-radius: 2px;
+    font-weight: normal;
+    font-size: 12px;
+    background-image: url('/img/list/mall_icon/union.svg');
+    background-repeat: no-repeat;
+    background-position-x: 13px;
+    background-position-y: 11px;
+    padding-left: 25px;
+}
+.pdStatusSync:hover {
+    border: 1px solid #96C60F;
+    font-size: 12px;
+    color: #96C60F;
+    background-image: url('/img/list/mall_icon/union hover.svg');
+    background-repeat: no-repeat;
+    background-position-x: 13px;
+    background-position-y: 11px;
+    padding-left: 25px;
+}
+/* list fonts */
+.font12Black {
+    color:#12121D;
+    font-size:12px;
+    line-height:17px;
+    font-weight:normal;
+}
+.font12Green {
+    color:#96C60F;
+    font-size:12px;
+    line-height:17px;
+    font-weight:500;
+}
+
+/* 쇼핑몰 추가하기 버튼 */
+.btnAccountAdd {
+    width:100%;
+    height:65px;
+    line-height: 30px;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+    color : #96C60F;
+    border:1px solid #96C60F;
+    border-radius: 5px;
+}
+.btnAccount_Text p {
+    height: 65px;
+    line-height: 65px;
+}
+.btnAccount_Text p:before{
+    content: url("../img/list/ic-add-round.svg");
+    position: relative;
+    top:5px;
+    left: -12px;
+}
+/* 쇼핑몰 추가하기 버튼 끝 */
+
+/* 쇼핑몰 레이어 추가 리스트 버튼부분 */
+.accountBtnAdd{
+    padding: 30px 42px 0 42px;
+}
+.accountBtnAdd_list{
+    margin-bottom: 14px;
+}
+.accountBtnAdd_list button {
+    width: 256px;
+    height: 73px;
+}
+.accountBtnAdd_btn img{
+    object-fit: contain;
+}
+/*쇼핑몰 레이어 추가 리스트 버튼부분 끝 */
+
+/* status */
+
+
+/* account Box*/
+.usedMallea{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: 500;
+    font-size: 16px;
+    color: #12121D;
+    margin-bottom: 0;
+}
+.usedMallea span:first-child{
+    font-weight: 500;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+}
+.usedMallea span:last-child{
+    font-weight: 500;
+    font-size: 12px;
+    color: #96C60F;
+}
+.mallList {
+    width: 100%;
+    padding: 24px 16px 24px 16px;
+    background-color: #fff;
+}
+.mallListAccounts{
+    width: 100%;
+}
+.mallListAccounts_item{
+    margin-bottom: 12px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.03);
+    border-radius: 5px;
+    border: solid 1px transparent;
+}
+.mallListAccounts_item.is_multiColor{
+    background-color: rgba(150, 198, 15, 0.1) !important;
+    border: 1px solid #CAEF7C;
+    box-sizing: border-box;
+}
+.btnAccount {
+    width: 100%;
+    height: 73px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.btnAccount_img{
+    width:81px; text-align: center;
+    margin-right: 35px;
+}
+.btnAccount_text {
+    width:100px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow:hidden;
+}
+.btnAccount_name{
+    font-size: 14px;
+    font-weight: 500;
+    padding-top: 17px;
+    margin: 0;
+}
+.btnAccount_id{
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    text-align: left;
+    overflow:hidden;
+}
+.btnAccount_id b{
+    width: 18px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #DCDCDD;
+    vertical-align: top;
+    margin-right: 8px;
+}
+.btnAccount_id b is_greencolor{
+    color: #96C60F;
+}
+.btnAccount_id span{
+    font-size: 12px;
+    font-weight: 500;
+    color: black;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    width: calc(100% - 18px);
+    overflow: hidden;
+    vertical-align: top;
+}
+
+/* 연동 없는 경우 */
+.noMallList {
+    height: 144px;
+    padding-top: 48px;
+    padding-bottom: 41px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border: 1px dashed rgba(150, 198, 15, 0.1);
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.03);
+    border-radius: 5px;
+    margin-bottom: 24px;
+}
+.noMallList p:first-child{
+    font-weight: 500;
+    font-size: 14px;
+    color: #A8A8A8;
+    margin-bottom: 6px;
+}
+.noMallList p:last-child{
+    font-weight: 400;
+    font-size: 12px;
+    color: #A8A8A8;
+}
+.noMallList p em{
+    color: #96C60F;
+    font-style: normal;
+}
+/* account Box end */
+
+/* detailBodyContainer */
+.MallBody {
+    width: 100%;
+    background-color: #FFF;
+    height:100%;
+}
+.MallBodyInputGroup{
+    flex-wrap:nowrap !important;
+}
+.noMallbody {
+    padding: 0;
+}
+.noMallBodyContent{
+    height: 186px;
+    background: #FFFFFF;
+    border: 1px solid rgba(150, 198, 15, 0.3);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 37px 28px;
+}
+.noMallBody_item {
+    font-weight: 500;
+    font-size: 14px;
+    color: #A8A8A8;
+    text-align: center;
+}
+.noMallBody_item .noMallBody_img {
+    margin-bottom: 19px;
+}
+.noMallBody_item .commonInfo_emstyle{
+    font-style: normal;
+    color: #96C60F;
+}
+.is_borderNone {
+    border-bottom: 0;
+}
+.is_bgwhite {
+    background-color: #FFF !important;
+}
+/* input */
+.font_15 {
+    font-size: 15px;
+    color:#12121D;
+    font-weight: 400;
+    line-height: 21px;
+    letter-spacing: -0.02em;
+}
+
+/* 상품 공통 정보 리스트 */
+.adminList {
+    border: 1px solid #DCDCDD;
+    color : #12121D;
+    font-size: 12px;
+    width: 100% !important;
+}
+.adminListHead tr th{
+    background: #F3F3F3;
+    border: 1px solid #DCDCDD;
+    font-weight: 500;
+    font-size: 14px;
+    color: #A8A8A8;
+}
+.adminList .checkInfo,
+.adminList .sorting_1{
+    text-align: center;
+}
+input[type='radio'] {
+    -webkit-appearance:none;
+    width:16px;
+    height:16px;
+    border: 1px solid #96C60F;
+    border-radius:50%;
+    outline:none;
+    background: #FFFFFF;
+    position: relative;
+}
+input[type='radio']:before {
+    content:'';
+    display:block;
+    width:10px;
+    height:10px;
+    position: absolute;
+    top: calc(50% - 5px);
+    left: calc(50% - 5px);
+    border-radius:10px;
+}
+input[type='radio']:checked:before {
+    background: #96C60F;
+}
+
+.commonInfoBody{
+    overflow: auto;
+}
+.commonInfoForm {
+    height: 100%;
+}
+.commonInfoForm .card-header {
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    /*flex-wrap: wrap;*/
+}
+.inputForm .is_tabGray {
+    background-color: rgba(220, 220, 221, 0.5);
+}
+.commonFormGroup .is_selectbgGray {
+    background: #F3F3F3 no-repeat center right 0 url('/img/list/btn-down.svg');
+    background-size: 38px 38px;
+}
+.detailBodyTabBtn {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+    color: #A8A8A8;
+}
+.is_formTxtBgColor {
+    background: #F9F9F9;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    color: #12121D;
+}
+.is_WrapborderX {
+    border:none;
+}
+.is_inputWrapBgColor{
+    border: 1px solid #DCDCDD !important;
+}
+.is_inputWrapBorderTx {
+    border: 1px solid #DCDCDD !important;
+    border-top:none !important;
+    margin-bottom: 50px;
+}
+.is_formTitleBgColor {
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    color: #12121D;
+    border:none;
+    border-right: 1px solid #DCDCDD;
+}
+.is_optionBgColor {
+    background-color: #F9F9F9;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    color: #12121D;
+    border: 1px solid #DCDCDD;
+}
+.inputGroupWrapHD, .categoryViewBox_inputBD {
+    border:none !important;
+    border-right: 1px solid #DCDCDD !important;
+    color: #000000;
+    min-height: 36px;
+    /*height: auto;*/
+}
+.inputGroupWrapHD {
+    min-width: 110px;
+    background-color: #fff;
+    /*padding: 8px 12px;*/
+}
+.inputGroupWrapBD {
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+    /*white-space: nowrap;*/
+    color:#A8A8A8;
+    padding: 6px 12px !important;
+    box-sizing: border-box;
+    border: none;
+}
+.masterProductForkm {
+    height: 100%;
+}
+
+/*카테고리 추가 및 제거 */
+.categoryBoxItemButton.ic_plus {
+    background: center no-repeat url('/img/list/mall_icon/btn-add.svg');
+    background-size: 24px;
+}
+.categoryBoxItemButton.ic_minus {
+    background: center no-repeat url('/img/list/mall_icon/btn-subtract.svg');
+    background-size: 24px;
+}
+
+/* 기본 정보 */
+.inputGroupPre {
+    position: relative;
+}
+.ic_QA {
+    position: absolute !important;
+    right: 15px;
+}
+
+.listlb {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background: url("/img/list/mall_icon/Rectangle-ckbox-16.svg") 0 0 no-repeat;
+    vertical-align: middle;
+    position: relative;
+    margin:0;
+    width: 16px !important;
+    text-align: center;
+
+}
+/* Hide the default checkbox */
+.listlb input {
+    visibility: hidden;
+    cursor: pointer;
+}
+/* Create a custom checkbox */
+.mark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: url("/img/list/mall_icon/Rectangle-ckbox-16.svg") 0 0 no-repeat;
+    padding: 0;
+    width: 16px !important;
+}
+.listlb:hover input ~ .mark {
+    background: url("/img/list/mall_icon/green-ckbox-hober16.svg") 0 0 no-repeat;
+    z-index: 20;
+}
+.listlb input:checked ~ .mark {
+    background: url("/img/list/mall_icon/checkbox-green-16.svg") 0 0 no-repeat;
+}
+/* Create the mark/indicator (hidden when not checked) */
+.listlb:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Create a custom checkbox - blue16 */
+.listlbB input {
+    visibility: hidden;
+    cursor: pointer;
+    width: 16px;
+}
+.markB {
+    background: url("/img/list/mall_icon/ckbox-unchecked-blue16.svg") 0 0 no-repeat;
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    margin-top:-8px;
+    height: 16px;
+    width: 16px;
+    padding: 0;
+    vertical-align: middle;
+}
+.listlbB:hover input ~ .markB {
+    background: url("/img/list/mall_icon/blue-hover16.svg") 0 0 no-repeat;
+    width: 16px;
+}
+.listlbB input:checked ~ .markB {
+    background: url("/img/list/mall_icon/ckbox-check-blue16.svg") 0 0 no-repeat;
+}
+/* Create the mark/indicator (hidden when not checked) */
+.listlbB:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Create a custom checkbox - blue16 common*/
+/* Create a custom checkbox - blue16 */
+.listlbC input {
+    /*visibility: hidden;*/
+    cursor: pointer;
+    width: 16px;
+    position: absolute;
+    top: 50%;
+    margin-top: -8px;
+    opacity: 0;
+    z-index: 20;
+}
+.listlbC label {
+    margin-left: 20px;
+}
+.markC {
+    background: url("/img/list/mall_icon/ckbox-unchecked-blue16.svg") 0 0 no-repeat;
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    margin-top:-8px;
+    height: 16px;
+    width: 16px;
+    padding: 0;
+    vertical-align: middle;
+}
+.listlbC:hover input ~ .markC {
+    background: url("/img/list/mall_icon/blue-hover16.svg") 0 0 no-repeat;
+    width: 16px;
+}
+.listlbC input:checked ~ .markC {
+    background: url("/img/list/mall_icon/ckbox-check-blue16.svg") 0 0 no-repeat;
+}
+/* Create the mark/indicator (hidden when not checked) */
+.listlbC:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* 레이어 팝업창 */
+.is_popup {
+    background-color: #FFF;
+    height: auto;
+}

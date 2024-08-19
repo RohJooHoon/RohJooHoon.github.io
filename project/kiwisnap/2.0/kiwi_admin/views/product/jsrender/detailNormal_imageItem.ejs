@@ -1,0 +1,33 @@
+<!-- 상세 정보 -->
+<script id="imageItem" type="text/x-jsrender">
+    {{if type == "VIDEO" }}
+        <li class="goodsCardItem{{:imageAdditional == "Y"? " is_onAdditional" : ""}}" data-type="{{:type}}" data-imageSeq="{{:imageSeq}}" data-imageUrl="{{:imageUrl}}" data-imagePath="{{:imagePath}}" data-idx="{{:idx}}">
+            {{if vimeo_files && vimeo_files.preview}}
+                <div class="goodsCardItemImg" style="overflow:hidden; text-align:center;">
+                    <video allow="autoplay" preload="auto" autoplay="" muted="" playsinline="" -webkit-playsinline="" -webkit-video-playable-inline="" loop="" poster="{{:vimeo_files.preview.url}}" data-pb="{{:100 / (vimeo_files.preview.width / vimeo_files.preview.height)}}" src="{{:vimeo_files.video.url}}" type=\"video/mp4\" style="width: 100%;"></video>
+                </div>
+            {{else}}
+
+                {{if vimeo_status != "uploading_error"}}
+                   <div class="goodsCardItemImg" style="background-image: url(/img/video_ing.png)" text-align:center;">
+                {{else}}
+                   <div class="goodsCardItemImg" style="background-image: url(/img/video_error.png))" text-align:center;">
+                {{/if}}
+                </div>
+            {{/if}}
+            <div class="goodsCardItemDelete"></div>
+        </li>
+    {{else type == "MODEL_INFO"}}
+    <li class="goodsCardItem" data-type="{{:type}}" data-imageSeq="{{:imageSeq}}" data-imageUrl="{{:imageUrl}}">
+        <div class="goodsCardItemImg" style="background-image: url({{:imageUrl}})"></div>
+    </li>
+    {{else}}
+    <li class="goodsCardItem{{:imageAdditional == "Y"? " is_onAdditional" : ""}}" data-type="{{:type}}" data-imageSeq="{{:imageSeq}}" data-imageUrl="{{:nowImage}}" data-imagePath="{{:imagePath}}" data-idx="{{:idx}}" data-doka-imagestate='{{:imageState}}' data-org-url="{{:imageOrg}}" clipmagic_id="{{:clipmagic_id}}" clipmagic_secret="{{:clipmagicSecret}}">
+        <div class="goodsCardItemImg" style="background-image: url({{:nowImage}})"></div>
+        <div class="goodsCardItemStar"></div>
+        <div class="goodsCardItemAdditional">추가</div>
+        <div class="goodsCardItemAdd">대표</div>
+        <div class="goodsCardItemDelete"></div>
+    </li>
+    {{/if}}
+</script>

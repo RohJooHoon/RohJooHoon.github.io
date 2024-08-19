@@ -1,0 +1,171 @@
+<!-- 수정 영역 -->
+
+    <!-- 목록 이미지용 템플릿 -->
+    <script id="item-main-preview" type="text/x-jsrender">
+        <div class="col-12 js-drag mb-3 canvas_item_row">
+            <div class="canvas-containerBox">
+                <canvas class="canvas_item" id="{{:obj.image_type}}_canvas_{{:order}}"></canvas>
+            </div>
+            <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-group" role="group" aria-label="First group" style="width:100%;">
+                    <button type="button" class="btn btn-secondary cropImage" order="{{:order}}" data-img="{{:obj.image_url}}" image_type="{{:obj.image_type}}" onclick="javascript:showCropPop({{:order}}, this,1/1)"><i class="mdi mdi-crop"></i></button>
+                    <button type="button" class="btn btn-secondary rotateRight" order="{{:order}}" onclick="rotate(this, -2.5)" image_type="{{:obj.image_type}}"><i class="mdi mdi-rotate-right"></i></button>
+                    <button type="button" class="btn btn-secondary rotateLeft" order="{{:order}}" image_type="{{:obj.image_type}}" onclick="rotate(this, 2.5)"><i class="mdi mdi-rotate-left"></i></button>
+                    <a class="btn btn-secondary" id="download" download="myImage.jpg" order="{{:order}}" image_type="{{:obj.image_type}}" href="#" onclick="download_canvas_img(this);"><i class="mdi mdi-download"></i></a>
+                    <button type="button" class="btn btn-secondary cropImage"  type="button" order="{{:order}}" data-img="{{:obj.image_url}}" image_type="{{:obj.image_type}}" onclick="javascript:imageInit(this)"><i class="mdi mdi-refresh"></i></button>
+                    <button type="button" class="btn btn-secondary trashImage"  type="button" order="{{:order}}" data-img="{{:obj.image_url}}" image_type="{{:obj.image_type}}" onclick="javascript:deleteCanvas(this)"><i class="ti-trash"></i></button>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <!-- GIF 아이템용 템플릿 -->
+    <script id="item-gif-preview" type="text/x-jsrender">
+        <div class="col-lg-6 col-xl-4 js-drag mb-3 canvas_item_row">
+            <div class="videoBox col-12">
+                <div class="videoBox_gif" id="{{:obj.image_type}}_gif_{{:order}}" style="background-image: url({{:obj.image_url}})"></div>
+            </div>
+            <div class="mt-1">
+                <button class="deleteCanvas trashImage" type="button" order="{{:order}}" data-img="{{:obj.image_url}}" image_type="{{:obj.image_type}}" sub_type="gif" onclick="deleteCanvas(this);">DELETE</button>
+                <button class="cropImage" type="button" order="{{:order}}" data-img="{{:obj.image_url}}" image_type="{{:obj.image_type}}" sub_type="gif" onclick="javascript:setListImage(this)">목록 이미지 지정</button>
+            </div>
+        </div>
+    </script>
+
+    <!-- MP4 아이템용 템플릿 -->
+    <script id="item-mp4-preview" type="text/x-jsrender">
+        <div class="col-lg-6 col-xl-4 js-drag mb-3 canvas_item_row">
+            <div class="videoBox col-12">
+                <video class="videoBox_mp4" src="{{:obj.image_url}}" id="{{:obj.image_type}}mp4{{:order}}" controls autoplay loop></video>
+            </div>
+            <div class="mt-1">
+                <button type="button trashImage" order="{{:order}}" data-img="{{:obj.image_url}}" image_type="{{:obj.image_type}}" sub_type="mp4" class="deleteCanvas" onclick="deleteCanvas(this);">DELETE</button>
+            </div>
+        </div>
+    </script>
+
+    <!-- 옷감 확인용 템플릿 -->
+    <script id="item-check-preview" type="text/x-jsrender">
+        <div class="checkInfoPreview col-12 py-2">
+            <div class="d-flex align-items-center">
+                <div class="checkInfoPreviewTitle font-weight-bold align-items-center mr-4">{{:checkInfoTitle}}</div>
+                {{:checkInfoList}}
+                <button class="checkInfoPreviewBtn btn btn-sm ml-auto" onclick="removeCheckInfo(this, {{:index}});">삭제</button>
+            </div>
+        </div>
+    </script>
+
+    <!-- 모델 확인용 템플릿 -->
+    <script id="item-model-preview" type="text/x-jsrender">
+        <div class="col-md-3 mb-3">
+            <div class="modelProfile">
+                <div class="modelProfile_img img-thumbnail img-responsive mb-1" style="background-image: url({{:src}});"><div>
+                <div class="modelProfile_text h6 text-light">
+                    NAME : {{:model_name}}<br>
+                    AGE : {{:age}}<br>
+                    HEIGHT : {{:height}}<br>
+                    TOP : {{:top}}<br>
+                    BOTTOM : {{:bottom}}
+                </div>
+                <button class="btn h6 btn-sm text-light absolute right top" type="button" onclick="removeModel(this, {{:index}});">
+                    삭제
+                </button>
+            </div>
+        </div>
+    </script>
+
+    <!-- 캔버스 아이템 확인용 템플릿 -->
+    <script id="item-canvas-preview" type="text/x-jsrender">
+        <div class="col-lg-6 col-xl-4 js-drag mb-3 canvas_item_row">
+            <div class="col-12">
+                <div class="canvas-containerBox">
+                    <canvas class="canvas_item" id="{{:obj.image_type}}_canvas_{{:order}}"></canvas>
+                </div>
+                <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group" role="group" aria-label="First group" style="width:100%;">
+                        <button type="button" class="btn btn-secondary cropImage" order="{{:order}}" data-img="{{:obj.image_url}}" image_type="{{:obj.image_type}}" onclick="javascript:showCropPop({{:order}}, this,1/1)"><i class="mdi mdi-crop"></i></button>
+                        <button type="button" class="btn btn-secondary rotateRight" order="{{:order}}" onclick="rotate(this, -2.5)" image_type="{{:obj.image_type}}"><i class="mdi mdi-rotate-right"></i></button>
+                        <button type="button" class="btn btn-secondary rotateLeft" order="{{:order}}" image_type="{{:obj.image_type}}" onclick="rotate(this, 2.5)"><i class="mdi mdi-rotate-left"></i></button>
+                        <a class="btn btn-secondary" id="download" download="myImage.jpg" order="{{:order}}" image_type="{{:obj.image_type}}" href="#" onclick="download_canvas_img(this);"><i class="mdi mdi-download"></i></a>
+                        <button type="button" class="btn btn-secondary cropImage"  type="button" order="{{:order}}" data-img="{{:obj.image_url}}" image_type="{{:obj.image_type}}" onclick="javascript:imageInit(this)"><i class="mdi mdi-refresh"></i></button>
+                        <button type="button" class="btn btn-secondary trashImage"  type="button" order="{{:order}}" data-img="{{:obj.image_url}}" image_type="{{:obj.image_type}}" onclick="javascript:deleteCanvas(this)"><i class="ti-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 d-flex justify-content-end">
+                <button type="button" order="{{:order}}" data-img="{{:obj.image_url}}" image_type="{{:obj.image_type}}" class="cropImage btn btn-sm" onclick="javascript:setListImage(this)">목록 이미지 지정</button><br>
+            </div>
+        </div>
+    </script>
+
+<!-- //수정 영역 -->
+
+<!-- 템플릿 영역 -->
+
+    <!-- 사이즈 템플릿 -->
+    <script id="item-size" type="text/x-jsrender">
+        <div class="sizeInfo">
+            <div class="sizeInfo_left" style="display: none;">
+                <img class="sizeInfo_leftImg" src="https://nextdop.s3.ap-northeast-2.amazonaws.com/default_top.png" alt="">
+            </div>
+            <div class="sizeInfo_right">
+                <p class="sizeInfo_tableInfo">(단위: cm/단면)</p>
+                <div class="sizeInfo_table" id="sizeInfo_table"></div>
+                <div class="sizeInfo_desc">
+                    <p>
+                        - 위의 실측 사이즈는 '단면의 길이'입니다. 참고해 주세요.
+                        <br>
+                        - 사이즈는 측정 방법에 따라 1~3cm 정도
+                        <br>  오차가 있을 수 있습니다.
+                        <br>
+                        - 제품 색상은 사용자의 모니터의 해상도에 따라
+                        <br>  실제 색상과 다소 차이가 있을 수 있습니다.
+                        <br>
+                        - 제품 컷의 색상이 실제 제품 색상과 가장 비슷합니다.
+                        <br>
+                        - 데님 혹은 어두운 컬러의 경우 물빠짐이 있을 수 있습니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <!-- 옷감 템플릿 -->
+    <script id="item-check" type="text/x-jsrender">
+        <div class="checkInfo">
+            <div class="checkInfo_title">{{:category}}</div>
+            <div class="checkInfo_itemBox">
+                {{:attribute}}
+            </div>
+        </div>
+    </script>
+
+    <!-- 모델 템플릿 -->
+    <script id="item-model" type="text/x-jsrender">
+        <div class="modelInfo">
+            <div class="modelInfo_photo" style="background-image: url({{:profile_image}})"></div>
+            <div class="modelInfo_name">
+                <div class="modelInfo_title">{{:model_name}}</div>
+            </div>
+            <div class="modelInfo_info">
+                <div class="modelInfo_list">
+                    <div class="modelInfo_title">AGE</div>
+                    <div class="modelInfo_text">{{:age}}</div>
+                </div>
+                <div class="modelInfo_list">
+                    <div class="modelInfo_title">HEIGHT</div>
+                    <div class="modelInfo_text">{{:height}}</div>
+                </div>
+                <div class="modelInfo_list">
+                    <div class="modelInfo_title">TOP</div>
+                    <div class="modelInfo_text">{{:top}}</div>
+                </div>
+                <div class="modelInfo_list">
+                    <div class="modelInfo_title">BOTTOM</div>
+                    <div class="modelInfo_text">{{:bottom}}</div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+<!-- //템플릿 영역 -->

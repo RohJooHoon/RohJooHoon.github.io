@@ -1,0 +1,282 @@
+<link href="/css/detailNormal.css" rel="stylesheet" type="text/css">
+<link href="/css/form.css" rel="stylesheet" type="text/css">
+<link href="/css/mallBody.css" rel="stylesheet" type="text/css">
+<style>
+
+  .categoryViewBox_Logo img {
+    object-fit: cover;
+    vertical-align: center;
+  }
+
+  .categoryViewBox_detail .input-groupWrapBody {
+    padding: 20px;
+    border: none;
+  }
+
+</style>
+
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col">
+            <h2 class="page-title text-dark">쿠폰 등록</h2>
+        </div>
+    </div>
+</div>
+
+<!-- 페이지 컨텐츠 -->
+<form class="container-fluid" enctype="multipart/form-data" method="post" id="insertForm">
+
+    <!-- 상세 템플릿 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-header py-2">
+                    <div class="row">
+                        <div class="col py-1">
+                            <h5 class="font-weight-bold mb-1">키위스냅 쿠폰 등록</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="">쿠폰이름<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="coupon_name" type="text" name="coupon_name" data-alram="이름">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="coupon_desc">쿠폰설명</label>
+                        </div>
+                        <input class="form-control" id="coupon_desc" type="text" name="coupon_desc">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="coupon_type">적용상품<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="couponProduct" id="couponProduct01" value="MEMBERSHIP"
+                                       checked>
+                                <label class="form-check-label" for="coupon_type01">멤버십</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="couponProduct" id="couponProduct02" value="CREDIT">
+                                <label class="form-check-label" for="coupon_type02">크레딧</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="coupon_type">쿠폰 타입<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="coupon_type" id="coupon_type01" value="ISSUE"
+                                       checked>
+                                <label class="form-check-label" for="coupon_type01">발행쿠폰</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="coupon_type" id="coupon_type02" value="CODE">
+                                <label class="form-check-label" for="coupon_type02">코드쿠폰</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="coupon_code_type">쿠폰코드 발행타입</label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="coupon_code_type" id="coupon_code_type01" value="ONE"
+                                       checked>
+                                <label class="form-check-label" for="coupon_code_type01">단일쿠폰</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="coupon_code_type" id="coupon_code_type02" value="MANY">
+                                <label class="form-check-label" for="coupon_code_type02">여러쿠폰</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="discount_type">할인 타입</label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="discount_type" id="discount_type01" value="FIX" checked>
+                                <label class="form-check-label" for="expiry_type01">정액 할인</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="discount_type" id="discount_type02" value="RATIO">
+                                <label class="form-check-label" for="expiry_type02">정률 할인</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="max_discount_price">최대 할인 금액<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="max_discount_price" type=text name="max_discount_price"
+                               data-alram="최대 할인 금액" onkeyup="onlyNuMFun($(this))">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="discount_value">할인율/할인금액<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="discount_value" type=text name="discount_value" data-alram="할인율/할인금액"
+                               onkeyup="onlyNuMFun($(this))">
+                    </div>
+<!--                    <div class="input-group mb-3">-->
+<!--                        <div class="input-group-prepend">-->
+<!--                            <label class="input-group-text" for="discount_range">할인 범위</label>-->
+<!--                        </div>-->
+<!--                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">-->
+<!--                            <div class="form-check form-check-inline">-->
+<!--                                <input class="form-check-input" type="radio" name="discount_range" id="discount_range01" value="TOTAL"-->
+<!--                                       checked>-->
+<!--                                <label class="form-check-label" for="discount_range01">전체금액</label>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="issue_count">최대 발행 횟수<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="issue_count" type=text name="issue_count" data-alram="최대 발행 횟수"
+                               onkeyup="onlyNuMFun($(this))">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="expiry_type">만료 타입</label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="expiry_type" id="expiry_type01" value="ISSUEDATE"
+                                       checked>
+                                <label class="form-check-label" for="expiry_type01">발행일로부터</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="expiry_type" id="expiry_type02" value="FIXDATE">
+                                <label class="form-check-label" for="expiry_type02">정해진날까지</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="expiry_date">만료일</label>
+                        </div>
+                        <input class="form-control" id="expiry_date" type="date" name="expiry_date" data-alram="쿠폰 만료일">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="expiry_term">쿠폰 만료기간</label>
+                        </div>
+                        <input class="form-control" id="expiry_term" type="text" name="expiry_term" onkeyup="onlyNuMFun($(this))">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="precautions">주의사항</label>
+                        </div>
+                        <textarea id="precautions" name="precautions" rows="10" cols="150"></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="btn btn-success float-right" onclick="createCoupon()">쿠폰 등록</button>
+                        <button type="button" class="btn btn-success float-right" onclick='location.href = "/view/coupon/list"'>목록으로
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //상세 템플릿 -->
+</form>
+
+<script type="text/javascript">
+
+  function createCoupon() {
+
+    if (ValidationInputData()) {
+
+      const couponProductList = [];
+      const obj = {};
+      obj.product_type = $("input:radio[name='couponProduct']:checked").val();
+      couponProductList.push(obj);
+
+      let sendData = {
+        coupon_name: $("#coupon_name").val(),
+        discount_type: $("input:radio[name='discount_type']:checked").val(),
+        max_discount_price: $("#max_discount_price").val(),
+        discount_value: $("#discount_value").val(),
+        // discount_range: $("input:radio[name='discount_range']:checked").val(),
+        discount_range : "TOTAL",
+        issue_count: $("#issue_count").val(),
+        expiry_type: $("input:radio[name='expiry_type']:checked").val(),
+        expiry_date: $("#expiry_date").val(),
+        expiry_term: $("#expiry_term").val(),
+        coupon_desc: $("#coupon_desc").val(),
+        coupon_type: $("input:radio[name='coupon_type']:checked").val(),
+        coupon_code_type: $("input:radio[name='coupon_code_type']:checked").val(),
+        precautions: $("#precautions").val(),
+        coupon_product_list: couponProductList
+      }
+
+      if (sendData.expiry_type == 'ISSUEDATE') {
+        if (sendData.expiry_term == '') {
+          alert('쿠폰 만료기간을 입력해주세요.');
+          return false;
+        }
+        sendData.expiry_date = null;
+      }
+
+      if (sendData.expiry_type == 'FIXDATE') {
+        if (sendData.expiry_date == '') {
+          alert('쿠폰 만료일을 입력해주세요.');
+          return false;
+        }
+        sendData.expiry_term = null;
+      }
+
+      $.ajax({
+        type: "POST",
+        url: `${admin_api_url}/coupon/`,
+        data: JSON.stringify(sendData),
+        contentType: "application/json; charset=utf-8",
+        success: function (response) {
+          alert("쿠폰 등록에 성공했습니다.");
+          location.href = "/view/coupon/list";
+        },
+        error: function (error) {
+          alert("쿠폰 등록에 실패했습니다. 관리자에게 연락주세요.");
+        }
+      });
+
+    }
+  }
+
+  function ValidationInputData() {
+
+    const $is_impotent = $(".is_impotent");
+    for (let i = 0; i < $is_impotent.length; i++) {
+      let $target = $is_impotent.eq(i);
+      if ($target.is('input, textarea')) {
+        if (!$target.val()) {
+          let $alarmText = $target.attr('data-alram');
+          alert($alarmText + "을(를) 입력해주세요.");
+          $target.focus();
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  function onlyNuMFun($this) {
+
+    let num = $this.val().replace(/[^0-9]/g, "");
+    $this.val(num);
+  }
+
+</script>

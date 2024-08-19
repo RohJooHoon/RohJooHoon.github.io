@@ -1,0 +1,135 @@
+<link href="/css/detailNormal.css" rel="stylesheet" type="text/css">
+<link href="/css/form.css" rel="stylesheet" type="text/css">
+<link href="/css/mallBody.css" rel="stylesheet" type="text/css">
+<style>
+    .categoryViewBox_Logo img {
+        object-fit: cover;
+        vertical-align: center;
+    }
+</style>
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col">
+            <h2 class="page-title text-dark">도매 업체 등록</h2>
+        </div>
+        <div class="col-auto">
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠 -->
+<form class="container-fluid" method="post" id="insertForm">
+
+    <!-- 상세 템플릿 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-header py-2">
+                    <div class="row">
+                        <div class="col py-1">
+                            <h5 class="font-weight-bold mb-1">등록 화면</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="unit_type">도매처명<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="wholesale_name" type="text"
+                               name="wholesale_name" placeholder="도매처명을 입력해주세요" data-alram="도매처명">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="store">상점<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="store" type="text"
+                               name="store" placeholder="제목을 입력해주세요" data-alram="제목">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="floor">층<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="floor" type="text"
+                               name="floor" placeholder="층을 입력해주세요" data-alram="층">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="number">호수<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="number" type="text"
+                               name="number" placeholder="호수를 입력해주세요" data-alram="호수">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="order_phone1">번호<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="order_phone1" type="text"
+                               name="order_phone1" placeholder="번호를 입력해주세요" data-alram="번호">
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-success float-right"
+                                onclick="create()">등록하기
+                        </button>
+                        <button type="button" class="btn btn-success float-right"
+                                onclick="list()">목록으로
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //등록 템플릿 -->
+</form>
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<!-- include summernote css/js -->
+<script type="text/javascript">
+
+    // 글 등록
+    function create() {
+        if (inputImpotent()) {
+            const sendData = {
+                wholesale_name: $("#wholesale_name").val(),
+                store: $("#store").val(),
+                floor: $("#floor").val(),
+                number: $("#number").val(),
+                order_phone1: $("#order_phone1").val(),
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: `${denma_api_url}/api/wholesale/company`,
+                data: sendData,
+                success: function () {
+                    alert('정상적으로 등록되었습니다.리스트로 이동합니다.');
+                    list();
+                },
+                error: function (error) {
+                    console.log('error :: ', error);
+                }
+            });
+        }
+    }
+
+
+    // 리스트로 이동.
+    function list() {
+        location.href = '/view/wholesale/company/list';
+    }
+
+
+</script>

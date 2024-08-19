@@ -1,0 +1,231 @@
+<link href="/css/detailNormal.css" rel="stylesheet" type="text/css">
+<link href="/css/form.css" rel="stylesheet" type="text/css">
+<link href="/css/mallBody.css" rel="stylesheet" type="text/css">
+<style>
+    .categoryViewBox_Logo img {
+        object-fit: cover;
+        vertical-align: center;
+    }
+</style>
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col">
+            <h2 class="page-title text-dark">배너 등록</h2>
+        </div>
+        <div class="col-auto">
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠 -->
+<form class="container-fluid" method="post" id="insertForm">
+
+    <!-- 상세 템플릿 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-header py-2">
+                    <div class="row">
+                        <div class="col py-1">
+                            <h5 class="font-weight-bold mb-1">등록 화면</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="unit_type">배너명<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="title" type="text"
+                               name="title" placeholder="배너명을 입력해주세요" data-alram="배너명">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="store">배너설명<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="description" type="text"
+                               name="description" placeholder="배너설명 입력해주세요" data-alram="배너설명">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="floor">위치<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_full">
+                            <select class="custom-select" name="location" id="location">
+                                <option value="DASHBOARD">대시보드</option>
+                                <option value="MALL">연동몰</option>
+                                <option value="PRODUCT_LIST">상품리스트</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 mb-2">
+                        <img class="img-thumbnail img-responsive mb-1" alt="" id="banner_img" src="/img/no_image.png" style="width: 400px;">
+                        <input type="hidden" class="is_impotent" id="image_url" name="image_url" data-alram="이미지 url">
+                        <div class="custom-file">
+                            <input class="custom-file-input" id="banner_image" type="file" accept="image/jpeg, image/png, image/jpg" name="banner_image" onchange="changeImage(event);">
+                            <label class="custom-file-label" for="inputGroupFile01" data-content="업로드">선택된 파일 없음</label>
+                        </div>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="order_phone1">link<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="link" type="text"
+                               name="link" placeholder="링크를 입력해주세요" data-alram="링크">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="order_phone1">우선순위<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="banner_order" type="text"
+                               name="banner_order" placeholder="우선순위를 입력해주세요" data-alram="우선순위">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="order_phone1">시작일(20230102)<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="start_date" type="text"
+                               name="start_date" placeholder="시작일 입력해주세요(20230102)" data-alram="시작일">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="order_phone1">종료일(20230102)<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="end_date" type="text"
+                               name="end_date" placeholder="종료일 입력해주세요(20230102)" data-alram="종료일">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="order_phone1">활성여부<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_full">
+                            <select class="custom-select" name="use_flag" id="use_flag">
+                                <option value="Y">활성</option>
+                                <option value="N">비활성</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-success float-right"
+                                onclick="create()">등록하기
+                        </button>
+                        <button type="button" class="btn btn-success float-right"
+                                onclick="list()">목록으로
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //등록 템플릿 -->
+</form>
+<!--스크립트-->
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+<script>
+    var bucketName = 'nextdop';
+    var bucketRegion = 'ap-northeast-2';
+    var IdentityPoolId = 'ap-northeast-2:7bac1f23-f1be-435c-887b-db3889ab1e13';
+
+    AWS.config.update({
+        region: bucketRegion,
+        credentials: new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: IdentityPoolId
+        })
+    });
+
+    var s3 = new AWS.S3({
+        apiVersion: '2006-03-01',
+        params: {Bucket: bucketName}
+    });
+</script>
+<script type="text/javascript">
+
+    // 글 등록
+    function create() {
+        if (inputImpotent()) {
+            const sendData = {
+                title: $("#title").val(),
+                description: $("#description").val(),
+                location: $("#location").val(),
+                image_url: $("#image_url").val(),
+                link: $("#link").val(),
+                banner_order: $("#banner_order").val(),
+                start_date: $("#start_date").val(),
+                end_date: $("#end_date").val(),
+                use_flag: $("#use_flag").val(),
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: `${denma_api_url}/api/banner`,
+                data: sendData,
+                success: function () {
+                    alert('정상적으로 등록되었습니다.리스트로 이동합니다.');
+                    list();
+                },
+                error: function (error) {
+                    console.log('error :: ', error);
+                }
+            });
+        }
+    }
+
+
+    // 리스트로 이동.
+    function list() {
+        location.href = '/view/banner/list';
+    }
+
+
+    // 업로드시마다 해당 사진의 정보를 s3에 업로드하고 미리보기로 보여준다.
+    function changeImage(event) {
+        const files = event.target.files;
+        for(let file of files) {
+            const reader = new FileReader;
+            reader.onload = function (event) {
+                const file_name = getTimeStamp() + '_' + getRandomStr(3) + '.jpg';
+                let params = {
+                    Key: `images/banner/${file_name}`,
+                    Body: file,
+                    ACL: 'public-read',
+                    ContentType: getContentType("jpg"),
+                };
+                let options = {partSize: 10 * 1024 * 1024, queueSize: 1};
+                s3.upload(params, options).on('httpUploadProgress', function (event) {
+                    console.log("Uploaded :: " + parseInt((event.loaded * 100) / event.total)+'%');
+                }).send(function (error, uploadData) {
+                    if(!error) {
+                        showAlert('이미지 업로드 완료');
+                        $("#banner_img").attr('src', uploadData.Location);
+                        $("#image_url").val(uploadData.Location);
+                    }else {
+                        console.log("error : ", error);
+                        showAlert('이미지 업로드중 오류가 발생했습니다. 다시 시도해주세요.');
+                    }
+                });
+            }
+            reader.readAsDataURL(file);
+        }
+        $("#banner_image").val('');
+    }
+
+</script>

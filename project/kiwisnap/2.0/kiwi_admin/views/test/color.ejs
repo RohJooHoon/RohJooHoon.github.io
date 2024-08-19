@@ -1,0 +1,267 @@
+
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.0/fabric.min.js"></script>
+<!-- include summernote css/js -->
+<link href="/vendor/bootstrap-treeview.min.css" rel="stylesheet">
+<script src="/vendor/bootstrap-treeview.js"></script>
+<script type="text/javascript" src="/CamanJS-master/dist/caman.full.js"></script>
+<script src="/js/Vibrant.js"></script>
+
+<style>
+
+</style>
+
+
+
+<script>
+
+</script>
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+
+
+    <div class="row" id="imgs">
+        <div class="col-lg-3" id="">
+            <div class="card shadow mb-4"  id="image_div">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">이미지</h6>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <img class="img-fluid img-item-tag px-3 px-sm-4 mt-3 mb-4" src="http://vinclo.co.kr/web/upload/NNEditor/20201124/9e08c677de1548f892659b920410f12e.jpg"/>
+                    </div>
+                    <button class="btn btn-success col-12" type="button" onclick="javascript:getColor(this);">
+                        색상추출
+                    </button>
+                    <div class="color row">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3" id="">
+            <div class="card shadow mb-4"  id="image_div">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">이미지</h6>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <img class="img-fluid img-item-tag px-3 px-sm-4 mt-3 mb-4" src="http://vinclo.co.kr/web/upload/NNEditor/20201211/f6647c82857d51d2b732daa789342212.jpg"/>
+                    </div>
+                    <button class="btn btn-success col-12" type="button" onclick="javascript:getColor(this);">
+                        색상추출
+                    </button>
+                    <div class="color row">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3" id="">
+            <div class="card shadow mb-4"  id="image_div">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">이미지</h6>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <img class="img-fluid img-item-tag px-3 px-sm-4 mt-3 mb-4" src="http://vinclo.co.kr/web/upload/NNEditor/20201211/d3154a146452e1015c945fc002c63064.jpg"/>
+                    </div>
+                    <button class="btn btn-success col-12" type="button" onclick="javascript:getColor(this);">
+                        색상추출
+                    </button>
+                    <div class="color row">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3" id="">
+            <div class="card shadow mb-4"  id="image_div">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">이미지</h6>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <img class="img-fluid img-item-tag px-3 px-sm-4 mt-3 mb-4" src="http://vinclo.co.kr/web/upload/NNEditor/20201211/97f48433be5d905a94a2f4883194be63.jpg"/>
+                    </div>
+                    <button class="btn btn-success col-12" type="button" onclick="javascript:getColor(this);">
+                        색상추출
+                    </button>
+                    <div class="color row">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-3" id="">
+            <div class="card shadow mb-4"  id="image_div">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">이미지</h6>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <img class="img-fluid img-item-tag px-3 px-sm-4 mt-3 mb-4" src="https://nextdop.s3.ap-northeast-2.amazonaws.com/test/color/color1.png"/>
+                    </div>
+                    <button class="btn btn-success col-12" type="button" onclick="javascript:getColor(this);">
+                        색상추출
+                    </button>
+                    <div class="color row">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3" id="">
+            <div class="card shadow mb-4"  id="image_div">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">이미지</h6>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <img class="img-fluid img-item-tag px-3 px-sm-4 mt-3 mb-4" src="https://nextdop.s3.ap-northeast-2.amazonaws.com/test/color/color2.png"/>
+                    </div>
+                    <button class="btn btn-success col-12" type="button" onclick="javascript:getColor(this);">
+                        색상추출
+                    </button>
+                    <div class="color row">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3" id="">
+            <div class="card shadow mb-4"  id="image_div">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">이미지</h6>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <img class="img-fluid img-item-tag px-3 px-sm-4 mt-3 mb-4" src="https://nextdop.s3.ap-northeast-2.amazonaws.com/test/color/color3.png"/>
+                    </div>
+                    <button class="btn btn-success col-12" type="button" onclick="javascript:getColor(this);">
+                        색상추출
+                    </button>
+                    <div class="color row">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+    <div class="row">
+        이미지 url : <input type="" size="100" id="image_url">
+        <button class="btn btn-success col-12" type="button" onclick="javascript:setImage();">
+            이미지 추가 & 색상추출
+        </button>
+
+    </div>
+</div>
+
+
+
+<!-- /.container-fluid -->
+
+<!-- End of Main Content -->
+
+<script type="text/javascript">
+
+
+    /*
+      초기 로딩
+    */
+    $(document).ready(function () {
+
+
+    });
+
+    function getColor(btn){
+        var dataMap = {
+            "image_url" : $(btn).parent().find('.img-item-tag').eq(0).attr('src')
+        }
+
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            data : dataMap,
+            url : `/product/getColor`,
+            success : function(response) {
+                console.log("response: ", response);
+                $(btn).parent().find('.color').append(`<span class="" style="background-color: ${response.hex}; width:30px; height:30px; margin-left: 10px;"></span>&nbsp;&nbsp;<span>${response.color_name_kr}</span>`)
+
+            },
+            error : function(error) {
+                console.log("error:", error);
+            }
+        });
+    }
+
+
+    function setImage(){
+        var image_url = $('#image_url').val();
+        var tag = `<div class="col-lg-3" id="">
+            <div class="card shadow mb-4"  id="image_div">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">이미지</h6>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <img class="img-fluid img-item-tag px-3 px-sm-4 mt-3 mb-4" src="${image_url}"/>
+                    </div>
+                    <button class="btn btn-success col-12" type="button" onclick="javascript:getColor(this);">
+                        색상추출
+                    </button>
+                    <div class="color row">
+                    </div>
+
+                </div>
+            </div>
+        </div>`;
+
+        $('#imgs').append(tag);
+
+
+        // var dataMap = {
+        //     "image_url" : $(btn).parent().find('.img-item-tag').eq(0).attr('src')
+        // }
+        //
+        // $.ajax({
+        //     type: "GET",
+        //     dataType: "json",
+        //     data : dataMap,
+        //     url : `/product/getColor`,
+        //     success : function(response) {
+        //         console.log("response: ", response);
+        //         $(btn).parent().find('.color').append(`<span class="" style="background-color: ${response.hex}; width:30px; height:30px; margin-left: 10px;"></span>&nbsp;&nbsp;<span>${response.color_name_kr}</span>`)
+        //
+        //     },
+        //     error : function(error) {
+        //         console.log("error:", error);
+        //     }
+        // });
+    }
+
+</script>
+
+
+
+<!-- IMGS -->
+<script id="img-item" type="text/x-jsrender">
+
+</script>

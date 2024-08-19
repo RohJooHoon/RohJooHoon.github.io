@@ -1,0 +1,341 @@
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col">
+            <h2 class="page-title text-dark">추천인 이벤트 관리</h2>
+        </div>
+        <div class="col-auto">
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠 -->
+<form class="container-fluid" enctype="multipart/form-data" method="post" id="insertForm">
+
+    <!-- 상세 템플릿 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-header py-2">
+                    <div class="row">
+                        <div class="col py-1">
+                            <h5 class="font-weight-bold mb-1">추천인 이벤트 관리</h5>
+                            <h6 class="m-0">추천인 이벤트 등록 및 관리</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="registeredEventList">등록된 이벤트 목록</label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_full">
+                            <select class="custom-select" name="registeredEventList" id="registeredEventList">
+                                <option value="">선택하세요</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="referrer_code">추천인<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="referrer_code" type="text" name="referrerEventData" placeholder="추천인 코드">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="referrerEventType">타입<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_full">
+                            <select class="custom-select" name="referrerEventData" id="referrer_event_type">
+                                <option value="">선택하세요</option>
+                            </select>
+                        </div>
+                    </div>
+<!--                    <div class="input-group mb-3">-->
+<!--                        <div class="input-group-prepend">-->
+<!--                            <label class="input-group-text" for="filter_name">상태<span class="text-danger ml-05">*</span></label>-->
+<!--                        </div>-->
+<!--                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">-->
+<!--                            <div class="form-check form-check-inline">-->
+<!--                                <input class="form-check-input" type="radio" name="status" id="status_01" value="01" checked>-->
+<!--                                <label class="form-check-label" for="status_01">활성</label>-->
+<!--                            </div>-->
+<!--                            <div class="form-check form-check-inline">-->
+<!--                                <input class="form-check-input" type="radio" name="status" id="status_02" value="99">-->
+<!--                                <label class="form-check-label" for="status_02">비활성</label>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" >이벤트 시작<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="start_date" type="date" name="referrerEventData">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text">이벤트 종료<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="end_date" type="date" name="referrerEventData">
+                    </div>
+                    <div id="eventDataInputForm">
+
+                    </div>
+                    <div class="button-group">
+                        <button type="button" id="apiCallBtn" class="btn btn-success float-right" onclick="createReferrerEvent()">등록하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //상세 템플릿 -->
+</form>
+<script type="text/javascript">
+
+    let typeData;
+    let events;
+    // {
+    //     "referrer_event_seq": 8,
+    //     "referrer_event_type": "MEMBERSHIP_EVENT",
+    //     "referrer_code": "156ahy7LS",
+    //     "usage_count": 11,
+    //     "start_date": "2021-12-29 00:00:00",
+    //     "end_date": "2022-03-29 00:00:00",
+    //     "mem_id": "devkiwi@kiwisnap.net",
+    //     "client_id": "devkiwi",
+    //     "mem_no": 156
+    // }
+
+    function settingData() {
+        let eventData = kiwiApiAjax('get','/member/referrer/event/list',null,false);
+        console.log("eventList : ", eventData)
+        typeData = setTypeData(eventData.get('eventTypes'))
+        events = eventData.get('events');
+        console.log("typeData : ", typeData)
+        eventTypeSelectHtmlFactory(eventData.get('eventTypes'))
+        registeredEventHtmlFactory(eventData.get('events'))
+
+    }
+    function setTypeData(types) {
+        let map = new Map;
+        for (const type of types) {
+            map.set(type.name,type.comment)
+            map.set((type.name)+'_Field',type.eventField)
+        }
+        return map;
+    }
+
+    function eventTypeSelectHtmlFactory(types) {
+        for (const type of types) {
+            $('#referrer_event_type').append(`<option value="${type.name}">${type.comment}</option>`)
+        }
+
+    }
+    function registeredEventHtmlFactory(types) {
+        for (const type of types) {
+            $('#registeredEventList').append(`<option value="${type.referrer_event_seq}" data-type=${type.referrer_event_type}>${type.mem_id}(${typeData.get(type.referrer_event_type)} / 추천인 코드 : ${type.referrer_code})</option>`)
+        }
+    }
+    function eventFindBySeq(seq){
+        for (let event of events) {
+            if (parseInt(event.referrer_event_seq) === parseInt(seq))
+                return event;
+        }
+    }
+
+    function eventInputHtmlFactory(key, value) {
+        let inputType = 'text';
+        if(typeof value === 'number'){
+            inputType = 'number'
+        }
+
+        //cuntom
+        if (key === 'referrer_event_membership_code'){
+            let membershipInfo = kiwiApiAjax('get','/membership/list',null,false);
+            let html = `<div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                            <label class="input-group-text" for="referrerEventType">${eventFiledNameToKor(key)}<span class="text-danger ml-05">*</span></label>
+                        </div>
+                <div class="input-groupWrapBody listContentsFormGroup_inputBD is_full">
+                <select class="custom-select" name="referrerEventData" id="${key}">
+                    <option value="">선택하세요</option>`
+
+            console.log("membershipInfo : ", membershipInfo);
+            for (const membership of membershipInfo) {
+                html+=`<option value="${membership.get("membership_code")}">${membership.get("membership_name")}</option>`
+            }
+             html +=  `</select>
+            </div>
+            </div>`
+            return html;
+        }
+
+
+        return  `<div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text">${eventFiledNameToKor(key)}<span class="text-danger ml-05">*</span></label>
+            </div>
+            <input class="form-control is_impotent" id="${key}" type="${inputType}" name="referrerEventData">
+        </div>`;
+    }
+
+    function eventFiledNameToKor(key){
+        let name = new Map([
+            ["referrer_event_membership_code","멤버십 코드"],
+            ["plus_package_month","추가 개월 수"]
+        ])
+
+        return isEmpty(name.get(key)) ? key : name.get(key);
+    }
+
+    function settingEventTypeData(event_type) {
+        let eventInputForm = $('#eventDataInputForm');
+        eventInputForm.empty();
+        if (isEmpty(event_type))
+            return;
+
+
+        let fieldJson = JSON.parse(typeData.get(event_type+ '_Field'));
+        let keys = Object.keys(fieldJson);
+        for (let key of keys) {
+            eventInputForm.append(eventInputHtmlFactory(key,fieldJson[key]))
+        }
+    }
+
+    $('#referrer_event_type').on('change', function() {
+        console.log("select : ", this.value)
+        settingEventTypeData(this.value);
+    });
+
+
+    $('#registeredEventList').on('change', function() {
+        if (isEmpty(this.value)){
+            $("#referrer_event_type").val("").prop("selected", true);
+            $('#eventDataInputForm').empty();
+            $('#apiCallBtn').attr('onclick', 'createReferrerEvent()');
+            $('#apiCallBtn').text('등록하기');
+            let data = $('[name=referrerEventData]');
+            for (const datum of data) {
+                $(datum).val('')
+            }
+        }else {
+
+            let data;
+            for (const event of events) {
+                if (parseInt(event.referrer_event_seq) === parseInt(this.value)) {
+                    data = kiwiApiAjax('get','/member/referrer/event/'+this.value,{referrer_event_type:event.referrer_event_type},false).get('result');
+                }
+            }
+            console.log('data', data)
+            $("#referrer_event_type").val(data.referrer_event_type).prop("selected", true);
+            settingEventTypeData(data.referrer_event_type);
+
+            $('#apiCallBtn').attr('onclick', 'updateReferrerEvent(' + this.value + ')');
+            $('#apiCallBtn').text('수정하기');
+
+            let keys = Object.keys(data);
+            let dateField = ['start_date','end_date']
+            for (const key of keys) {
+                console.log("key : ", key)
+                console.log("value : ", data[key])
+                if (dateField.includes(key)){
+                    $('#'+key).val(data[key].split('T')[0])
+                }else{
+                    $('#'+key).val(data[key])
+                }
+            }
+        }
+    });
+
+
+    $(document).ready(function () {
+        settingData();
+    });
+
+    function referrerEventDataFactory() {
+        let data = $('[name=referrerEventData]');
+        console.log(data)
+        let referrerEventDataKey = ['referrer_event_type', 'referrer_code', 'start_date', 'end_date'];
+        let referrerEventData = {
+            eventData: {}
+        };
+
+        for (const eventData of data) {
+            let value = $(eventData).val();
+            let key = $(eventData).attr('id')
+            if ($(eventData).attr('type') === 'date') {
+                value = value + ' 00:00:00'
+            }
+            console.log("eventData : ", value, key)
+            if (referrerEventDataKey.includes(key)) {
+                if (isEmpty(value)){
+                    alert("필수값을 입력하여주세요.")
+                }
+                referrerEventData[key] = value
+            } else {
+                referrerEventData.eventData[key] =value;
+            }
+
+        }
+
+        console.log("referrerEventData : ", referrerEventData)
+        return referrerEventData;
+    }
+
+    function createReferrerEvent(){
+        let sendFlag = true
+        let data = $('[name=referrerEventData]');
+        let referrerEventDataKey = ['referrer_event_type', 'referrer_code', 'start_date', 'end_date'];
+        for (const eventData of data) {
+            let value = $(eventData).val();
+            let key = $(eventData).attr('id')
+            if (referrerEventDataKey.includes(key)) {
+                if (isEmpty(value)){
+                    alert("필수값을 입력하여주세요.")
+                    sendFlag = false;
+                }
+            }
+        }
+
+        if (!sendFlag){
+            return false;
+        }
+
+        let referrerEventData = referrerEventDataFactory();
+        let response = kiwiApiAjax('post','/member/referrer/event',referrerEventData,false);
+        if (response.get('error')){
+            alert(response.get('error_msg'))
+        }else{
+            location.reload();
+        }
+    }
+
+    function updateReferrerEvent(seq){
+        let sendFlag = true
+        let data = $('[name=referrerEventData]');
+        let referrerEventDataKey = ['referrer_event_type', 'referrer_code', 'start_date', 'end_date'];
+        for (const eventData of data) {
+            let value = $(eventData).val();
+            let key = $(eventData).attr('id')
+            if (referrerEventDataKey.includes(key)) {
+                if (isEmpty(value)){
+                    alert("필수값을 입력하여주세요.")
+                    sendFlag = false;
+                }
+            }
+        }
+
+        if (!sendFlag){
+            return false;
+        }
+
+
+        let referrerEventData = referrerEventDataFactory();
+        let response = kiwiApiAjax('put','/member/referrer/event/'+seq,referrerEventData,false);
+        if (response.get('error')){
+            alert(response.get('error_msg'))
+        }else{
+            location.reload();
+        }
+    }
+
+
+
+</script>

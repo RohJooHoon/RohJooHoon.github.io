@@ -1,0 +1,173 @@
+<style>
+    .td-center{text-align: center;}
+</style>
+
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">공통 사이즈 정보 리스트</h4>
+        </div>
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center justify-content-end">
+                <div class="button-group">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                    </div>
+                </div>
+                <div class="col-auto pl-0">
+                    <button type="button" onclick="createCommonSizeInfo()" class="btn mb-0 mr-0 waves-effect waves-light btn-success">사이즈 정보 등록</button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="common_size_info table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th class="text-dark font-weight-bold">번호</th>
+                        <th class="text-dark font-weight-bold">카테고리</th>
+                        <th class="text-dark font-weight-bold">키워드</th>
+                        <th class="text-dark font-weight-bold">이미지</th>
+                        <th class="text-dark font-weight-bold">정렬값</th>
+                        <th class="text-dark font-weight-bold">삭제</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        getCommonSizeInfoList()
+    });
+
+    // 유닛 템플릿 리스트 조회
+    function getCommonSizeInfoList(){
+
+        const sendData = {};
+        //TODO 권한 변경 버튼 연결
+        $(".common_size_info").dataTable().fnDestroy()
+        $('.common_size_info').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "stateSave": true,
+            "ordering": false,
+            "searching": false,
+            "pageLength": 10,
+            "ajax": {
+                "url" : `${denma_api_url}/api/sizeInfo/list`,
+                "data" : sendData,
+                dataSrc : function (response) {
+                    console.log("response : ", response);
+                    return response.data;
+                }
+            },
+            "columns": [
+                { "data": "code_seq" },
+                { "data": "code_name" },
+                { "data": "code_desc" },
+                { "data": "code_value" },
+                { "data": "sort" },
+                { "data": "code_seq" },
+            ],
+            "columnDefs": [
+                {
+                    "width" : "10%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 0
+                },
+                {
+                    "width" : "10%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 1
+                },
+                {
+                    "width" : "25%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 2
+                },
+                {
+                    "width" : "40%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return `<a href='/view/size_info/modify?code_seq=${row.code_seq}'><img src='${data}' style="width: 250px;"></a>`;
+                    },
+                    "targets": 3
+                },
+                {
+                    "width" : "5%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 4
+                },
+                {
+                    "width" : "10%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return `<button value="${data}" class='common_size_delete'>삭제</button>`;
+                    },
+                    "targets": 5
+                },
+            ],
+        });
+    }
+
+    // 공통사이즈 정보 등록으로 이동.
+    function createCommonSizeInfo() {
+        location.href = '/view/size_info/create';
+    }
+
+    $(document).on('click', '.common_size_delete', function (event) {
+        const code_seq = $(this).val();
+        const result = confirm('삭제후에는 복구할 수 없습니다. 그래도 삭제 하시겠습니까?');
+        if(result === true) {
+            const sendData = {
+                "code_seq" : code_seq
+            }
+            $.ajax({
+               type : 'DELETE',
+               url : `${denma_api_url}/api/sizeInfo/delete`,
+               data : sendData,
+               success : function(response) {
+                   if(response[0].affectedRows !== 0) {
+                       alert('해당 사이즈 정보가 삭제되었습니다.');
+                       $('.common_size_info').DataTable().ajax.reload();
+                   }else {
+                       alert('요청 처리중에 오류가 발생했습니다. 다시 시도해주세요.');
+                   }
+               },
+               error : function(error) {
+                   console.log("error : ", error);
+                   alert('요청 처리중에 오류가 발생했습니다. 다시 시도해주세요.');
+               }
+            });
+        }else {
+            return;
+        }
+    });
+</script>

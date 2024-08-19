@@ -1,0 +1,15 @@
+<script id="detailNormal_template" type="text/x-jsrender">
+    <li class="templateItem {{:select}}">
+        <button class="templateCard" type="button" data-seq="{{:seq}}">
+            <div class="templateCardImg" style="background-image: url({{:thumbnail_image}})">
+                {{if color == 'RED'}}
+                    <div class="templateCardClose" data-toggle="modal" data-target="#deleteTemplate"></div>
+                {{/if}}
+            </div>
+            <div class="templateCardBox">
+                <div class="templateCardType {{:color == 'RED' ? 'is_red' : ''}} {{:color == 'BLUE' ? 'is_blue' : ''}}">{{:name}}</div>
+                <div class="templateCardTitle">{{:description}}</div>
+            </div>
+        </button>
+    </li>
+</script>

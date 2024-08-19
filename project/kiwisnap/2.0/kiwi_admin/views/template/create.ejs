@@ -1,0 +1,420 @@
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col">
+            <h2 class="page-title text-dark">템플릿 등록</h2>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠 -->
+<form class="container-fluid" method="post" id="insertForm">
+
+    <!-- 상세 템플릿 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-header py-2">
+                    <div class="row">
+                        <div class="col py-1">
+                            <h5 class="font-weight-bold mb-1">템플릿 등록 화면</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="type_name">템플릿 타입</label>
+                        </div>
+                        <input class="form-control" id="type_name" type="text" name="type_name" placeholder="템플릿 타입을 넣어주세요">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="template_name">템플릿 이름<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="template_name" type="text" name="template_name" placeholder="템플릿 이름을 넣어주세요" data-alram="템플릿 이름">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="template_color">템플릿 타입</label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="template_type" id="template_type01" value="NORMAL" checked>
+                                <label class="form-check-label" for="template_color02">일반</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="template_type" id="template_type02" value="PREMIUM">
+                                <label class="form-check-label" for="template_color03">프리미엄</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="">썸네일 이미지</label>
+                        </div>
+                        <div class="custom-file">
+                            <input class="custom-file-input" type="file" id="thumbnail_file" accept="image/jpeg, image/jpg, image/png" onchange="uploadImageHandle(this.files, 'thumbnail')">
+                            <label class="custom-file-label" data-content="업로드">선택된 파일 없음</label>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3">
+                            <img class="img-thumbnail img-responsive mb-1" id="show_thumbnail_image" name="show_thumbnail_image" style="display: none;">
+                            <input type="hidden" id="thumbnail_image" name="thumbnail_image" value="">
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text">템플릿 이미지</label>
+                        </div>
+                        <div class="custom-file">
+                            <input class="custom-file-input" type="file" id="template_file" accept="image/jpeg, image/jpg, image/png" onchange="uploadImageHandle(this.files, 'template')">
+                            <label class="custom-file-label" data-content="업로드">선택된 파일 없음</label>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3">
+                            <img class="img-thumbnail img-responsive mb-1" id="show_template_image" name="show_template_image" style="display: none; overflow: auto;">
+                            <input type="hidden" id="template_image" name="template_image" value="">
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="template">템플릿 HTML</label>
+                        </div>
+                        <textarea id="template" name="template" cols="125" rows="5" data-alram="템플릿 HTML"></textarea>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="status">상태</label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status" id="status_01" value="01" checked>
+                                <label class="form-check-label" for="status_01">활성</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status" id="status_02" value="99">
+                                <label class="form-check-label" for="status_02">비활성</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="type_name">정렬 값</label>
+                        </div>
+                        <input class="form-control" id="idx" type="text" name="idx" placeholder="정렬값을 1 ~ 100사이로 입력해주세요." onkeyup="checkInputValue($(this).val())">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="type_name">사진 수</label>
+                        </div>
+                        <input class="form-control" id="template_photos_cnt" type="number" name="template_photos_cnt" placeholder="사진수를 입력해주세요.">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">카테고리</span>
+                        </div>
+                        <select class="custom-select" id="template_category" name="template_category">
+                            <option value="">전체</option>
+                            <option value="10">의류</option>
+                            <option value="20">구두/신발</option>
+                            <option value="30">가방</option>
+                            <option value="40">패션잡화(양말, 스카프 등)</option>
+                            <option value="50">가구(침구, 소파 등)</option>
+                            <option value="60">가전</option>
+                            <option value="70">문구/도서</option>
+                            <option value="80">식품</option>
+                            <option value="90">기타</option>
+                        </select>
+                    </div>
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold">필터</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" style="width: 100%;">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 115px;">필터명</th>
+                                        <th>속성</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="btn btn-success float-right" onclick="createTemplate()">등록하기</button>
+                        <button type="button" class="btn btn-success float-right" onclick="toTemplateList()">목록으로</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //상세 템플릿 -->
+</form>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+<script type="text/javascript">
+
+    const bucketName = 'nextdop';
+    const bucketRegion = 'ap-northeast-2';
+    const IdentityPoolId = 'ap-northeast-2:7bac1f23-f1be-435c-887b-db3889ab1e13';
+    AWS.config.update({
+        region: bucketRegion,
+        credentials: new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: IdentityPoolId
+        })
+    });
+    const s3 = new AWS.S3({
+        apiVersion: '2006-03-01',
+        params: {Bucket: bucketName}
+    });
+
+    const templateObject = {  // 템플릿 전역 변수
+        checkedFilterSeqList : new Set(),
+    };
+
+    $(function() {
+        getFilterList();
+    });
+
+    // 템플릿 필터 리스트 전체 조회.
+    function getFilterList() {
+        $.ajax({
+            "type" : "GET",
+            "url" : `${denma_api_url}/api/template/filter/list`,
+            "data" : {
+                "start" : 0,
+                "length" : 300,
+                "status" : "01"
+            },
+            "async" : false,
+            success : function(response) {
+                const filterList = response.data.sort(function(a, b) {
+                    let nameA = a.filter_name.toUpperCase(); // ignore upper and lowercase
+                    let nameB = b.filter_name.toUpperCase(); // ignore upper and lowercase
+                    if (nameA < nameB) {
+                        return -1;
+                    }
+                    if (nameA > nameB) {
+                        return 1;
+                    }
+                    // 이름이 같을 경우
+                    return 0;
+                });
+                console.log("filterList :: ", filterList);
+                setFilterList(filterList);
+            },
+            error : function(error) {
+                console.log("error :: ", error);
+            }
+        });
+    }
+
+    // 카테고리 및 필터 리스트 목록 세팅.
+    function setFilterList(filterList) {
+        const filterTypeList = new Set(); // 필터 타입 종류.
+
+        // 카테고리를 제외한 필터 데이터 필터링
+        const styleList = filterList.filter((item) => {
+            return (item.depth !== 1)
+        })
+
+        for (let data of styleList) {
+            filterTypeList.add(data.filter_type);
+        }
+
+        let keys = filterTypeList.keys();
+        let properties_tag = '';
+        for (let key of keys) {
+            let keyName = '';
+            if (key === "NEW_ROW") {
+                keyName = "단수";
+            } else if (key === "NEW_STYLE") {
+                keyName = "스타일"
+            } else if (key === "SUB_CATEGORY") {
+                keyName = "서브 카테고리";
+            } else if (key === "ROW") {
+                keyName = "옛날 단수";
+            } else if (key === "STYLE") {
+                keyName = "스타일";
+            } else if (key === "TAG") {
+                keyName = "옛날 태그";
+            } else {
+                keyName = "옛날 하위 카테고리";
+            }
+
+            properties_tag += '<tr>';
+
+            if ((keyName === "단수") || (keyName === "스타일") || (keyName === "서브 카테고리")) {
+                properties_tag += '    <td class="align-middle" style="background-color: yellow">' + keyName + '</td>';
+            } else {
+                properties_tag += '    <td class="align-middle">' + keyName + '</td>';
+            }
+
+            properties_tag += '    <td>';
+            for (let data of styleList) {
+                if (key === data.filter_type) {
+                    if (data.filter_type == "NEW_ROW") {
+                        console.log("data.filter_name :: ", data.filter_name);
+                    }
+
+                    if (data.filter_type === "SUB_CATEGORY") {
+                        properties_tag += `<a href="javascript:void(0);" onclick="checkSubCategoryFilter($(this))" class="btn btn-primary btn-sm mt-1 filter-subcategory-tag" data-seq="${data.filter_seq}" style="margin-left: 4px;">`;
+                    } else {
+                        properties_tag += `<a href="javascript:void(0);" onclick="checkFilter($(this))" class="btn btn-primary btn-sm mt-1 filter-tag" data-seq="${data.filter_seq}" style="margin-left: 4px;">`;
+                    }
+
+                    properties_tag += `<span>${data.filter_name}</span>`;
+                    properties_tag += `</a>`;
+                }
+            }
+            properties_tag += '    </td>';
+            properties_tag += '</tr>';
+        }
+        $('#dataTable tbody').append(properties_tag);
+    }
+
+    function checkFilter($this) {
+        const filter_seq = $this.attr('data-seq');
+        if (!templateObject.checkedFilterSeqList.has(filter_seq)) {
+            templateObject.checkedFilterSeqList.add(filter_seq);
+            $this.addClass('btn-success');
+        } else {
+            templateObject.checkedFilterSeqList.delete(filter_seq);
+            $this.removeClass('btn-success');
+        }
+    }
+
+    function checkSubCategoryFilter($this) {
+        const sub_category_seq = $this.attr('data-seq');
+        const $filter_subcategory_tag = $(".filter-subcategory-tag");
+
+        if (templateObject.checkedFilterSeqList.has(sub_category_seq)) {
+            templateObject.checkedFilterSeqList.delete(sub_category_seq);
+            $this.removeClass('btn-success');
+        } else {
+            templateObject.checkedFilterSeqList.add(sub_category_seq);
+            $this.addClass('btn-success');
+        }
+    }
+
+    // 템플릿 생성.
+    function createTemplate() {
+        let filter_seq = Array.from(templateObject.checkedFilterSeqList);
+
+        if($('#template_name').val() === '') {
+            alert('템플릿 이름을 입력해주세요');
+            $('#template_name').focus();
+            return false;
+        }
+
+        let sendData = $("#insertForm").serializeArray();
+        // 기존의 데이터에 필터코드 추가
+        sendData.push({name: "filter_seq", value: filter_seq});
+
+        if(checkImpotent()) {
+            $.ajax({
+                url : `${denma_nextdop_api_url}/template/create`,
+                type : 'POST',
+                data : sendData,
+                success : function (response) {
+                    console.log("response : ", response);
+                    if(response.affectedRows !== 0) {
+                        alert('템플릿이 등록되었습니다.');
+                        toTemplateList();
+                    }
+                },
+                error : function (error)  {
+                    console.log("error : ", error);
+                }
+            });
+        }
+    }
+
+    // 필수 입력 유효성 검사.
+    function checkImpotent() {
+        const $is_impotent = $(".is_impotent");
+        for(let i = 0; i < $is_impotent.length; i++) {
+            let $target = $is_impotent.eq(i);
+            if($target.is('input')) {
+                if(!$target.val()) {
+                    let $alarmText = $target.attr('data-alram');
+                    alert($alarmText + "을(를) 입력해주세요.");
+                    $target.focus();
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    // 썸네일 이미지 s3에 업로드
+    function uploadImageHandle(files, type) {
+
+        for(let file of files) {
+            let reader = new FileReader();
+            reader.onload = function () {
+                if(type === 'thumbnail') {
+                    $("#show_thumbnail_image").show().attr('src', reader.result);
+                }else {
+                    $("#show_template_image").show().attr('src', reader.result);
+                }
+                s3upload(file, type);
+            }
+            reader.readAsDataURL(file);
+        }
+
+        $('#template_file').val('');
+        $('#thumbnail_file').val('');
+    }
+
+    function s3upload(file, type) {
+        const fileName = getTimeStamp() + '_' + getRandomStr(3) + '.' + 'jpg';
+        let pathValue = 'https://nextdop.s3.ap-northeast-2.amazonaws.com/images/template/' + fileName;
+        if(type === 'thumbnail') {
+            $('#thumbnail_image').val(pathValue);
+        }else {
+            $('#template_image').val(pathValue);
+        }
+
+        const params = {
+            Key : `images/template/${fileName}`,
+            Body : file,
+            ACL : 'public-read',
+            ContentType : getContentType('jpg')
+        };
+
+        const options = {partSize : 10 * 1024 * 1024, queueSize : 1};
+
+        s3.upload(params, options).on('httpUploadProgress', function (event) {
+            console.log("Uploaded : ", parseInt((event.loaded * 100) / event.total) + '%');
+        }).send(function (error, uploadData) {
+            if(!error) {
+                console.log('uploadData :: ', uploadData);
+                alert("이미지 업로드 성공!");
+            }else {
+                console.log("error :: ", error);
+                alert('s3업로드 중 오류가 발생했습니다. 다시 시도해주세요.');
+            }
+        });
+
+    }
+
+    function toTemplateList() {
+        location.href = '/view/template/list';
+    }
+
+    /* 중요도 입력값 1 ~ 100사이로 제한 */
+    function checkInputValue(param) {
+        let $idx = $("#idx");
+        $idx.val(numOnly(param)); // 문자 입력시 공백으로 반환.
+        if(param < 0 || param > 100) {
+            alert("중요도는 1 ~ 100사이만 입력가능합니다.");
+            $idx.val(1);
+            $idx.focus();
+        }
+    }
+</script>

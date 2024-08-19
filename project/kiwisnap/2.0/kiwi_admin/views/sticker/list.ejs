@@ -1,0 +1,205 @@
+<style>
+  .td-center {
+    text-align: center;
+  }
+</style>
+
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">스티커 리스트</h4>
+        </div>
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center justify-content-end">
+                <div class="button-group">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">정렬 필터</span>
+                        </div>
+                        <select class="custom-select is_underLine" id="order_type" name="order_type" onchange="goSearch()">
+                            <option value="">최신순</option>
+                            <option value="IDX">중요도순</option>
+                        </select>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">활성화여부</span>
+                        </div>
+                        <select class="custom-select is_underLine" id="status" name="status" onchange="goSearch()">
+                            <option value="">전체</option>
+                            <option value="01">활성화</option>
+                            <option value="99">비활성화</option>
+                        </select>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">스티커 이름</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1"
+                               id="stickerName">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">스티커 번호</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" id="unit_sticker_seq">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="button" onclick="goSearch()"><i class="ti-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto pl-0">
+                    <button type="button" onclick="location.href='/view/sticker/create'"
+                            class="btn mb-0 mr-0 waves-effect waves-light btn-success">스티커 등록
+                    </button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="unitStickerList table-bordered" id="unitStickerList" style="width: 100%;">
+                    <thead>
+                    <tr>
+                        <th class="text-dark font-weight-bold">번호</th>
+                        <th class="text-dark font-weight-bold">이름</th>
+                        <th class="text-dark font-weight-bold">이미지</th>
+                        <th class="text-dark font-weight-bold">HTML 등록 여부</th>
+                        <th class="text-dark font-weight-bold">중요도</th>
+                        <th class="text-dark font-weight-bold">활성화</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+  $(function () {
+    goSearch();
+  });
+
+  document.addEventListener('keypress', function (event) {
+    if (event.key === 'Enter') {
+      goSearch();
+    }
+  });
+
+  //유닛 템플릿 활성화 상태 변경.
+  $(document).on('click', '.unitActiveYN', function () {
+    let unitInfo = $(this).attr('data-active-info').split("_");
+    let unit_seq = unitInfo[0];
+    let status = unitInfo[1];
+
+    const sendData = {
+      unit_seq: unit_seq,
+      status: status
+    }
+
+    $.ajax({
+      type: "PUT",
+      url: `${denma_api_url}/api/unit/update/status/`,
+      data: sendData,
+      success: function (response) {
+        console.log("status : ", status);
+        if (status == "01") {
+          showAlert(`${unit_seq}번 스티거가 비활성화 되었습니다.`);
+        }
+        $('.unitList').DataTable().ajax.reload(null, false);
+      },
+      error: function (error) {
+        console.log("err :: ", error);
+      }
+    })
+  })
+
+  // 유닛 템플릿 리스트 조회
+  function goSearch() {
+
+    let sendData = {
+      order_type : $("#order_type").val(),
+      status : $("#status").val(),
+      name : $("#stickerName").val().trim(),
+      unit_sticker_seq : $("#unit_sticker_seq").val()
+    }
+
+    $(".unitStickerList").dataTable().fnDestroy();
+    $('.unitStickerList').DataTable({
+      processing: true,
+      serverSide: true,
+      lengthChange: false,
+      ordering: false,
+      searching: false,
+      info: false,
+      stateSave: true,
+      pageLength: 10,
+      ajax: {
+        type: "GET",
+        url: `${admin_api_url}/units/stickers`,
+        data: sendData
+      },
+      columns: [
+        {"data": "unit_sticker_seq"},
+        {"data": "name"},
+        {"data": "image_url"},
+        {"data": "template"},
+        {"data": "idx"},
+        {"data": "status"}
+      ],
+      columnDefs: [
+        {
+          "className": 'td-center',
+          "render": function (data, type, row) {
+            return `<a href=/view/sticker/modify?unit_sticker_seq=${data}>${data}</a>`;
+          },
+          "targets": 0
+        },
+        {
+          "render": function (data, type, row) {
+            return data;
+          },
+          "targets": 1
+        },
+        {
+          "render": function (data, type, row) {
+            return `<a href="#"><img src="${data}" width="125px;"/><br/>${data}</img>`;
+          },
+          "targets": 2
+        },
+        {
+          "className": 'td-center',
+          "render": function (data, type, row) {
+            if (data != null && data != '') {
+              return "O";
+            } else {
+              return "X";
+            }
+          },
+          "targets": 3
+        },
+        {
+          "className": 'td-center',
+          "render": function (data, type, row) {
+            return data;
+          },
+          "targets": 4
+        },
+        {
+          "className": 'td-center',
+          "render": function (data, type, row) {
+            return (data != "99") ? "O" : "X";
+          },
+          "targets": 5
+        }
+      ],
+    });
+
+  }
+
+</script>

@@ -1,0 +1,270 @@
+<style>
+    .td-center{text-align: center;}
+    .outerTable {
+        background-color: #F9F9F9;
+        border-top: 2px solid #A8A8A8 !important;
+    }
+    .outerTable>td:first-child,
+    .outerTable>td:nth-child(3){
+        text-align: center;
+    }
+    .outerTable>td:nth-child(7){
+        text-align: left;
+    }
+    .tabletxtalign {
+        text-align: center !important;
+    }
+
+
+
+    .popupdiv {
+        padding: 10px 10px 10px 10px;
+    }
+
+
+
+</style>
+
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">메뉴 설정</h4>
+        </div>
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center justify-content-end">
+                <div class="button-group">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                    </div>
+                </div>
+                <div class="col-auto pl-0">
+                    <button type="button" onclick="createPermission()" class="btn mb-0 mr-0 waves-effect waves-light btn-success">권한 등록</button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="common_size_info table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th class="text-dark font-weight-bold">번호</th>
+                        <th class="text-dark font-weight-bold">권한 code</th>
+                        <th class="text-dark font-weight-bold">이름</th>
+                        <th class="text-dark font-weight-bold">권한 설명</th>
+                        <th class="text-dark font-weight-bold"></th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        getPermissionInfoList()
+    });
+
+    // 유닛 템플릿 리스트 조회
+    function getPermissionInfoList(){
+        $("#dataTable").dataTable().fnDestroy()
+        $('#dataTable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "stateSave": true,
+            "ordering": false,
+            "searching": false,
+            "pageLength": 10,
+            "ajax": {
+                url : `${denma_nextdop_api_url}/permission/list`,
+                // dataSrc : function (response) {
+                //     console.log("response : ", response)
+                //
+                //     return response;
+                // }
+            },
+            columns : [
+                {
+                    width: "10%",
+                    className: 'td-center',
+                    render: function (data, type, full, meta) {
+                        // {
+                        //     "permission_seq": 2,
+                        //     "permission_level": "ADMIN",
+                        //     "permission_name": "ADMIN",
+                        //     "permission_comment": "관리자"
+                        // }
+                        return full.permission_seq;
+                    }
+                },
+                {
+                    width: "20%",className: 'td-center',
+                    render: function (data, type, full, meta) {
+                        return full.permission_level;
+                    }
+                },
+                {
+                    width: "30%",className: 'td-center',
+                    render: function (data, type, full, meta) {
+                        return full.permission_name;
+                    }
+                },
+                {
+                    width: "20%",className: 'td-center',
+                    render: function (data, type, full, meta) {
+                        return nullToBlank(full.permission_comment);
+                    }
+                },
+                {
+                    width: "20%",className: 'td-center',
+                    render: function (data, type, full, meta) {
+                        return `<button onclick="updatePermission(${full.permission_seq},'${full.permission_name}','${full.permission_level}','${full.permission_comment}')" class="waves-effect waves-light">수정</button>
+                                     <span> / </span>
+                                    <button onclick="deletePermission(${full.permission_seq})" class="waves-effect waves-light">삭제</button>
+                                    <span> / </span>
+                                    <button onclick="mappingMenuPermission(${full.permission_seq},'${full.permission_level}')" class="waves-effect waves-light">메뉴 설정</button>`;
+                    }
+                }
+            ],
+
+        });
+    }
+
+    function nullToBlank(str){
+        if (isEmpty(str)){
+            return ''
+        }else{
+            return str;
+        }
+    }
+
+    function createPermission() {
+        console.clear()
+        let html =`<div class="popupdiv">
+                <br>
+                <div name="menuWrap" class="popupdiv">
+                    <label>
+                        권한
+                    </label>
+                    <label>
+                        이름
+                        <input type="text" id="permissionName">
+                    </label>
+                    <label>
+                        설명
+                        <input type="text" id="permissionComment">
+                    </label>
+                    <label>
+                        code
+                        <input type="text" id="permissionLevel">
+                    </label>
+                </div>
+                </div>
+                    <button onclick="savePermission()" class="btn mb-0 mr-0 waves-effect waves-light btn-success">저장</button>
+                    </div>`;
+
+        openPopup({
+            type: 'EDIT',
+            title: '메뉴 등록',
+            html: html,
+            maxWidth: '700px',
+        },true);
+    }
+    function savePermission(){
+        console.log("saveMenu")
+        let level = $('#permissionLevel').val().trim();
+        let comment = $('#permissionComment').val().trim();
+        let name = $('#permissionName').val().trim();
+        let engRegex = /[^a-zA-Z]/;
+        if (isEmpty(level) || isEmpty(name)){
+            alert("이름 또는 level이 입력되지 않았습니다.")
+            return false;
+        }
+        if (engRegex.test(level)){
+            alert("code엔 알파벳만 입력 가능합니다.")
+            return false;
+        }
+        let sendData = {
+            permission_level : level,
+            permission_comment : comment,
+            permission_name : name
+        }
+        kiwiApiAjax('post','/permission/',sendData,false);
+        location.reload();
+    }
+
+    function deletePermission(permissionSeq){
+        if(confirm("삭제 하시겠습니까?")){
+            console.log("permissionSeq : ", permissionSeq)
+            kiwiApiAjax('delete', '/permission/' + permissionSeq, null, false);
+            location.reload();
+        }
+    }
+
+    function updatePermission(permissionSeq, permissionName, permissionLevel, comment){
+        console.log("menuSeq : ",permissionSeq )
+        let html = `
+        <div>
+            <br>
+          <div class="popupdiv">
+                <div name="menuWrap" class="popupdiv">
+                    <label>
+                        권한
+                    </label>
+                    <label>
+                        이름
+                        <input type="text" id="updatePermissionName" value="${permissionName}">
+                    </label>
+                    <label>
+                        설명
+                        <input type="text" id="updatePermissionComment" value="${comment}">
+                    </label>
+                    <label>
+                        code
+                        <input type="text" id="updatePermissionLevel" value="${permissionLevel}" readonly>
+                    </label>
+                </div>
+        </div>
+        <button onclick="updateSavePermission(${permissionSeq})" class="btn mb-0 mr-0 waves-effect waves-light btn-success">저장</button>
+        </div>`;
+        openPopup({
+            type: 'EDIT',
+            title: '메뉴 수정',
+            html: html,
+            maxWidth: '700px',
+        },true);
+    }
+
+    function updateSavePermission(permissionSeq){
+        let name = $('#updatePermissionName').val().trim();
+        let comment = $('#updatePermissionComment').val().trim();
+        if (isEmpty(name)){
+            alert("이름이 입력되지 않았습니다.")
+            return false;
+        }
+        let permissionObj = {
+            "permission_name": name,
+            "permission_comment": comment
+        }
+        kiwiApiAjax('put','/permission/'+permissionSeq,permissionObj,false);
+        location.reload();
+    }
+
+    function mappingMenuPermission(permissionSeq,permissionLevel){
+        location.href = '/view/permission/menuMapping?permissionSeq='+permissionSeq+'&permissionLevel='+permissionLevel;
+    }
+
+
+</script>

@@ -1,0 +1,14 @@
+<!-- TEMPLATE_WRAPPER -->
+<script id="TEMPLATE_WRAPPER" type="text/x-jsrender">
+    <div class="ks_column" data-name="{{:name}}">
+        {{:html}}
+    </div>
+</script>
+
+<!-- TEMPLATE_DEFAULT -->
+<script id="TEMPLATE_DEFAULT" type="text/x-jsrender">
+    <div class="ks_block" style="height: 50px;"></div>
+    <div class="ks_row" style="position: relative; width: 100%; margin: 0px auto;">
+        <div class="ks_img" style='background: no-repeat center; background-size: cover; background-image: url({{:imageUrl}}); padding-bottom: {{:paddingBottom ? paddingBottom : '50'}}%; height: 0px;' data-idx="{{:idx}}" data-imageseq="{{:imageseq}}">{{:innerHtml}}</div>
+    </div>
+</script>

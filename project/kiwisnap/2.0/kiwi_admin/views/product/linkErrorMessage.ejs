@@ -1,0 +1,322 @@
+<style>
+  .td-center{text-align: center;}
+</style>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">연동오류 메시지 관리   </h4>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <form id="errorMessageForm" name="errorMessageForm">
+
+                <div  class="input-group" style="padding: 0 0 30px 0;">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">번호 </span>
+                        </div>
+
+                        <input type="text" name="seq" id="seq" class="form-control">
+                </div>
+                <div  class="input-group" style="padding: 0 0 30px 0;">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">치환 범위 </span>
+                    </div>
+                    <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="replaceType" id="" value="P" checked >
+                            <label class="form-check-label" for="location0">부분치환 (일치하는 부분만 변경한다) </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="replaceType" id="" value="T" >
+                            <label class="form-check-label" for="location1">전체치환 (일치하는 부분이 있으면 전체를 변경한다)</label>
+                        </div>
+
+                    </div>
+                </div>
+                <div  class="input-group" style="padding: 0 0 30px 0;">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">오류원본메시지 </span>
+                        </div>
+
+
+                        <textarea name="errorMessage" id="errorMessage" rows="3" class="form-control"></textarea>
+                </div>
+                <div  class="input-group" style="padding: 0 0 30px 0;">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">치환메시지 </span>
+                        </div>
+
+                        <textarea name="replaceMessage" id="replaceMessage" rows="3" class="form-control"></textarea>
+                </div>
+                <div  class="input-group" style="padding: 0 0 30px 0;">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">추가 메시지 </span>
+                        </div>
+                            <textarea name="afterMessage" id="afterMessage" rows="3" class="form-control"></textarea>
+
+                </div>
+                <div  class="input-group" style="padding: 0 0 30px 0;">
+                    <div class="input-group-prepend" style="padding-right: 20px;">
+                        <button type="button" id="" class="btn btn-success float-right" onclick="resetErrorMessage();">리셋</button>
+                    </div>
+                    <div class="input-group-prepend">
+                        <button type="button" id="" class="btn btn-success float-right" onclick="registErrorMessage();">등록하기</button>
+                    </div>
+
+                </div>
+
+            </form>
+
+            <div class="input-group" style="padding-bottom: 20px;">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">오류 메시지 검색  </span>
+                </div>
+                <input type="text" class="form-control" aria-describedby="basic-addon1" id="search_word">
+                <div class="input-group-append">
+                    <button class="btn btn-success" type="button" onclick="productSearch()"><i class="ti-search"></i></button>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="productTable table-bordered" id="product-table" style="width: 100%;">
+                    <thead>
+                    <tr style="text-align: center">
+                        <th class="text-dark font-weight-bold">번호</th>
+                        <th class="text-dark font-weight-bold">오류 메시지 </th>
+                        <th class="text-dark font-weight-bold">치환할 메시지 </th>
+                        <th class="text-dark font-weight-bold">추가 메시지 </th>
+                        <th class="text-dark font-weight-bold">치환타입 </th>
+                        <th class="text-dark font-weight-bold">선택</th>
+                        <th class="text-dark font-weight-bold">삭제</th>
+
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>
+<script type="text/javascript">
+  const params = getUrlParams();
+
+  // 엔터키 누를시 상품 검색.
+  document.addEventListener('keypress', function (event) {
+    if (event.key === 'Enter') {
+      productSearch();
+    }
+  });
+
+  $(function (){
+    productSearch();
+  });
+
+  // 전체 상품 리스트 조회.
+  function productSearch() {
+
+    const sendData = {
+      "search_word" : $("#search_word").val().trim()
+    }
+
+    console.log(sendData);
+
+    $(".productTable").dataTable().fnDestroy();
+    $('.productTable').DataTable({
+      "processing": true,
+      "serverSide": true,
+      "lengthChange": false,
+      "ordering": false,
+      "searching": false,
+      "info" : false,
+      "stateSave": false,
+      "pageLength": 30,
+      "ajax": {
+        "url" : `${denma_api_url}/api/product/linkErrorList`,
+        "data" : sendData,
+      },
+      "columns" : [
+        {"data" : "seq"},
+        {"data" : "error_message"},
+        {"data" : "replace_message"},
+        {"data" : "after_message"},
+        {"data" : "replace_type"},
+        {"data" : "seq"},
+        {"data" : "seq"}
+
+      ],
+      "columnDefs": [
+        {
+          "className": 'td-center',
+          "width" : "2%",
+          "render": function(data, type, row) {
+            return data;
+          },
+          "targets": 0
+        },
+        {
+          "className": 'td-left',
+          "width" : "30%",
+          "render": function(data, type, row) {
+            return '<div id="em_'+row.seq+'">'+data+'</div>';;
+
+          },
+          "targets": 1
+        },
+        {
+          "className": 'td-left',
+          "width" : "30%",
+          "render": function(data, type, row) {
+           // data = '<a href=/view/popup/view?seq='+row.dashboardPopupSeq+'>'+row.title+'</a>';
+            return '<div id="rm_'+row.seq+'">'+data+'</div>';
+
+          },
+          "targets": 2
+        },
+        {
+          "className": 'td-left',
+          "width" : "25%",
+          "render": function(data, type, row) {
+            // data = '<a href=/view/popup/view?seq='+row.dashboardPopupSeq+'>'+row.title+'</a>';
+            return '<div id="am_'+row.seq+'">'+data+'</div>';
+
+          },
+          "targets": 3
+        },
+          {
+              "className": 'td-left',
+              "width" : "5%",
+              "render": function(data, type, row) {
+                  // data = '<a href=/view/popup/view?seq='+row.dashboardPopupSeq+'>'+row.title+'</a>';
+                  return '<div id="rt_'+row.seq+'">'+data+'</div>';
+
+              },
+              "targets": 4
+          },
+        {
+          "className": 'td-left',
+          "width" : "5%",
+          "render": function(data, type, row) {
+             data = '<a href="javascript:setErrorMessage('+row.seq+')">선택</a>';
+            return data;
+
+          },
+          "targets": 5
+        },
+        {
+          "className": 'td-left',
+          "width" : "5%",
+          "render": function(data, type, row) {
+            data = '<a href="javascript:deleteErrorMessage('+row.seq+')">삭제</a>';
+            return data;
+
+          },
+          "targets": 6
+        }
+      ]
+    });
+  }
+
+
+  function registErrorMessage(){
+
+    const sendData = $("#errorMessageForm").serialize();
+    var seq = $("#seq").val();
+
+    console.log("seq = "+seq);
+    console.log("sendData = "+sendData);
+    if(seq != undefined && seq != ''){
+        $.ajax({
+            type: "PUT",
+            url: `${denma_api_url}/api/product/linkErrorMessage/update`,
+            data: sendData,
+            success: function (response) {
+              alert(`수정되었습니다.`);
+              $('.productTable').DataTable().ajax.reload(null, false);
+              $("#errorMessage").val("");
+              $('#seq').val("");
+              $("#afterMessage").val("");
+              $("#replaceMessage").val("");
+            },
+            error: function (error) {
+              console.log("error :: ", error);
+              alert("수정중 오류가 발생했습니다.");
+            }
+        })
+    }else{
+        $.ajax({
+            type: "POST",
+            url: `${denma_api_url}/api/product/linkErrorMessage/insert`,
+            data: sendData,
+            success: function (response) {
+              alert(`등록되었습니다.`);
+              $('.productTable').DataTable().ajax.reload(null, false);
+              $("#errorMessage").val("");
+              $('#seq').val("");
+              $("#replaceMessage").val("");
+              $("#afterMessage").val("");
+            },
+            error: function (error) {
+              console.log("error :: ", error);
+              alert("등록 중 오류가 발생했습니다.");
+            }
+        })
+    }
+  }
+
+
+  function setErrorMessage(seq){
+    //alert(seq);
+
+    console.log("#em_"+seq+"=="+$("#em_"+seq).html());
+
+      console.log("#rt_"+seq+"=="+$("#rt_"+seq).html());
+
+      $("#seq").val(seq);
+    $("#errorMessage").val($("#em_"+seq).html());
+    $("#replaceMessage").val($("#rm_"+seq).html());
+    $("#afterMessage").val($("#am_"+seq).html());
+    $(`input:radio[name=replaceType]:radio[value="${$('#rt_'+seq).html()}"]`).prop('checked', true);
+
+
+  }
+
+  function resetErrorMessage(){
+    //alert(seq);
+
+
+    $("#seq").val("");
+    $("#errorMessage").val("");
+    $("#replaceMessage").val("");
+    $("#afterMessage").val("");
+
+  }
+
+  function deleteErrorMessage(seq){
+
+
+
+    if(confirm('삭제하시겠습니까?')) {
+      $.ajax({
+        type: "DELETE",
+        url: `${denma_api_url}/api/product/linkErrorMessage/delete`,
+        data: { seq : seq},
+        success: function (response) {
+          alert(`삭제되었습니다.`);
+          $('.productTable').DataTable().ajax.reload(null, false);
+
+        },
+        error: function (error) {
+          console.log("error :: ", error);
+          alert("삭제 중 오류가 발생했습니다.");
+        }
+      })
+    }
+  }
+
+
+</script>

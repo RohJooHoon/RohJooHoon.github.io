@@ -1,0 +1,273 @@
+<style>
+    .td-center{text-align: center;}
+</style>
+
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">프레임 템플릿 리스트</h4>
+        </div>
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center justify-content-end">
+                <div class="button-group">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">정렬 필터</span>
+                        </div>
+                        <select class="custom-select is_underLine" id="idx" name="idx" onchange="goSearch()">
+                            <option value="">최신순</option>
+                            <option value="01">중요도순</option>
+                        </select>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">활성화여부</span>
+                        </div>
+                        <select class="custom-select is_underLine" id="unit_status" name="status" onchange="goSearch()">
+                            <option value="">전체</option>
+                            <option value="01">활성화</option>
+                            <option value="99">비활성화</option>
+                        </select>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">프레임 버전</span>
+                        </div>
+                        <select class="custom-select is_underLine" id="version" name="version" onchange="goSearch()">
+                            <option value="">전체</option>
+                            <option value="2">2.0</option>
+                            <option value="1">1.0</option>
+                        </select>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">프레임명</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" id="searchName">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">프레임seq</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" id="unit_seq">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="button" onclick="javascript:goSearch()"><i class="ti-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto pl-0">
+                    <button type="button" onclick="createUnit();" class="btn mb-0 mr-0 waves-effect waves-light btn-success">프레임 등록</button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="unitList table-bordered" id="dataTable" style="width: 100%;">
+                    <thead>
+                    <tr>
+                        <th class="text-dark font-weight-bold">seq</th>
+                        <th class="text-dark font-weight-bold">이름</th>
+                        <th class="text-dark font-weight-bold" style="width: 350px;">이미지</th>
+                        <th class="text-dark font-weight-bold">HTML 등록여부</th>
+                        <th class="text-dark font-weight-bold">중요도</th>
+                        <th class="text-dark font-weight-bold">버전</th>
+                        <th class="text-dark font-weight-bold">추천여부</th>
+                        <th class="text-dark font-weight-bold">활성화</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        goSearch();
+    });
+
+    document.addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+            goSearch();
+        }
+    });
+
+    //유닛 템플릿 활성화 상태 변경.
+    $(document).on('click', '.unitActiveYN', function() {
+        let unitInfo = $(this).attr('data-active-info').split("_");
+        let unit_seq = unitInfo[0];
+        let status = unitInfo[1];
+
+        const sendData = {
+            unit_seq : unit_seq,
+            status : status
+        }
+
+        $.ajax({
+            type : "PUT",
+            url : `${denma_api_url}/api/unit/update/status/`,
+            data : sendData,
+            success : function (response) {
+                console.log("status : ", status);
+                if (status == "01") {
+                    showAlert(`${unit_seq}번 프레임이 비활성화 되었습니다.`);
+                }
+                $('.unitList').DataTable().ajax.reload(null, false);
+            },
+            error : function (error) {
+                console.log("err :: ", error);
+            }
+        })
+    })
+
+    // 추천 유닛 상태 변경
+    $(document).on('click', '.unitRecommendYn', function() {
+        const unit_seq = $(this).attr('data-unit-seq');
+        let recommend_yn = '';
+        if($(this).is(':checked') == true) {
+            recommend_yn = "Y"
+        } else {
+            recommend_yn = "N"
+        }
+        const sendData = {
+            "unit_seq" : unit_seq,
+            "recommend_yn" : recommend_yn,
+        }
+        $.ajax({
+            type : "PUT",
+            url : `${denma_api_url}/api/unit/update/status`,
+            data : sendData,
+            success : function (response) {
+                if (recommend_yn == "Y") {
+                    showAlert(`${unit_seq}번 프레임이 추천되었습니다.`);
+                }
+                $('.unitList').DataTable().ajax.reload(null, false);
+            },
+            error : function (error) {
+            }
+        })
+    });
+
+    // 유닛 템플릿 리스트 조회
+    function goSearch(){
+
+        let sendData = {
+            "name" : $("#searchName").val(),
+            "status" : $("#unit_status").val(),
+            "idx" : $("#idx").val(),
+            "version" : $('#version').val(),
+            "unit_seq" : $('#unit_seq').val()
+        }
+
+        $(".unitList").dataTable().fnDestroy()
+        $('.unitList').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "ordering": false,
+            "searching": false,
+            "info" : false,
+            "stateSave" : true,
+            "pageLength": 10,
+            "ajax": {
+                "url" : `${denma_api_url}/api/unit/list`,
+                "data" : sendData,
+                dataSrc : function (response) {
+                    console.log("응답 :: ", response);
+                    return response.data;
+                }
+            },
+            "columns" : [
+                {"data": "unit_seq"},
+                {"data": "name"},
+                {"data": "image_url"},
+                {"data": "template"},
+                {"data": "idx"},
+                {"data": "version"},
+                {"data": "recommend_yn"},
+                {"data": "unit_seq"},
+            ],
+            "columnDefs": [
+
+                {
+                    "width" : "5%",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 0
+                },
+                {
+                    "width" : "10%",
+                    "render": function(data, type, row) {
+                        return '<a href="/view/unit/modify?unit_seq=' + row.unit_seq + '"/>' + data + '</a>';
+                    },
+                    "targets": 1
+                },
+                {
+                    "width" : "60%",
+                    "render": function(data, type, row) {
+                        return `<a href="#"/><img src="${data}" width="100px;"/></a><br/>${data}`;
+                    },
+                    "targets": 2
+                },
+                {
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return data === ''? "X" : "O";
+                    },
+                    "targets": 3
+                },
+                {
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 4
+                },
+                {
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 5
+                },
+                {
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        if (data === 'Y') {
+                            return `<input type="checkbox" class="unitRecommendYn" data-unit-seq="${row.unit_seq}" checked>`;
+                        } else {
+                            return `<input type="checkbox" class="unitRecommendYn" data-unit-seq="${row.unit_seq}">`;
+                        }
+                    },
+                    "targets": 6
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "7%",
+                    "render": function(data, type, row) {
+                        if(row.status == "01") {
+                            return `<input type="checkbox" class="unitActiveYN" data-active-info="${row.unit_seq}_${row.status}" checked>`;
+                        }else {
+                            return `<input type="checkbox" class="unitActiveYN" data-active-info="${row.unit_seq}_${row.status}">`;
+                        }
+                    },
+                    "targets": 7
+                },
+            ],
+            "drawCallback": function(response) {
+
+            }
+        });
+    }
+
+    /* 유닛 등록 화면으로 이동 */
+    function createUnit(){
+        location.href = "/view/unit/create";
+    }
+
+</script>

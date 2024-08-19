@@ -1,0 +1,134 @@
+<style>
+  .td-center {
+    text-align: center;
+  }
+</style>
+
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">쿠폰 코드 리스트</h4>
+        </div>
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center justify-content-end">
+                <div class="button-group">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="table-responsive">
+                <table class="couponCodeList table-bordered" id="couponCodeListData" style="width: 100%;">
+                    <thead>
+                    <tr>
+                        <th class="text-dark font-weight-bold text-center">번호</th>
+                        <th class="text-dark font-weight-bold text-center">쿠폰이름</th>
+                        <th class="text-dark font-weight-bold text-center">쿠폰코드</th>
+                        <th class="text-dark font-weight-bold text-center">할인타입</th>
+                        <th class="text-dark font-weight-bold text-center">금액/할인율</th>
+                        <th class="text-dark font-weight-bold text-center">사용여부</th>
+                        <th class="text-dark font-weight-bold text-center">생성일</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+  $(function () {
+    getCouponCodeList();
+  });
+
+  function getCouponCodeList() {
+
+    const sendData = {}
+
+    $(".couponCodeList").dataTable().fnDestroy()
+    $('.couponCodeList').DataTable({
+      "processing": true,
+      "serverSide": true,
+      "lengthChange": false,
+      "stateSave": true,
+      "ordering": false,
+      "searching": false,
+      "info": false,
+      "pageLength": 15,
+      "ajax": {
+        type : "GET",
+        url: `${admin_api_url}/coupon/code`,
+        data: sendData
+      },
+      "columnDefs": [
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return row.coupon_seq;
+          },
+          "targets": 0
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return row.coupon.coupon_name;
+          },
+          "targets": 1
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return row.coupon_code;
+          },
+          "targets": 2
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            if (row.coupon.discount_type == 'FIX') {
+              return "정액할인";
+            } else {
+              return "정률할인";
+            }
+          },
+          "targets": 3
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            if (row.coupon.discount_type == 'RATIO') {
+              return row.coupon.discount_value + "%";
+            } else {
+              return row.coupon.discount_value + "원";
+            }
+          },
+          "targets": 4
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return row.apply_yn;
+          },
+          "targets": 5
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return row.create_date.split("T")[0];
+          },
+          "targets": 6
+        }
+      ],
+    });
+
+  }
+
+</script>

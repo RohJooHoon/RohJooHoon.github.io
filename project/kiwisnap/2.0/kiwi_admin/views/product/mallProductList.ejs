@@ -1,0 +1,274 @@
+<style>
+    .td-center{text-align: center;}
+</style>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">상품 리스트 (연동일 기준 정렬)</h4>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">정렬 조건</span>
+                        </div>
+                        <select class="custom-select is_underLine" id="order_filter" name="order_filter" onchange="productSearch()">
+                            <option value="DESC">최신순</option>
+                            <option value="ASC">오래된 순</option>
+                        </select>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">검색 조건</span>
+                        </div>
+                        <select class="custom-select is_underLine" id="search_condition" name="search_condition">
+                            <option value="" selected>선택</option>
+                            <option value="product_name">상품명</option>
+                            <option value="product_seq">상품번호</option>
+                            <option value="product_id">상품코드</option>
+                            <option value="client_id">클라이언트 ID</option>
+                        </select>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">검색어</span>
+                        </div>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" id="search_word">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="button" onclick="productSearch()"><i class="ti-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="productTable table-bordered" id="product-table" style="width: 100%;">
+                    <thead>
+                    <tr style="text-align: center">
+                        <th class="text-dark font-weight-bold">몰상품번호</th>
+                        <th class="text-dark font-weight-bold">상품번호</th>
+                        <th class="text-dark font-weight-bold">연동몰</th>
+                        <th class="text-dark font-weight-bold">mem_id</th>
+                        <th class="text-dark font-weight-bold">상품명</th>
+                        <th class="text-dark font-weight-bold">연동몰번호</th>
+                        <th class="text-dark font-weight-bold">연동상태</th>
+                        <th class="text-dark font-weight-bold">결과코드</th>
+                        <th class="text-dark font-weight-bold">결과메시지</th>
+                        <th class="text-dark font-weight-bold">등록일</th>
+                        <th class="text-dark font-weight-bold">연동일</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    const params = getUrlParams();
+
+    // 엔터키 누를시 상품 검색.
+    document.addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+            productSearch();
+        }
+    });
+
+    $(function (){
+        productSearch();
+    });
+
+    // 전체 상품 리스트 조회.
+    function productSearch() {
+
+        const sendData = {
+            "order_filter" : $("#order_filter").val(),
+            "search_condition" : $("#search_condition").val(),
+            "search_word" : $("#search_word").val().trim(),
+        }
+
+        $(".productTable").dataTable().fnDestroy();
+        $('.productTable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "ordering": false,
+            "searching": false,
+            "info" : false,
+            "stateSave": false,
+            "pageLength": 30,
+            "ajax": {
+                "url" : `${denma_api_url}/api/product/mallProductlist`,
+                "data" : sendData,
+            },
+            "columns" : [
+                {"data" : "mall_product_seq"},
+                {"data" : "product_seq"},
+                {"data" : "mall_type"},
+                {"data" : "client_id"},
+                {"data" : "product_name"},
+                {"data" : "mall_product_no"},
+                {"data" : "prod_status"},
+                {"data" : "result_code"},
+                {"data" : "result_message"},
+                {"data" : "create_date"},
+                {"data" : "connect_date"},
+            ],
+            "columnDefs": [
+                {
+                    "className": 'td-center',
+                    "width" : "8%",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 0
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "8%",
+                    "render": function(data, type, row) {
+                        const hostService =  "<%=config.info.host_service%>";
+                        return `<a href='${hostService}/view/member/fastLogin?mem_id=${row.mem_id}&password=${row.password}' target="_blank">${data}</a>`;
+
+                    },
+                    "targets": 1
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "8%",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 2
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "5%",
+                    "render": function(data, type, row) {
+                        data = row.mem_id +'<br>('+data+')';
+                        return data ;
+                    },
+                    "targets": 3
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "15%",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 4
+                },{
+                    "className": 'td-center',
+                    "width" : "5%",
+                    "render": function(data, type, row) {
+                       if(data != null && data != ''){
+                           data = '<a href="javascript:goProductSite(\''+row.client_mall_seq+'\',\''+data+'\')">'+data+'</a>';
+                       }
+                        return data;
+                    },
+                    "targets": 5
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "10%",
+                    "render": function(data, type, row) {
+                        if(data == '연동실패' || data == '연동중')
+                            data = "<span style='color:red'>"+data+"</span>"
+                        return data;
+                    },
+                    "targets": 6
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "8%",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 7
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "20%",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 8
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "10%",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 9
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "10%",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 10
+                }
+            ],
+        });
+    }
+
+    function resetMallLink($this) {
+        const mall_product_seq = $this.attr('data-mall-product-seq');
+        const result = confirm(`${mall_product_seq}번 연동을 초기화 하시겠습니까?`);
+        if (result) {
+            $.ajax({
+                url : `${denma_nextdop_api_url}/product/resetConnect/${mall_product_seq}`,
+                type : "PUT",
+                data : '',
+                success : function(response) {
+                    console.log("response :: ", response);
+                    if (response.cnt != null) {
+                        showAlert(`${mall_product_seq}번 상품 연동 초기화 완료.`);
+                        $('.productTable').DataTable().ajax.reload(null, false);
+                    } else {
+                        showAlert("상품 연동 초기화 실패.");
+                    }
+                },
+                error : function(error) {
+                    console.log("error :: ", error);
+                }
+            });
+        }
+    }
+
+
+    function goProductSite(client_mall_seq, mall_product_no){
+        $.ajax({
+            type : "GET",
+            url : `${denma_nextdop_api_url}/mall/product/goProductSite?client_mall_seq=`+client_mall_seq+'&mall_product_no='+mall_product_no,
+            contentType: "application/json; charset=utf-8",
+            success : function(response) {
+                console.log("response :: ", response);
+
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    "event" : "click mallcode",
+                    "client_mall_seq" : client_mall_seq,
+                    "mall_type" : response.mall_type
+                });
+
+
+                if(response.error !== "error"){
+
+
+                    window.open(response.path);
+                }else{
+                    alert("잠시 후 다시 시도하여주세요.")
+                }
+            },
+            error : function(error) {
+                console.log("error");
+                console.log(error);
+            }
+        })
+    }
+
+</script>

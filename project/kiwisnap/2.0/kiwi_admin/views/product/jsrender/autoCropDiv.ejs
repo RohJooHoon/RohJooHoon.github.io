@@ -1,0 +1,20 @@
+<script id="autoCropDiv" type="text/x-jsrender">
+<div class="popupEditNavigation" style="display: flex; flex-direction: column;">
+    <div class="popupEditTitle">부위별 자르기</div>
+     {{for result}}
+      {{if images}}
+      <div class="popupEditCropImgWrap">
+         <div class="popupEditSubTitle">{{:title}}</div>
+         <ul class="popupEditList">
+             {{for images}}
+               {{if img}}
+               <li class="popupEditListItemCrop"><img src="{{:img.src}}" class="popupEditListItem_image"><div class="popupEditListItem_desc">{{:title}}</div></li>
+               {{/if}}
+             {{/for}}
+         </ul>
+      </div>
+      {{/if}}
+     {{/for}}
+    <button class="popupEditApplyButton" style="margin-top:auto" onclick="confrimCropProcess()">적용하기</button>
+</div>
+ </script>

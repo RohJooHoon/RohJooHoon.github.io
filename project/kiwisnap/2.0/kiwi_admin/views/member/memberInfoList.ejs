@@ -1,0 +1,195 @@
+<link href="/css/payment.css" rel="stylesheet" type="text/css">
+<style>
+    .td-center{text-align: center;}
+</style>
+
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">회원 정보 리스트</h4>
+        </div>
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center justify-content-end">
+                <div class="button-group">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">ID/client_id/phone</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" id="mem_id">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="button" onclick="getMemberList()"><i class="ti-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="unitList table-bordered" id="dataTable" style="width: 100%;">
+                    <thead>
+                    <tr>
+                        <th class="text-dark font-weight-bold">회원번호</th>
+                        <th class="text-dark font-weight-bold">회원ID</th>
+                        <th class="text-dark font-weight-bold">쇼핑몰명</th>
+                        <th class="text-dark font-weight-bold">성별</th>
+                        <th class="text-dark font-weight-bold">운영기간</th>
+                        <th class="text-dark font-weight-bold">카테고리</th>
+                        <th class="text-dark font-weight-bold">직원수</th>
+                        <th class="text-dark font-weight-bold">업로드 수</th>
+                        <th class="text-dark font-weight-bold">채널</th>
+                        <th class="text-dark font-weight-bold">기타</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        getMemberList();
+    });
+
+    document.addEventListener('keypress', function (event) {
+        if (event.key == 'Enter') {
+            getMemberList();
+        }
+    })
+
+
+    // 회원 리스트 조회
+    function getMemberList(){
+
+        const sendData = {
+            'mem_id' : $("#mem_id").val().trim(),
+        }
+
+        $(".unitList").dataTable().fnDestroy()
+        $('.unitList').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "stateSave": true,
+            "ordering": false,
+            "searching": false,
+            "info": false,
+            "pageLength": 20,
+            "ajax": {
+                "url" : `${admin_api_url}/member/info/list`,
+                "data" : sendData,
+                dataSrc : function (response) {
+                    console.log("response :: ", response);
+                    return response.data;
+                }
+            },
+            "columns" : [
+                {"data": "mem_no"},
+                {"data": "mem_id"},
+                {"data": "homepage_name"},
+                {"data": "gender"},
+                {"data": "operation_period"},
+                {"data": "category_list"},
+                {"data": "employees_cnt"},
+                {"data": "product_upload_cnt"},
+                {"data": "operation_channel_list"},
+                {"data": "etc"},
+            ],
+            "columnDefs": [
+                {
+                    "width" : "7%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 0
+                },
+                {
+                    "width" : "18%",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 1
+                },
+                {
+                    "width" : "10%",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 2
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "8%",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 3
+                },
+                {
+                    "className": 'td-center',
+                    "width" : "12%",
+                    "render": function(data, type, row) {
+                        return data != null? data : "";
+                    },
+                    "targets": 4
+                },
+                {
+                    "width" : "7%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 5
+                },
+                {
+                    "width" : "7%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 6
+                },
+                {
+                    "width" : "7%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 7
+                },
+                {
+                    "width" : "15%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 8
+                },
+                {
+                    "width" : "12%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return  data
+                    },
+                    "targets": 9
+                },
+
+            ],
+        });
+    }
+
+
+</script>

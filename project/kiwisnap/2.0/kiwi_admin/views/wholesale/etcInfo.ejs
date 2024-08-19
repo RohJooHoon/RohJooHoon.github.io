@@ -1,0 +1,440 @@
+<style>
+    .td-center{text-align: center;}
+</style>
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col">
+            <h2 class="page-title text-dark">도매 정보</h2>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠 -->
+<form class="container-fluid" method="post" id="insertForm">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-header py-2">
+                    <div class="row">
+                        <div class="col py-1">
+                            <h5 class="font-weight-bold mb-1">도매 정보 관리</h5>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card-body" style="max-width: 1000px;">
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="name">이름<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="name" type="text" name="name" placeholder="이름을 넣어주세요" data-alram="업체명">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="address">주소<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="address" type="text" name="address" placeholder="주소 넣어주세요" data-alram="주소">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="kakao_id">kakao_id</label>
+                        </div>
+                        <input class="form-control is_impotent" id="kakao_id" type="text" name="kakao_id" placeholder="kakao_id 넣어주세요" data-alram="kakao_id">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="kakao_id">kakao_qr_code</label>
+                        </div>
+                        <input class="form-control is_impotent" id="kakao_qr_code" type="text" name="kakao_qr_code" placeholder="kakao_qr_code url" data-alram="kakao_qr_code">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="kakao_url">kakao_url</label>
+                        </div>
+                        <input class="form-control is_impotent" id="kakao_url" type="text" name="kakao_url" placeholder="카카오 url 넣어주세요" data-alram="kakao_url">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="kakao_api_key">kakao_api_key</label>
+                        </div>
+                        <input class="form-control is_impotent" id="kakao_api_key" type="text" name="kakao_api_key" placeholder="카카오 api key 넣어주세요" data-alram="kakao_api_key">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="kakao_api_key">kakao_javascript_key</label>
+                        </div>
+                        <input class="form-control is_impotent" id="kakao_javascript_key" type="text" name="kakao_javascript_key" placeholder="카카오 javascript key 넣어주세요" data-alram="kakao_javascript_key">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="story_id">story_id</label>
+                        </div>
+                        <input class="form-control is_impotent" id="story_id" type="text" name="story_id" placeholder="카카오 스토리 id 넣어주세요" data-alram="story_id">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="story_content">kakao_story</label>
+                        </div>
+                        <textarea class="form-control" id="story_content" name="story_content" cols="120" rows="5" data-alram="story_content"></textarea>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="line_id">line_id</label>
+                        </div>
+                        <input class="form-control is_impotent" id="line_id" type="text" name="line_id" placeholder="라인 id 넣어주세요" data-alram="line_id">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="wechat_id">wechat_id</label>
+                        </div>
+                        <input class="form-control is_impotent" id="wechat_id" type="text" name="wechat_id" placeholder="위챗 id 넣어주세요" data-alram="wechat_id">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="wechat_id">wechat_qrcode</label>
+                        </div>
+<!--                        <input class="form-control is_impotent" id="wechat_id" type="text" name="wechat_id" placeholder="위챗 id 넣어주세요" data-alram="wechat_id">-->
+                        <div class="col-md-3 mb-2">
+                            <img class="img-thumbnail img-responsive mb-1" alt="" id="wechat_qrcode_img" src="/img/no_image.png" style="width: 400px;">
+                            <input type="hidden" class="is_impotent" id="wechat_qrcode_url" name="wechat_qrcode_url" data-alram="위챗큐알 이미지">
+                            <div class="custom-file">
+                                <input class="custom-file-input" id="wechat_qrcode_file" type="file" accept="image/jpeg, image/png, image/jpg" name="wechat_qrcode_file" onchange="changeWechatQrcodeFile(event);">
+                                <label class="custom-file-label" for="inputGroupFile01" data-content="업로드">선택된 파일 없음</label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="phone1_name">phone1</label>
+                            </div>
+                            <input class="form-control is_impotent" id="phone1_name" type="text" name="phone1_name" placeholder="phone1 이름" data-alram="phone1_name">
+                            <input class="form-control is_impotent" id="phone1" type="text" name="phone1" placeholder="phone" data-alram="phone1">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="phone2_name">phone2</label>
+                            </div>
+                            <input class="form-control is_impotent" id="phone2_name" type="text" name="phone2_name" placeholder="phone2 이름" data-alram="phone2_name">
+                            <input class="form-control is_impotent" id="phone2" type="text" name="phone2" placeholder="phone2" data-alram="phone2">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="phone3_name">phone3</label>
+                            </div>
+                            <input class="form-control is_impotent" id="phone3_name" type="text" name="phone3_name" placeholder="phone3 이름" data-alram="phone3_name">
+                            <input class="form-control is_impotent" id="phone3" type="text" name="phone3" placeholder="phone3" data-alram="phone3">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="story_content">macro_message</label>
+                            </div>
+                            <textarea class="form-control" id="macro_message" name="macro_message" cols="120" rows="5" data-alram="macro_message"></textarea>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="macro_include_text">macro_include_text</label>
+                            </div>
+                            <input class="form-control is_impotent" id="macro_include_text" type="text" name="macro_include_text" placeholder="macro_include_text 넣어주세요" data-alram="macro_include_text">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="macro_exclude_text">macro_exclude_text</label>
+                            </div>
+                            <input class="form-control is_impotent" id="macro_exclude_text" type="text" name="macro_exclude_text" placeholder="macro_exclude_text 넣어주세요" data-alram="macro_exclude_text">
+                        </div>
+
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold">필터</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" style="width: 100%; cellspacing: 0;">
+                                        <thead>
+                                        <tr>
+                                            <th style="width: 115px;">필터명</th>
+                                            <th>속성</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            <button type="button" class="btn btn-success float-right" onclick="updateClientInfo(); updateFilter();">등록</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+<script>
+    let bucketName = 'nextdop';
+    let bucketRegion = 'ap-northeast-2';
+    let IdentityPoolId = 'ap-northeast-2:7bac1f23-f1be-435c-887b-db3889ab1e13';
+
+    AWS.config.update({
+        region: bucketRegion,
+        credentials: new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: IdentityPoolId
+        })
+    });
+
+    let s3 = new AWS.S3({
+        apiVersion: '2006-03-01',
+        params: {Bucket: bucketName}
+    });
+</script>
+
+<script type="text/javascript">
+
+    const params = getUrlParams();
+    $(function() {
+        setClientInfo();
+        setFilterList();
+    });
+
+    //해당 클라이언트 정보 세팅
+    function setClientInfo() {
+        $.ajax({
+            type : "GET",
+            url : `${denma_api_url}/api/setting/client/detail`,
+            data : {"client_id" : params.client_id},
+            success : function (response) {
+                console.log('setClientInfo :: ', response);
+
+                if(!isEmpty(response.etc_info)){
+                    let etcInfo = JSON.parse(response.etc_info.replace(/\n/gi, '\\n'));
+                    console.log('etcInfo :: ', etcInfo);
+
+                    $('#name').val(etcInfo.name);
+                    $('#address').val(etcInfo.address);
+                    $('#kakao_id').val(etcInfo.kakao_id);
+                    $('#kakao_qr_code').val(etcInfo.kakao_qr_code);
+                    $('#kakao_url').val(etcInfo.kakao_url);
+                    $('#kakao_api_key').val(etcInfo.kakao_api_key);
+                    $('#kakao_javascript_key').val(etcInfo.kakao_javascript_key);
+
+                    $('#story_id').val(etcInfo.story_id);
+                    $('#story_content').val(etcInfo.story_content);
+
+                    $('#line_id').val(etcInfo.line_id);
+                    $('#wechat_id').val(etcInfo.wechat_id);
+                    $('#wechat_qrcode_url').val(etcInfo.wechat_qrcode_url);
+                    $("#wechat_qrcode_img").attr('src', etcInfo.wechat_qrcode_url);
+
+                    if(!isEmpty(etcInfo.phones)){
+                        let phones = etcInfo.phones;
+                        for(let i = 0; i < phones.length; i++){
+                            let phoneObj = phones[i];
+                            $(`#phone${i + 1}_name`).val(phoneObj.name);
+                            $(`#phone${i + 1}`).val(phoneObj.phone);
+                        }
+                    }
+
+                    $('#macro_message').val(etcInfo.macro_message);
+                    $('#macro_include_text').val(etcInfo.macro_include_text);
+                    $('#macro_exclude_text').val(etcInfo.macro_exclude_text);
+                }
+            },
+            error : function (error) {
+
+            }
+        });
+    }
+
+    //도매 정보 업데이트
+    function updateClientInfo(){
+        let etcInfoObj = new Object();
+        etcInfoObj.name = $('#name').val();
+        etcInfoObj.address = $('#address').val();
+        etcInfoObj.kakao_id = $('#kakao_id').val();
+        etcInfoObj.kakao_qr_code = $('#kakao_qr_code').val();
+        etcInfoObj.kakao_url = $('#kakao_url').val();
+        etcInfoObj.kakao_api_key = $('#kakao_api_key').val();
+        etcInfoObj.kakao_javascript_key = $('#kakao_javascript_key').val();
+
+        etcInfoObj.story_id = $('#story_id').val();
+        etcInfoObj.story_content = $('#story_content').val();
+
+        etcInfoObj.line_id = $('#line_id').val();
+        etcInfoObj.wechat_id = $('#wechat_id').val();
+        etcInfoObj.wechat_qrcode_url = $('#wechat_qrcode_url').val();
+
+        let phonesArray = new Array();
+        for(let i = 0; i < 3; i++){
+            if(!isEmpty($(`#phone${i + 1}_name`).val())){
+                let phoneObj = new Object();
+                phoneObj.name = $(`#phone${i + 1}_name`).val();
+                phoneObj.phone = $(`#phone${i + 1}`).val();
+
+                phonesArray.push(phoneObj);
+            }
+        }
+        etcInfoObj.phones = phonesArray;
+
+        etcInfoObj.macro_message = $('#macro_message').val();
+        etcInfoObj.macro_include_text = $('#macro_include_text').val();
+        etcInfoObj.macro_exclude_text = $('#macro_exclude_text').val();
+
+        let etcInfo = JSON.stringify(etcInfoObj);
+        console.log('etcInfoObj :: ', etcInfo);
+
+        //첫번째 전화번호를 회원 번호로 업데이트 하기 위함
+        let memPhone = '';
+        if (!isEmpty($('#phone1').val())) {
+            memPhone = $('#phone1').val().replace(/-/gi, "");;
+        }
+        const sendData = {
+            "client_id" : params.client_id,
+            "etc_info" : etcInfo,
+            "phone" : memPhone
+        }
+
+        $.ajax({
+            type : "PUT",
+            url : `${denma_api_url}/api/setting/client/update`,
+            data : sendData,
+            success : function() {
+                alert("수정되었습니다.");
+            },
+            error : function(error) {
+                console.log("error :: ", error);
+                alert("오류가 발생했습니다.");
+            }
+        });
+    }
+
+
+    function setFilterList() {
+        $.ajax({
+            type: "GET",
+            url: `${denma_api_url}/api/wholesale/filter/list`,
+            data: {"client_id": params.client_id},
+            success: function (response) {
+                console.log('setFilterList :: ', response);
+
+                let tag = ``;
+                for (let filterType in response.data) {
+                    tag += `<tr>`;
+                    let filterGroup = response.data[filterType];
+                    console.log('filterType :: ', filterType);
+                    console.log('filterGroup :: ', filterGroup);
+                    tag += `<td class="align-middle">${filterType}</td>`;
+                    tag += `<td>`;
+                    for (let idx in filterGroup) {
+                        let filter = filterGroup[idx];
+                        let hasFliterClass = ``;
+                        if (filter.is_filter === 'Y') {
+                            hasFliterClass = `btn-success`;
+                        }
+                        tag += `<a href="javascript:void(0);" onclick="checkFilter($(this))" class="btn btn-primary btn-sm mt-1 filter-tag ${hasFliterClass}" data-seq="${filter.filter_seq}" style="margin-left: 4px;">
+			                        <span>${filter.filter_name}</span>
+		                       </a>`;
+                    }
+                    tag += `</td>`;
+                    tag += `</tr>`;
+                }
+
+                $('#dataTable tbody').append(tag);
+
+            },
+            error: function (error) {
+
+            }
+        });
+    }
+
+    function checkFilter($this) {
+        if ($this.hasClass('btn-success')) {
+            $this.removeClass('btn-success');
+        } else {
+            $this.addClass('btn-success');
+        }
+    }
+
+    function updateFilter() {
+        let checkedFilterSeqList = new Array();
+        $('#dataTable tbody a.btn-success').each(function (index, item) {
+            checkedFilterSeqList.push($(item).attr('data-seq'));
+        });
+        const filterSeqList = Array.from(checkedFilterSeqList);
+
+        let sendData = {
+            "client_id": params.client_id,
+            "filterSeqList": filterSeqList
+        }
+
+        $.ajax({
+            type : "PUT",
+            url : `${denma_api_url}/api/wholesale/filter`,
+            data : sendData,
+            success : function (response) {
+                console.log("success :: ", response);
+                alert("필터 수정이 정상적으로 완료되었습니다.");
+                //location.href = "/view/unit/list";
+            },
+            error : function (error) {
+                console.log("error :: ", error);
+            }
+        });
+    }
+
+
+    //이미지 업로드시마다 해당 사진의 정보를 s3에 업로드하고 미리보기로 보여준다.
+    function changeWechatQrcodeFile(event) {
+        const files = event.target.files;
+        for (let file of files) {
+            const reader = new FileReader;
+            reader.onload = function (event) {
+                const file_name = `${params.client_id}_wechat_${getRandomStr(3)}.jpg`;
+                let sendData = {
+                    Key: `images/wholesale/${file_name}`,
+                    Body: file,
+                    ACL: 'public-read',
+                    ContentType: getContentType("jpg"),
+                };
+                let options = {partSize: 10 * 1024 * 1024, queueSize: 1};
+                s3.upload(sendData, options).on('httpUploadProgress', function (event) {
+                    console.log("Uploaded :: " + parseInt((event.loaded * 100) / event.total) + '%');
+                }).send(function (error, uploadData) {
+                    if (!error) {
+                        showAlert('이미지 업로드 완료');
+                        $("#wechat_qrcode_img").attr('src', uploadData.Location);
+                        $("#wechat_qrcode_url").val(uploadData.Location);
+                    } else {
+                        console.log("error : ", error);
+                        showAlert('이미지 업로드중 오류가 발생했습니다. 다시 시도해주세요.');
+                    }
+                });
+            }
+            reader.readAsDataURL(file);
+        }
+        $("#wechat_qrcode_file").val('');
+    }
+
+</script>

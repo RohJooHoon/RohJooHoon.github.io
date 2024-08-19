@@ -1,0 +1,517 @@
+<style>
+  .td-center {
+    text-align: center;
+  }
+</style>
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col">
+            <h2 class="page-title text-dark">프레임 등록</h2>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠 -->
+<form class="container-fluid" method="post" id="insertForm">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-header py-2">
+                    <div class="row">
+                        <div class="col py-1">
+                            <h5 class="font-weight-bold mb-1">프레임 등록 화면</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" style="max-width: 1000px;">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="name">이름<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="name" type="text" name="name" placeholder="프레임 이름을 넣어주세요"
+                               data-alram="프레임 이름">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="">프레임 이미지<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <div class="custom-file">
+                            <input class="custom-file-input" id="template_img" type="file" name="template_img"
+                                   onchange="addImage(this.files);">
+                            <label class="custom-file-label" for="inputGroupFile01" data-content="업로드">선택된 파일 없음</label>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3">
+                            <img class="img-thumbnail img-responsive mb-1" id="show_image_url" name="show_image_url" alt="" src=""
+                                 style="display: none;">
+                            <input type="hidden" class="is_impotent" id="image_url" name="image_url" value="" data-alram="프레임 이미지">
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="">
+                                <div>
+                                    템플릿 HTML
+                                    <button class="btn btn-outline-dark btn-sm mt-2" type="button" style="display: block; margin: auto;"
+                                            onclick="unitEditPopupOpen()">편집기
+                                    </button>
+                                </div>
+                            </label>
+                        </div>
+                        <textarea class="form-control" id="template" name="template" cols="120" rows="5"
+                                  data-alram="프레임 템플릿 HTML"></textarea>
+                        <input id="unit_object" name="unit_object" type="hidden"/>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="name">중요도<span class="text-danger ml-05">*</span>
+                                <button class="question btn btn-sm p-0" data-toggle="dropdown" type="button"><i
+                                            class="fas fa-question-circle"></i></button>
+                                <div class="dropdown-menu">
+                                    <h6 class="dropdown-header">가장 높음 : 1, 가장 낮음 : 100</h6>
+                                </div>
+                            </label>
+                        </div>
+                        <input class="form-control is_impotent" id="idx" type="text" name="idx" data-alram="중요도" placeholder="중요도 입력"
+                               onkeyup="checkInputValue($(this).val())">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="keyword">키워드<span class="text-danger ml-05"></span>
+                                <button class="question btn btn-sm p-0" data-toggle="dropdown" type="button"><i
+                                            class="fas fa-question-circle"></i></button>
+                                <div class="dropdown-menu">
+                                    <h6 class="dropdown-header">프레임의 키워드 ','로 각 단어를 구분한다. EX) 여름, 바다, 휴가</h6>
+                                </div>
+                            </label>
+                        </div>
+                        <input class="form-control" id="keyword" type="text" name="keyword" placeholder=",로 구분된 키워드를 입력해주세요.">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="unit_type">프레임 타입</label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="unit_type" id="unit_type01" value="NORMAL" checked>
+                                <label class="form-check-label" for="unit_type01">일반</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="unit_type" id="unit_type02" value="PREMIUM">
+                                <label class="form-check-label" for="unit_type02">프리미엄</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="version">버전</label>
+                        </div>
+                        <select class="custom-select is_underLine" id="version" name="version">
+                            <option value="2" selected>2.0</option>
+                            <option value="1">1.0</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="status">상태</label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status" id="status_01" value="01" checked>
+                                <label class="form-check-label" for="status_01">활성</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status" id="status_02" value="99">
+                                <label class="form-check-label" for="status_02">비활성</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="recommend_yn">추천 여부</label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="recommend_yn" id="recommend_01" value="N" checked>
+                                <label class="form-check-label" for="recommend_01">추천안함</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="recommend_yn" id="recommend_02" value="Y">
+                                <label class="form-check-label" for="recommend_02">추천함</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="">카테고리</label>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12" id="category_check_div">
+                                    <!-- checkbox -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold">필터</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" style="width: 100%;">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 115px;">필터명</th>
+                                        <th>속성</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12" id="category_check_div">
+                                <!-- checkbox -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="btn btn-success float-right" onclick="createUnit()">등록 하기</button>
+                        <button type="button" class="btn btn-success float-right" onclick="location.href='/view/unit/list'">목록으로</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<% include unitEditor.ejs %>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+<script type="text/javascript">
+  const bucketName = 'nextdop';
+  const bucketRegion = 'ap-northeast-2';
+  const IdentityPoolId = 'ap-northeast-2:7bac1f23-f1be-435c-887b-db3889ab1e13';
+  AWS.config.update({
+    region: bucketRegion,
+    credentials: new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: IdentityPoolId
+    })
+  });
+  const s3 = new AWS.S3({
+    apiVersion: '2006-03-01',
+    params: {Bucket: bucketName}
+  });
+
+  const unitObject = {  // 프레임 전역 변수
+    checkedFilterSeqList: new Set(),
+  };
+
+  $(function () {
+    getFilterList();
+    settingEventListener();
+  });
+
+  function settingEventListener() {
+
+    // 선택한 카테고리 체크박스의 filter_seq 값을 전역 변수에 담는다.
+    $(document).on("click", ".filter-category-checkbox", function () {
+      const $this = $(this);
+      const filter_seq = $this.attr('data-filter-seq');
+      if (unitObject.checkedFilterSeqList.has(filter_seq)) { // 이미 선택된 상태라면 배열에서 해당 filter_seq 값을 삭제한다.
+        unitObject.checkedFilterSeqList.delete(filter_seq);
+        const $filter_subcategory_tag = $(".filter-subcategory-tag");
+        $filter_subcategory_tag.each(function () {
+          $(this).removeClass('btn-success');
+          const this_sub_category_seq = $(this).attr('data-seq');
+          unitObject.checkedFilterSeqList.delete(this_sub_category_seq);
+        })
+      } else {
+        unitObject.checkedFilterSeqList.add(filter_seq);
+      }
+      const $checkboxList = $('.filter-category-checkbox');
+      $checkboxList.each(function () {
+        const this_filter_seq = $(this).attr('data-filter-seq');
+        if (this_filter_seq !== filter_seq) {
+          $(this).prop("checked", false);
+          unitObject.checkedFilterSeqList.delete(this_filter_seq);
+        }
+      });
+    });
+
+  }
+
+  // 필터 리스트 전체 조회.
+  function getFilterList() {
+    $.ajax({
+      "type": "GET",
+      "url": `${denma_api_url}/api/unit/filter/list`,
+      "data": {
+        "start": 0,
+        "length": 300,
+        "status": "01"
+      },
+      "async": false,
+      success: function (response) {
+        const filterList = response.data.sort(function (a, b) {
+          let nameA = a.filter_name.toUpperCase(); // ignore upper and lowercase
+          let nameB = b.filter_name.toUpperCase(); // ignore upper and lowercase
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+          // 이름이 같을 경우
+          return 0;
+        });
+
+        setFilterList(filterList);
+      },
+      error: function (error) {
+        console.log("error :: ", error);
+      }
+    });
+  }
+
+  // 카테고리 및 필터 리스트 목록 세팅.
+  function setFilterList(filterList) {
+    const filterTypeList = new Set(); // 필터 타입 종류.
+
+    // 카테고리에 해당하는 데이터만 필터링
+    const oneDepth = filterList.filter((item) => {
+      return (item.filter_type === "CATEGORY") && (item.depth === 1);
+    })
+
+    // 카테고리를 제외한 필터 데이터 필터링
+    const styleList = filterList.filter((item) => {
+      return (item.depth !== 1)
+    })
+
+    // 체크박스 리스트에 카테고리 데이터 세팅.
+    for (let list of oneDepth) {
+      const oneDepth = `<div class="custom-control custom-checkbox one-depth-checkbox">
+                               <input type="checkbox" class="custom-control-input filter-category-checkbox" name="category_filter_checkbox" id="${list.filter_seq}" data-filter-seq="${list.filter_seq}">
+                               <label class="custom-control-label" for="${list.filter_seq}" style="color: black;">${list.filter_name}</label>
+                               </div>`
+      $("#category_check_div").append(oneDepth);
+    }
+
+    for (let data of styleList) {
+      filterTypeList.add(data.filter_type);
+    }
+
+    let keys = filterTypeList.keys();
+    let properties_tag = '';
+    for (let key of keys) {
+      let keyName = '';
+      if (key === "NEW_ROW") {
+        keyName = "단수";
+      } else if (key === "NEW_STYLE") {
+        keyName = "스타일"
+      } else if (key === "SUB_CATEGORY") {
+        keyName = "서브 카테고리";
+      } else if (key === "UNIT_SET") {
+        keyName = "프레임 세트";
+      } else if(key === "SEEZN") {
+        keyName = "시즌"
+      } else if(key === "COLOR") {
+        keyName = "컬러"
+      } else if(key === "MAIN_IMAGE_SIZE") {
+          keyName = "대표 이미지 사이즈"
+      } else {
+        continue;
+      }
+
+      properties_tag += '<tr>';
+
+      properties_tag += '    <td class="align-middle">' + keyName + '</td>';
+
+      properties_tag += '    <td>';
+
+      for (let data of styleList) {
+        if (key === data.filter_type) {
+
+          if (data.filter_type === "SUB_CATEGORY") {
+            properties_tag += `<a href="javascript:void(0);" onclick="checkSubCategoryFilter($(this))" class="btn btn-primary btn-sm mt-1 filter-subcategory-tag" data-seq="${data.filter_seq}" style="margin-left: 4px;">`;
+          } else {
+            const class_name = (data.filter_type === "UNIT_SET") ? "filter-tag-set" : "filter-tag";
+            properties_tag += `<a href="javascript:void(0);" onclick="checkFilter($(this))" class="btn btn-primary btn-sm mt-1 ${class_name}" data-seq="${data.filter_seq}" data-filter-type="${data.filter_type}" style="margin-left: 4px;">`;
+          }
+
+          properties_tag += `<span>${data.filter_name}</span>`;
+          properties_tag += `</a>`;
+        }
+      }
+      properties_tag += '    </td>';
+      properties_tag += '</tr>';
+    }
+    $('#dataTable tbody').append(properties_tag);
+  }
+
+  function checkSubCategoryFilter($this) {
+    const sub_category_seq = $this.attr('data-seq');
+
+    const categoryCheckLength = $("input:checkbox[name='category_filter_checkbox']:checked").length;
+
+    if (categoryCheckLength == 0) {
+      showAlert("카테고리를 먼저 선택해주세요.");
+      return false;
+    }
+
+    if (unitObject.checkedFilterSeqList.has(sub_category_seq)) {
+      unitObject.checkedFilterSeqList.delete(sub_category_seq);
+      $this.removeClass('btn-success');
+    } else {
+      unitObject.checkedFilterSeqList.add(sub_category_seq);
+      $this.addClass('btn-success');
+    }
+
+  }
+
+  function checkFilter($this) {
+    const filter_seq = $this.attr('data-seq');
+    const filter_type = $this.attr('data-filter-type');
+    if (filter_type === "UNIT_SET") {
+      if (validateUnitSetFilter(filter_seq) === false) {
+        alert('프레임당 하나의 세트만 선택이 가능합니다.');
+        return;
+      }
+    }
+    if (!unitObject.checkedFilterSeqList.has(filter_seq)) {
+      unitObject.checkedFilterSeqList.add(filter_seq);
+      $this.addClass('btn-success');
+    } else {
+      unitObject.checkedFilterSeqList.delete(filter_seq);
+      $this.removeClass('btn-success');
+    }
+  }
+
+  //유닛당 하나의 세트 필터만 선택 가능하도록 유효성 검사.
+  function validateUnitSetFilter(filter_seq) {
+    const $filter_tag_sets = $('.filter-tag-set');
+    for (const $tag_set of $filter_tag_sets) {
+      if ($($tag_set).hasClass("btn-success")) {
+        const data_seq = $($tag_set).attr('data-seq');
+        if (data_seq !== filter_seq) {
+          return false;
+        }
+      }
+    }
+  }
+
+  // 유닛 등록
+  function createUnit() {
+    const filterSeqList = Array.from(unitObject.checkedFilterSeqList);
+
+    const sendData = {
+      "name": $("#name").val(),
+      "image_url": $("#image_url").val(),
+      "template": $("#template").val(),
+      "idx": $("#idx").val(),
+      "keyword_list": $("#keyword").val(),
+      "status": $("input:radio[name='status']:checked").val(),
+      "unit_type": $("input:radio[name='unit_type']:checked").val(),
+      "recommend_yn": $("input:radio[name='recommend_yn']:checked").val(),
+      "unit_object": $('#unit_object').val(),
+      "version": $('#version').val(),
+      "filterSeqList": filterSeqList,
+    }
+
+    // console.log("sendData :: ", sendData);
+
+    if (checkImpotent()) {
+      $.ajax({
+        type: "POST",
+        url: `${denma_api_url}/api/unit/create`,
+        data: sendData,
+        success: function (response) {
+          alert("프레임 등록이 정상적으로 완료되었습니다.");
+          location.href = "/view/unit/list";
+        },
+        error: function (error) {
+          console.log("error : ", error);
+          return false;
+        }
+      });
+    }
+  }
+
+  // 필수 입력 유효성 검사.
+  function checkImpotent() {
+    const $is_impotent = $(".is_impotent");
+    for (let i = 0; i < $is_impotent.length; i++) {
+      let $target = $is_impotent.eq(i);
+      if ($target.is('input')) {
+        if (!$target.val()) {
+          let $alarmText = $target.attr('data-alram');
+          alert($alarmText + "을(를) 입력해주세요.");
+          $target.focus();
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  /* 이미지 추가 */
+  function addImage(event) {
+    const file = document.getElementById('template_img').files;
+    const imageType = file[0].type.split("/")[1];
+
+    if (imageType !== "jpg" && imageType !== "jpeg" && imageType !== "png") {
+      alert('jpg, jpeg, png 파일만 업로드 가능합니다.');
+      $("#template_img").val('');
+      return false;
+    }
+
+    for (let image of file) {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        $('#show_image_url').show().attr('src', event.target.result);
+        s3upload(image);
+      };
+      reader.readAsDataURL(image);
+    }
+
+  }
+
+  /* s3 이미지 업로드 */
+  function s3upload(file) {
+    let imageType = file.type.split("/")[1];
+    const file_name = getTimeStamp() + '_' + getRandomStr(3) + '.' + imageType;
+    $('#image_url').val(file_name);
+
+    const params = {
+      Key: `product/unit/${file_name}`,
+      Body: file,
+      ACL: 'public-read',
+      ContentType: getContentType("jpg"),
+    };
+
+    const options = {partSize: 10 * 1024 * 1024, queueSize: 1};
+    s3.upload(params, options).on('httpUploadProgress', function (evt) {
+    }).send(function (err, uploadData) {
+      if (!err) {
+        console.log("uploadData :: ", uploadData);
+      } else {
+        console.log('error :: ', err);
+      }
+    });
+  }
+
+  /* 중요도 입력값 1 ~ 100사이로 제한 */
+  function checkInputValue(param) {
+    let $idx = $("#idx");
+    $idx.val(numOnly(param)); // 문자 입력시 공백으로 반환.
+    if (param < 0 || param > 100) {
+      alert("중요도는 1 ~ 100사이만 입력가능합니다.");
+      $idx.val(1);
+      $idx.focus();
+    }
+  }
+
+</script>

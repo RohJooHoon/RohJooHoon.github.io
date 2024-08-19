@@ -1,0 +1,181 @@
+<style>
+    .td-center{text-align: center;}
+</style>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">소매 리스트</h4>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="table-responsive">
+                <table class="retailListTable table-bordered" id="dataTable" style="width: 100%;">
+                    <thead>
+                    <tr style="text-align: center">
+                        <th class="text-dark font-weight-bold">업체명</th>
+                        <th class="text-dark font-weight-bold">핸드폰 번호</th>
+                        <th class="text-dark font-weight-bold">수신여부</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="custom-file" style="text-align: right;">
+                <label for="csvRegister">도매 업체 등록</label>
+                <input type="file" id="csvRegister" accept=".csv" onchange="readCsvFile($(this))"/>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    const params = getUrlParams();
+
+    $(function (){
+        getMappingRetailList();
+    });
+
+    // 도매와 매핑된 소매 회원 리스트 조회.
+    function getMappingRetailList(){
+
+        let sendData = {
+            "client_id" : params.client_id,
+        }
+
+        $(".retailListTable").dataTable().fnDestroy()
+        $('.retailListTable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "stateSave": false,
+            "ordering": false,
+            "searching": false,
+            "info" : false,
+            "pageLength": 20,
+            "language" : {
+                emptyTable: "등록된 소매 업체가 없습니다."
+            },
+            "ajax": {
+                "type" : "GET",
+                "url" : `${denma_api_url}/api/wholesale/retail/list`,
+                "data" : sendData,
+                dataSrc : function (response) {
+                    return response.data;
+                }
+            },
+            "columns" : [
+                {"data": "name"},
+                {"data": "phone"},
+                {"data": "receive_yn"},
+            ],
+            "columnDefs": [
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 0
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 1
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 2
+                },
+            ],
+        });
+    }
+
+    // 입력받은 ".csv"파일을 파싱한다.
+    function readCsvFile(file) {
+        const csvFile = file[0].files;
+        let reader = new FileReader();
+        try {
+            reader.onload = function (e) {
+                const retailList = csvToJSON(e.target.result);
+                createRetailList(retailList);
+            }
+            reader.readAsText(csvFile[0]);
+        } catch (error) {
+            console.log("error :: ", error);
+            alert("csv 파일을 불러오는 중 오류가 발생했습니다. csv 파일이 입력 양식에 맞는 지 다시 확인 해주세요.");
+        }
+        $("#csvRegister").val('');
+    }
+
+    // csv 파일을 파싱해서 json 배열로 변환 한다.
+    function csvToJSON(csv_string) {
+
+        // 1. 문자열을 줄바꿈으로 구분 => 배열에 저장
+        const rows = csv_string.split("\r\n");
+
+        // 2. 빈 배열 생성: "csv"의 각 행을 담을 JSON 객체임
+        const jsonArray = [];
+
+        // 3. 제목 행 추출 후, 콤마로 구분 => 배열에 저장
+        const header = rows[0].split(",");
+
+        // 4. 내용 행 전체를 객체로 만들어, jsonArray에 담기
+        for(let i = 1; i < rows.length; i++){
+
+            // 빈 객체 생성: 각 내용 행을 객체로 만들어 담아둘 객체임
+            let obj = {};
+
+            // 각 내용 행을 콤마로 구분
+            let row = rows[i].split(",");
+            row[1] = row[1].replace(/-/gi, ""); // 핸드폰 번호에 특수문자 '-'가 있다면 제거한다.
+
+            // 각 내용행을 {제목1:내용1, 제목2:내용2, ...} 형태의 객체로 생성
+            for(let j=0; j < header.length; j++) {
+                if (j === 0) {
+                    header[j] = 'name';
+                } else if (j === 1) {
+                    header[j] = 'phone';
+                }
+
+                obj[header[j]] = row[j];
+            }
+
+            // 각 내용 행의 객체를 "jsonArray"배열에 담기
+            jsonArray.push(obj);
+        }
+
+        // 5. 완성된 JSON 객체 배열 반환
+        return jsonArray;
+    }
+
+    // 소매업체 리스트 데이터를 입력한다.
+    function createRetailList(retailList) {
+        const sendData = {
+            "client_id" : params.client_id,
+            "retailList" : retailList,
+        }
+
+        $.ajax({
+           type : "POST",
+           url : `${denma_api_url}/api/wholesale/retail/create`,
+           data : sendData,
+           success : function (response) {
+               console.log("response :: ", response);
+               alert("소매업체 등록에 성공했습니다.");
+               getMappingRetailList();
+           },
+           error : function (error) {
+               console.log("error :: ", error);
+               alert("소매업체 등록중 오류가 발생했습니다. 관리자에게 문의해주세요.");
+           }
+        });
+    }
+
+</script>

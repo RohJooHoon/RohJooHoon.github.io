@@ -1,0 +1,1669 @@
+<style>
+/* popupDefault */
+    .popupDefault {
+        display: flex;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        width: calc(100% - 28px);
+        max-width: 270px;
+        max-height: 100%;
+        overflow: auto;
+        transform: translate(-50%, -50%);
+        flex-direction: column;
+        background-color: #ffffff;
+    }
+    .popupDefaultBody {
+        padding: 20px 8px 17px;
+        text-align: center;
+    }
+    .popupDefaultBodyTitle {
+        display: block;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 22px;
+        color: #12121D;
+        margin-bottom: 8px;
+    }
+    .popupDefaultBodyText {
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 17px;
+        color: #12121D;
+    }
+    .popupDefaultBodyInput {
+        width: 100%;
+        border: 0;
+        border-radius: 0;
+        background-color: #F3F3F3;
+        line-height: 14px;
+        font-weight: 600;
+        font-size: 12px;
+        text-align: center;
+        padding: 9px;
+        margin-top: 8px;
+    }
+    .popupDefaultBodyText b {
+        color: #43A5FF;
+    }
+    .popupDefaultFooter {
+        display: flex;
+        border-top: solid 1px #DCDCDD;
+    }
+    .popupDefaultFooterBtn {
+        flex: 1;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 36px;
+        color: #12121D;
+        text-align: center;
+    }
+    .popupDefaultFooterBtn + .popupDefaultFooterBtn {
+        border-left: solid 1px #DCDCDD;
+    }
+    .popupDefaultFooterBtn.is_close {
+        color: #A8A8A8;
+    }
+/* //popupDefault */
+
+/* popupEdit */
+    .popupEdit {
+        display: flex;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        width: calc(100% - 28px);
+        max-width: 1000px;
+        max-height: 100%;
+        overflow: auto;
+        transform: translate(-50%, -50%);
+        flex-direction: column;
+    }
+    .popupEditHeader {
+        flex: none;
+        display: flex;
+        height: 52px;
+        background: #12121D;
+        align-items: center;
+    }
+    .popupEditHeaderTitle {
+        display: flex;
+        flex: none;
+        align-items: center;
+        margin-left: 24px;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: -0.02em;
+        color: #FFFFFF;
+    }
+    .popupEditHeaderClose {
+        display: flex;
+        flex: none;
+        align-items: center;
+        width: 36px;
+        height: 36px;
+        margin-left: auto;
+        margin-right: 12px;
+        background: no-repeat center / 24px url(/img/detail/cardHeaderClose_g.svg);
+        cursor: pointer;
+    }
+    .popupEditBody {
+        flex: 1;
+        display: flex;
+        background-color: #ffffff;
+        padding: 0;
+        overflow: auto;
+    }
+    .popupEditInner {
+        position: relative;
+        flex: 1;
+        display: flex;
+        min-height: 533px;
+    }
+    .popupEditInner.is_side {
+        flex: none;
+        width: 270px;
+    }
+    .popupEditInnerTitle {
+        height: 100px;
+    }
+    .popupEditInnerImageBox {
+        position: relative;
+        width: 100%;
+        height:533px;
+        object-fit: contain;
+        margin-top: 48px;
+    }
+    .popupEditInnerUnion {
+        position: absolute;
+        top:8px;
+        right: 34px;
+        width: 32px;
+        height: 32px;
+        background: no-repeat center / 32px url(/img/detail/edit_union_default.svg);
+        z-index: 40;
+    }
+    .popupEditInnerUnion.is_select {
+        background: no-repeat center / 32px url(/img/detail/edit_union_select.svg);
+    }
+    .popupEditInnerImage {
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        max-width: calc(100% - 20px);
+        max-height: calc(100% - 20px);
+    }
+    .popupEditInnerImage.is_crop {
+        max-width: calc(100% - 30px);
+        max-height: calc(100% - 30px);
+    }
+
+/* popup guide*/
+/* popupEdit */
+.popupGuide {
+    display: flex;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: calc(100% - 28px);
+    max-width: 1000px;
+    max-height: 100%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+}
+/* *_* */
+    .popupEditSetting {
+        display: flex;
+        flex-direction: column;
+        flex:none;
+        width: 100%;
+        /*height: 88px;*/
+        padding: 21px 21px 41px 21px;"
+    }
+    .popupEditSelect {
+        width: 26px;
+        height: 26px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        box-sizing: border-box;
+        border-radius: 159984px;
+    }
+    .popupEditSelectBox {
+        position: relative;
+        width: 140px;
+        height: 26px;
+        line-height: 24px;
+        background: #FFFFFF;
+        border: 1px solid #DCDCDD;
+        box-sizing: border-box;
+        border-radius: 2px 0px 0px 2px;
+        cursor: pointer;
+    }
+    .popupEditSelectBox.is_select .popupEditOptionList {
+        display: block;
+    }
+    .popupEditOptionValue {
+        position: absolute;
+        left: 12px;
+        font-size: 9px;
+        color:#A8A8A8;
+    }
+    .popupEditOptionValue::after {
+        content: '▼';
+        color: #A8A8A8;
+        position: absolute;
+        left: 110px;
+    }
+    .popupEditOptionList {
+        display: none;
+        position: absolute;
+        width: 100%;
+        top: 30px;
+        border: 1px solid #DCDCDD;
+        border-radius: 2px;
+        background: #FFFFFF;
+    }
+    .popupEditOptionValue.is_select + .popupEditOptionList {
+        display: block;
+        border:1px solid;
+        border: 1px solid #DCDCDD;
+        border-radius: 2px;
+    }
+    .popupEditOptionItem {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 3px 8px 3px 6px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 8px;
+        line-height: 12px;
+        letter-spacing: -0.408px;
+        color: #000000;
+    }
+    .popupEditOptionItem:hover {
+        background-color: rgba(67, 165, 255, 0.1);
+        color: #43A5FF;
+    }
+    .popupEditOptionItemClose {
+        width: 12px;
+        height: 12px;
+        background-image: url(/img/detail/close12.svg);
+        background-repeat: no-repeat;
+    }
+    .popupEditOptionItemClose:hover {
+        background-image: url(/img/detail/close_red12.svg);
+    }
+    .popupEditOptionItem.is_select {
+        background-color: rgba(67, 165, 255, 0.1);
+        color: #43A5FF;
+    }
+    .popupEditButton {
+        width: 56px;
+        height: 26px;
+        border-radius: 0px 2px 2px 0px;
+        font-size: 9px;
+        line-height: 13px;
+        color:#FFFFFF;
+        background-color: #43A5FF;
+        cursor: pointer;
+    }
+    .popupEditButton:disabled {
+        background: #A8A8A8;
+    }
+
+
+
+    /*  다리늘리기  */
+    .popupEditNavigation {
+        width: 100%;
+    }
+    .popupEditList {
+        width: calc(100% + 6px);
+        margin-right: -6px;
+    }
+    .popupEditList:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+    .popupEditListItemLength {
+        float: left;
+        width: calc(33.33% - 6px);
+        height: 70px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        box-sizing: border-box;
+        border-radius: 2px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        margin-right: 6px;
+        position: relative;
+        cursor: pointer;
+    }
+    .popupEditListItemCrop {
+        float: left;
+        width: calc(33.34% - 6px);
+        height: 70px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        box-sizing: border-box;
+        border-radius: 2px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        margin-right: 6px;
+        position: relative;
+        cursor: pointer;
+        overflow: hidden;
+    }
+    .popupEditListItemCrop.is_select {
+        border: 1px solid #43A5FF;
+    }
+    .popupEditListItemCrop img {
+        width: 100%;
+    }
+    .popupEditListItem_desc {
+        position: absolute;
+        width: 100%;
+        height: 16px;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        font-weight: 500;
+        font-size: 8px;
+        line-height: 16px;
+        text-align: center;
+        letter-spacing: -0.408px;
+        color: #FFFFFF;
+    }
+    .popupEditListItemCrop.is_select .popupEditListItem_desc{
+        background-color: #43A5FF;
+    }
+    .popupEditCropImgWrap {
+        padding:12px 21px 0px 21px;
+    }
+    .popupEditListItem_image {
+        position: absolute;
+        width: 50px;
+    }
+    .popupEditTitle {
+        width: 100%;
+        background: #FFFFFF;
+        box-shadow: 0px 1px 0px #DCDCDD;
+        padding:14px 21px;"
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: -0.408px;
+        color: #4F4F4F;
+    }
+    .popupEditSubTitle {
+        height: 18px;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 17px;
+        letter-spacing: -0.408px;
+        color: #4F4F4F;
+        margin-bottom: 6px;
+    }
+    .popupEditLevels {
+        width:44px;
+        height: 17px;
+        border: none;
+        background-color: #FFF;
+        caret-color: #95C60F;
+        text-align: right;
+    }
+    .popupEditLevels:focus {
+        width: 44px;
+        height: 17px;
+        background-color: rgba(243, 243, 243, 0.5);
+        border: none;
+        border-bottom: 1px solid #95C60F;
+    }
+
+    .popupEditApplyButton {
+        width: 270px;
+        height: 48px;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 17px;
+        text-align: center;
+        letter-spacing: -0.408px;
+        color: #F9F9F9;
+        background-color: #95C60F;
+        cursor: pointer;
+    }
+    .popupEditApplyButton:disabled {
+        background: #DCDCDD;
+    }
+
+    .slider {
+        -webkit-appearance: none;
+        width: 168px;
+        height: 4px;
+        background: rgba(18, 18, 29, 0.05);
+        outline: none;
+        opacity: 0.7;
+        transition: opacity .2s;
+        border-radius: 6px;
+    }
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        background: #FFFFFF;
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.15);
+        cursor: pointer;
+        border-radius: 8px;
+    }
+
+    .slider::-moz-range-thumb {
+        width: 16px;
+        height: 16px;
+        background: #FFFFFF;
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.15);
+        cursor: pointer;
+    }
+/* //popupEdit */
+
+
+/* popup popupEditSave*/
+.popupEditSave {
+    display: flex;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: calc(100% - 28px);
+    max-width: 359px;
+    max-height: 100%;
+    overflow: auto;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+}
+.popupEditSaveHeader {
+    flex: none;
+    display: flex;
+    height: 52px;
+    background: #12121D;
+    align-items: center;
+}
+.popupEditSaveHeaderTitle {
+    display: flex;
+    flex: none;
+    align-items: center;
+    margin-left: 24px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+}
+.popupEditSaveHeaderClose {
+    display: flex;
+    flex: none;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    margin-left: auto;
+    margin-right: 12px;
+    background: no-repeat center / 24px url(/img/detail/cardHeaderClose_g.svg);
+    cursor: pointer;
+}
+.popupEditSaveBody {
+    flex: 1;
+    display: flex;
+    background-color: #ffffff;
+    padding: 0;
+    overflow: auto;
+}
+.popupEditSaveInner {
+    flex: 1;
+    display: flex;
+}
+.popupEditSaveInnerWrap {
+    width: 100%;
+    padding: 21px;
+    display: flex;
+    flex-direction: column;
+}
+.popupEditSaveInputWrap {
+    margin-bottom: 21px;
+    display: flex;
+    flex-direction: row;
+}
+.popupEditSaveKey {
+    width: 52px;
+    height: 36px;
+    background: #F9F9F9;
+    border: 1px solid #DCDCDD;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 36px;
+    text-align: center;
+    color: #12121D;
+}
+.popupEditSaveValue {
+    width: 265px;
+    height: 36px;
+    border: 1px solid #DCDCDD;
+    border-radius: 0px 2px 2px 0px;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    color: #12121D;
+    text-indent: 12px;
+}
+.popupEditSaveButtonWrap {
+    width: 317px;
+    height: 24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.popupEditSetButton.is_close {
+    width: 43px;
+    background: #FFFFFF;
+    border: 1px solid #DCDCDD;
+    box-sizing: border-box;
+    border-radius: 2px;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 14px;
+    text-align: center;
+    color: #DCDCDD;
+    margin-right: 6px;
+}
+.popupEditSetButton.is_agree {
+    width: 82px;
+    background: #96C60F;
+    border-radius: 2px;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 14px;
+    text-align: center;
+    color: #FFFFFF;
+}
+.popupEditSetButton.isSave:disabled {
+    background: #DCDCDD;
+}
+/* //popup popupEditSave*/
+/* popup popupGif*/
+.popupGif {
+    display: flex;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: calc(100% - 28px);
+    max-width: 360px;
+    max-height: 100%;
+    overflow: auto;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+}
+.popupGifHeader {
+    flex: none;
+    display: flex;
+    height: 52px;
+    background: #12121D;
+    align-items: center;
+}
+.popupGifHeaderTitle {
+    display: flex;
+    flex: none;
+    align-items: center;
+    margin-left: 24px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+}
+.popupGifHeaderClose {
+    display: flex;
+    flex: none;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    margin-left: auto;
+    margin-right: 12px;
+    background: no-repeat center / 24px url(/img/detail/cardHeaderClose_g.svg);
+    cursor: pointer;
+}
+.popupGifBody {
+    flex: 1;
+    display: flex;
+    background-color: #ffffff;
+    padding: 0;
+    overflow: auto;
+}
+.popupGifInner {
+    flex: 1;
+    display: flex;
+}
+.popupGifInnerWrap {
+    width: 100%;
+    padding: 12px 21px 18px;
+    display: flex;
+    flex-direction: column;
+}
+.popupGifInnerUpload {
+    max-width: 318px;
+    height: 80px;
+    border: 1px solid #DCDCDD;
+    box-sizing: border-box;
+    padding: 17px 0 17px 0;
+    margin-bottom: 12px;
+}
+.popupGifImageUploadBtn {
+    width: 89px;
+    height: 24px;
+    margin: auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #96C60F;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 14px;
+    text-align: center;
+    color: #FFFFFF;
+}
+.popupGifInnerUploadDesc {
+    width: 100%;
+    height: 14px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 14px;
+    text-align: center;
+    letter-spacing: -0.02em;
+    color: #A8A8A8;
+    margin-top: 8px;
+}
+.popupGifCustomSelect {
+    display: flex;
+}
+.popupGifInnerTextWrap {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 24px;
+    margin-bottom: 12px;
+    line-height: 0;
+}
+.popupGifInnerText {
+    flex: none;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: -0.02em;
+    color: #000000;
+    padding: 0;
+    margin: 0;
+}
+.popupGifInnerLength {
+    flex: none;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: -0.02em;
+    color: #000000;
+    margin-left: 6px;
+}
+.popupGifInnerLength.is_err {
+    color: red;
+}
+.popupGifInnerLength:not(.is_err) .nowGifImageCount {
+    color: #96C60F;
+}
+.popupGifDetail {
+    flex: none;
+    margin-left: auto;
+}
+.gifplaybackSpeedWrap {
+    display: block;
+}
+.custom-select {
+    position: relative;
+    font-family: Arial;
+}
+.custom-select select {
+    display: none;
+}
+
+
+.popupGif_playbackSpeed,
+.popupGif_fileSize,
+.GifplaybackSpeed {
+    display: block;
+    height: 18px;
+    line-height: 18px;
+    font-weight: normal;
+    font-size: 10px;
+    letter-spacing: -0.02em;
+    color: #A8A8A8;
+}
+.popupGif_playbackSpeed {
+    width: 64px;
+    height: 18px;
+    border: 1px solid #FFF;
+    background-color: #FFF;
+    display: none;
+}
+.gifplaybackSpeed {
+    background: no-repeat right / 14px url(/img/detail/vector_default.svg);
+    background-position-x: 48px;
+    width: 64px;
+    height: 18px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 14px;
+    letter-spacing: -0.02em;
+    color: #A8A8A8;
+    margin-right: 6px;
+    padding: 2px 20px 2px 5px;
+}
+.gifplaybackSpeedOption {
+    display: none;
+    width:52px;
+    background: #FFFFFF;
+    border: 1px solid #DCDCDC;
+    box-shadow: 0px 2px 4px rgba(220, 220, 220, 0.25);
+    border-radius: 2px;
+    margin: 6px 0px 0px 12px;
+}
+.gifplaybackSpeedOption.is_hide {
+    display: none;
+}
+.gifplaybackSpeedItems {
+    width: 100%;
+    height: 24px;
+    line-height: 24px;
+    font-weight: normal;
+    font-size: 10px;
+    text-align: center;
+    letter-spacing: -0.408px;
+    color: #12121D;
+}
+.gifplaybackSpeedItems:hover {
+    background-color: rgba(67, 165, 255, 0.1);
+    color: #43A5FF
+}
+.gifplaybackSpeed.is_select {
+    background: no-repeat right / 14px url(/img/detail/vector_select.svg);
+    background-color: rgba(67, 165, 255, 0.1);
+    border-radius: 2px;
+    color : #43A5FF;
+}
+.gifplaybackSpeed.is_select  + .gifplaybackSpeedOption {
+    display: block;
+}
+.popupGif_playbackSpeed:hover {
+    background: rgba(67, 165, 255, 0.1);
+}
+.popupGif_playbackSpeed:focus {
+    background: rgba(67, 165, 255, 0.1);
+}
+.popupGif_playbackSpeed:invalid {
+    color: red;
+}
+.popupGif_fileSize {
+    padding-left: 12px;
+    position: relative;
+    margin-left: 6px;
+}
+.popupGif_fileSize.is_err {
+    color: red;
+}
+.popupGif_fileSize.is_err .nowGifFileSize {
+    color: red;
+}
+.popupGif_fileSize:before {
+    content: '|';
+    position: absolute;
+    left: 0;
+    top: 0;
+    line-height: 15px;
+}
+.popupGifInnerImageGroup {
+    height: 188px;
+    margin-bottom: 6px;
+    padding: 8px 8px 8px 5px;
+}
+.popupGifInnerImageGroup:after {
+    content: "";
+}
+.popupGifImage ,
+.actionGifImage {
+    width: calc(25% - 5px);
+    height:72px;
+    margin-right: 5px;
+    position: relative;
+    margin-bottom: 5px;
+}
+.popupGifImageControllBtn,
+.actionGifImageControllBtn {
+    display: none;
+    width: 24px;
+    height: 24px;
+    background: no-repeat center / 24px url(/img/detail/cxl_btn_default.svg);
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 20;
+}
+.popupGifImage img,
+.actionGifImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.popupGifImage:hover .popupGifImageControllBtn,
+.actionGifImage:hover .actionGifImageControllBtn {
+    display: block;
+}
+.popupGifImageControllBtn:hover,
+.actionGifImageControllBtn:hover{
+    background: no-repeat center / 24px url(/img/detail/cxl_btn_hover.svg);
+}
+
+.popupGifDesc {
+    font-weight: normal;
+    font-size: 9px;
+    line-height: 12px;
+    color: #A8A8A8;
+    margin-bottom: 12px;
+}
+.popupGifWrap {
+    width: calc(100% + 5px);
+    margin-right: -5px;
+}
+.popupGifBtnGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.popupGifBtn,
+.actionGifBtn {
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 14px;
+    text-align: center;
+}
+.popupGifBtn.is_cxl,
+.actionGifBtn.is_cxl {
+    width: 43px;
+    height: 24px;
+    border: 1px solid #DCDCDD;
+    box-sizing: border-box;
+    border-radius: 2px;
+    color: #DCDCDD;
+    margin-right: 13px;
+}
+.popupGifBtn.is_add,
+.actionGifBtn.is_add {
+    width: 59px;
+    height: 24px;
+    background: #96C60F;
+    border-radius: 2px;
+    color: #FFFFFF;
+}
+.popupGifBtn:disabled,
+.actionGifBtn:disabled {
+    background-color: #DCDCDD;
+}
+.popupGif_play {
+    width: 64px;
+    height: 18px;
+    position: relative;
+    z-index: 30;
+    margin-right: 6px;
+}
+
+/* select custom*/
+/* The container must be positioned relative: */
+.popupGifCustomSelect {
+    position: relative;
+    width: 64px;
+}
+.popupGifCustomSelect select {
+    display: none; /*hide original SELECT element: */
+}
+.popupGif_playSelected.select-arrow-active:after {
+    border-color: transparent transparent #fff transparent;
+    top: 7px;
+}
+.popupGif_playSelected {
+    width: 64px;
+    height: 18px;
+    right: 87px;
+    top: 145px;
+    background-color: #FFF;
+    border-radius: 2px;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 12px;
+    text-align: center;
+    letter-spacing: -0.408px;
+    color: #A8A8A8;
+    background-image: url(/img/detail/vector_default.svg);
+    background-size: 14px ;
+    background-repeat:  no-repeat;
+    background-position-x: 44px;
+    padding: 2px 20px 2px 5px;
+}
+.popupGif_playSelected.is_select {
+    background-color: rgba(67, 165, 255, 0.1);
+    color : #43A5FF;
+    background-image: url(/img/detail/vector_select.svg);
+}
+/* Style items (options): */
+.popupGif_playList {
+    position: absolute;
+    top: 22px;
+    right: 0;
+    z-index: 99;
+    width: 52px;
+    background-color: #FFFFFF;
+    border: 1px solid #DCDCDC;
+    box-shadow: 0px 2px 4px rgba(220, 220, 220, 0.25);
+    border-radius: 2px;
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 14px;
+    letter-spacing: -0.408px;
+    color: #12121D;
+    text-align: center;
+}
+/* Hide the items when the select box is closed: */
+.select-hide {
+    display: none;
+}
+/**/
+.popupGif_playItem:hover, .same-as-selected {
+    background-color: rgba(67, 165, 255, 0.1);
+    color: #43A5FF;
+}
+/**/
+.popupGif_playList div:hover, .same-as-selected {
+    background-color: rgba(67, 165, 255, 0.1);
+    color: #43A5FF;
+}
+/* //select custom*/
+/* //popup popupGif*/
+
+/* 액션 Gif */
+.popupGifImageUploadBtnGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+/* TabNav */
+.tabNav {
+    display: flex;
+    background-color: #f3f3f3;
+}
+.tabNavItem {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    background: #F9F9F9;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #A8A8A8;
+}
+.tabNavItem:hover {
+    background-color: #F3F3F3;
+}
+.tabNavItem.is_active {
+    background: #FFFFFF;
+    color: #000000;
+}
+.tabNavItem.is_active:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 4px;
+    background-color: #12121D;
+}
+.tabNavItemErr {
+    display: none;
+    margin-left: 5px;
+    width: 16px;
+    height: 16px;
+    background: center / 12px no-repeat url(/img/exclamation_r.svg);
+}
+.tabNavItem.is_err {
+    color: #DA5C63;
+}
+.tabNavItem.is_err:after {
+    background-color: #DA5C63;
+}
+.tabNavItem.is_err .tabNavItemErr {
+    display: inline-block;
+}
+/* // TabNav*/
+
+/*Action Gif*/
+.popupGifInnerBtn.tabNav {
+    margin-bottom: 12px;
+}
+.popupGifInnerUpload {
+    border: 1px dashed #DCDCDD;
+}
+.popupGifDetailPreView {
+    width: 75px;
+    height: 24px;
+    border: 1px solid #A8A8A8;
+    box-sizing: border-box;
+    border-radius: 2px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 14px;
+    color: #A8A8A8;
+    position: relative;
+    padding-left: 20px;
+}
+.popupGifDetailPreView::before {
+    content: url("/img/detail/ic-preview.svg");
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    left: 4px;
+    top: 0px;
+}
+.popupGifDetailPreView:hover:before {
+    content: url("/img/detail/ic-preview-hover.svg");
+}
+.popupGifDetailPreView:hover,
+.popupGifBtn:hover,
+.actionGifBtn:hover,
+.actionGifPlayBtn:hover,
+.actionGifCxlBtn:hover,
+.actionGifPreviewClose:hover {
+    border: 1px solid #96C60F;
+    color: #96C60F;
+}
+.detailBodyContainerHeaderBtn.is_popupGif:hover {
+    background-color: #fff;
+    border: 1px solid #96C60F;
+    color: #96C60F;
+
+}
+.detailBodyContainerHeaderBtn:not([disabled]):hover,
+.detailHeaderBtn.is_big:not([disabled]):hover,
+.actionGifBtn.is_add:not([disabled]):hover,
+.popupGifImageUploadBtn:not([disabled]):hover,
+.actionGifMakeBtn:not([disabled]):hover {
+    background-color: #81AC09;
+    color: #FFFFFF;
+}
+
+/* 액션 Gif 구간 선택 */
+.actionGif,.actionGifPreview {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 19px;
+}
+.actionGifPreview {
+    padding-bottom: 24px;
+}
+
+.actionGifVideo {
+    width: 100%;
+    height: 530px;
+    display: flex;
+}
+.actionGifVideoView {
+    flex: none;
+    background-color: #f2f2f2;
+    margin: auto;
+    min-width: 300px;
+    min-height: 300px;
+    max-width: 100%;
+    max-height: 530px;
+}
+.actionGifVideoNotice {
+    padding: 9px 0;
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 14px;
+    text-align: center;
+    letter-spacing: -0.02em;
+    color: #A8A8A8;
+}
+.actionGifVideoWarning {
+    width: 290px;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+    color: #F04D57;
+    margin-right: 207px;
+}
+.actionGifSectionTime {
+    width: 105px;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: right;
+    color: #43A5FF;
+}
+.actionGifInfoWrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    height: 21px;
+    margin-bottom: 12px;
+
+}
+.actionGifSectionBar {
+    position: relative;
+    width: 897px;
+    height: 33px;
+    margin-bottom: 30px;
+    clear: both;
+    background-color: #F9F9F9;
+}
+.slider .EE, .slider .WW {
+    top: 0px;
+    margin: 0;
+}
+.handle.WW {
+    position: absolute;
+    width: 8px;
+    height: 33px;
+    background: #43A5FF;
+    border-radius: 2px 0px 0px 2px;
+    border: none;
+}
+.handle.EE {
+    position: absolute;
+    width: 8px;
+    height: 33px;
+    background: #43A5FF;
+    border-radius: 0px 2px 2px 0px;
+    border: none;
+}
+.slider {
+    border: none;
+}
+.slider.is_warning {
+    background-color: rgba(240, 77, 87, 0.2);
+    left:50% !important;
+    transform: translateX(-50%);
+}
+.slider.is_warning .handle.is_warning,
+.slider.is_warning .handle.is_warning {
+    background: #F04D57;
+}
+.actionGifSectionSelect {
+position: absolute;
+background-color: rgba(67, 165, 255, 0.2);
+border: solid #43A5FF;
+border-width: 0px 8px 0px 8px;
+border-radius: 0px 2px 2px 0px;
+min-width: 275px;
+width: 50%;
+height: 33px;
+}
+.actionGifPlayBtn,
+.actionGifPreviewClose {
+width: 82px;
+height: 24px;
+left: 52px;
+top: 108px;
+background: #FFFFFF;
+border: 1px solid #DCDCDD;
+box-sizing: border-box;
+border-radius: 2px;
+font-weight: bold;
+font-size: 10px;
+line-height: 14px;
+color: #DCDCDD;
+}
+.actionGifCxlBtn {
+width: 43px;
+height: 24px;
+background: #FFFFFF;
+border: 1px solid #DCDCDD;
+box-sizing: border-box;
+border-radius: 2px;
+font-weight: bold;
+font-size: 10px;
+line-height: 14px;
+text-align: center;
+color: #DCDCDD;
+margin-right: 12px;
+}
+.actionGifMakeBtn {
+width: 59px;
+height: 24px;
+background: #9AC941;
+border-radius: 2px;
+font-weight: bold;
+font-size: 10px;
+line-height: 14px;
+text-align: center;
+color: #FFFFFF;
+}
+.actionGifVideoPreviewNotice {
+font-weight: normal;
+font-size: 10px;
+line-height: 14px;
+text-align: center;
+letter-spacing: -0.02em;
+color: #A8A8A8;
+margin-bottom: 30px;
+}
+.actionGifPreviewBtns {
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+margin-right: 28px;
+width: 100%;
+}
+
+
+/* // Action Gif*/
+
+/* 상품 등록 부분 */
+.productCreate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.productCreateTitle {
+    padding: 20px 21px;
+    height: 80px;
+    box-sizing: border-box;
+}
+.productCreateUpload {
+    width: 318px;
+    padding: 16px 21px 0 21px;
+    min-height: 80px;
+    border: 1px solid #DCDCDD;
+    box-sizing: border-box;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.productCreateTxt {
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 14px;
+    letter-spacing: -0.02em;
+    color: #A8A8A8;
+}
+.productCreateTxt::placeholder {
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    display: flex;
+    align-items: flex-end;
+    color: #DCDCDD;
+    text-indent: 8px;
+}
+.productCreateTxt.is_title {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 17px;
+    letter-spacing: -0.02em;
+    color: #000000;
+}
+.productCreateTxt.is_input {
+    width: 318px;
+    height: 28px;
+    background-color: #FFFFFF;
+    border: 1px solid #DCDCDD;
+    box-sizing: border-box;
+    border-radius: 2px;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    display: flex;
+    align-items: flex-end;
+    color: #12121D;
+    text-indent: 8px;
+}
+.productCreateUploadBtn {
+    position: relative;
+    width: 89px;
+    height: 24px;
+    background-color: #96C60F;
+    border-radius: 2px;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 14px;
+    text-align: center;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+}
+.productCreateUploadBtn:before {
+    content: '이미지 업로드';
+}
+.productCreateUploadBtn.is_upload {
+    background-color: #fff;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 14px;
+    text-align: center;
+    color: #95C60F;
+}
+.productCreateUploadBtn.is_upload:before {
+    content: '이미지 변경';
+}
+.productCreateBtnWrap {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 27px 21px 24px 0;
+}
+.productCreateBtn {
+    width: 43px;
+    height: 24px;
+    background-color: #FFFFFF;
+    border: 1px solid #DCDCDD;
+    box-sizing: border-box;
+    border-radius: 2px;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 14px;
+    text-align: center;
+    color: #DCDCDD;
+}
+.productCreateBtn +.productCreateBtn {
+    margin-left: 13px;
+}
+.productCreateBtn.is_regist:disabled {
+    width: 59px;
+    height: 24px;
+    background-color: #DCDCDD;
+    border-radius: 2px;
+}
+.productCreateBtn.is_regist {
+    width: 59px;
+    height: 24px;
+    background-color: #95C60F;
+    border-radius: 2px;
+    font-size: 10px;
+    line-height: 14px;
+    text-align: center;
+    color: #FFFFFF;
+}
+.productCreateImage {
+    box-sizing: border-box;
+}
+.productCreateUploadImg {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #DCDCDD;
+    box-sizing: border-box;
+}
+.productCreateUploadImgChange {
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #95C60F;
+    text-align: center;
+    margin: 0 auto 10px;
+    position: relative;
+}
+.productCreateUploadImgWrap {
+    display: none;
+}
+.productCreateUploadImgWrap.is_open {
+    display: block;
+}
+/* //상품 등록 부분 */
+
+
+
+
+
+.tutorialEdit {
+    width: 338px;
+    background: #000000;
+    border-radius: 4px;
+    display: flex;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    overflow: auto;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+}
+.tutorialEditBody {
+    /*position: absolute;*/
+    overflow: auto !important;
+}
+.tutorialEditHeader {
+    padding: 16px 0 10px 10px;
+    text-align: left !important;
+}
+.tutorialEditHeaderTitle {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 26px;
+    color: #FFFFFF;
+}
+
+.tutorialEditHeaderTitle.is_sub {
+    font-size: 12px;
+    line-height: 17px;
+}
+.tutorialEditBodyInner {
+    width: 317px;
+    height: 317px;
+    background-color: #fff;
+    margin: 0 auto;
+    position: relative;
+}
+.tutorialEditBodyInnervedio {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+.tutorialEditBodyInnerText {
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 22px;
+    color: #FFFFFF;
+    padding: 8px 10px;
+    text-align: left;
+}
+.tutorialEditBodyInnerText.is_sub {
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 17px;
+    color: #FFFFFF;
+    text-align: left;
+}
+.tutorialEditBtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 16px 10px 16px 0px;
+}
+.tutorialEditClose {
+    width: 91px;
+    height: 36px;
+    background: #FFFFFF;
+    border-radius: 2px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+}
+
+/*default*/
+.tutorialDefault {
+    position: fixed;
+    width: 338px;
+    background: #000000;
+    border-radius: 4px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.tutorialDefaultHeader {
+    padding: 16px 8px 10px;
+}
+.tutorialDefaultHeaderTitle {
+    font-weight: 900;
+    font-size: 18px;
+    line-height: 26px;
+    color: #FFFFFF;
+}
+.tutorialDefaultBodyInner {
+    padding: 0px 10px;
+}
+.tutorialDefaultBodyInnerText {
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 22px;
+    color: #FFFFFF;
+    text-align: left;
+}
+.tutorialDefaultBodyInnerText.is_sub {
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    color: #FFFFFF;
+    margin-top: 8px;
+    text-align: left;
+}
+.tutorialDefaultBtnWrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 10px;
+}
+.tutorialDefaultClose {
+    width: 91px;
+    height: 36px;
+    background: #FFFFFF;
+    border-radius: 2px;
+    margin-top: 16px;
+}
+.pointOut {
+    width: 8px;
+    height: 12px;
+    position: absolute;
+    background: no-repeat center / cover url(/img/detail/tutorialVactor.svg);
+}
+.pointOut:before {
+    position: fixed;
+    display: block;
+    content: "";
+    border-color: transparent;
+    border-style: solid;
+}
+.tutorialEdit {
+    overflow: visible;
+}
+.is_tutorial_1.is_border,
+.is_tutorial_2.is_border,
+.is_tutorial_3.is_border,
+.is_tutorial_4.is_border,
+.is_tutorial_5.is_border,
+.is_tutorial_6.is_border,
+.is_tutorial_7.is_border {
+    border: 3px solid black !important;
+}
+.tutorialEditPass {
+    position: absolute;
+    left: 10px;
+    color: #fff;
+    width: 92px;
+    height: 40px;
+    text-decoration: underline;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 17px;
+}
+
+</style>
+
+<script id="POPUP_DEFAULT" type="text/x-jsrender">
+    <div class="popup popupDefault" style="z-index: {{:zIndex ? 1000 + zIndex : 1000}}">
+        <div class="popupDefaultBody">
+            <strong class="popupDefaultBodyTitle">{{:title}}</strong>
+            <div class="popupDefaultBodyText">{{:html}}</div>
+        </div>
+        <div class="popupDefaultFooter">
+            {{if close !== false}}
+                <button class="popupDefaultFooterBtn is_close" type="button" onClick="{{:closeCloseCancel ? '' : 'closePopup(this);'}}{{:closeFunc}};">{{:closeText ? closeText: "취소"}}</button>
+            {{/if}}
+            {{if agree !== false}}
+                <button class="popupDefaultFooterBtn is_agree {{:position ? ' is_position' : ''}}" type="button" onClick="{{:agreeFunc}};{{:agreeCloseCancel ? '' : 'closePopup(this);'}};">{{:agreeText ? agreeText: "확인"}}</button>
+            {{/if}}
+        </div>
+    </div>
+</script>
+<script  id="POPUP_EDIT" type="text/x-jsrender">
+    <div class="popup popupEdit" style="z-index: {{:zIndex ? 1000 + zIndex : 1000}}; {{:maxWidth ? "max-width : " + maxWidth : ""}}">
+        <div class="popupEditHeader">
+            <strong class="popupEditHeaderTitle">{{:title}}</strong>
+            {{if close !== false}}
+                <button class="popupEditHeaderClose" type="button" onClick="{{:closeCloseCancel ? '' : 'closePopup(this);'}}"></button>
+            {{/if}}
+        </div>
+        <div class="popupEditBody">
+            {{:html}}
+        </div>
+    </div>
+</script>
+<script id="POPUP_EDITSAVE" type="text/x-jsrender">
+    <div class="popup popupEditSave" style="z-index: {{:zIndex ? 1000 + zIndex : 1000}}">
+        <div class="popupEditSaveHeader">
+            <strong class="popupEditSaveHeaderTitle">{{:title}}</strong>
+            {{if close !== false}}
+                <button class="popupEditSaveHeaderClose" type="button" onClick="{{:closeCloseCancel ? '' : 'closePopup(this);'}}"></button>
+            {{/if}}
+        </div>
+        <div class="popupEditSaveBody">
+            {{:html}}
+        </div>
+    </div>
+</script>
+<script id="POPUP_GIF" type="text/x-jsrender">
+    <div class="popup popupGif" style="z-index: {{:zIndex ? 1000 + zIndex : 1000}}">
+        <div class="popupGifHeader">
+            <strong class="popupGifHeaderTitle">{{:title}}</strong>
+            {{if close !== false}}
+                <button class="popupGifHeaderClose" type="button" onClick="{{:closeCloseCancel ? '' : 'closePopup(this);'}}"></button>
+            {{/if}}
+        </div>
+        <div class="popupGifBody">
+            {{:html}}
+        </div>
+    </div>
+</script>
+<script  id="POPUP_GUIDE" type="text/x-jsrender">
+    <div class="popup popupGuide" style="z-index: {{:zIndex ? 1000 + zIndex : 1000}}; {{:maxWidth ? "max-width : " + maxWidth : ""}};">
+        <div class="popupEditHeader">
+            <strong class="popupEditHeaderTitle">{{:title}}</strong>
+            {{if close !== false}}
+                <button class="popupEditHeaderClose" type="button" onClick="{{:closeCloseCancel ? '' : 'closePopup(this);'}}"></button>
+            {{/if}}
+        </div>
+        <div class="popupEditBody" style="display: block;">
+            {{:html}}
+        </div>
+    </div>
+</script>
+
+<script  id="TUTORIALEDIT" type="text/x-jsrender">
+    <div class="popup tutorialEdit" style="z-index: {{:zIndex ? 1000 + zIndex : 1000}}; {{:maxWidth ? 'max-width : ' + maxWidth + ';' : ''}} {{:top ? 'top : ' + top + 'px;' : ''}} {{:left ? 'left : ' + left + 'px;' : ''}} {{:focusTargetPosition ? 'transform : translate(' + focusTargetPosition + ');' : ''}}" >
+        {{if arrowBubble !== false}}
+            <div class="pointOut" style="{{:arrowTop ? 'top : ' + arrowTop + ';' : ''}} {{:arrowLeft ? 'left : ' + arrowLeft + ';' : ''}} {{:arrowBottom ? 'bottom : ' + arrowBottom + 'px;' : ''}}"></div>
+        {{/if}}
+        <div class="tutorialEditHeader">
+        {{if sTitle !== false}}
+            <div class="tutorialEditHeaderTitle is_sub">{{:subTitle}}</div>
+        {{/if}}
+            <strong class="tutorialEditHeaderTitle">{{:title}}</strong>
+        </div>
+        <div class="tutorialEditBody" style="display: block;">
+            {{:html}}
+            {{if next !== false}}
+            <div class="tutorialEditBtn">
+                {{if tutorialPass == true}}
+                    <button class="tutorialEditPass" type="button" onClick= "closePopup(this);">튜토리얼 건너뛰기</button>
+                {{/if}}
+                <button class="tutorialEditClose {{:className}}" type="button" data-target = "{{:focusTarget}}" onClick= "closePopup(this); nextTutorial({{:tutorialIdx}});">{{:nextText ? nextText: "다음"}}</button>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</script>
+
+

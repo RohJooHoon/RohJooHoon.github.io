@@ -1,0 +1,108 @@
+
+    <style>
+        #map {
+            width : 300px;
+            height : 300px;
+            max-height: 100%;
+            max-width: 100%;
+            border : 1px solid rgb(0, 0, 0);
+            background: url('https://nextdop.s3.ap-northeast-2.amazonaws.com/mall_phrase/10gtt/5332719908/1128612057447289_341016218.jpg') no-repeat;
+            cursor : move;
+        }
+    </style>
+
+    <script>
+        $( function() {
+
+            var AttachDragTo = (function () {
+                var _AttachDragTo = function (el) {
+                    this.el = el;
+                    this.mouse_is_down = false;
+
+                    this.init();
+                };
+
+                _AttachDragTo.prototype = {
+                    onMousemove: function (e) {
+                        if ( !this.mouse_is_down ) return;
+                        var tg = e.target,
+                            x = e.clientX,  //마우스 x좌표
+                            y = e.clientY;  //마우스 y좌표
+
+                        var origin_x = this.origin_x,   //움직이지전 x 위치
+                            origin_y = this.origin_y;
+
+                        var origin_bg_pos_x = this.origin_bg_pos_x, //움직이지전 bg x 위치
+                            origin_bg_pos_y = this.origin_bg_pos_y;
+
+                        console.log('x', x);
+                        console.log('origin_x', origin_x);
+                        console.log('origin_bg_pos_x', origin_bg_pos_x);
+                        console.log('this', this);
+
+                        if(x - this.origin_x + this.origin_bg_pos_x < 0){
+                            tg.style.backgroundPositionX = x - this.origin_x + this.origin_bg_pos_x + 'px';
+                        }
+                        if(y - this.origin_y + this.origin_bg_pos_y < 0){
+                            tg.style.backgroundPositionY = y - this.origin_y + this.origin_bg_pos_y + 'px';
+                        }
+
+                        console.log('style obj', window.getComputedStyle(tg));
+                        console.log('style ', window.getComputedStyle(tg).getPropertyValue('background-position-x'));
+                        console.log('stylesize ', window.getComputedStyle(tg).getPropertyValue('background-position-size'));
+
+                    },
+
+                    onMousedown: function(e) {
+                        this.mouse_is_down = true;
+                        this.origin_x = e.clientX;
+                        this.origin_y = e.clientY;
+                    },
+
+                    onMouseup: function(e) {
+                        var tg = e.target,
+                            styles = window.getComputedStyle(tg);
+
+                        console.log(this);
+
+
+
+                        this.mouse_is_down = false;
+                        this.origin_bg_pos_x = parseInt(styles.getPropertyValue('background-position-x'), 10);
+                        this.origin_bg_pos_y = parseInt(styles.getPropertyValue('background-position-y'), 10);
+                    },
+
+                    init: function () {
+                        var styles = window.getComputedStyle(this.el);
+                        // this.origin_bg_pos_x = parseInt(styles.getPropertyValue('background-position-x'), 10);
+                        // this.origin_bg_pos_y = parseInt(styles.getPropertyValue('background-position-y'), 10);
+
+                        this.origin_bg_pos_x = parseInt(styles.getPropertyValue('background-position-x'), 10);
+                        this.origin_bg_pos_y = parseInt(styles.getPropertyValue('background-position-y'), 10);
+
+                        //attach events
+                        this.el.addEventListener('mousedown', this.onMousedown.bind(this), false);
+                        this.el.addEventListener('mouseup', this.onMouseup.bind(this), false);
+                        this.el.addEventListener('mousemove', this.onMousemove.bind(this), false);
+                    }
+                };
+
+                return function ( el ) {
+                    new _AttachDragTo(el);
+                };
+            })();
+
+
+            var map = document.getElementById('map');
+            AttachDragTo(map);
+        });
+
+
+    </script>
+
+
+<div>
+
+    <div id="map"></div>
+
+</div>

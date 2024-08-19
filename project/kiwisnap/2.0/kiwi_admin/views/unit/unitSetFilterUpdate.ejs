@@ -1,0 +1,281 @@
+<style>
+  .td-center {
+    text-align: center;
+  }
+</style>
+
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col">
+            <h2 class="page-title text-dark">프레임 세트 필터 수정</h2>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠 -->
+<form class="container-fluid" enctype="multipart/form-data" method="post" id="insertForm">
+
+    <!-- 상세 템플릿 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-header py-2">
+                    <div class="row">
+                        <div class="col py-1">
+                            <h5 class="font-weight-bold mb-1">필터</h5>
+                            <h6 class="m-0">프레임 세트 필터 수정</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="filter_name">이름<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="filter_name" type="text" name="filter_name" placeholder="필터 이름을 넣어주세요">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="filter_type">타입<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_full">
+                            <select class="custom-select" name="filter_type" id="filter_type">
+                                <option value="UNIT_SET" disabled>프레임 세트</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="filter_name">상태<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status" id="status_01" value="01" checked>
+                                <label class="form-check-label" for="status_01">활성</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status" id="status_02" value="99">
+                                <label class="form-check-label" for="status_02">비활성</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="">세트 프레임 관리</label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <input type="button" class="btn btn-outline-dark" value="매핑 프레임 정보 조회." onclick="getUnitFilterMappingList()">
+                        </div>
+                    </div>
+                    <div>
+                        <input type="hidden" id="filter_seq">
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="btn btn-success float-right" onclick="updateFilter()">수정 하기</button>
+                        <button type="button" class="btn btn-success float-right" onclick="toList()">필터 목록</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //상세 템플릿 -->
+</form>
+<script type="text/javascript">
+  $(document).ready(function () {
+    getFilterDetail();
+  });
+
+  function getFilterDetail() {
+
+    let param = getUrlParams();
+
+    let filter_seq = param.filter_seq;
+
+    $.ajax({
+      type: "GET",
+      url: `${denma_api_url}/api/unit/filter/${filter_seq}`,
+      data: "",
+      success: function (response) {
+        $('#filter_name').val(response.data[0].filter_name);
+        $('#filter_type').val(response.data[0].filter_type).prop('selected', true);
+        $(`input[name=status][value="${response.data[0].status}"]`).attr('checked', true);
+        $('#filter_seq').val(response.data[0].filter_seq);
+      },
+      error: function (error) {
+        console.log("err :: ", error);
+      }
+    });
+  }
+
+  function updateFilter() {
+
+    checkImpotent(); //유효성 검사.
+
+    let sendData = {
+      "filter_seq": $("#filter_seq").val(),
+      "filter_name": $("#filter_name").val(),
+      "filter_type": $("#filter_type").val(),
+      "status": $('input[name="status"]:checked').val(),
+      "depth": "0"
+    }
+
+    $.ajax({
+      type: "PUT",
+      dataType: "json",
+      data: sendData,
+      url: `${denma_api_url}/api/unit/filter/update`,
+      success: function (response) {
+        alert("필터 수정이 정상적으로 처리되었습니다.");
+        location.href = "/view/unit/unitFilterList";
+      },
+      error: function (error) {
+        alert("필터 수정중 오류가 발생했습니다. 관리자에게 문의해주세요.");
+        console.log("error :: ", error);
+      }
+    });
+  }
+
+  function toList() {
+    location.href = "/view/unit/unitFilterList";
+  }
+
+  // 필수 입력 유효성 검사.
+  function checkImpotent() {
+
+    $is_impotent = $(".is_impotent");
+
+    for (let i = 0; i < $is_impotent.length; i++) {
+
+      let $target = $is_impotent.eq(i);
+
+      if ($target.is('input')) {
+        if (!$target.val()) {
+          alert("필터 이름을 입력해주세요.");
+          $target.focus();
+          return false;
+        }
+      }
+
+    }
+
+    return true;
+  }
+
+  // 해당 필터와 매핑된 유닛 리스트 조회.
+  function getUnitFilterMappingList() {
+
+    let html = `
+        <div class="table-responsive">
+        <table class="unitList table-bordered" id="dataTable" style="width: 100%;">
+            <thead>
+            <tr>
+                <th class="text-dark font-weight-bold">번호</th>
+                <th class="text-dark font-weight-bold">이름</th>
+                <th class="text-dark font-weight-bold">이미지</th>
+                <th class="text-dark font-weight-bold">삭제</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>`;
+
+    openPopup({
+      type: 'EDIT',
+      title: '프레임 세트 매핑 리스트.',
+      html: html,
+      maxWidth: '1000px',
+    }, true);
+
+    callMemberList();
+  }
+
+  function callMemberList() {
+
+    let param = getUrlParams();
+
+    let filter_seq = param.filter_seq;
+
+    const sendData = {
+      "filter_seq": filter_seq,
+    }
+
+    $(".unitList").dataTable().fnDestroy()
+    $('.unitList').DataTable({
+      "processing": true,
+      "stateSave": true,
+      "serverSide": true,
+      "lengthChange": false,
+      // "paging": true,
+      // "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+      // "pageLength": 5,
+      "info": false,
+      "searching": false,
+      "ajax": {
+        "url": `${denma_api_url}/api/unit/list/mapping`,
+        "data": sendData,
+        dataSrc: function (response) {
+          return response.data;
+        }
+      },
+      "columnDefs": [
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return row.unit_seq;
+          },
+          "targets": 0
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return `<a href="/view/unit/modify?unit_seq=${row.unit_seq}" target="_blank"/>${row.name}</a><br/>`;
+          },
+          "targets": 1
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return `<img src="${row.image_url}" width="75px;" alt="프레임 이미지"/>`;
+          },
+          "targets": 2
+        },
+        {
+          "className": "td-center",
+          "render": function (data, type, row) {
+            return `<button class="btn mb-0 mr-0 waves-effect waves-light btn-success" onclick="deleteMapping('${row.unit_seq}', '${filter_seq}')">삭제</button>`;
+          },
+          "targets": 3
+        },
+      ],
+    });
+  }
+
+  function deleteMapping(unit_seq, filter_seq) {
+
+    if (unit_seq == null || filter_seq == null) {
+      alert("삭제 대상의 정보가 올바르지 않습니다. 관리자에게 문의해주세요.");
+      return false;
+    }
+
+    let sendingData = {
+      "unit_seq" : unit_seq,
+      "filter_seq" : filter_seq
+    }
+
+    $.ajax({
+      type: "DELETE",
+      url: `${denma_api_url}/api/unit/mapping`,
+      data: sendingData,
+      success: function () {
+        $('.unitList').DataTable().ajax.reload(null, false);
+        alert("해당 매핑 정보가 삭제되었습니다.");
+      },
+      error: function (error) {
+        console.log("err :: ", error);
+        alert("매핑 정보 삭제중 오류가 발생했습니다. 관리자에게 문의바랍니다.");
+      }
+    });
+
+  }
+
+</script>

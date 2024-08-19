@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="product">
+    <!-- 상품 리스트 조회 -->
+    <select id="selectProductList">
+        SELECT p.client_id, p.product_seq, p.product_id, p.product_name, p.create_date, mp.prod_status,
+        cs.homepage_name, m.mem_id, m.password,
+        <!--            GROUP_CONCAT(DISTINCT CONCAT_WS( '|', IFNULL(mlp.mall_type, ''), IFNULL(mlp.prod_status+'abcdefg', ''), IFNULL(mlp.mall_product_seq, '')) order by mlp.mall_type desc) as link_mall_info-->
+        GROUP_CONCAT(DISTINCT JSON_OBJECT('mall_product_seq', cast(mlp.mall_product_seq as char), 'mall_type',
+        mlp.mall_type, 'prod_status', mlp.prod_status, 'client_mall_seq', mlp.client_mall_seq, 'mall_product_no', mlp.mall_product_no) SEPARATOR '|') as link_mall_info
+        FROM product p LEFT JOIN master_product mp on p.product_seq = mp.product_seq
+        LEFT JOIN mall_product mlp on mp.product_seq = mlp.product_seq
+        LEFT JOIN client_setting cs on p.client_id = cs.client_id
+        LEFT JOIN member m on p.client_id = m.client_id
+        WHERE 1=1
+        <choose>
+            <when test="search_condition != null and search_condition == 'product_name'">
+                AND p.product_name LIKE CONCAT('%', #{search_word}, '%')
+            </when>
+            <when test="search_condition != null and search_condition == 'product_seq'">
+                AND p.product_seq LIKE CONCAT('%', #{search_word}, '%')
+            </when>
+            <when test="search_condition != null and search_condition == 'product_id'">
+                AND p.product_id LIKE CONCAT('%', #{search_word}, '%')
+            </when>
+            <when test="search_condition != null and search_condition == 'homepage_name'">
+                AND cs.homepage_name LIKE CONCAT('%', #{search_word}, '%')
+            </when>
+            <when test="search_condition != null and search_condition == 'client_id'">
+                AND p.client_id LIKE CONCAT('%', #{search_word}, '%')
+            </when>
+        </choose>
+        AND (p.copy_client_id != 'kiwisnap_basic' OR p.copy_client_id IS NULL)
+        GROUP BY p.product_seq
+        <if test="order_filter != null and order_filter == 'DESC'">
+            ORDER BY p.product_seq DESC
+        </if>
+        LIMIT ${start}, ${length}
+    </select>
+
+    <!-- 상품 리스트 카운트 조회 -->
+    <select id="selectProductListCount">
+        SELECT COUNT(*) as cnt
+        FROM (
+        SELECT COUNT(*) as cnt
+        FROM product p LEFT JOIN master_product mp on p.product_seq = mp.product_seq
+        LEFT JOIN mall_product mlp on mp.product_seq = mlp.product_seq
+        LEFT JOIN client_setting cs on p.client_id = cs.client_id
+        LEFT JOIN member m on p.client_id = m.client_id
+        WHERE 1=1
+        <choose>
+            <when test="search_condition != null and search_condition == 'product_name'">
+                AND p.product_name LIKE CONCAT('%', #{search_word}, '%')
+            </when>
+            <when test="search_condition != null and search_condition == 'product_seq'">
+                AND p.product_seq LIKE CONCAT('%', #{search_word}, '%')
+            </when>
+            <when test="search_condition != null and search_condition == 'product_id'">
+                AND p.product_id LIKE CONCAT('%', #{search_word}, '%')
+            </when>
+            <when test="search_condition != null and search_condition == 'homepage_name'">
+                AND cs.homepage_name LIKE CONCAT('%', #{search_word}, '%')
+            </when>
+            <when test="search_condition != null and search_condition == 'client_id'">
+                AND p.client_id LIKE CONCAT('%', #{search_word}, '%')
+            </when>
+        </choose>
+        AND (p.copy_client_id != 'kiwisnap_basic' OR p.copy_client_id IS NULL)
+        GROUP BY p.product_seq
+        ) as t
+    </select>
+
+    <select id="selectMallProductList">
+        select a.product_seq,a.mall_product_seq,c.mall_type , p.client_id
+        , a.product_name , a.mall_product_no, a.prod_status, b.result_code, b.result_message, DATE_FORMAT(a.create_date,
+        '%Y-%m-%d %H:%m') as create_date, DATE_FORMAT(b.create_date, '%Y-%m-%d %H:%m') as 'connect_date'
+        , a.client_mall_seq
+        , t.mem_id, t.password
+        from mall_product a
+        left join (
+        select max(create_date) as create_date, mall_product_seq, result_code, result_message, error_msg,
+        mall_product_id
+        from link_result
+        group by mall_product_seq
+        ) b on a.mall_product_seq = b.mall_product_seq
+        left join client_mall c on c.client_mall_seq = a.client_mall_seq
+        left join product p on p.product_seq = a.product_seq
+
+        , (select min(mem_no), mem_id, password, client_id
+        from member a
+        group by client_id) as t
+        where p.client_id = t.client_id
+        <choose>
+            <when test="search_condition != null and search_condition == 'product_name'">
+                AND a.product_name LIKE CONCAT('%', #{search_word}, '%')
+            </when>
+            <when test="search_condition != null and search_condition == 'product_seq'">
+                AND a.product_seq LIKE CONCAT('%', #{search_word}, '%')
+            </when>
+            <when test="search_condition != null and search_condition == 'product_id'">
+                AND p.product_id LIKE CONCAT('%', #{search_word}, '%')
+            </when>
+            <when test="search_condition != null and search_condition == 'client_id'">
+                AND p.client_id LIKE CONCAT('%', #{search_word}, '%')
+            </when>
+        </choose>
+        order by a.update_date desc
+        LIMIT ${start}, ${length}
+    </select>
+
+    <select id="selectMallProductCount">
+        select count(*) as cnt
+        from mall_product a
+        left join (
+        select max(create_date) as create_date, mall_product_seq, result_code, result_message, error_msg,
+        mall_product_id
+        from link_result
+        group by mall_product_seq
+        ) b on a.mall_product_seq = b.mall_product_seq
+        left join client_mall c on c.client_mall_seq = a.client_mall_seq
+        left join product p on p.product_seq = a.product_seq
+        , (select min(mem_no), mem_id, password, client_id
+        from member a
+        group by client_id) as t
+        where p.client_id = t.client_id
+        <choose>
+            <when test="search_condition != null and search_condition == 'product_name'">
+                AND a.product_name LIKE CONCAT('%', #{search_word}, '%')
+            </when>
+            <when test="search_condition != null and search_condition == 'product_seq'">
+                AND a.product_seq LIKE CONCAT('%', #{search_word}, '%')
+            </when>
+            <when test="search_condition != null and search_condition == 'product_id'">
+                AND p.product_id LIKE CONCAT('%', #{search_word}, '%')
+            </when>
+            <when test="search_condition != null and search_condition == 'client_id'">
+                AND p.client_id LIKE CONCAT('%', #{search_word}, '%')
+            </when>
+        </choose>
+    </select>
+
+    <select id="selectErrorMessage">
+        select seq, error_message, replace_message, ifnull(after_message, '') as after_message, mall_type,
+            replace_type
+        from link_error_message
+        <if test="search_word != null and search_word != ''">
+        where error_message like CONCAT('%', #{search_word}, '%')
+        </if>
+        order by create_date desc
+        LIMIT ${start}, ${length}
+    </select>
+
+    <select id="selectErrorMessageCount">
+        select count(*) as cnt
+        from link_error_message
+        <if test="search_word != null and search_word != ''">
+            where error_message like CONCAT('%', #{search_word}, '%')
+        </if>
+    </select>
+
+    <insert id="insertErrorMessage">
+        insert into link_error_message (error_message, replace_message, after_message,replace_type,create_date, update_date)
+        values (#{errorMessage}, #{replaceMessage}, #{afterMessage}, #{replaceType}, now(), now())
+    </insert>
+
+    <update id="updateErrorMessage">
+        update link_error_message
+            set error_message = #{errorMessage}, replace_message = #{replaceMessage},after_message = #{afterMessage}, update_date = now()
+                ,replace_type = #{replaceType}
+        where seq = #{seq}
+    </update>
+
+    <delete id="deleteErrorMessage">
+        delete from link_error_message
+        where seq = #{seq}
+    </delete>
+
+    <delete id="deleteMallProductByClientMallSeq">
+        delete from mall_product
+        where client_mall_seq = #{client_mall_seq}
+    </delete>
+
+    <insert id="insertDeleteMallProductBackup">
+        insert into mall_product_delete (mall_product_seq, product_name, sales_quantity, price, product_seq, prod_status, client_mall_seq, create_date, update_date, mall_type, product_notice)
+        select mall_product_seq, product_name, sales_quantity, price, product_seq, prod_status, client_mall_seq, create_date, update_date, mall_type, product_notice
+        from mall_product
+        where client_mall_seq = #{client_mall_seq}
+    </insert>
+
+</mapper>

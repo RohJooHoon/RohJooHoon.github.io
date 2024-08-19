@@ -1,5 +1,24 @@
-## 웹프론트 개발자 노주훈   
-[티스토리 블로그](https://non-traditional-developer.tistory.com/) : 개발 스터디 정리   
-[포트폴리오 페이지](https://rohjoohoon.github.io/project/portfolio/) : 개인 작업 포트폴리오 웹 페이지   
-[사품 회원관리](https://rohjoohoon.github.io/project/sapum/) : 참여중인 사진 동호회 회원 관리 페이지  (구글 스프레드 시트를 api요청으로 DB처럼 사용)   
-[날씨 관리 앱](https://rohjoohoon.github.io/project/weather/) : 개인 사이드 프로젝트 (날씨 API호출로 오늘 입을 옷을 추천 - 작업중)   
+# 포트폴리오
+
+안녕하세요 노주훈의 포트폴리오 사이트에 오신 것을 환영합니다. 이 사이트는 프론트엔드 개발자로서의 저의 기술과 프로젝트를 소개하는 공간입니다.
+
+## 개요
+
+이 포트폴리오 사이트는 **Next.js 14** 버전을 사용하여 제작되었으며, GitHub Pages에서 호스팅되고 있습니다. 블로그 게시물, 이전 회사에서 작업한 프로젝트 및 개인적인 프로젝트를 포함한 작업을 한 곳에서 볼 수 있습니다.
+
+## 기술 스택
+
+- **React.js/Next.js**: 포트폴리오의 주요 프레임워크로 최신 버전의 Next.js 사용.
+- **Vue.js/Nuxt.js**: 업무 페이지 개발에 사용.
+- **React Native**: 토이 프로젝트 모바일 앱 개발에 활용.
+- **Jekyll**: 블로그 섹션에 사용.
+
+## 사이트 보기
+
+라이브 포트폴리오 사이트는 [rohjoohoon.github.io/](https://rohjoohoon.github.io/)에서 확인할 수 있습니다.
+
+## 연락처
+
+궁금한 점이 있거나 협업을 원하시면 아래의 연락처로 연락주세요!
+
+- **이메일:** joohoon.roh@gmail.com

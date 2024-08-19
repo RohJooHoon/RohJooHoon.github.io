@@ -1,0 +1,185 @@
+<div class="main-wrapper">
+    <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background-color: beige;">
+        <div class="auth-box">
+            <div id="loginform">
+                <div class="logo">
+                    <span class="db">
+                        <img class=" m-b-30" src="/img/logo_full.png" height="30" alt="logo"/>
+                    </span>
+                </div>
+                <!-- Form -->
+                <div class="row">
+                    <div class="col-12">
+                        <form class="form-horizontal">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <i class="ti-user"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control form-control-lg" id="mem_id" placeholder="Email / ID" aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon2">
+                                        <i class="ti-pencil"></i>
+                                    </span>
+                                </div>
+                                <input type="password" class="form-control form-control-lg" id="pwd" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="text-center">
+                                <div class="col-xs-12">
+                                    <button class="btn btn-block btn-lg btn-success" type="button" onclick="javascript:login();">Log In</button>
+                                </div>
+                            </div>
+<!--                            <small class="mt-1" style="display: block;">테스트는 아래계정을 이용해주세요</small>-->
+<!--                            <small style="display: block;">ID:denma1 / PW:111111</small>-->
+                            <small class="mt-1" style="display: block;">키위스냅 내부 관리자에 오신걸 환영합니다.</small>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <footer class="footer text-center" style="background-color: #4ba838;">
+        <p>서울특별시 마포구 와우산로 48, 3층 301호(상수동, 로하스타워)1</p>
+        <p>대표 : 박민규 | 이메일주소 : contact@mncnext.co.kr | Tel : 02-326-4300</p>
+        <p>사업자등록번호 : 352-88-01951 | 통신판매 : 제2021-서울마포-0150호</p>
+        <p>(주)엠엔씨넥스트</p>
+        <p><a href="/agreement/terms.html" target="_blank">이용약관</a> | <a href="/agreement/privacy.html" target="_blank">개인정보취급방침</a></p>
+    </footer>
+</div>
+<!--This page JavaScript -->
+<script src="/js/sha256.js"></script>
+
+<script src="/js/cafe24.js"></script>
+<script>
+	$(document).ready(function () {
+		$('[data-toggle="tooltip"]').tooltip();
+		$('#to-recover').on("click", function () {
+			$("#loginform").slideUp();
+			$("#recoverform").fadeIn();
+		});
+        $('#to-login').on("click", function () {
+            $("#loginform").fadeIn();
+            $("#recoverform").slideUp();
+        });
+		$('#pwd').bind('keyup', function (e) {
+			if (e.keyCode == 13) {
+				login();
+			}
+		});
+
+		//비밀번호 찾기화면으로 바로 고.
+        var params = getUrlParams();
+        if(params.passwordReset != undefined && params.passwordReset == 'Y'){
+            $('#to-recover').click();
+        }
+
+		//cafe24 install로 들어왔을경우 체크
+        cefe24Check();
+	});
+
+	function cefe24Check(){
+	    if('<%- cafe24_install %>' == 'true'){
+            let cafe24 = new cafe24Class();
+            cafe24.cafe24Login('<%- config.info.cafe24_client_id %>', '<%- mall_id %>');
+        }
+    }
+
+	function login() {
+		//아이디(이메일) 체크
+		let mem_id = $('#mem_id').val();
+		let objMsg = $('#common_msg');
+		if ($.trim(mem_id) === '') {
+			showAlert('아이디(email)를 입력해주세요.');
+			$('#mem_id').focus();
+			return false;
+		}
+		let pwd = $('#pwd').val();
+		if ($.trim(pwd) === '') {
+			showAlert('비밀번호를 입력해주세요.');
+			$('#pwd').focus();
+			return false;
+		}
+		var dataMap = {
+			mem_id: $('#mem_id').val(),
+			password: SHA256($('#pwd').val())
+		};
+
+		$.ajax({
+			type: "GET",
+			url: "/member/login_process",
+			data: dataMap,
+			dataType: "json",
+			success: function (data) {
+			    if (data.error_code === undefined) {
+			        console.log("data: ",data)
+                    if (data.permission_level === 'USER'){
+                        alert("접근 권한이 없습니다.");
+                        $.ajax({
+                            type: "GET",
+                            url: "/member/logout",
+                            data: dataMap,
+                            dataType: "json",
+                            success: function (data) {
+                            },
+                            error: function (data) {
+                                console.log('error');
+                                console.log(data);
+                            }
+                        });
+                    }else {
+                        location.href = '/view/main';
+                    }
+				} else {
+					showAlert(data.error_msg);
+				}
+			},
+			error: function (data) {
+				console.log('error');
+				console.log(data);
+			}
+		});
+	}
+
+    /**
+     * 비밀번호 재설정
+     * @returns {boolean}
+     */
+    function passwordReset() {
+        //아이디(이메일) 체크
+        let email = $('#email').val();
+        let objMsg = $('#common_msg');
+        if ($.trim(email) === '') {
+            showAlert('email를 입력해주세요.');
+            $('#email').focus();
+            return false;
+        }
+
+        var dataMap = {
+            mem_id: $('#email').val()
+        };
+
+        $.ajax({
+            type: "PUT",
+            url: `${denma_api_url}/member/passwordReset`,
+            data: dataMap,
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                if (data.error_code === undefined) {
+                    alert('임시비밀번호를 이메일로 발송하였습니다.');
+                } else {
+                    showAlert(data.error_msg);
+                }
+
+            },
+            error: function (data) {
+                console.log('error');
+                console.log(data);
+            }
+        });
+    }
+</script>

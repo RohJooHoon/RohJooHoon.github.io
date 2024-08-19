@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="credit">
+
+    <!-- 크레딧 구매 내역 리스트 조회. -->
+    <select id="selectClientCreditHistoryList">
+        SELECT cch.*, DATE_ADD(cch.expiration_date, INTERVAL 1 DAY) as 'read_expiration_date', cch.price * 0.1 as 'tax', (select c.price from credit c where credit_seq = cch.credit_seq) as 'real_prcie'
+        FROM client_credit_history cch
+        WHERE cch.client_id = #{client_id}
+        ORDER BY cch.client_credit_history_seq DESC
+        <if test="length != null and length != ''">
+            LIMIT ${start}, ${length}
+        </if>
+    </select>
+
+    <!-- 크레딧 구매 내역 리스트 카운트 조회. -->
+    <select id="selectClientCreditHistoryListCnt">
+        SELECT COUNT(*)
+        FROM client_credit_history
+        WHERE client_id = #{client_id}
+        ORDER BY client_credit_history_seq DESC
+        <if test="length != null and length != ''">
+            LIMIT ${start}, ${length}
+        </if>
+    </select>
+
+    <!-- 클라이언트의 크레딧을 충전한다. -->
+    <insert id="insertClientCredit">
+        INSERT INTO client_credit
+                (
+                    client_id,
+                    credit_count,
+                    create_date
+                )
+            VALUES
+                (
+                    #{client_id},
+                    #{credit_count},
+                    NOW()
+                )
+        ON DUPLICATE KEY UPDATE
+                credit_count = credit_count + #{credit_count},
+                update_date = NOW()
+    </insert>
+
+    <!-- client_credit_history 테이블에 관리자가 충전해준 크레딧 내역을 입력한다. -->
+    <insert id="insertClientCreditHistory">
+        INSERT INTO client_credit_history
+                (
+                    client_id,
+                    credit_count,
+                    status,
+                    expiration_date,
+                    bonus_yn,
+                    create_date
+                )
+            VALUES
+                (
+                    #{client_id},
+                    #{credit_count},
+                    '20',
+                    DATE_ADD(NOW(), INTERVAL 5 YEAR),
+                    'Y',
+                    NOW()
+                )
+    </insert>
+
+    <!-- 클라이언트 크레딧 정보 조회 -->
+    <select id="selectClientCreditDetail">
+        SELECT *
+        FROM client_credit
+        WHERE client_id = #{client_id}
+    </select>
+
+</mapper>

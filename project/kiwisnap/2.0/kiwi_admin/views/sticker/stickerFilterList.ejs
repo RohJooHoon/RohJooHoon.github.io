@@ -1,0 +1,132 @@
+<style>
+  .td-center {
+    text-align: center;
+  }
+</style>
+
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">스티커 필터 리스트</h4>
+        </div>
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center justify-content-end">
+                <div class="button-group">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">스티커 필터 타입 선택</span>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_full">
+                            <select class="custom-select is_underLine" id="filter_type" name="filter_type" onchange="goSearch()">
+                                <option value="">전체</option>
+                                <option value="CATEGORY">카테고리</option>
+                                <option value="SUB_CATEGORY">서브 카테고리</option>
+                                <option value="ROW">단수</option>
+                                <option value="STYLE">스타일</option>
+                                <option value="STICKER_SET">스티커 세트</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto pl-0">
+                    <button type="button" onclick="location.href='/view/sticker/stickerFilterCreate'"
+                            class="btn mb-0 mr-0 waves-effect waves-light btn-success">필터 등록
+                    </button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="unitStickerFilterList table-bordered" id="unitStickerFilterList" style="width: 100%;">
+                    <thead>
+                    <tr>
+                        <th class="text-dark font-weight-bold">이름</th>
+                        <th class="text-dark font-weight-bold">타입</th>
+                        <th class="text-dark font-weight-bold">활성화 상태</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+  $(function () {
+    goSearch();
+  });
+
+  $('input').keydown(function (key) {
+    if (key.keyCode === 13) {
+      goSearch();
+    }
+  });
+
+  function goSearch() {
+
+    const sendData = {
+      filter_type: $("#filter_type").val()
+    };
+
+    $(".unitStickerFilterList").dataTable().fnDestroy();
+    $('.unitStickerFilterList').DataTable({
+      processing: true,
+      serverSide: true,
+      lengthChange: false,
+      ordering: false,
+      searching: false,
+      info: false,
+      stateSave: true,
+      pageLength: 10,
+      ajax: {
+        type: "GET",
+        url: `${admin_api_url}/units/stickers/filters`,
+        data: sendData
+      },
+      columns: [
+        {"data": "filter_name"},
+        {"data": "filter_type"},
+        {"data": "status"}
+      ],
+      columnDefs: [
+        {
+          "render": function (data, type, row) {
+            if (row.filter_type === 'STICKER_SET') {
+              return `<a href=/view/sticker/stickerSetFilterModify?unit_sticker_filter_seq=${row.unit_sticker_filter_seq}>${data}</a>`;
+            } else {
+              return `<a href=/view/sticker/stickerFilterModify?unit_sticker_filter_seq=${row.unit_sticker_filter_seq}>${data}</a>`;
+            }
+          },
+          "targets": 0
+        },
+        {
+          "render": function (data, type, row) {
+            return data
+          },
+          "targets": 1
+        },
+        {
+          "className": 'td-center',
+          "render": function (data, type, row) {
+            return (data === "01") ? "O" : "X";
+          },
+          "targets": 2
+        }
+      ],
+    });
+  }
+
+
+</script>

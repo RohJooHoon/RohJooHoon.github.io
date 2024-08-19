@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="statistics">
+  <!-- 날짜별 연동된 상품 카운트 조회. -->
+  <select id="selectConnectProductInfoList">
+    select connect_date as 'connect_date', count(*) as 'connect_product_count'
+    from (
+    select a.product_seq
+    , a.mall_product_seq
+    , c.mall_type
+    , p.client_id
+    , t.mem_id
+    , DATE_FORMAT(b.create_date, '%Y-%m-%d') as 'connect_date'
+    , a.product_name
+    , a.mall_product_no
+    , a.prod_status
+    , b.result_code
+    , b.result_message
+    , DATE_FORMAT(a.create_date, '%Y-%m-%d %H:%m') as create_date
+    , a.client_mall_seq
+    , t.password
+    from mall_product a
+    left join (select l.*
+    from link_result l,
+    (select mall_product_seq, max(product_result_seq) as product_result_seq
+    from link_result
+    group by mall_product_seq
+    ) as tt
+    where l.mall_product_seq = tt.mall_product_seq
+    and l.product_result_seq = tt.product_result_seq
+    ) b on a.mall_product_seq = b.mall_product_seq
+    left join client_mall c on c.client_mall_seq = a.client_mall_seq
+    left join product p on p.product_seq = a.product_seq
+
+    , (select min(mem_no), mem_id, password, a.client_id
+    from member a,
+    client_setting s
+    where a.client_id = s.client_id
+    and s.test_yn = 'N'
+    and s.client_type is null
+    group by a.client_id) as t
+    where p.client_id = t.client_id
+    -- order by b.create_date desc
+    ) as t1
+    where t1.connect_date is not null
+    <if test="startDay != null and startDay != '' and endDay != null and endDay != ''">
+      <![CDATA[
+                AND t1.connect_date >= #{startDay} AND t1.connect_date <= #{endDay}
+                ]]>
+    </if>
+    group by t1.connect_date
+    order by connect_date desc
+    LIMIT ${start}, ${length}
+  </select>
+
+  <!-- 날짜별 연동된 상품 카운트 조회. (COUNT) -->
+  <select id="selectConnectProductInfoListCnt">
+    SELECT COUNT(c.connect_date) as 'cnt'
+    FROM (
+    select connect_date as 'connect_date', count(*) as 'connect_product_count'
+    from (
+    select a.product_seq
+    , a.mall_product_seq
+    , c.mall_type
+    , p.client_id
+    , t.mem_id
+    , DATE_FORMAT(b.create_date, '%Y-%m-%d') as 'connect_date'
+    , a.product_name
+    , a.mall_product_no
+    , a.prod_status
+    , b.result_code
+    , b.result_message
+    , DATE_FORMAT(a.create_date, '%Y-%m-%d %H:%m') as create_date
+    , a.client_mall_seq
+    , t.password
+    from mall_product a
+    left join (select l.*
+    from link_result l,
+    (select mall_product_seq, max(product_result_seq) as product_result_seq
+    from link_result
+    group by mall_product_seq
+    ) as tt
+    where l.mall_product_seq = tt.mall_product_seq
+    and l.product_result_seq = tt.product_result_seq
+    ) b on a.mall_product_seq = b.mall_product_seq
+    left join client_mall c on c.client_mall_seq = a.client_mall_seq
+    left join product p on p.product_seq = a.product_seq
+
+    , (select min(mem_no), mem_id, password, a.client_id
+    from member a,
+    client_setting s
+    where a.client_id = s.client_id
+    and s.test_yn = 'N'
+    and s.client_type is null
+    group by a.client_id) as t
+    where p.client_id = t.client_id
+    -- order by b.create_date desc
+    ) as t1
+    where t1.connect_date is not null
+    <if test="startDay != null and startDay != '' and endDay != null and endDay != ''">
+      <![CDATA[
+                AND t1.connect_date >= #{startDay} AND t1.connect_date <= #{endDay}
+                ]]>
+    </if>
+    group by t1.connect_date) as c
+  </select>
+
+  <!-- 날짜별 클라이언트의 상품 연동 카운트 조회. -->
+  <select id="selectClientConnectProductInfoList">
+    select connect_date, count(*) as connect_client_count
+    from (
+    select connect_date, t1.client_id
+    from (
+    select a.product_seq
+    , a.mall_product_seq
+    , c.mall_type
+    , p.client_id
+    , t.mem_id
+    , DATE_FORMAT(b.create_date, '%Y-%m-%d') as 'connect_date'
+    , a.product_name
+    , a.mall_product_no
+    , a.prod_status
+    , b.result_code
+    , b.result_message
+    , DATE_FORMAT(a.create_date, '%Y-%m-%d %H:%m') as create_date
+    , a.client_mall_seq
+    , t.password
+    from mall_product a
+    left join (select l.*
+    from link_result l,
+    (select mall_product_seq, max(product_result_seq) as product_result_seq
+    from link_result
+    group by mall_product_seq
+    ) as tt
+    where l.mall_product_seq = tt.mall_product_seq
+    and l.product_result_seq = tt.product_result_seq
+    ) b on a.mall_product_seq = b.mall_product_seq
+    left join client_mall c on c.client_mall_seq = a.client_mall_seq
+    left join product p on p.product_seq = a.product_seq
+
+    , (select min(mem_no), mem_id, password, a.client_id
+    from member a,
+    client_setting s
+    where a.client_id = s.client_id
+    and s.test_yn = 'N'
+    and s.client_type is null
+    group by a.client_id) as t
+    where p.client_id = t.client_id
+    ) as t1
+    group by t1.connect_date, t1.client_id
+    ) as ttt
+    where ttt.connect_date is not null
+    <if test="startDay != null and startDay != '' and endDay != null and endDay != ''">
+      <![CDATA[
+                AND ttt.connect_date >= #{startDay} AND ttt.connect_date <= #{endDay}
+                ]]>
+    </if>
+    group by ttt.connect_date
+    order by connect_date desc
+    LIMIT ${start}, ${length}
+  </select>
+
+  <!-- 날짜별 클라이언트의 상품 연동 카운트 조회. (COUNT) -->
+  <select id="selectClientConnectProductInfoListCnt">
+    SELECT COUNT(c.connect_date) as 'cnt'
+    FROM (
+    select connect_date, count(*)
+    from (
+    select connect_date, t1.client_id
+    from (
+    select a.product_seq
+    , a.mall_product_seq
+    , c.mall_type
+    , p.client_id
+    , t.mem_id
+    , DATE_FORMAT(b.create_date, '%Y-%m-%d') as 'connect_date'
+    , a.product_name
+    , a.mall_product_no
+    , a.prod_status
+    , b.result_code
+    , b.result_message
+    , DATE_FORMAT(a.create_date, '%Y-%m-%d %H:%m') as create_date
+    , a.client_mall_seq
+    , t.password
+    from mall_product a
+    left join (select l.*
+    from link_result l,
+    (select mall_product_seq, max(product_result_seq) as product_result_seq
+    from link_result
+    group by mall_product_seq
+    ) as tt
+    where l.mall_product_seq = tt.mall_product_seq
+    and l.product_result_seq = tt.product_result_seq
+    ) b on a.mall_product_seq = b.mall_product_seq
+    left join client_mall c on c.client_mall_seq = a.client_mall_seq
+    left join product p on p.product_seq = a.product_seq
+
+    , (select min(mem_no), mem_id, password, a.client_id
+    from member a,
+    client_setting s
+    where a.client_id = s.client_id
+    and s.test_yn = 'N'
+    and s.client_type is null
+    group by a.client_id) as t
+    where p.client_id = t.client_id
+    ) as t1
+    group by t1.connect_date, t1.client_id
+    ) as ttt
+    where ttt.connect_date is not null
+    <if test="startDay != null and startDay != '' and endDay != null and endDay != ''">
+      <![CDATA[
+                AND ttt.connect_date >= #{startDay} AND ttt.connect_date <= #{endDay}
+                ]]>
+    </if>
+    group by ttt.connect_date) as c
+  </select>
+
+  <!-- 날짜별 연동 에러 리스트 조회. -->
+  <select id="selectConnectErrorList">
+    select a.*,
+    DATE_FORMAT(a.create_date, '%Y-%m-%d %H:%m:%s') as 'custom_create_date',
+    b.replace_message,
+    c.product_name,
+    c.mall_type,
+    c.product_seq,
+    e.mem_id
+    from link_result a
+    left join link_error_message b on a.result_message = b.error_message
+    join mall_product c on c.mall_product_seq = a.mall_product_seq
+    <if test="mallType != null and mallType != ''">
+      and c.mall_type = #{mallType}
+    </if>
+    join product d on d.product_seq = c.product_seq
+    join member e on e.client_id = d.client_id
+    <![CDATA[
+    where a.create_date >= #{startDay}
+      and a.create_date <= #{endDay}
+      ]]>
+    and a.status in (26, 31)
+    order by a.product_result_seq desc
+  </select>
+
+  <select id="selectTrafficStatClientId">
+    SELECT cs.client_id,
+           cs.homepage_name,
+           SUM(view_count)                       as 'view_count',
+           SUM(image_total_amount) / 1024 / 1024 as 'image_total_amount',
+           m.mem_id,
+           m.password
+    FROM traffic_statistics ts,
+         client_setting cs,
+         member m
+    WHERE ts.client_id = cs.client_id
+      AND cs.client_id = m.client_id
+        <![CDATA[
+      AND ts.stat_date >= #{startDay}
+      AND ts.stat_date <= #{endDay}
+        ]]>
+        GROUP BY client_id
+    ORDER BY SUM(view_count) desc
+    LIMIT 50
+  </select>
+
+  <select id="selectTrafficStatMallType">
+    SELECT cs.client_id, cs.homepage_name,
+    ts.mall_type,
+    ts.client_mall_seq,
+    SUM(view_count) as 'view_count',
+    SUM(image_total_amount)/1024/1024 as 'image_total_amount'
+    FROM traffic_statistics ts, client_setting cs
+    WHERE ts.client_id = cs.client_id
+    <if test="client_id != null AND client_id != ''">
+      AND ts.client_id = #{client_id}
+    </if>
+    <![CDATA[
+        AND ts.stat_date >= #{startDay}
+        AND ts.stat_date <= #{endDay}
+        ]]>
+    GROUP BY client_id, client_mall_seq
+    ORDER BY SUM(view_count) desc
+  </select>
+
+  <select id="selectTrafficStatProduct">
+    SELECT cs.client_id, cs.homepage_name, mp.product_name, mp.mall_product_no,
+    ts.mall_type, SUM(view_count) as 'view_count',
+    SUM(image_total_amount)/1024/1024 as 'image_total_amount'
+    FROM traffic_statistics ts, client_setting cs, mall_product mp
+    WHERE ts.client_id = cs.client_id
+    AND ts.product_seq = mp.product_seq
+    AND ts.client_mall_seq = mp.client_mall_seq
+    <if test="client_id != null AND client_id != ''">
+      AND ts.client_id = #{client_id}
+    </if>
+    <if test="client_mall_seq != null AND client_mall_seq != ''">
+      AND ts.client_mall_seq = #{client_mall_seq}
+    </if>
+    <![CDATA[
+        AND ts.stat_date >= #{startDay}
+        AND ts.stat_date <= #{endDay}
+        ]]>
+    GROUP BY client_id, ts.client_mall_seq, ts.product_seq
+    ORDER BY SUM(view_count) desc
+    LIMIT 50
+  </select>
+
+  <!-- -->
+  <select id="selectPaymentCountByDaily">
+    SELECT date_format(p.create_date, '%Y%m%d') as 'date', cmh.status as 'status', count(*) as 'count'
+    FROM payment p,
+         client_membership_history cmh,
+         client_setting cs
+    WHERE p.payment_no = cmh.payment_no
+      AND p.client_id = cs.client_id
+      AND p.`status` = '01'
+      AND p.payment_type = 'MEMBERSHIP'
+          <![CDATA[
+      AND p.create_date >= date_format(CONCAT(#{startDay}, '000000'), '%Y-%m-%d %H:%i:%S')
+      AND p.create_date <= date_format(CONCAT(#{endDay}, '235959'), '%Y-%m-%d %H:%i:%S')
+          ]]>
+          AND cs.test_yn = 'N'
+    GROUP BY date_format(p.create_date, '%Y%m%d'), cmh.status
+  </select>
+</mapper>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sizeInfo">
+
+    <!-- code테이블에서 그룹코드가 공통사이즈정보인 데이터 리스트를 조회한다. -->
+    <select id="commonSizeInfoList">
+        SELECT *
+        FROM code
+        WHERE 1 = 1
+        AND group_code = 'COMMON_SIZE_INFO'
+        ORDER BY code_seq DESC, sort ASC
+        <if test="length != null and length != ''">
+            LIMIT ${start}, ${length}
+        </if>
+    </select>
+
+    <!-- code테이블에서 그룹코드가 공통사이즈정보 데이터의 카운트 조회. -->
+    <select id="commonSizeInfoCnt">
+        SELECT COUNT(*) as 'cnt'
+        FROM code
+        WHERE group_code = 'COMMON_SIZE_INFO'
+    </select>
+
+    <!-- 공통 사이즈 정보를 등록한다. -->
+    <insert id="insertCommonSizeInfo">
+        INSERT INTO code
+            (
+                group_code,
+                code,
+                code_name,
+                code_value,
+                code_desc,
+                sort,
+                create_date
+            )
+            VALUES
+            (
+                'COMMON_SIZE_INFO',
+                #{code},
+                #{code_name},
+                #{code_value},
+                #{code_desc},
+                #{sort},
+                NOW()
+            )
+    </insert>
+
+    <!-- 공통 사이즈 정보 조회 -->
+    <select id="selectCommonSizeInfo">
+        SELECT *
+        FROM code
+        WHERE code_seq = #{code_seq}
+    </select>
+
+    <!-- 공통 사이즈 정보 수정 -->
+    <update id="updateCommonSizeInfo">
+        UPDATE code
+            SET update_date = NOW()
+                ,code_name = #{code_name}
+                ,code_value = #{code_value}
+                ,code_desc = #{code_desc}
+                ,code = #{code}
+                ,sort = #{sort}
+        WHERE code_seq = #{code_seq}
+    </update>
+
+    <!-- 공통 사이즈 정보 삭제 -->
+    <delete id="deleteCommonSizeInfo">
+        DELETE
+        FROM code
+        WHERE code_seq = #{code_seq}
+    </delete>
+
+</mapper>

@@ -1,0 +1,43 @@
+{
+    "local": {
+        "username": "denmastudio",
+        "password": "epsaktmxbeldh1!",
+        "database": "tagging",
+        "host": "kiwisnap-dev-instance-cluster.cluster-c0mglatqnkrw.ap-northeast-2.rds.amazonaws.com",
+        "dialect": "mysql",
+        "operatorAliases" : false
+    },
+    "dev": {
+        "username": "denmastudio",
+        "password": "epsaktmxbeldh1!",
+        "database": "tagging",
+        "host": "kiwisnap-dev-instance-cluster.cluster-c0mglatqnkrw.ap-northeast-2.rds.amazonaws.com",
+        "dialect": "mysql",
+        "operatorAliases" : false
+    },
+    "real": {
+    "username": "nextdop",
+        "password": "sprtmxmeldhvl1!",
+        "database": "nextdop",
+        "host": "kiwisnap-real-cluster.cluster-c0mglatqnkrw.ap-northeast-2.rds.amazonaws.com",
+        "dialect": "mysql",
+        "operatorAliases" : false
+    },
+    "real1": {
+        "username": "nextdop",
+        "password": "sprtmxmeldhvl1!",
+        "database": "nextdop",
+        "host": "kiwisnap-real-cluster.cluster-c0mglatqnkrw.ap-northeast-2.rds.amazonaws.com",
+        "dialect": "mysql",
+        "operatorAliases" : false
+    },
+    "real2": {
+        "username": "nextdop",
+        "password": "sprtmxmeldhvl1!",
+        "database": "nextdop",
+        "host": "kiwisnap-real-cluster.cluster-c0mglatqnkrw.ap-northeast-2.rds.amazonaws.com",
+        "dialect": "mysql",
+        "operatorAliases" : false
+    }
+}
+

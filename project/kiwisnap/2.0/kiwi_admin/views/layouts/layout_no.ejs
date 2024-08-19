@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="kr">
+<head>
+    <meta charset="utf-8"/>
+    <title>KIWI SNAP - 촬영과 상품등록을 한번에</title>
+    <meta property="og:title" content="키위스냅 - KIWISNAP" />
+    <meta property="og:description" content="키위스냅 KIWISNAP 촬영과 상품등록을 한번에" />
+    <meta name="naver-site-verification" content="772841114213570bfe72b2fef64c63530c2aef84"/>
+    <meta name="viewport" content="width=420, initial-scale=1.0">
+    <meta name="description" content="KIWISNAP - 촬영과 상품등록을 한번에"/>
+    <meta name="keywords" content="빈티지, 카페24, 고도몰, 자동, 누끼, 촬영, 키위, 스냅, 스냅샷, kiwi, snap, shop, photo, fasion, cafe24, Saas, Software"/>
+    <meta name="author" content="KIWISNAP"/>
+    <meta name="email" content="contact@mncnext.co.kr"/>
+    <meta name="website" content="http://www.kiwisnap.net"/>
+    <meta name="Version" content="v1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/logo.png">
+    <link href="/nice_bootstrap/dist/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="/css/common.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- All Jquery -->
+    <script src="/nice_bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/vendor/jquery/jquery.cookie.js"></script>
+    <script src="/js/toastr.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script>
+        let denma_api_url = '<%=config.info.api_server_protocal%>://<%=config.info.api_server_host%>:<%=config.info.api_server_port%>';
+        $( document ).ajaxSend(function( event, jqxhr, settings ) {
+            <% if (typeof api_token != undefined && typeof api_token !== 'undefined') { %>
+                jqxhr.setRequestHeader("Authorization", 'Bearer <%-api_token%>');
+            <%}%>
+
+        });
+    </script>
+</head>
+<body>
+<div class="fullDim preloader">
+    <div class="loading">
+        <div class="loadingIcon"></div>
+    </div>
+</div>
+<%- body %>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="/nice_bootstrap/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+<script src="/nice_bootstrap/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".preloader").fadeOut();
+    });
+</script>
+</body>
+</html>

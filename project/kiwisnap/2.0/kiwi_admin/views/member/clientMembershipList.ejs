@@ -1,0 +1,225 @@
+<style>
+    .td-center{text-align: center;}
+</style>
+
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">회원 멤버십 관리</h4>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">멤버ID 검색</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" id="mem_id">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="button" onclick="getClientList()"><i class="ti-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="clientMembershipList table-bordered" style="width: 100%;">
+                    <thead>
+                    <tr>
+                        <th class="text-dark font-weight-bold">멤버 ID</th>
+                        <th class="text-dark font-weight-bold">클라이언트 ID</th>
+                        <th class="text-dark font-weight-bold">쇼핑몰</th>
+                        <th class="text-dark font-weight-bold">멤버십</th>
+                        <th class="text-dark font-weight-bold">멤버십 상태</th>
+                        <th class="text-dark font-weight-bold">패키지</th>
+                        <th class="text-dark font-weight-bold">자동결제</th>
+                        <th class="text-dark font-weight-bold">크레딧</th>
+                        <th class="text-dark font-weight-bold">결제일</th>
+                        <th class="text-dark font-weight-bold">시작일</th>
+                        <th class="text-dark font-weight-bold">종료일</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        getClientList();
+    });
+
+
+    // 회원 리스트 조회
+    function getClientList(){
+        const sendData = {
+            "mem_id" : $('#mem_id').val().trim()
+        }
+
+        $(".clientMembershipList").dataTable().fnDestroy()
+        $('.clientMembershipList').DataTable({
+            "processing": true,
+            "serverSide": false,
+            "lengthChange": false,
+            "stateSave": false,
+            "ordering": false,
+            "searching": false,
+            "info" : false,
+            "pageLength": 20,
+            "ajax": {
+                "type" : "GET",
+                "url" : `${denma_api_url}/api/membership/client-membership/list`,
+                "data" : sendData,
+                dataSrc : function (response) {
+                    console.log("response :: ", response);
+                    return response.data;
+                }
+            },
+            "columns" : [
+                {"data": "mem_id"},
+                {"data": "client_id"},
+                {"data": "homepage_name"},
+                {"data": "membership_seq"},
+                {"data": "status"},
+                {"data": "package_yn"},
+                {"data": "auto_payment_yn"},
+                {"data": "credit_count"},
+                {"data": "payment_date"},
+                {"data": "start_date"},
+                {"data": "end_date"}
+            ],
+            "columnDefs": [
+                {
+                    "width" : "10%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return (data !== null? data : '');
+                    },
+                    "targets": 0
+                },
+                {
+                    "width" : "10%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return `<a href="/view/member/clientMembershipDetail?client_membership_seq=${row.client_membership_seq}&client_id=${data}">${data}</a>`;
+                    },
+                    "targets": 1
+                },
+                {
+                    "width" : "10%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return (data !== null? data : '');
+                    },
+                    "targets": 2
+                },
+                {
+                    "width" : "10%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        if (data === 1) {
+                            return "FREE";
+                        } else if (data === 2) {
+                            return "BASIC";
+                        } else if (data === 3) {
+                            return "BUSINESS";
+                        } else if(data == 4){
+                            return "ENTERPRISE";
+                        }else if (data === 5) {
+                            return "FREE";
+                        } else if (data === 6) {
+                            return "BASIC";
+                        } else if (data === 7) {
+                            return "BUSINESS";
+                        } else
+                            return "";
+                    },
+                    "targets": 3
+                },
+                {
+                    "width" : "10%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        if (data === '02') {
+                            return "신규유저";
+                        } else if (data === '99') {
+                            return "비활성";
+                        } else {
+                            return "활성";
+                        }
+                    },
+                    "targets": 4
+                },
+                {
+                    "width" : "10%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return (data !== null? data : '');
+                    },
+                    "targets": 5
+                },
+                {
+                    "width" : "10%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return (data !== null? data : '');
+                    },
+                    "targets": 6
+                },
+                {
+                    "width" : "10%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return (data !== null? data : 0);
+                    },
+                    "targets": 7
+                },
+                {
+                    "width" : "10%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return (data !== null? removeTime(data) : '');
+                    },
+                    "targets": 8
+                },
+                {
+                    "width" : "10%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return (data !== null? removeTime(data) : '');
+                    },
+                    "targets": 9
+                },
+                {
+                    "width" : "10%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return (data !== null? removeTime(data) : '');
+                    },
+                    "targets": 10
+                }
+            ],
+            "drawCallback": function(response) {
+
+            }
+        });
+    }
+
+    /* 유닛 등록 화면으로 이동 */
+    function createUnit(){
+        location.href = "/view/unit/create";
+    }
+
+    // 날짜 데이터에서 시간 제거.
+    function removeTime(param) {
+        return param.split("T")[0];
+    }
+
+</script>

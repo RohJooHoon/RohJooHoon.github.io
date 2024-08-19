@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="unit">
+  <!-- 유닛 리스트 조회 -->
+  <select id="selectUnitTemplateList">
+    SELECT *
+    FROM unit_template
+    WHERE 1 = 1
+    <if test="name != null and name != ''">
+      AND ( `name` like concat('%', #{name} ,'%') )
+    </if>
+    <if test="status != null and status != ''">
+      AND status = #{status}
+    </if>
+    <if test="version != null and version != ''">
+      AND version = #{version}
+    </if>
+    <if test="unit_seq != null and unit_seq != ''">
+      AND unit_seq = #{unit_seq}
+    </if>
+    <choose>
+      <when test="idx != null and idx != ''">
+        ORDER BY idx ASC
+      </when>
+      <otherwise>
+        ORDER BY unit_seq DESC
+      </otherwise>
+    </choose>
+    <if test="length != null and length != 0">
+      LIMIT ${start}, ${length}
+    </if>
+  </select>
+
+  <!-- 유닛 리스트 개수 조회 -->
+  <select id="selectUnitTemplateListCnt">
+    SELECT COUNT(*) as cnt
+    FROM unit_template
+    WHERE 1 = 1
+    <if test="name != null and name != ''">
+      AND `name` like concat('%', #{name}, '%')
+    </if>
+    <if test="status != null and status != ''">
+      AND status = #{status}
+    </if>
+    <if test="version != null and version != ''">
+      AND version = #{version}
+    </if>
+    <if test="unit_seq != null and unit_seq != ''">
+      AND unit_seq = #{unit_seq}
+    </if>
+  </select>
+
+  <!-- 유닛 등록 -->
+  <insert id="insertUnitTemplate">
+    INSERT INTO unit_template
+      (name,
+       image_url,
+       template,
+       unit_object,
+       unit_type,
+       idx,
+       status,
+       version,
+       create_date,
+       recommend_yn)
+    VALUES (#{name},
+            #{image_url},
+                 <![CDATA[#{template}]]>,
+                 <![CDATA[#{unit_object}]]>,
+            #{unit_type},
+            #{idx},
+            #{status},
+            #{version},
+            NOW(),
+            #{recommend_yn})
+  </insert>
+
+  <!-- 유닛 수정 -->
+  <update id="updateUnitTemplate">
+    UPDATE unit_template
+    SET update_date = NOW()
+    <if test="name != null and name != ''">
+      ,name = #{name}
+    </if>
+    <if test="image_url != null and image_url != ''">
+      ,image_url = #{image_url}
+    </if>
+    <if test="template != null and template != ''">
+      <![CDATA[,template = #{template}]]>
+    </if>
+    <if test="unit_object != null and unit_object != ''">
+      <![CDATA[,unit_object = #{unit_object}]]>
+    </if>
+    <if test="idx != null and idx != ''">
+      ,idx = #{idx}
+    </if>
+    <if test="status != null and status != ''">
+      ,status = #{status}
+    </if>
+    <if test="unit_type != null and unit_type != ''">
+      ,unit_type = #{unit_type}
+    </if>
+    <if test="version != null and version != ''">
+      ,version = #{version}
+    </if>
+    <if test="recommend_yn != null and recommend_yn != ''">
+      ,recommend_yn = #{recommend_yn}
+    </if>
+    WHERE unit_seq = #{unit_seq}
+  </update>
+
+  <!-- 유닛 상세조회 -->
+  <select id="selectUnitTemplate">
+    SELECT a.*, group_concat(c.keyword) as 'keyword_list'
+    FROM unit_template a
+           left join unit_keyword_mapping b on a.unit_seq = b.unit_seq
+           left join unit_keyword c on c.unit_keyword_seq = b.unit_keyword_seq
+    WHERE a.unit_seq = #{unit_seq}
+  </select>
+
+  <!-- 유닛 등록시 필터와 맵핑 -->
+  <insert id="insertUnitFilterMapping">
+    INSERT INTO unit_filter_mapping
+    (
+    unit_seq,
+    filter_seq,
+    create_date
+    )
+    VALUES
+    <foreach collection="filterSeqList" item="item" separator=",">
+      (
+      #{unit_seq},
+      #{item},
+      now()
+      )
+    </foreach>
+  </insert>
+
+  <!-- 유닛과 맵핑된 필터 모두 삭제 -->
+  <delete id="deleteUnitFilterMapping">
+    DELETE
+    FROM unit_filter_mapping
+    WHERE unit_seq = #{unit_seq}
+  </delete>
+
+  <!-- 해당 유닛과 맵핑된 필터 리스트 조회 -->
+  <select id="selectMappedList">
+    SELECT filter_seq
+    FROM unit_filter_mapping
+    WHERE unit_seq = #{unit_seq}
+  </select>
+
+  <!-- 유닛 활성화 상태 변경 -->
+  <update id="updateUnitActiveStatus">
+    UPDATE unit_template
+    SET update_date = NOW()
+    <if test="status != null and status != ''">
+      <choose>
+        <when test="status == '01'">
+          ,status = '99'
+        </when>
+        <otherwise>
+          ,status = '01'
+        </otherwise>
+      </choose>
+    </if>
+    <if test="recommend_yn != null and recommend_yn != ''">
+      ,recommend_yn = #{recommend_yn}
+    </if>
+    WHERE unit_seq = #{unit_seq}
+  </update>
+
+  <!-- 유닛 필터 상세조회 -->
+  <select id="selectUnitFilterDetail">
+    SELECT a.*, group_concat(b.filter_keyword) as keyword
+    FROM unit_filter a left join unit_filter_keyword b
+                                 on a.filter_seq = b.filter_seq
+    WHERE a.filter_seq = #{filter_seq}
+  </select>
+
+  <!-- 유닛 필터 리스트 조회 -->
+  <select id="selectUnitFilterList">
+    SELECT *
+    FROM unit_filter
+    WHERE 1 = 1
+    <if test="filter_type != null and filter_type != ''">
+      AND filter_type = #{filter_type}
+    </if>
+    <if test="status != null and status != ''">
+      AND status = "01"
+    </if>
+    ORDER BY filter_seq DESC
+    <if test="length != null and length != 0">
+      LIMIT ${start}, ${length}
+    </if>
+  </select>
+
+  <!-- 유닛 필터 리스트 개수 조회 -->
+  <select id="selectUnitFilterListCnt">
+    SELECT COUNT(*) as cnt
+    FROM unit_filter
+    WHERE 1 = 1
+    <if test="filter_type != null and filter_type != ''">
+      AND filter_type = #{filter_type}
+    </if>
+  </select>
+
+  <!-- 유닛 필터 등록 -->
+  <insert id="insertUnitFilter">
+    INSERT INTO unit_filter
+      (filter_name,
+       filter_type,
+       status,
+       depth,
+       create_date)
+    VALUES (#{filter_name},
+            #{filter_type},
+            #{status},
+            #{depth},
+            NOW())
+  </insert>
+
+  <!-- 하위 카테고리 등록 -->
+  <insert id="insertChildCategory">
+    INSERT INTO unit_filter
+    (
+    parent_filter_seq,
+    filter_name,
+    filter_type,
+    status,
+    depth,
+    create_date
+    )
+    VALUES
+    <foreach collection="childCategoryList" item="item" separator=",">
+      (
+      #{item.parent_filter_seq},
+      #{item.filter_name},
+      #{item.filter_type},
+      #{item.status},
+      #{item.depth},
+      NOW()
+      )
+    </foreach>
+  </insert>
+
+  <!-- 유닛 필터 수정 -->
+  <update id="updateUnitFilter">
+    UPDATE unit_filter
+    SET update_date = NOW()
+    <if test="filter_name != null and filter_name != ''">
+      ,filter_name = #{filter_name}
+    </if>
+    <if test="filter_type != null and filter_type != ''">
+      ,filter_type = #{filter_type}
+    </if>
+    <if test="status != null and status != ''">
+      ,status = #{status}
+    </if>
+    <if test="depth != null and depth != ''">
+      ,depth = #{depth}
+    </if>
+    WHERE filter_seq = #{filter_seq}
+  </update>
+
+  <!-- 유닛과 유닛 필터 매핑된 정보를 조회.  -->
+  <select id="selectUnitMappingList">
+    select a.*
+    from unit_template a join unit_filter_mapping b on a.unit_seq = b.unit_seq
+    where b.filter_seq = #{filter_seq}
+    order by a.unit_seq desc
+    <if test="length != null and length != 0">
+      LIMIT ${start}, ${length}
+    </if>
+  </select>
+
+  <select id="selectUnitMappingListCnt">
+    select count(*) as cnt
+    from unit_template a
+           join unit_filter_mapping b on a.unit_seq = b.unit_seq
+    where b.filter_seq = #{filter_seq}
+  </select>
+
+  <!-- 유닛과 유닛 필터 매핑 정보 삭제. -->
+  <delete id="deleteUnitFilterMappingByFilterSeqAndUnitSeq">
+    delete
+    from unit_filter_mapping
+    where unit_seq = #{unit_seq}
+      and filter_seq = #{filter_seq}
+  </delete>
+
+  <!-- 유닛 키워드 입력. -->
+  <insert id="insertUnitKeyword">
+    insert ignore into unit_keyword
+    (keyword)
+    values
+    <foreach collection="keywordList" item="item" separator=",">
+      (#{item})
+    </foreach>
+  </insert>
+
+  <insert id="insertUnitKeywordMapping">
+    insert into unit_keyword_mapping (unit_seq, unit_keyword_seq, create_date)
+    values
+    <foreach collection="unitKeywordSeqs" item="item" separator=",">
+      (
+      #{unit_seq},
+      #{item},
+      now()
+      )
+    </foreach>
+  </insert>
+
+  <delete id="deleteUnitKeywordMapping">
+    delete
+    from unit_keyword_mapping
+    where unit_seq = #{unit_seq}
+  </delete>
+
+  <select id="selectUnitKeywordByKeyword">
+    select uk.*
+    from unit_keyword uk
+    where uk.keyword in
+    <foreach collection="keywordList" item="item" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </select>
+
+  <insert id="insertFilterKeyword">
+    insert into unit_filter_keyword (filter_seq, filter_keyword)
+    values
+    <foreach collection="filter_keyword_list" item="item"   separator=",">
+       ( #{filter_seq}, #{item} )
+    </foreach>
+  </insert>
+
+  <delete id="deleteFilterKeyword">
+    delete from unit_filter_keyword
+    where filter_seq = #{filter_seq}
+  </delete>
+</mapper>

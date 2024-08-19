@@ -1,0 +1,419 @@
+<link href="/css/detailNormal.css" rel="stylesheet" type="text/css">
+<link href="/css/form.css" rel="stylesheet" type="text/css">
+<link href="/css/mallBody.css" rel="stylesheet" type="text/css">
+<style>
+    .categoryViewBox_Logo img {
+        object-fit: cover;
+        vertical-align: center;
+    }
+</style>
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col">
+            <h2 class="page-title text-dark">게시판 수정</h2>
+        </div>
+        <div class="col-auto">
+            <!--            <button type="button" class="btn btn-success" onclick="">목록으로</button>-->
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠 -->
+<form class="container-fluid" method="post" id="insertForm">
+
+    <!-- 상세 템플릿 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-header py-2">
+                    <div class="row">
+                        <div class="col py-1">
+                            <h5 class="font-weight-bold mb-1">수정 화면</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="filter_type">타입<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_full">
+                            <select class="custom-select" name="notice_type" id="notice_type"
+                                    onchange="noticeTypeChange();">
+                                <option value="FAQ">자주묻는질문</option>
+                                <option value="NOTICE">안내사항</option>
+                                <option value="UPDATE">업데이트</option>
+                                <option value="VIDEO">영상</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3" id="guide_type_div">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="unit_type">안내사항 타입</label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner" id="guideDiv">
+                            <!--                            <div class="form-check form-check-inline">-->
+                            <!--                                <input class="form-check-input" type="radio" name="guide_type" id="guide_type01"-->
+                            <!--                                       value="NORMAL">-->
+                            <!--                                <label class="form-check-label" for="guide_type01">일반</label>-->
+                            <!--                            </div>-->
+                            <!--                            <div class="form-check form-check-inline">-->
+                            <!--                                <input class="form-check-input" type="radio" name="guide_type" id="guide_type02"-->
+                            <!--                                       value="FUNCTION">-->
+                            <!--                                <label class="form-check-label" for="guide_type02">기능</label>-->
+                            <!--                            </div>-->
+                            <!--                            <div class="form-check form-check-inline">-->
+                            <!--                                <input class="form-check-input" type="radio" name="guide_type" id="guide_type03"-->
+                            <!--                                       value="ANNOUNCEMENT">-->
+                            <!--                                <label class="form-check-label" for="guide_type03">공지</label>-->
+                            <!--                            </div>-->
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="notice_title">제목<span
+                                        class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="notice_title" type="text"
+                               name="notice_title" placeholder="제목을 입력해주세요" data-alram="제목">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="link">링크<span
+                                        class="text-danger ml-05">*</span>
+                                <button class="question btn btn-sm p-0" data-toggle="dropdown"
+                                        type="button"><i class="fas fa-question-circle"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <h6 class="dropdown-header">상세보기 클릭시 이동할 링크 주소값</h6>
+                                </div>
+                            </label>
+                        </div>
+                        <input class="form-control is_impotent" id="link" type="text" name="link"
+                               data-alram="링크">
+                    </div>
+
+                    <div class="input-group mb-3" id="thumbnail_div">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="notice_title">썸네일</label>
+                        </div>
+
+                        <div class="col-md-3 mb-2">
+                            <img class="img-thumbnail img-responsive mb-1" alt="" id="thumbnail" src="/img/no_image.png" style="width: 400px;">
+                            <input type="hidden" class="" id="thumbnail_image" name="thumbnail_image" data-alram="이미지 url">
+                            <div class="custom-file">
+                                <input class="custom-file-input" id="thumbnail_image_file" type="file" accept="image/jpeg, image/png, image/jpg" name="thumbnail_image_file" onchange="changeImage(event);">
+                                <label class="custom-file-label" for="inputGroupFile01" data-content="업로드">선택된 파일 없음</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="idx">중요도
+                                <button class="question btn btn-sm p-0" data-toggle="dropdown"
+                                        type="button"><i class="fas fa-question-circle"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <h6 class="dropdown-header">0 ~ 100 사이 입력 (가장 높음 : 1, 가장 낮음 :
+                                        100)</h6>
+                                </div>
+                            </label>
+                        </div>
+                        <input class="form-control is_impotent" id="idx" type="text" name="idx"
+                               data-alram="중요도" placeholder="중요도 입력" value="100"
+                               onkeyup="checkInputValue($(this).val())">
+                        <input type="hidden" id="notice_seq" name="notice_seq">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="idx">화면 표시 날짜
+                                <button class="question btn btn-sm p-0" data-toggle="dropdown"
+                                        type="button"><i class="fas fa-question-circle"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <h6 class="dropdown-header">화면에 표시 날짜 (ex) 20230101</h6>
+                                </div>
+                            </label>
+                        </div>
+                        <input class="form-control is_impotent" id="display_date" type="text" name="display_date"
+                               data-alram="display_date" placeholder="display_date 입력" value="8">
+                    </div>
+                    <div class="input-group mb-3" id="notice_content_div">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="notice_content">내용</label>
+                        </div>
+                        <textarea id="summernote" class="mb-3" name="editorData"></textarea>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-success float-right"
+                                onclick="updateNotice()">수정하기
+                        </button>
+                        <button type="button" class="btn btn-success float-right"
+                                onclick="goToNoticeList()">목록으로
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //등록 템플릿 -->
+</form>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+<script>
+    let bucketName = 'nextdop';
+    let bucketRegion = 'ap-northeast-2';
+    let IdentityPoolId = 'ap-northeast-2:7bac1f23-f1be-435c-887b-db3889ab1e13';
+
+    AWS.config.update({
+        region: bucketRegion,
+        credentials: new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: IdentityPoolId
+        })
+    });
+
+    let s3 = new AWS.S3({
+        apiVersion: '2006-03-01',
+        params: {Bucket: bucketName}
+    });
+</script>
+
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<!-- include summernote css/js -->
+<script type="text/javascript">
+    let noticeTypes = {
+        "NOTICE": [
+            {
+                "key": "ANNOUNCEMENT",
+                "name": "공지",
+            },
+            {
+                "key": "NORMAL",
+                "name": "일반",
+            }
+        ],
+        "UPDATE": [
+            {
+                "key": "FUNCTION",
+                "name": "기능",
+            },
+            {
+                "key": "DESIGN",
+                "name": "디자인",
+            }
+        ],
+        "VIDEO": [
+            {
+                "key": "HOWUSE",
+                "name": "사용방법",
+            },
+            {
+                "key": "SHOPCREATE",
+                "name": "쇼핑몰 창업영상",
+            }
+        ],
+        "FAQ": [
+
+        ],
+    }
+
+    $(document).ready(function () {
+        getNoticeInfo();
+    });
+
+    //안내타입 변경 이벤트
+    function noticeTypeChange() {
+        let noticeType = $('#notice_type').val();
+
+        if (noticeType === 'NOTICE' || noticeType === 'UPDATE') {
+            $("#thumbnail_div").css('display', 'none');
+            $("#guide_type_div").css('display', 'block');
+            $("#notice_content_div").css('display', 'block');
+        } else if (noticeType === 'FAQ') {
+            $("#thumbnail_div").css('display', 'none');
+            $("#guide_type_div").css('display', 'none');
+            $("#notice_content_div").css('display', 'block');
+        } else {
+            $("#thumbnail_div").css('display', 'block');
+            $("#guide_type_div").css('display', 'block');
+            $("#notice_content_div").css('display', 'none');
+        }
+
+        //안내사항 타입 그리기
+        let guideTypes = noticeTypes[noticeType];
+        console.log('guideTypes :: ', guideTypes);
+        $("#guideType").css('display', 'block');
+        let tags = ``;
+        for (let idx in guideTypes) {
+            let guideType = guideTypes[idx];
+            console.log('guideType :: ', guideType);
+
+            tags += `<div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="guide_type" id="guide_type${idx}"
+                               value="${guideType.key}" checked>
+                        <label class="form-check-label" for="guide_type${idx}">${guideType.name}</label>
+                    </div>`;
+        }
+        $('#guideDiv').html(tags);
+    }
+
+    // 해당 번호의 게시판 상세조회
+    function getNoticeInfo() {
+        const param = getUrlParams();
+        const notice_seq = param.notice_seq;
+
+        $('#summernote').summernote({
+            height: 700,      // set editor height
+            minHeight: null,  // set minimum height of editor
+            maxHeight: null,  // set maximum height of editor
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: `${denma_api_url}/api/notice/${notice_seq}`,
+            data: '',
+            success: function (response) {
+                console.log('response :: ', response);
+                $('#notice_type').val(response[0].notice_type).prop('selected', true);
+                noticeTypeChange();
+                $('#notice_title').val(response[0].notice_title);
+                $('#summernote').summernote('code', response[0].notice_content);
+                $('#link').val(response[0].link);
+                $('#idx').val(response[0].idx);
+                $('#notice_seq').val(response[0].notice_seq);
+                $(`input[name=guide_type][value="${response[0].guide_type}"]`).prop('checked', true);
+                $('#display_date').val(response[0].display_date);
+                $("#thumbnail").attr('src', response[0].thumbnail_image);
+                $("#thumbnail_image").val(response[0].thumbnail_image);
+
+                //showGuideType(response[0].notice_type);
+            },
+            error: function (error) {
+                console.log("error :: ", error);
+            }
+        });
+
+    }
+
+    // 글 등록
+    function updateNotice() {
+
+        if (checkImpotent()) {
+            let guide_type = $("input:radio[name='guide_type']:checked").val();
+
+            const sendData = {
+                notice_seq: $("#notice_seq").val(),
+                notice_type: $("#notice_type").selected().val(),
+                notice_title: $("#notice_title").val(),
+                notice_content: $('#summernote').summernote('code'),
+                link: $("#link").val(),
+                idx: $("#idx").val(),
+                guide_type: guide_type,
+                display_date: $("#display_date").val(),
+                thumbnail_image: $("#thumbnail_image").val(),
+            }
+
+            $.ajax({
+                type: 'PUT',
+                url: `${denma_api_url}/api/notice/update`,
+                data: sendData,
+                success: function (response) {
+                    alert('글이 정상적으로 수정되었습니다. 게시판 리스트로 이동합니다.');
+                    goToNoticeList();
+                },
+                error: function (error) {
+                    console.log('error :: ', error);
+                }
+            });
+
+        }
+
+    }
+
+    function checkImpotent() {
+
+        const $is_impotent = $(".is_impotent");
+
+        for (let i = 0; i < $is_impotent.length; i++) {
+
+            let $target = $is_impotent.eq(i);
+
+            if ($target.is('input')) {
+                if (!$target.val()) {
+                    const alramText = $target.attr('data-alram');
+
+                    alert(alramText + "을(를) 입력해주세요.");
+                    $target.focus();
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /* 중요도 입력값 1 ~ 100사이로 제한 */
+    function checkInputValue(param) {
+
+        $idx = $("#idx");
+
+        $idx.val(numOnly(param)); // 문자 입력시 공백으로 반환.
+
+        if ((param < 0) || (param > 100)) {
+            alert("중요도는 1 ~ 100사이만 입력가능합니다.");
+            $idx.val(100);
+            $idx.focus();
+        }
+    }
+
+    // 게시판글 리스트로 이동.
+    function goToNoticeList() {
+        location.href = '/view/notice/list';
+    }
+
+    function showGuideType(param) {
+        if (param === "NOTICE") {
+            $("#guideType").css('display', 'block');
+        } else {
+            $("#guideType").css('display', 'none');
+        }
+    }
+
+    // 업로드시마다 해당 사진의 정보를 s3에 업로드하고 미리보기로 보여준다.
+    function changeImage(event) {
+        const files = event.target.files;
+        for(let file of files) {
+            const reader = new FileReader;
+            reader.onload = function (event) {
+                const file_name = getTimeStamp() + '_' + getRandomStr(3) + '.jpg';
+                let params = {
+                    Key: `images/notice/${file_name}`,
+                    Body: file,
+                    ACL: 'public-read',
+                    ContentType: getContentType("jpg"),
+                };
+                let options = {partSize: 10 * 1024 * 1024, queueSize: 1};
+                s3.upload(params, options).on('httpUploadProgress', function (event) {
+                    console.log("Uploaded :: " + parseInt((event.loaded * 100) / event.total)+'%');
+                }).send(function (error, uploadData) {
+                    if(!error) {
+                        showAlert('이미지 업로드 완료');
+                        $("#thumbnail").attr('src', uploadData.Location);
+                        $("#thumbnail_image").val(uploadData.Location);
+                    }else {
+                        console.log("error : ", error);
+                        showAlert('이미지 업로드중 오류가 발생했습니다. 다시 시도해주세요.');
+                    }
+                });
+            }
+            reader.readAsDataURL(file);
+        }
+        $("#thumbnail_image_file").val('');
+    }
+
+</script>

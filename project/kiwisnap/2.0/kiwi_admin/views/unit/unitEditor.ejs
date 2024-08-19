@@ -1,0 +1,835 @@
+<link href="https://devservice.kiwisnap.net/css/detailNormal.css" rel="stylesheet" type="text/css">
+<link href="/css/kiwisnap.css" rel="stylesheet" type="text/css">
+<link href="https://devservice.kiwisnap.net/css/editInfo.css" rel="stylesheet" type="text/css">
+<script src="<%=config.info.host_service%>/js/common.js"></script>
+<style>
+    .unitEditPopup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 999;
+    }
+    .unitEditPopupDim {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+    .unitEditPopupInner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 90%;
+        height: 90%;
+        transform: translate(-50%, -50%);
+    }
+    .unitEditPopupHeader {
+        display: flex;
+        width: 100%;
+        height: 40px;
+        align-items: center;
+        background-color: #142329;
+    }
+    .unitEditPopupHeaderTitle {
+        flex: none;
+        margin-left: 20px;
+        font-weight: bold;
+        font-size: 18px;
+        color: #FFFFFF;
+    }
+    .unitEditPopupHeaderControl {
+        flex: 1;
+        display: flex;
+        height: 100%;
+        margin-right: 8px;
+        align-items: center;
+        justify-content: flex-end;
+    }
+    .unitEditPopupHeaderBtn {
+        margin: 0 5px;
+        padding: 4px 14px;
+        font-weight: bold;
+        font-size: 13px;
+        text-align: center;
+        color: #FFFFFF;
+        background-color: #96C60F;
+        border-radius: 2px;
+    }
+    #copyInput {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1px;
+        height: 1px;
+        text-indent: 1px;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        overflow: hidden;
+    }
+    h4 {
+        margin-top: 14px;
+    }
+    input {
+        background-color: #ffffff;
+    }
+    textarea {
+        min-height: 80px;
+        background-color: #ffffff;
+    }
+    .editPreviewBox:after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+    }
+    .templateRelatedImage {
+        background: #DCDCDD no-repeat center / 104px url(/img/templateRelatedImage.png) !important;
+    }
+    .templateFloating.templateText {
+        position: absolute;
+        background-color: rgb(180 225 255 / 30%);
+    }
+    .templateRelatedTitle, .templateRelatedValue {
+        position: absolute;
+        background-color: rgba(225, 255, 180, 0.3);
+    }
+    .frameEditor {
+        padding: 16px 12px;
+    }
+    .frameEditorItem + .frameEditorItem {
+        margin-top: 16px;
+    }
+    .frameEditorHeader {
+        display: flex;
+        margin-bottom: 8px;
+    }
+    .frameEditorHeaderTitle {
+        flex: 1;
+        font-size: 16px;
+        color: #333333;
+        font-weight: bold;
+        padding: 2px 12px;
+        background-color: #dedede;
+    }
+    .frameEditorHeaderBtn {
+        flex: none;
+        padding: 2px 6px;
+        border: solid 1px #cccccc;
+        margin-left: 16px;
+    }
+    .frameEditorBody + .frameEditorBody {
+        margin-top: 6px;
+    }
+    .frameEditorBody.is_err .frameEditorBodyInnerTitle.is_import {
+        color: red;
+    }
+    .frameEditorBody.is_err .frameEditorBodyInput.is_import {
+        border-color: red;
+    }
+    .frameEditorBodyInner {
+        position: relative;
+        padding: 10px 10px 6px;
+        border: solid 1px #cccccc;
+    }
+    .frameEditorBodyInnerRemove {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        top: 6px;
+        right: 6px;
+        background: no-repeat center / cover url(/img/close.png);
+    }
+    .frameEditorBodyInner + .frameEditorBodyInner {
+        margin-top: 10px;
+    }
+    .frameEditorBodyInnerTitle {
+        display: inline-block;
+        font-size: 12px;
+        color: #666666;
+        margin-bottom: 2px;
+    }
+    .frameEditorBodyInnerTitleWrap {
+        display: flex;
+        align-items: center;
+    }
+    .frameEditorBodyInnerIcon {
+        flex: none;
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        margin-right: 2px;
+        background: no-repeat center / cover;
+    }
+    .frameEditorBodyInput {
+        margin-right: 10px;
+    }
+    .frameEditorBodyInput:not([type='checkbox']) {
+        width: 100%;
+        border: solid 1px #cccccc;
+        margin-bottom: 4px;
+        padding: 4px 8px;
+        color: #333333;
+        font-size: 12px;
+        cursor: text;
+    }
+    .frameEditorBodyInnerButton {
+        font-size: 12px;
+        margin-right: 6px;
+    }
+    .frameEditorBodyInput:not([type='checkbox']):not(:placeholder-shown) {
+        white-space: nowrap;
+    }
+    .frameEditorBodyInnerTitle + .frameEditorBodyInput[type='checkbox'] {
+        margin-left: 2px;
+        height: 22px;
+        vertical-align: bottom;
+    }
+    .frameEditorBodyInput[type='file'] {
+        cursor: pointer;
+    }
+    .frameEditorBodyInput::placeholder {
+        color: #cccccc;
+        font-size: 12px;
+    }
+</style>
+<div class="unitEditPopup">
+    <div class="unitEditPopupDim"></div>
+    <div class="unitEditPopupInner">
+        <div class="unitEditPopupHeader">
+            <div class="unitEditPopupHeaderTitle">프레임 편집기</div>
+            <div class="unitEditPopupHeaderControl">
+                <button class="unitEditPopupHeaderBtn" type="button" onclick="unitEditPopupClose()">취소</button>
+                <button class="unitEditPopupHeaderBtn" type="button" onclick="saveFrame(unitEditPopupClose)">적용</button>
+            </div>
+        </div>
+        <div class="unitEditPopupBody" style="height: calc(100% - 40px); position: relative;">
+            <div class="detail" style="position: relative; height: 100%;">
+                <div class="detailBody" style="height: 100%;">
+                    <div class="detailBodyContainer is_fixed">
+                        <div class="detailBodyContainerHeader">
+                            <div class="detailBodyContainerHeaderTitle">옵션</div>
+                            <!--                <button class="detailBodyContainerHeaderBigBtn" type="button" onclick="creatObject(frameSetting);">적용</button>-->
+                        </div>
+                        <div class="detailBodyContainerBody frameEditor" style="overflow: auto">
+                            <div class="frameEditorItem">
+                                <div class="frameEditorHeader">
+                                    <div class="frameEditorHeaderTitle">배경</div>
+                                </div>
+                                <div class="frameEditorBody" id="bg">
+                                    <div class="frameEditorBodyInner">
+<!--                                        <div class="frameEditorBodyInnerTitle is_import">프레임 이름*</div>-->
+<!--                                        <input class="frameEditorBodyInput is_import" data-type="name" type="text"/>-->
+                                        <div class="frameEditorBodyInnerTitle is_import">스타일* (width, height 필수)</div>
+                                        <textarea class="frameEditorBodyInput is_import" data-type="style" placeholder="width: 1000px;&#13;&#10;height: 1174px;&#13;&#10;background: #F5F4F2;"></textarea>
+                                        <div class="frameEditorBodyInnerTitle">이미지</div>
+                                        <input class="frameEditorBodyInput" data-type="bgImage" type="file"/>
+                                        <input data-type="bgImageUrl" type="hidden"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="frameEditorItem">
+                                <div class="frameEditorHeader">
+                                    <div class="frameEditorHeaderTitle" style="background-color: #ddefd7;">뒷 영역</div>
+                                    <button class="frameEditorHeaderBtn" type="button" onclick="frameEditorBodyAdd()">추가</button>
+                                </div>
+                                <div class="frameEditorBody" id="back">
+                                    <div class="frameEditorBodyInner">
+                                        <button class="frameEditorBodyInnerRemove" type="button" onclick="frameEditorBodyRemove()"></button>
+                                        <div class="frameEditorBodyInnerTitle">스타일</div>
+                                        <textarea class="frameEditorBodyInput" data-type="style" placeholder="width: 570px;&#13;&#10;height: 450px;&#13;&#10;left: 0px;&#13;&#10;top: 724px;&#13;&#10;background: #DDDDDD;"></textarea>
+                                        <div class="frameEditorBodyInnerTitle">이미지</div>
+                                        <input class="frameEditorBodyInput" data-type="bgImage" type="file"/>
+                                        <input data-type="bgImageUrl" type="hidden"/>
+                                        <div class="frameEditorBodyInnerTitleWrap">
+                                            <button class="frameEditorBodyInnerButton" type="button" onclick="frameEditorBodyInnerInputAllCheck(event)">전체선택</button>
+                                            <div class="frameEditorBodyInnerIcon" style="background-image: url(/img/border.png); transform: rotate(0deg);"></div>
+                                            <input class="frameEditorBodyInput" data-type="circle_lt" type="checkbox"/>
+                                            <div class="frameEditorBodyInnerIcon" style="background-image: url(/img/border.png); transform: rotate(90deg);"></div>
+                                            <input class="frameEditorBodyInput" data-type="circle_rt" type="checkbox"/>
+                                            <div class="frameEditorBodyInnerIcon" style="background-image: url(/img/border.png); transform: rotate(180deg);"></div>
+                                            <input class="frameEditorBodyInput" data-type="circle_rb" type="checkbox"/>
+                                            <div class="frameEditorBodyInnerIcon" style="background-image: url(/img/border.png); transform: rotate(270deg);"></div>
+                                            <input class="frameEditorBodyInput" data-type="circle_lb" type="checkbox"/>
+                                            <div class="frameEditorBodyInnerIcon" style="background-image: url(/img/circle.png);"></div>
+                                            <input class="frameEditorBodyInput" data-type="circle_p" type="checkbox"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="frameEditorItem">
+                                <div class="frameEditorHeader">
+                                    <div class="frameEditorHeaderTitle" style="background-color: #efe5d7;">드래그 영역</div>
+                                    <button class="frameEditorHeaderBtn" type="button" onclick="frameEditorBodyAdd()">추가</button>
+                                </div>
+                                <div class="frameEditorBody" id="drag">
+                                    <div class="frameEditorBodyInner">
+                                        <button class="frameEditorBodyInnerRemove" type="button" onclick="frameEditorBodyRemove()"></button>
+                                        <div class="frameEditorBodyInnerTitle">스타일</div>
+                                        <textarea class="frameEditorBodyInput" data-type="style" placeholder="width: 787px;&#13;&#10;height: 1034px;&#13;&#10;left: 170px;&#13;&#10;top: 70px;"></textarea>
+                                        <div class="frameEditorBodyInnerTitleWrap">
+                                            <div class="frameEditorBodyInnerTitle">잠금</div>
+                                            <input class="frameEditorBodyInput" data-type="lock" type="checkbox"/>
+                                            <div class="frameEditorBodyInnerTitle">반투명</div>
+                                            <input class="frameEditorBodyInput" data-type="alpha" type="checkbox"/>
+                                            <div class="frameEditorBodyInnerTitle">그레이</div>
+                                            <input class="frameEditorBodyInput" data-type="gray" type="checkbox"/>
+                                        </div>
+                                        <div class="frameEditorBodyInnerTitleWrap">
+                                            <button class="frameEditorBodyInnerButton" type="button" onclick="frameEditorBodyInnerInputAllCheck(event)">전체선택</button>
+                                            <div class="frameEditorBodyInnerIcon" style="background-image: url(/img/border.png); transform: rotate(0deg);"></div>
+                                            <input class="frameEditorBodyInput" data-type="circle_lt" type="checkbox"/>
+                                            <div class="frameEditorBodyInnerIcon" style="background-image: url(/img/border.png); transform: rotate(90deg);"></div>
+                                            <input class="frameEditorBodyInput" data-type="circle_rt" type="checkbox"/>
+                                            <div class="frameEditorBodyInnerIcon" style="background-image: url(/img/border.png); transform: rotate(180deg);"></div>
+                                            <input class="frameEditorBodyInput" data-type="circle_rb" type="checkbox"/>
+                                            <div class="frameEditorBodyInnerIcon" style="background-image: url(/img/border.png); transform: rotate(270deg);"></div>
+                                            <input class="frameEditorBodyInput" data-type="circle_lb" type="checkbox"/>
+                                            <div class="frameEditorBodyInnerIcon" style="background-image: url(/img/circle.png);"></div>
+                                            <input class="frameEditorBodyInput" data-type="circle_p" type="checkbox"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="frameEditorItem">
+                                <div class="frameEditorHeader">
+                                    <div class="frameEditorHeaderTitle" style="background-color: #efd7ea;">앞 영역</div>
+                                    <button class="frameEditorHeaderBtn" type="button" onclick="frameEditorBodyAdd()">추가</button>
+                                </div>
+                                <div class="frameEditorBody" id="floating">
+                                    <div class="frameEditorBodyInner">
+                                        <button class="frameEditorBodyInnerRemove" type="button" onclick="frameEditorBodyRemove()"></button>
+                                        <div class="frameEditorBodyInnerTitle">스타일</div>
+                                        <textarea class="frameEditorBodyInput" data-type="style" placeholder="width: 570px;&#13;&#10;height: 450px;&#13;&#10;left: 0px;&#13;&#10;top: 724px;&#13;&#10;background: #DDDDDD;"></textarea>
+                                        <div class="frameEditorBodyInnerTitle">이미지</div>
+                                        <input class="frameEditorBodyInput" data-type="bgImage" type="file"/>
+                                        <input data-type="bgImageUrl" type="hidden"/>
+                                        <div class="frameEditorBodyInnerTitleWrap">
+                                            <div class="frameEditorBodyInnerTitle">잠금</div>
+                                            <input class="frameEditorBodyInput" data-type="lock" type="checkbox"/>
+                                        </div>
+                                        <div class="frameEditorBodyInnerTitleWrap">
+                                            <button class="frameEditorBodyInnerButton" type="button" onclick="frameEditorBodyInnerInputAllCheck(event)">전체선택</button>
+                                            <div class="frameEditorBodyInnerIcon" style="background-image: url(/img/border.png); transform: rotate(0deg);"></div>
+                                            <input class="frameEditorBodyInput" data-type="circle_lt" type="checkbox"/>
+                                            <div class="frameEditorBodyInnerIcon" style="background-image: url(/img/border.png); transform: rotate(90deg);"></div>
+                                            <input class="frameEditorBodyInput" data-type="circle_rt" type="checkbox"/>
+                                            <div class="frameEditorBodyInnerIcon" style="background-image: url(/img/border.png); transform: rotate(180deg);"></div>
+                                            <input class="frameEditorBodyInput" data-type="circle_rb" type="checkbox"/>
+                                            <div class="frameEditorBodyInnerIcon" style="background-image: url(/img/border.png); transform: rotate(270deg);"></div>
+                                            <input class="frameEditorBodyInput" data-type="circle_lb" type="checkbox"/>
+                                            <div class="frameEditorBodyInnerIcon" style="background-image: url(/img/circle.png);"></div>
+                                            <input class="frameEditorBodyInput" data-type="circle_p" type="checkbox"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="frameEditorItem">
+                                <div class="frameEditorHeader">
+                                    <div class="frameEditorHeaderTitle" style="background-color: #f6ff33;">스티커 영역</div>
+                                    <button class="frameEditorHeaderBtn" type="button" onclick="frameEditorBodyAdd()">추가</button>
+                                </div>
+                                <div class="frameEditorBody" id="sticker">
+                                    <div class="frameEditorBodyInner">
+                                        <button class="frameEditorBodyInnerRemove" type="button" onclick="frameEditorBodyRemove()"></button>
+                                        <div class="frameEditorBodyInnerTitle">스타일</div>
+                                        <textarea class="frameEditorBodyInput" data-type="style" placeholder="width: 570px;&#13;&#10;height: 450px;&#13;&#10;left: 0px;&#13;&#10;top: 724px;&#13;&#10;background: #DDDDDD;"></textarea>
+                                        <div class="frameEditorBodyInnerTitle">스티커 번호</div>
+                                        <input class="frameEditorBodyInput" data-type="stickerSeq" type="number" value=""/>
+                                        <input data-type="bgImageUrl" type="hidden"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="frameEditorItem">
+                                <div class="frameEditorHeader">
+                                    <div class="frameEditorHeaderTitle" style="background-color: #d7e3ef;">텍스트 영역</div>
+                                    <button class="frameEditorHeaderBtn" type="button" onclick="frameEditorBodyAdd()">추가</button>
+                                </div>
+                                <div class="frameEditorBody" id="text">
+                                    <div class="frameEditorBodyInner">
+                                        <button class="frameEditorBodyInnerRemove" type="button" onclick="frameEditorBodyRemove()"></button>
+                                        <div class="frameEditorBodyInnerTitle">스타일</div>
+                                        <textarea class="frameEditorBodyInput" data-type="style" placeholder="width: 443px;&#13;&#10;height: 187px;&#13;&#10;left: 44px;&#13;&#10;top: 70px;&#13;&#10;font-family: Verdana;&#13;&#10;font-style: normal;&#13;&#10;font-weight: bold;&#13;&#10;36px;&#13;&#10;line-height: 44px;&#13;&#10;letter-spacing: -0.02em;&#13;&#10;color: #FFFFFF;"></textarea>
+                                        <div class="frameEditorBodyInnerTitle">텍스트</div>
+                                        <textarea class="frameEditorBodyInput" data-type="text" placeholder="Lorem ipsum dolor sit amet,&#13;&#10;consectetur adipisicing elit,&#13;&#10;sed do eiusmod tempor"></textarea>
+                                        <div class="frameEditorBodyInnerTitleWrap">
+                                            <div class="frameEditorBodyInnerTitle">잠금</div>
+                                            <input class="frameEditorBodyInput" data-type="lock" type="checkbox"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="frameEditorItem">
+                                <div class="frameEditorHeader">
+                                    <div class="frameEditorHeaderTitle" style="background-color: #860000; color: #FFFFFF;">연관상품 영역</div>
+                                </div>
+                                <div class="frameEditorBody" id="relatedBg">
+                                    <div class="frameEditorBodyInner">
+                                        <div class="frameEditorBodyInnerTitle">배경 스타일</div>
+                                        <textarea class="frameEditorBodyInput" data-type="style" placeholder="width: 443px;&#13;&#10;height: 187px;&#13;&#10;left: 44px;&#13;&#10;top: 70px;&#13;&#10;font-family: Verdana;&#13;&#10;font-style: normal;&#13;&#10;font-weight: bold;&#13;&#10;36px;&#13;&#10;line-height: 44px;&#13;&#10;letter-spacing: -0.02em;&#13;&#10;color: #FFFFFF;"></textarea>
+                                    </div>
+                                </div>
+                                <div class="frameEditorBody" id="relatedImage">
+                                    <div class="frameEditorBodyInner">
+                                        <div class="frameEditorBodyInnerTitle">이미지 스타일</div>
+                                        <textarea class="frameEditorBodyInput" data-type="style" placeholder="width: 443px;&#13;&#10;height: 187px;&#13;&#10;left: 44px;&#13;&#10;top: 70px;&#13;&#10;font-family: Verdana;&#13;&#10;font-style: normal;&#13;&#10;font-weight: bold;&#13;&#10;36px;&#13;&#10;line-height: 44px;&#13;&#10;letter-spacing: -0.02em;&#13;&#10;color: #FFFFFF;"></textarea>
+                                    </div>
+                                </div>
+                                <div class="frameEditorBody" id="relatedTitle">
+                                    <div class="frameEditorBodyInner">
+                                        <div class="frameEditorBodyInnerTitle">제목 스타일</div>
+                                        <textarea class="frameEditorBodyInput" data-type="style" placeholder="width: 443px;&#13;&#10;height: 187px;&#13;&#10;left: 44px;&#13;&#10;top: 70px;&#13;&#10;font-family: Verdana;&#13;&#10;font-style: normal;&#13;&#10;font-weight: bold;&#13;&#10;36px;&#13;&#10;line-height: 44px;&#13;&#10;letter-spacing: -0.02em;&#13;&#10;color: #FFFFFF;"></textarea>
+                                    </div>
+                                </div>
+                                <div class="frameEditorBody" id="relatedValue">
+                                    <div class="frameEditorBodyInner">
+                                        <div class="frameEditorBodyInnerTitle">가격 스타일</div>
+                                        <textarea class="frameEditorBodyInput" data-type="style" placeholder="width: 443px;&#13;&#10;height: 187px;&#13;&#10;left: 44px;&#13;&#10;top: 70px;&#13;&#10;font-family: Verdana;&#13;&#10;font-style: normal;&#13;&#10;font-weight: bold;&#13;&#10;36px;&#13;&#10;line-height: 44px;&#13;&#10;letter-spacing: -0.02em;&#13;&#10;color: #FFFFFF;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detailBodyContainer is_editPreview">
+                        <div class="editPreviewBox">
+                            <div class="editPreview" style="zoom: 0.5;">
+                                <div class="kiwiSnap" style="line-height: normal; background-color: #ffffff; max-width: 1000px; margin: 50px auto;">
+                                    <div class="ks_column">
+                                        <div class="ks_row" style="position: relative; width: 100%; margin: 0px 0px 0px auto;">
+                                            <div class="ks_unit" style="zoom: 1;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input id="copyInput"/>
+<script>
+    /* s3 이미지 업로드 */
+    function s3uploadThen(file, type, index) {
+        return new Promise(function (resolve, reject) {
+            let splitType = type.split('+')[0];
+            let file_name = fourRandomNumber() + '_' + index + '_' + getTimeStamp() + '.' + splitType;
+            let params = {
+                Key: `product/unit/${file_name}`,
+                Body: file,
+                ACL: 'public-read',
+                ContentType: getContentType(splitType)
+            };
+            const options = {queueSize: 1};
+            s3.upload(params, options).on('httpUploadProgress', function (evt) {
+                console.log("Uploaded : ", parseInt((evt.loaded * 100) / evt.total) + '%', params, evt);
+            }).send(function (err, uploadData) {
+                if (!err) {
+                    uploadData.fileName = file.name;
+                    resolve({
+                        param: params,
+                        uploadData: uploadData,
+                        index: index,
+                        type: splitType
+                    });
+                } else {
+                    reject(err);
+                }
+            });
+        });
+    }
+
+    /* //s3 이미지 업로드 */
+
+    $(function () {
+        $(document).on('input', '.frameEditorBodyInput', function () {
+            creatObject(frameSetting);
+        })
+    });
+
+    function frameEditorBodyInnerInputAllCheck(event) {
+        const $button = $(event.target);
+        const $target = $button.closest('.frameEditorBodyInnerTitleWrap').find('input[type=checkbox]:not([data-type="circle_p"])');
+        let allCheck = true;
+        $target.each(function (index, value) {
+            const $input = $(value);
+            if (!$input.is(':checked')) {
+                allCheck = false;
+            }
+        })
+        if (allCheck) {
+            $target.prop('checked', false);
+        } else {
+            $target.prop('checked', true);
+        }
+        creatObject(frameSetting);
+    }
+
+    function unitEditPopupOpen() {
+        $('.unitEditPopup').show();
+    }
+
+    function unitEditPopupClose() {
+        $('.unitEditPopup').hide();
+    }
+
+    function processFile(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function () {
+                const result = reader.result;
+                resolve(result);
+            };
+        });
+    }
+
+    function saveFrame(callback) {
+        const $baseImage = $('.kiwiSnap [style*="base64"]');
+        let allCount = 0;
+        let nowCount = 0;
+        if ($baseImage.length) {
+            $baseImage.each(function (index, value) {
+                const $value = $(value);
+                const dataType = $value.attr('data-type');
+                const dataIdx = $value.attr('data-idx');
+                const nowObj = obj.data[dataType][dataIdx];
+                const imageFile = nowObj.get('bgImage');
+                const fileType = imageFile.type.split('/')[1];
+                allCount++;
+                s3uploadThen(imageFile, fileType, index).then(function (result) {
+                    nowObj.set('bgImage', result.uploadData.Location);
+                    $value.css('background-image', `url(${result.uploadData.Location.replaceAll('"', '')})`);
+                    $value.attr('style', $value.attr('style').replaceAll('"', ''));
+                    console.log("업로드 성공 nowObj : ", nowObj);
+                    saveFrameAllLoad();
+                }).catch(function (err) {
+                    console.log("업로드 실패 err : ", err);
+                });
+            })
+        } else {
+            saveFrameAllLoad(true);
+        }
+
+        function saveFrameAllLoad(pass) {
+            nowCount++;
+            if (pass || allCount == nowCount) {
+                // 필드에 값 세팅 및 오브젝트 DB던질곳에 추가
+                for (let objType in obj.data) {
+                    for (const objTypeItem of obj.data[objType]) {
+                        objTypeItem.delete("bgImageBase");
+                    }
+                }
+                $('#unit_object').val(JSON.stringify(obj, replacer));
+                $('#template').val($('.ks_unit').html().replaceAll(/[\n\s]+\s/gm, '\n').replaceAll(/"[\n\s]+/gm, '" ').replaceAll(/;[\n\s]+/gm, '; '));
+                callback();
+            }
+        }
+    }
+
+    // 1. 오브젝트 생성
+    let obj = {};
+
+    function creatObject(callback) {
+        const $bg = $('#bg .frameEditorBodyInner');
+        const $back = $('#back .frameEditorBodyInner');
+        const $drag = $('#drag .frameEditorBodyInner');
+        const $relatedBg = $('#relatedBg .frameEditorBodyInner');
+        const $relatedImage = $('#relatedImage .frameEditorBodyInner');
+        const $relatedTitle = $('#relatedTitle .frameEditorBodyInner');
+        const $relatedValue = $('#relatedValue .frameEditorBodyInner');
+        const $floating = $('#floating .frameEditorBodyInner');
+        const $sticker = $('#sticker .frameEditorBodyInner');
+        const $text = $('#text .frameEditorBodyInner');
+        let fullSetValue = 0;
+        let countSetValue = 0;
+        obj = {
+            type: 'design',
+            ver: '1.0.0',
+            data: {
+                bg: [],
+                back: [],
+                drag: [],
+                relatedBg: [],
+                relatedImage: [],
+                relatedTitle: [],
+                relatedValue: [],
+                floating: [],
+                sticker: [],
+                text: [],
+            }
+        }
+        setValue($bg, 'bg', 0);
+        setValue($back, 'back', 1);
+        setValue($drag, 'drag', 100);
+        setValue($relatedBg, 'relatedBg', 160);
+        setValue($relatedImage, 'relatedImage', 170);
+        setValue($relatedTitle, 'relatedTitle', 180);
+        setValue($relatedValue, 'relatedValue', 190);
+        setValue($floating, 'floating', 200);
+        setValue($sticker, 'sticker', 250);
+        setValue($text, 'text', 300);
+
+        function setValue($target, type, default_z_index) {
+            $target.each(function (innerIndex, value) {
+                const $inner = $(value);
+                const $inputs = $inner.find('input, textarea');
+                $inputs.each(function (inputIndex, value) {
+                    const $input = $(value);
+                    let inputType = $input.attr('data-type');
+                    let inputValue = $input.val();
+                    if ($input.is('[type=checkbox]')) { // checkbox는 value가 아니라 체크 유무를 obj에 저장
+                        inputValue = $input.is(":checked");
+                    }
+                    if (inputValue) {
+                        if (!obj.data[type][innerIndex]) { // value 존재할때 한번 기본 map형식 부여
+                            obj.data[type][innerIndex] = new Map();
+                        }
+                        if (type == 'text') {
+                            obj.data[type][innerIndex].set('textEditorType', 'jhTextEditor');
+                        }
+
+                        if (inputType == 'style') { // style 필드는 개별 요소 잘라서 obj에 저장
+                            let trimInputValue = inputValue.replace(/(\r\n|\n|\r)/gm, '').replace(/\/\\\*(.*?)\*\//gm, '');
+                            const trimInputValueList = trimInputValue.split(';');
+                            const splitKeyMap = new Map();
+                            trimInputValueList.forEach(function (value, index) {
+                                if (value) {
+                                    const splitKeyValue = value.split(': ');
+                                    let splitKey = splitKeyValue[0].replaceAll(' ', '');
+                                    if (splitKey.match(/\*\//gm)) {
+                                        splitKey = splitKey.split(/\*\//gm)[1];
+                                    }
+                                    if (splitKey == 'bgImage') {
+                                        const imageFile = $input[0]?.files[0];
+                                        if (imageFile) {
+                                            s3uploadThen(imageFile, imageFile.type.split('/')[1], innerIndex).then(function (result) {
+                                                obj.data[type][innerIndex].set('bgImage', result.uploadData.Location.replaceAll('"', ''));
+                                                obj.data[type][innerIndex].set('bgImageUrl', result.uploadData.Location.replaceAll('"', ''));
+                                            }).catch(function (err) {
+                                                console.log("업로드 실패 err : ", err);
+                                            });
+                                        }
+                                    }
+
+                                    const splitValue = splitKeyValue[1];
+                                    if (splitValue !== undefined) {
+                                        obj.data[type][innerIndex].set(splitKey, splitValue);
+                                    }
+                                    splitKeyMap.set(splitKey, splitValue);
+                                }
+                            });
+                            obj.data[type][innerIndex].set('z-index', default_z_index + innerIndex);
+                            if (!splitKeyMap.get('bgImageUrl')) {
+                                obj.data[type][innerIndex].set('bgImage', '');
+                                obj.data[type][innerIndex].set('bgImageUrl', '');
+                            }
+                        } else if (inputType == 'stickerSeq') {
+                            if (inputValue) {
+                                fullSetValue++;
+                                $.ajax({
+                                    type: "GET",
+                                    async: false,
+                                    url: `${admin_api_url}/units/stickers/${inputValue}`,
+                                    success: function (res) {
+                                        if (res?.image_url) {
+                                            const xhr = new XMLHttpRequest();
+                                            xhr.open("GET", `${res.image_url}?timestamp=${new Date().getTime()}`, true);
+                                            xhr.onreadystatechange = function () {
+                                                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                                                    const parser = new DOMParser();
+                                                    const svgDoc = parser.parseFromString(xhr.responseText, "image/svg+xml");
+                                                    if (svgDoc && svgDoc?.querySelector("svg")) {
+                                                        const $stickerElement = $(svgDoc.querySelector("svg")).clone().wrapAll('<div>').parent();
+                                                        obj.data[type][innerIndex].set("innerHtml", $stickerElement.html());
+                                                    } else {
+                                                        obj.data[type][innerIndex].set("innerHtml", '');
+                                                    }
+                                                    setValueAllLoad();
+                                                }
+                                            };
+                                            xhr.send();
+                                        } else {
+                                            setValueAllLoad();
+                                        }
+                                    },
+                                    error: function (error) {
+                                        console.log(`/units/stickers/${inputValue} error : `, error);
+                                        setValueAllLoad();
+                                    }
+                                });
+                            }
+                        } else if (inputType) { // 기타 인풋 필드는 요소 자체를 obj에 저장
+                            obj.data[type][innerIndex].set(inputType, inputValue);
+                        }
+
+                        if (type == 'relatedTitle') {
+                            obj.data[type][innerIndex].set('text', '키위스냅으로 연동된<br>상품 제목');
+                        } else if (type == 'relatedValue') {
+                            obj.data[type][innerIndex].set('text', '39,800원');
+                        }
+
+                        if (inputType == 'bgImage') { // 이미지필드는 콜백
+                            fullSetValue++;
+                            const imageFile = $input[0].files[0];
+                            s3uploadThen(imageFile, imageFile.type.split('/')[1], innerIndex).then(function (result) {
+                                console.log("s3uploadThen : ", result, result.uploadData, result.uploadData.Location);
+                                obj.data[type][innerIndex].set('bgImage', result.uploadData.Location.replaceAll('"', ''));
+                                obj.data[type][innerIndex].set('bgImageUrl', result.uploadData.Location.replaceAll('"', ''));
+                                setValueAllLoad();
+                            }).catch(function (err) {
+                                console.log("업로드 실패 err : ", err);
+                            });
+                        } else {
+                            fullSetValue++;
+                            setValueAllLoad();
+                        }
+                    }
+                })
+            });
+        }
+
+        function setValueAllLoad() {
+            countSetValue++;
+            if (countSetValue == fullSetValue) {
+                if (callback) {
+                    callback(obj);
+                }
+            }
+        }
+    }
+
+    // 2. 프레임세팅 - 받아온 obj에서 모자란 값 추가 및 화면 그림
+    function frameSetting(frameObject) {
+        if (frameObject.data.bg[0].get('width') && frameObject.data.bg[0].get('height')) {
+            $('#bg').removeClass('is_err');
+            $('.ks_unit').html(frameDecryption(frameObject));
+        } else {
+            $('#bg').addClass('is_err');
+        }
+    }
+
+    function frameEditorBodyAdd(target) {
+        const $target = target ? $(target) : $(event.target);
+        const $frameEditorItem = $target.closest('.frameEditorItem');
+        const $frameEditorBody = $frameEditorItem.find('.frameEditorBody');
+        const $frameEditorBodyInner = $frameEditorItem.find('.frameEditorBodyInner');
+        const $frameEditorBodyInnerClone = $frameEditorBodyInner.eq($frameEditorBodyInner.length - 1).clone();
+        $frameEditorBodyInnerClone.find('input:not([type="checkbox"]), textarea').val('');
+        $frameEditorBodyInnerClone.find('input[type="checkbox"]').prop("checked", false);
+        $frameEditorBody.append($frameEditorBodyInnerClone);
+    }
+
+    function frameEditorBodyRemove() {
+        const $target = $(event.target);
+        const $frameEditorBodyInner = $target.closest('.frameEditorBodyInner');
+        const $frameEditorBodyInnerSiblings = $frameEditorBodyInner.siblings('.frameEditorBodyInner');
+        if ($frameEditorBodyInnerSiblings.length) {
+            $frameEditorBodyInner.remove();
+        }
+        creatObject(frameSetting);
+    }
+
+    function copyFrame() {
+        $('#copyInput').val($('.ks_unit').html()).select();
+        document.execCommand('Copy');
+        alert('프레임이 클립보드에 복사 되었습니다.');
+    }
+
+    function changeFontSize(size) {
+        document.execCommand("fontSize", false, "7");
+        const fontElements = window.getSelection().anchorNode.parentNode;
+        const $fontElements = $(fontElements);
+        if ($fontElements.closest('.kiwiSnap').length) {
+            fontElements.removeAttribute("size");
+            $fontElements.css('font-size', size);
+        }
+    }
+
+    function changeLineHeight(size) {
+        const $fontElements = $(window.getSelection().anchorNode.parentNode);
+        if ($fontElements.closest('.kiwiSnap').length) {
+            $fontElements.css('line-height', size);
+        }
+    }
+
+    // 새로 만들때
+    function unitEditorSet(unitObjectString) {
+        const unitObject = JSON.parse(unitObjectString.replaceAll('\n', '\\n').replaceAll('\t', '\\t'), reviver);
+        for (let dataKey in unitObject.data) {
+            for (let [index, value] of unitObject.data[dataKey].entries()) {
+                if (index > 0) {
+                    frameEditorBodyAdd('#' + dataKey);
+                }
+                const $nowInner = $(`#${dataKey} .frameEditorBodyInner`).eq(index);
+                const nowMap = unitObject.data[dataKey][index];
+                let styleData = '';
+                findSetting('bgImage');
+                findSetting('text');
+                findSetting('circle_lt');
+                findSetting('circle_rt');
+                findSetting('circle_rb');
+                findSetting('circle_lb');
+                findSetting('circle_p');
+                findSetting('lock');
+                findSetting('alpha');
+                findSetting('gray');
+                findSetting('html');
+
+                function findSetting(type) {
+                    if (nowMap.has(type)) {
+                        let $nowInput = $nowInner.find(`[data-type="${type}"]`);
+                        const nowData = nowMap.get(type);
+                        if ($nowInput.attr('type') == 'checkbox') {
+                            $nowInput.prop('checked', true);
+                        } else if ($nowInput.attr('type') == 'file') {
+                            $nowInput = $nowInner.find(`[data-type="bgImageUrl"]`);
+                            $nowInput.val(nowData);
+                        } else {
+                            $nowInput.val(nowData);
+                        }
+                        nowMap.delete(type);
+                    }
+                }
+
+                for (let [key, value] of nowMap.entries()) {
+                    styleData += `${key}: ${value};\n`;
+                }
+                if (styleData) {
+                    $nowInner.find(`[data-type="style"]`).val(styleData);
+                }
+            }
+        }
+        creatObject(frameSetting);
+    }
+
+    function replacer(key, value) {
+        if (value instanceof Map) {
+            return {
+                dataType: 'Map',
+                value: Array.from(value.entries()), // or with spread: value: [...value]
+            };
+        } else {
+            return value;
+        }
+    }
+
+    function reviver(key, value) {
+        if (typeof value === 'object' && value !== null) {
+            if (value.dataType === 'Map') {
+                return new Map(value.value);
+            }
+        }
+        return value;
+    }
+</script>

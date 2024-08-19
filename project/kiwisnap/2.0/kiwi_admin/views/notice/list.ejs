@@ -1,0 +1,212 @@
+<style>
+    .td-center{text-align: center;}
+</style>
+
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">게시판 리스트</h4>
+        </div>
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center justify-content-end">
+                <div class="button-group">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">게시판 타입</span>
+                        </div>
+                        <select class="custom-select is_underLine" id="notice_type" name="notice_type" onchange="noticeTypeChange()">
+                            <option value="">전체</option>
+                            <option value="FAQ">자주묻는질문</option>
+                            <option value="NOTICE">안내사항</option>
+                            <option value="UPDATE">업데이트</option>
+                            <option value="VIDEO">영상</option>
+                        </select>
+                        <select class="custom-select is_underLine" id="guide_type" name="guide_type">
+                            <!--                            <option value="">전체</option>-->
+                            <!--                            <option value="FAQ">자주묻는질문</option>-->
+                            <!--                            <option value="NOTICE">안내사항</option>-->
+                            <!--                            <option value="UPDATE">업데이트</option>-->
+                            <!--                            <option value="VIDEO">영상</option>-->
+                        </select>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">글 제목</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" id="notice_title">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="button" onclick="getNoticeList()"><i class="ti-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto pl-0">
+                    <button type="button" onclick="goToNoticeCreate()" class="btn mb-0 mr-0 waves-effect waves-light btn-success">글 등록</button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="noticeList table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th class="text-dark font-weight-bold text-center">No.</th>
+                        <th class="text-dark font-weight-bold text-center">타입</th>
+                        <th class="text-dark font-weight-bold text-center">제목</th>
+                        <th class="text-dark font-weight-bold text-center">날짜</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    let noticeTypes = {
+        "NOTICE": [
+            {
+                "key": "ANNOUNCEMENT",
+                "name": "공지",
+            },
+            {
+                "key": "NORMAL",
+                "name": "일반",
+            }
+        ],
+        "UPDATE": [
+            {
+                "key": "FUNCTION",
+                "name": "기능",
+            },
+            {
+                "key": "DESIGN",
+                "name": "디자인",
+            }
+        ],
+        "VIDEO": [
+            {
+                "key": "HOWUSE",
+                "name": "사용방법",
+            },
+            {
+                "key": "SHOPCREATE",
+                "name": "쇼핑몰 창업영상",
+            }
+        ],
+        "FAQ": [
+
+        ],
+    }
+
+    $(document).ready(function() {
+        noticeTypeChange();
+        getNoticeList();
+    });
+
+    //안내타입 변경 이벤트
+    function noticeTypeChange() {
+        console.log('$("#notice_type").val() :: ', $("#notice_type").val());
+        let guideTypes = noticeTypes[$("#notice_type").val()];
+        let tags = `<option value="">전체</option>`;
+        for (let idx in guideTypes) {
+            let guideType = guideTypes[idx];
+            console.log('guideType :: ', guideType);
+
+            tags += `<option value="${guideType.key}">${guideType.name}</option>`;
+        }
+        $('#guide_type').html(tags);
+    }
+
+    // 게시판 리스트를 불러온다.
+    function getNoticeList() {
+
+        const sendData = {
+            'notice_type' : $("#notice_type").val(),
+            'guide_type' : $("#guide_type").val(),
+            'notice_title' : $("#notice_title").val()
+        }
+
+        $(".noticeList").dataTable().fnDestroy()
+        $('.noticeList').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "stateSave": true,
+            "ordering": false,
+            "searching": false,
+            "pageLength": 15,
+            "ajax": {
+                "url" : `${denma_api_url}/api/notice/list`,
+                "data" : sendData,
+                dataSrc : function (response) {
+                    return response.data;
+                }
+            },
+            "columns" : [
+                {"data": "notice_seq"},
+                {"data": "notice_type"},
+                {"data": "notice_title"},
+                {"data": "display_date"},
+            ],
+            "columnDefs": [
+                {
+                    "width" : "7%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return `<a href='/view/notice/modify?notice_seq=${data}'>${data}</a>`;
+                    },
+                    "targets": 0
+                },
+                {
+                    "width" : "13%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        if (data === 'NOTICE') {
+                            return `안내사항`;
+                        } else if (data === 'UPDATE') {
+                            return `업데이트`;
+                        } else if (data === 'FAQ') {
+                            return `자주묻는질문`;
+                        } else if (data === 'VIDEO') {
+                            return `동영상`;
+                        } else {
+                            return '';
+                        }
+                    },
+                    "targets": 1
+                },
+                {
+                    "width" : "68%",
+                    "render": function(data, type, row) {
+                        return `<a href='${row.link}' target="_blank">${data}</a>`;
+                    },
+                    "targets": 2
+                },
+                {
+                    "width" : "12%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        //return data.split('T')[0].replaceAll('-', '.');
+                        return getFormatStrDate(data, '-');
+                    },
+                    "targets": 3
+                },
+            ],
+        });
+    }
+
+    // 공지 및 FAQ 등록 화면으로 이동
+    function goToNoticeCreate() {
+        location.href = '/view/notice/create';
+    }
+</script>

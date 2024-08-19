@@ -1,0 +1,425 @@
+<style>
+  .td-center {
+    text-align: center;
+  }
+</style>
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col">
+            <h2 class="page-title text-dark">스티커 등록</h2>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠 -->
+<form class="container-fluid" method="post" id="insertForm">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-header py-2">
+                    <div class="row">
+                        <div class="col py-1">
+                            <h5 class="font-weight-bold mb-1">스티커 등록 화면</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" style="max-width: 1000px;">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="name">이름<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="name" type="text" name="name" placeholder="스티커 이름을 넣어주세요"
+                               data-alram="스티커 이름">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="">스티커 이미지<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <div class="custom-file">
+                            <input class="custom-file-input" id="template_img" type="file" name="template_img"
+                                   onchange="addImage(this.files);">
+                            <label class="custom-file-label" for="inputGroupFile01" data-content="업로드">선택된 파일 없음</label>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3">
+                            <img class="img-thumbnail img-responsive mb-1" id="show_image_url" name="show_image_url" alt="" src=""
+                                 style="display: none;">
+                            <input type="hidden" class="is_impotent" id="image_url" name="image_url" value="" data-alram="스티커 이미지">
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="">
+                                <div>
+                                    스티커 HTML
+<!--                                    <button class="btn btn-outline-dark btn-sm mt-2" type="button" style="display: block; margin: auto;"-->
+<!--                                            onclick="unitEditPopupOpen()">편집기-->
+<!--                                    </button>-->
+                                </div>
+                            </label>
+                        </div>
+                        <textarea class="form-control" id="template" name="template" cols="120" rows="5"
+                                  data-alram="스티커 템플릿 HTML"></textarea>
+                        <input id="sticker_object" name="sticker_object" type="hidden"/>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="name">중요도<span class="text-danger ml-05">*</span>
+                                <button class="question btn btn-sm p-0" data-toggle="dropdown" type="button"><i
+                                            class="fas fa-question-circle"></i></button>
+                                <div class="dropdown-menu">
+                                    <h6 class="dropdown-header">가장 높음 : 1, 가장 낮음 : 100</h6>
+                                </div>
+                            </label>
+                        </div>
+                        <input class="form-control is_impotent" id="idx" type="text" name="idx" data-alram="중요도" placeholder="중요도 입력"
+                               onkeyup="checkInputValue($(this).val())">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="keyword">키워드<span class="text-danger ml-05"></span>
+                                <button class="question btn btn-sm p-0" data-toggle="dropdown" type="button"><i
+                                            class="fas fa-question-circle"></i></button>
+                                <div class="dropdown-menu">
+                                    <h6 class="dropdown-header">스티커의 키워드 ','로 각 단어를 구분한다. EX) 여름, 바다, 휴가</h6>
+                                </div>
+                            </label>
+                        </div>
+                        <input class="form-control" id="keyword" type="text" name="keyword" placeholder=",로 구분된 키워드를 입력해주세요.">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="sticker_type">스티커 타입</label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="sticker_type" id="sticker_type01" value="NORMAL" checked>
+                                <label class="form-check-label" for="sticker_type01">일반</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="sticker_type" id="sticker_type02" value="PREMIUM">
+                                <label class="form-check-label" for="sticker_type02">프리미엄</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="version">버전</label>
+                        </div>
+                        <select class="custom-select is_underLine" id="version" name="version">
+                            <option value="1" selected>1.0</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="status">상태</label>
+                        </div>
+                        <div class="input-groupWrapBody listContentsFormGroup_inputBD is_inner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status" id="status_01" value="01" checked>
+                                <label class="form-check-label" for="status_01">활성</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status" id="status_02" value="99">
+                                <label class="form-check-label" for="status_02">비활성</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="">카테고리</label>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12" id="category_check_div">
+                                    <!-- checkbox -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold">필터</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" style="width: 100%;">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 115px;">필터명</th>
+                                        <th>속성</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="btn btn-success float-right" onclick="createUnitSticker()">등록하기</button>
+                        <button type="button" class="btn btn-success float-right" onclick="location.href='/view/sticker/list'">목록으로</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+<script type="text/javascript">
+
+  const bucketName = 'nextdop';
+  const bucketRegion = 'ap-northeast-2';
+  const IdentityPoolId = 'ap-northeast-2:7bac1f23-f1be-435c-887b-db3889ab1e13';
+  AWS.config.update({
+    region: bucketRegion,
+    credentials: new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: IdentityPoolId
+    })
+  });
+  const s3 = new AWS.S3({
+    apiVersion: '2006-03-01',
+    params: {Bucket: bucketName}
+  });
+  const filterSeqs = new Set();
+
+  $(function () {
+    getUnitStickerFilter();
+  });
+
+  function getUnitStickerFilter() {
+
+    const sendData = {
+      start: 0,
+      length: 1000,
+      status: "01"
+    }
+
+    $.ajax({
+      type: "GET",
+      url: `${admin_api_url}/units/stickers/filters`,
+      data: sendData,
+      success: function (res) {
+        const result = sortResponse(res.data);
+        initUnitStickerFilter(result);
+      },
+      error: function (error) {
+        console.log("에러 :::: ", error);
+      }
+    });
+  }
+
+  function sortResponse(param) {
+    return param.sort(function (a, b) {
+      let nameA = a.filter_name.toUpperCase(); // ignore upper and lowercase
+      let nameB = b.filter_name.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+
+  function initUnitStickerFilter(stickerFilterList) {
+
+    const categories = stickerFilterList.filter((item) => {
+      return (item.filter_type === "CATEGORY");
+    });
+
+    for (let data of categories) {
+      let div = '<div class="custom-control custom-checkbox">';
+      div += `<input type="checkbox" onclick="inputCategoryFilterSeq($(this))" data-seq="${data.unit_sticker_filter_seq}">`;
+      div += `<span style="margin-left: 4px; color: black;">${data.filter_name}</span>`
+      div += '</div>'
+      $("#category_check_div").append(div);
+    }
+
+    const filters = stickerFilterList.filter((item) => {
+      return (item.filter_type !== "CATEGORY");
+    });
+
+    const filterTypes = new Set();
+    //필터 타입 추출.
+    for (let data of filters) {
+      filterTypes.add(data.filter_type);
+    }
+
+    //필터 타입별로 그리기.
+    for (let filterType of filterTypes) {
+      const list = filters.filter((item) => {
+        return (item.filter_type === filterType);
+      });
+
+      let div = '<tr>';
+      div += `<td class="align-middle">${filterType}</td>`;
+      div += '<td>';
+      for (let data of list) {
+        const className = (filterType === "STICKER_SET") ? "set-tag" : "";
+        div += `<a onclick="inputFilerSeq($(this))"
+                    class="btn btn-primary btn-sm mt-1 filter-tag ${className}" data-type="${data.filter_type}"
+                            data-seq="${data.unit_sticker_filter_seq}" style="margin-left: 4px;">
+                  <span>${data.filter_name}</span>
+                </a>`;
+      }
+      div += '</td>';
+      div += '</tr>';
+      $('#dataTable tbody').append(div);
+    }
+  }
+
+  function inputCategoryFilterSeq($this) {
+    const filterSeq = $this.attr('data-seq');
+    if (filterSeqs.has(filterSeq)) {
+      filterSeqs.delete(filterSeq);
+    } else {
+      filterSeqs.add(filterSeq);
+    }
+  }
+
+  function inputFilerSeq($this) {
+    const filterSeq = $this.attr('data-seq');
+
+    if ($this.hasClass("set-tag")) {
+      const $setTags = $(".set-tag");
+      let checkFlag = false;
+      $setTags.each(function () {
+        if ($(this).hasClass("btn-success") && $(this).attr('data-seq') !== filterSeq) {
+          checkFlag = true;
+        }
+      });
+      if (checkFlag) {
+        alert('스티커 세트는 하나만 선택 가능 합니다.');
+        return false;
+      }
+    }
+
+    if (filterSeqs.has(filterSeq)) {
+      filterSeqs.delete(filterSeq);
+      $this.removeClass('btn-success');
+    } else {
+      filterSeqs.add(filterSeq);
+      $this.addClass('btn-success');
+    }
+  }
+
+  function createUnitSticker() {
+
+    const sticker_filter_seqs = [];
+
+    for (let seq of filterSeqs) {
+      sticker_filter_seqs.push(seq)
+    }
+
+    const sendData = {
+      "name": $("#name").val().trim(),
+      "imageUrl": $("#image_url").val(),
+      "template": $("#template").val(),
+      "idx": $("#idx").val(),
+      "keyword": $("#keyword").val(),
+      "status": $("input:radio[name='status']:checked").val(),
+      "stickerType": $("input:radio[name='sticker_type']:checked").val(),
+      "stickerObject": $('#unit_object').val(),
+      "version": $('#version').val(),
+      "stickerFilterSeqs": sticker_filter_seqs
+    }
+
+    console.log("전송 데이터 :::: ", sendData);
+
+    if (checkImpotent()) {
+      $.ajax({
+        type: "POST",
+        url: `${admin_api_url}/units/stickers`,
+        data: JSON.stringify(sendData),
+        contentType: "application/json",
+        success: function (res) {
+          alert("스티커 등록이 정상적으로 완료되었습니다.");
+          location.href = "/view/sticker/list";
+        },
+        error: function (error) {
+          console.log("error : ", error);
+        }
+      });
+    }
+  }
+
+  // 필수 입력 유효성 검사.
+  function checkImpotent() {
+    const $is_impotent = $(".is_impotent");
+    for (let i = 0; i < $is_impotent.length; i++) {
+      let $target = $is_impotent.eq(i);
+      if ($target.is('input')) {
+        if (!$target.val()) {
+          let $alarmText = $target.attr('data-alram');
+          alert($alarmText + "을(를) 입력해주세요.");
+          $target.focus();
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  /* 이미지 추가 */
+  function addImage(event) {
+    const file = document.getElementById('template_img').files;
+    const imageType = file[0].type.split("/")[1];
+
+    if (imageType !== "jpg" && imageType !== "jpeg" && imageType !== "png" && imageType !== "svg+xml") {
+      alert('jpg, jpeg, png, svg 파일만 업로드 가능합니다.');
+      $("#template_img").val('');
+      return false;
+    }
+
+    for (let image of file) {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        $('#show_image_url').show().attr('src', event.target.result);
+        s3upload(image);
+      };
+      reader.readAsDataURL(image);
+    }
+
+  }
+
+  /* s3 이미지 업로드 */
+  function s3upload(file) {
+    let imageType = file.type.split("/")[1];
+    let convertImageType = imageType.replace("+xml", "");
+
+    const file_name = getTimeStamp() + '_' + getRandomStr(3) + '.' + convertImageType;
+    $('#image_url').val(file_name);
+
+    const params = {
+      Key: `product/sticker/${file_name}`,
+      Body: file,
+      ACL: 'public-read',
+      ContentType: getContentType(convertImageType),
+    };
+
+    const options = {partSize: 10 * 1024 * 1024, queueSize: 1};
+    s3.upload(params, options).on('httpUploadProgress', function (evt) {
+    }).send(function (err, uploadData) {
+      if (!err) {
+        console.log("uploadData :: ", uploadData);
+      } else {
+        console.log('error :: ', err);
+      }
+    });
+  }
+
+  /* 중요도 입력값 1 ~ 100사이로 제한 */
+  function checkInputValue(param) {
+    let $idx = $("#idx");
+    $idx.val(numOnly(param)); // 문자 입력시 공백으로 반환.
+    if (param < 0 || param > 100) {
+      alert("중요도는 1 ~ 100사이만 입력가능합니다.");
+      $idx.val(1);
+      $idx.focus();
+    }
+  }
+
+</script>

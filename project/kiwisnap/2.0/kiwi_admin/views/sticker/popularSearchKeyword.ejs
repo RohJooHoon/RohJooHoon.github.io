@@ -1,0 +1,166 @@
+<style>
+  .td-center {
+    text-align: center;
+  }
+</style>
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col">
+            <h2 class="page-title text-dark">스티커 인기 검색 키워드 관리.</h2>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠 -->
+<form class="container-fluid" method="post" id="insertForm">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-header py-2">
+                    <div class="row">
+                        <div class="col py-1">
+                            <h5 class="font-weight-bold mb-1">스티커 인기 검색어 관리 화면.</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" style="max-width: 1000px;">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="keyword1">1위<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="keyword1" type="text" data-alram="인기 검색어 1위" placeholder="검색어 입력.">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="keyword2">2위<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="keyword2" type="text" data-alram="인기 검색어 2위" placeholder="검색어 입력.">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="keyword3">3위<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="keyword3" type="text" data-alram="인기 검색어 3위" placeholder="검색어 입력.">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="keyword4">4위<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="keyword4" type="text" data-alram="인기 검색어 4위" placeholder="검색어 입력.">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="keyword5">5위<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="keyword5" type="text" data-alram="인기 검색어 5위" placeholder="검색어 입력.">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="keyword6">6위<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="keyword6" type="text" data-alram="인기 검색어 6위" placeholder="검색어 입력.">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="keyword7">7위<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="keyword7" type="text" data-alram="인기 검색어 7위" placeholder="검색어 입력.">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="keyword8">8위<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="keyword8" type="text" data-alram="인기 검색어 8위" placeholder="검색어 입력.">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="keyword9">9위<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="keyword9" type="text" data-alram="인기 검색어 9위" placeholder="검색어 입력.">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="keyword10">10위<span class="text-danger ml-05">*</span></label>
+                        </div>
+                        <input class="form-control is_impotent" id="keyword10" type="text" data-alram="인기 검색어 10위" placeholder="검색어 입력.">
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="btn btn-success float-right" onclick="updatePopularSearchKeyword()">수정 하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+
+  $(function () {
+    getPopularSearchKeyword();
+  });
+
+  function getPopularSearchKeyword() {
+
+    $.ajax({
+      type: "GET",
+      url: `${admin_api_url}/units/stickers/popular-search-words`,
+      success: function (res) {
+        for (let data of res.data) {
+          $("#keyword" + data.no).val(data.search_word);
+        }
+      },
+      error: function (error) {
+        console.log("에러 :::: ", error);
+      }
+    });
+  }
+
+  //인기 검색어 수정.
+  function updatePopularSearchKeyword() {
+
+    if (checkImpotent() === false) {
+      return false;
+    }
+
+    let code_value_list = [];
+
+    for (let i = 1; i <= 10; i++) {
+      code_value_list.push($("#keyword" + i).val().trim());
+    }
+
+    let sendData = {
+      "code": "TOP10_SEARCH_WORD",
+      "code_value": code_value_list.join(",")
+    }
+
+    $.ajax({
+      type: "PUT",
+      url: `${admin_api_url}/units/stickers/popular-search-words`,
+      data: sendData,
+      success: function () {
+        alert("인기 검색어 수정이 성공했습니다.");
+      },
+      error: function (error) {
+        alert("인기 검색어 수정중 오류가 발생했습니다.");
+      }
+    });
+
+  }
+
+  // 필수 입력 유효성 검사.
+  function checkImpotent() {
+    const $is_impotent = $(".is_impotent");
+    for (let i = 0; i < $is_impotent.length; i++) {
+      let $target = $is_impotent.eq(i);
+      if ($target.is('input')) {
+        if (!$target.val()) {
+          let $alarmText = $target.attr('data-alram');
+          alert($alarmText + "을(를) 입력해주세요.");
+          $target.focus();
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+</script>

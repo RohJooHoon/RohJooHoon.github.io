@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="partners">
+
+    <!-- 키위파트너스 상품 조회 -->
+    <select id="selectPartnersProductList">
+        SELECT p.product_seq,
+               p.client_id,
+               p.product_id,
+               p.product_name,
+               p.image_url,
+               cs.homepage_name,
+               cp.product_seq as copy_product_seq,
+               cp.product_name as copy_product_name,
+               p.create_date,
+               pw.wholesale_company
+        FROM client_setting cs,
+             product p
+                 LEFT JOIN product cp ON p.product_seq = cp.copy_product_seq AND cp.client_id = 'iiqxopbemm' AND cp.hidden = 'N'
+                 LEFT JOIN product_wholesale pw ON p.product_seq = pw.product_seq
+        WHERE p.client_id = cs.client_id
+            AND cs.kiwi_partners_yn = 'Y'
+            AND p.hidden = 'N'
+          <if test="homepage_name != null and homepage_name != ''">
+              AND cs.homepage_name LIKE CONCAT('%', #{homepage_name}, '%')
+          </if>
+        ORDER BY p.product_seq DESC
+        LIMIT ${start}, ${length}
+    </select>
+
+    <!-- 키위파트너스 상품 조회 카운트 -->
+    <select id="selectPartnersProductListCount">
+        SELECT COUNT(*)
+        FROM client_setting cs,
+             product p
+                 LEFT JOIN product cp ON p.product_seq = cp.copy_product_seq AND cp.client_id = 'iiqxopbemm' AND cp.hidden = 'N'
+        WHERE p.client_id = cs.client_id
+        AND cs.kiwi_partners_yn = 'Y'
+        AND p.hidden = 'N'
+        <if test="homepage_name != null and homepage_name != ''">
+            AND cs.homepage_name LIKE CONCAT('%', #{homepage_name}, '%')
+        </if>
+    </select>
+</mapper>

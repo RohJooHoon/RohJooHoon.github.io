@@ -1,0 +1,282 @@
+<style>
+    .td-center{text-align: center;}
+
+    .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .spinner {
+        animation: spin 2s linear infinite;
+    }
+    @keyframes spin {
+        from {
+            transform: rotate(0);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+<!-- 페이지 타이틀 -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">키위파트너스 상품 리스트</h4>
+        </div>
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center justify-content-end">
+                <div class="button-group">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">쇼핑몰</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" id="homepage_name">
+
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="button" onclick="getList()"><i class="ti-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="table-responsive">
+                <table class="dataList table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th class="text-dark font-weight-bold text-center">상품번호</th>
+                        <th class="text-dark font-weight-bold text-center">상품명</th>
+                        <th class="text-dark font-weight-bold text-center">상품아이디</th>
+                        <th class="text-dark font-weight-bold text-center">이미지</th>
+                        <th class="text-dark font-weight-bold text-center">쇼핑몰</th>
+                        <th class="text-dark font-weight-bold text-center">복사상풍번호</th>
+                        <th class="text-dark font-weight-bold text-center">복사상품명</th>
+                        <th class="text-dark font-weight-bold text-center">등록도매명</th>
+                        <th class="text-dark font-weight-bold text-center">상품등록일</th>
+                        <th class="text-dark font-weight-bold text-center">복사하기</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        getList();
+    });
+
+    // 알림 리스트를 불러온다.
+    function getList() {
+
+        const sendData = {
+            'homepage_name' : $("#homepage_name").val()
+        }
+        console.log('getList 2::', sendData);
+        $(".dataList").dataTable().fnDestroy()
+        $('.dataList').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "stateSave": true,
+            "ordering": false,
+            "searching": false,
+            "pageLength": 15,
+            "ajax": {
+                "url" : `${denma_api_url}/api/partners/product/list`,
+                "data" : sendData,
+                dataSrc : function (response) {
+                    return response.data;
+                }
+            },
+            "columns" : [
+                {"data": "product_seq"},
+                {"data": "product_name"},
+                {"data": "product_id"},
+                {"data": "image_url"},
+                {"data": "homepage_name"},
+                {"data": "copy_product_seq"},
+                {"data": "copy_product_name"},
+                {"data": "wholesale_company"},
+                {"data": "create_date"},
+                {"data": "product_seq"},
+            ],
+            "columnDefs": [
+                {
+                    "width" : "5%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return `<a href='<%=config.info.host_service%>/front/wholesale/detail2?client_id=${row.client_id}&product_seq=${row.product_seq}' target="_blank">${data}</a>`;
+                    },
+                    "targets": 0
+                },
+                {
+                    "width" : "20%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 1
+                },
+                {
+                    "width" : "5%",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 2
+                },
+                {
+                    "width" : "15%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        //return data.split('T')[0].replaceAll('-', '.');
+                        return `<img src="${data}" style="width:120px;"/>`
+                    },
+                    "targets": 3
+                },
+                {
+                    "width" : "12%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        //return data.split('T')[0].replaceAll('-', '.');
+                        return data;
+                    },
+                    "targets": 4
+                },
+                {
+                    "width" : "12%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        //return data.split('T')[0].replaceAll('-', '.');
+                        return data;
+                    },
+                    "targets": 5
+                },
+                {
+                    "width" : "12%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 6
+                },
+                {
+                    "width" : "12%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 7
+                },
+                {
+                    "width" : "12%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        //return data.split('T')[0].replaceAll('-', '.');
+                        return getFormatStrDate(data, '-');
+                    },
+                    "targets": 8
+                },
+                {
+                    "width" : "12%",
+                    "className": 'td-center',
+                    "render": function(data, type, row) {
+                        return `<button onclick="goCopyProcess('${row.product_seq}')">복사하기</button>`
+                    },
+                    "targets": 9
+                },
+            ],
+        });
+    }
+
+    //복사 프로세스
+    async function goCopyProcess(produt_seq) {
+        if (confirm(` 복사하시겠습니까?`)) {
+            showLoading();
+            productCopy(produt_seq)
+                .then((res) => productDetailCopy(res, produt_seq))
+                .catch(error => {
+                    hideLoading();
+                    console.log("error :: ", error);
+                });
+        } else {
+            alert('복사를 취소하였습니다.');
+        }
+
+    }
+
+    // 상품 기본 정보를 복사한다.
+    //운영 (nugu 계정 하드코딩) - TODO. config 로 빼기
+    let copy_client_id = 'iiqxopbemm';
+    let copy_mem_id = 'nugu@kiwi.net';
+    //개발 (denma1 계정 하드코딩)
+    // let copy_client_id = 'denmastudio';
+    // let copy_mem_id = 'denma1';
+
+    function productCopy(product_seq) {
+        return new Promise(function (resolve, reject){
+            let sendData = {
+                product_seq: product_seq,
+                client_id: copy_client_id,
+                mem_id: copy_mem_id
+            };
+            $.ajax({
+                type : "POST",
+                data : sendData,
+                crossDomain : true,
+                url : `${denma_nextdop_api_url}/v2/product/copy/partners/${product_seq}`,
+                success : function (response) {
+
+                    console.log('상품 기본 정보 복사 성공 :: ', response, product_seq);
+                    showAlert("상품 기본 정보 복사 성공");
+                    resolve(response);
+                },
+                error : function(error) {
+                    hideLoading();
+                    showAlert("상품 복사 중에 오류가 발생했습니다. 고객센터로 문의해주시기 바랍니다.");
+                    reject(error);
+                }
+            });
+        });
+    }
+
+    // 상품 상세 정보(이미지, 캔버스)를 복사한다.
+    function productDetailCopy(copyProductSeq, product_seq) {
+        let sendData = {
+        };
+        $.ajax({
+            type : "POST",
+            data : sendData,
+            crossDomain : true,
+            url : `${denma_nextdop_api_url}/v2/product/copy/detail/${product_seq}/${copyProductSeq}`,
+            success : function (response) {
+                hideLoading();
+                showAlert("상품 이미지 정보 복사 성공");
+                //location.reload();
+                getList();
+            },
+            error : function(error) {
+                showAlert("상품 상세 정보 복사 중에 오류가 발생했습니다. 고객센터로 문의해주시기 바랍니다.");
+            }
+        });
+    }
+
+
+</script>

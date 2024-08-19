@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="banner">
+
+    <!-- 리스트 -->
+    <select id="selectBannerList">
+        SELECT *
+        FROM banner
+        WHERE 1 = 1
+        <if test="location != null and location != ''">
+            AND location = #{location}
+        </if>
+        <if test="title != null and title != ''">
+            AND title like concat('%', #{title} ,'%')
+        </if>
+        <if test="use_flag != null and use_flag != ''">
+            AND use_flag = #{use_flag}
+        </if>
+        ORDER BY banner_seq DESC, banner_order ASC
+        LIMIT ${start}, ${length}
+    </select>
+
+    <!-- 카운트 조회. -->
+    <select id="selectBannerListCount">
+        SELECT COUNT(*) as cnt
+        FROM banner
+        WHERE 1 = 1
+        <if test="location != null and location != ''">
+            AND location = #{location}
+        </if>
+        <if test="title != null and title != ''">
+            AND title like concat('%', #{title} ,'%')
+        </if>
+        <if test="use_flag != null and use_flag != ''">
+            AND use_flag = #{use_flag}
+        </if>
+    </select>
+
+    <!-- 상세조회 -->
+    <select id="selectBanner">
+        SELECT *
+        FROM banner
+        WHERE banner_seq = #{banner_seq}
+    </select>
+
+    <!-- 등록 -->
+    <insert id="insertBanner">
+        INSERT INTO banner
+            (title, description, location, image_url, link, banner_order, start_date, end_date, use_flag, create_date)
+        VALUES
+            (#{title}, #{description}, #{location}, #{image_url}, #{link}, #{banner_order}, #{start_date}, #{end_date}, #{use_flag}, NOW());
+    </insert>
+
+
+    <!-- 수정 -->
+    <update id="updateBanner">
+        UPDATE banner
+        SET update_date = NOW(),
+            title = #{title},
+            description = #{description},
+            location = #{location},
+            image_url = #{image_url},
+            link = #{link},
+            banner_order = #{banner_order},
+            start_date = #{start_date},
+            end_date = #{end_date},
+            use_flag = #{use_flag}
+        WHERE banner_seq = #{banner_seq}
+    </update>
+
+
+
+</mapper>

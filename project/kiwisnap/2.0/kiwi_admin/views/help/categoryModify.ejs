@@ -1,0 +1,684 @@
+<link href="/css/detailNormal.css" rel="stylesheet" type="text/css">
+<link href="/css/form.css" rel="stylesheet" type="text/css">
+<link href="/css/mallBody.css" rel="stylesheet" type="text/css">
+<style>
+    .categorySetBoxItem{
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 17px;
+        align-items: center;
+        letter-spacing: -0.02em;
+    }
+    .categorySetBox{
+        padding: 15px 21px 21px 21px;
+        border: none !important;
+        color: #12121D;
+    }
+    .categorySetWrap{
+        border: 1px solid rgba(220, 220, 221, 0.3);
+        box-sizing: border-box;
+        height: 100%;
+    }
+    .categorySetHeader {
+        padding: 20px 15px 0;
+    }
+    .categorySetHeaderTitle {
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 29px;
+        letter-spacing: -0.02em;
+        color: #12121D;
+        margin: 0;
+    }
+    .categorySetBody {
+        height: calc(100% - 49px);
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .categoryViewBox{
+        font-weight: normal;
+        font-size: 14px;
+        color: #12121D;
+    }
+    .categoryManage_btnAdd{
+        width: 100%;
+        height: 36px;
+        border: 1px solid #96C60F;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 17px;
+        color: #96C60F;
+        border-radius: 2px;
+        margin: 19px auto 0;
+    }
+    .categoryManage_btnAdd:hover,
+    .categoryBoxNoneBtn:hover {
+        background-color: rgba(150, 198, 15, 0.1);
+        border: 1px solid #96C60F;
+        box-sizing: border-box;
+        color: #96C60F;
+    }
+    .categorySetTitle{
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 29px;
+        margin: 20px 0 20px 0;
+        font-weight: 500;
+        font-size: 20px;
+        letter-spacing: -0.02em;
+        color: #12121D;
+    }
+    .categoryBtitle {
+        font-weight: bold;
+        font-size: 14px;
+        padding: 0 !important
+    }
+    .categoryBtitle_icon {
+        background-image: url("/img/list/mall_icon/ic-polygon.svg");
+        cursor: pointer;
+        width: 12px;
+        height: 20px;
+        background-size: 12px;
+        display: inline-block;
+        background-repeat: no-repeat;
+        margin-right: 9px;
+        position: relative;
+        top: 50%;
+        margin-top: -10px;
+    }
+    .categoryViewBox_Logo{
+        min-width: 128px;
+        min-height:36px;
+        border-right: 1px solid #DCDCDD;
+        vertical-align: center;
+        text-align: center;
+        line-height: 36px;
+    }
+    .categoryViewBox_Logo img{
+        object-fit: cover;
+        vertical-align: center;
+    }
+    .categoryViewBox_inputHD, .categoryViewBox_inputBD {
+        border:none !important;
+        border-right: 1px solid #DCDCDD !important;
+        min-height: 36px;
+        color: #12121D;
+    }
+    .categoryViewBox_inputHD {
+        min-width: 110px;
+        background-color: #fff;
+        padding: 8px 12px;
+    }
+    .categoryViewBox_inputBD {
+        overflow: hidden;
+        color:#A8A8A8;
+        padding: 10px 0px 5px 0px;
+        box-sizing: border-box;
+        width: 100%;
+    }
+    .categoryViewBox_item {
+        background: #96C60F;
+        border-radius: 2px;
+        /*height: 24px;*/
+        color: #FFFFFF;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 17px;
+        padding: 3px 36px 3px 12px;
+        word-break: break-all;
+        margin: 0px 10px 5px 0px;
+        box-sizing: border-box;
+
+    }
+    .input-groupWrap{
+        border:1px solid #DCDCDD;
+        /*height: 38px;*/
+        box-sizing: border-box;
+        margin-top: 20px;
+    }
+    .categoryViewBox_detail {
+        margin: 0 !important;
+        border-top: none ;
+        height: auto !important;
+    }
+    .categoryViewBox_detail .input-groupWrapBody{
+        padding:20px;
+        border: none;
+    }
+    .input-groupWrapToggle{
+        border: none;
+        flex: 1;
+        padding: 20px 20px 26px 20px;
+
+    }
+    .icon_toggleAccordion {
+        background-image: url("/img/list/ic-down.svg");
+        background-color: #fff;
+        border-width: 0 0 0 1px;
+    }
+    .form-control-itemClose {
+        cursor: pointer;
+        position: absolute;
+        right: 8px;
+        top: calc(50% - 6px);
+        width: 12px;
+        height: 12px;
+        background: no-repeat center url('/img/list/mall_icon/Subtract-white.svg');
+        background-size: 12px;
+    }
+    .overflow_letter {
+        width:100px;
+        overflow:hidden;
+        word-wrap:break-word;
+        white-space:nowrap;
+    }
+    .categoryBoxItemButton.is_save {
+        background-color: #fff;
+        width:35px;
+        height:19px;
+        margin: 5px 5px 0 0;
+        border-radius: 2px;
+        line-height: 19px;
+    }
+    .categoryBoxItemButton.is_save:hover {
+        background-color: #9AC941;
+        color: #fff;
+
+    }
+    .categoryBoxItemButton.ic_plus {
+        background: center no-repeat url("/img/list/mall_icon/btn-add.svg");
+        background-size: 24px;
+    }
+    .categoryBoxItemButton.ic_minus {
+        background: center no-repeat url("/img/list/mall_icon/btn-subtract.svg");
+        background-size: 24px;
+    }
+    .addicon {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        margin-right: 8px;
+        background: center no-repeat url("/img/list/mall_icon/btn-add-green.svg");
+    }
+    .catemsg1{
+        color: #A8A8A8;
+        font-weight: 500;
+        font-size: 14px;
+        letter-spacing: -0.02em;
+        text-align: center;
+    }
+    .catemsg2 {
+        color: #A8A8A8;
+        font-weight: normal;
+        font-size: 12px;
+        letter-spacing: -0.02em;
+        text-align: center;
+    }
+    .catemsg3 {
+        color:#96C60F;
+        font-style: normal;
+        font-weight: normal;
+    }
+    .categoryBoxNone {
+        padding-top: 95px;
+    }
+    .categoryBoxNoneBtn {
+        width: 247px;
+        height:56px;
+        margin: 10px 0 0 0px !important;
+        background: center no-repeat url("/img/list/mall_icon/btn-add-24green.svg");
+        background-size: 25px;
+        background-position-x:40px ;
+    }
+</style>
+<div class="detail">
+    <div class="detailHeader">
+        <div class="detailHeaderContainer">
+            <div class="detailHeaderTitle">도움말 카테고리</div>
+        </div>
+    </div>
+    <div class="detailBody is_noneLine">
+        <div class="detailBodyContainer is_white is_fixed">
+            <div class="detailBodyContainerBody">
+                <div class="categorySetWrap">
+                    <div class="categorySetHeader">
+                        <h4 class="categorySetHeaderTitle">키위스냅 카테고리</h4>
+                        <div class="categorySetHeaderAddBtn"><button class="btn btn-success" onclick='location.href = "/view/help/categoryList"' style="float: right">목록으로</button></div>
+                    </div>
+                    <div class="categorySetBody">
+                        <div class="categoryBox categorySetBox categoryBoxW" id="masterCategoryDepth1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="detailBodyContainer is_white">
+            <div class="detailBodyContainerBody">
+                <div class="categoryWrap">
+                    <div class="categoryTitle h4 categorySetTitle" id="ClientMallviewTitle" style="display: none"></div>
+                    <div class="categoryViewBox" style="width: 100%; max-width: 680px">
+                        <div class="form-group" id="ClientMallId" style="display: none">
+                            <div class="card-body">
+                                <form method="" id="templateForm">
+                                    <button type="button" class="btn btn-success" onclick="createContent()" style="float: right" id="createAndUploadBtn">내용 등록</button>
+                                    <button type="button" class="btn btn-success" onclick="deleteContent()" style="float: right; margin-right: 5px;">내용 삭제</button>
+                                    <label for="fabric">제목 :</label> <input style="width: 40%" type="input" name="content_title" id="content_title"/>
+                                    <textarea id="summernote" class="mb-3" name="editorData"></textarea>
+                                    <br>
+                                    <input type="hidden" name="help_seq" id="help_seq">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<!-- include summernote css/js -->
+<script type="text/javascript">
+    const query = getUrlParams();
+    $(function () {
+        readyModifySetting();
+        setCategoryBox();
+    });
+
+    // 카테고리 수정을 위한 기본 세팅 준비.
+    function readyModifySetting() {
+        const sendData = {
+            "help_seq" : query.help_seq
+        };
+
+        getCategoryInfo(sendData).then(function (response) {
+            settingCategoryBody(response);
+        }).catch(function (error) {
+            console.log("error :: ", error);
+        });
+
+        $('#summernote').summernote({
+            height: 700,      // set editor height
+            minHeight: null,  // set minimum height of editor
+            maxHeight: null,  // set maximum height of editor
+        });
+    }
+
+    // 해당 카테고리에 포함된 뎁스 정보를 조회한다.
+    function getCategoryInfo(sendData) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type : "GET",
+                data : sendData,
+                url : `${denma_nextdop_api_url}/help/list`,
+                dataType : "json",
+                success : function (response) {
+                    resolve(response);
+                },
+                error : function (error) {
+                    console.log("error :: ", error);
+                    reject(error);
+                }
+            });
+        });
+    }
+
+    // 카테고리 뎁스 별로 출력.
+    function settingCategoryBody(response) {
+        const data = response.helpDTOList;
+        const categoryArr = data.filter(item => {return item.help_seq == query.help_seq});
+        let nowHtml = ``;
+        //depth1 시작
+        $(categoryArr).each(function (index1, depth1) {
+            nowHtml += `
+                        <div class="categoryBoxItem categorySetBoxItem">
+                            <div class="categoryBoxItemHeader categorySet_main" data-help-seq="${depth1.help_seq}">
+                                <div class="categoryBtitle_icon"></div>
+                                <div class="categoryBoxItemText categoryBtitle overflow_letter" contenteditable="true" spellcheck="false">${depth1.title}</div>
+                                <button class="categoryBoxItemButton is_save" type="button" onclick="updateCategory($(this))">저장</button>
+                                <button class="categoryBoxItemButton is_add ic_plus" type="button"></button>
+<!--                                <button class="categoryBoxItemButton is_delete ic_minus" type="button" onclick=""></button>-->
+                            </div>`;
+            //depth2 시작
+            $(depth1['sub_category']).each(function (index2, depth2) {
+                nowHtml += `
+                            <div class="categoryBoxItem">
+                                <div class="categoryBoxItemHeader" data-help-seq="${depth2.help_seq}" data-parent-help-seq="${depth2.parent_help_seq}">
+                                    <div class="categoryBoxItemText overflow_letter" contenteditable="true" spellcheck="false" onclick="getHelpContent($(this))">${depth2.title}</div>
+                                    <button class="categoryBoxItemButton is_save" type="button" onclick="updateCategory($(this))">저장</button>
+                                    <button class="categoryBoxItemButton is_add ic_plus" type="button"></button>
+                                    <button class="categoryBoxItemButton is_delete ic_minus" type="button" onclick="deleteHelpCategory($(this))"></button>
+                                </div>`;
+                //depth3 시작
+                $(depth2['sub_category']).each(function (index3,depth3) {
+                    nowHtml += `
+                                <div class="categoryBoxItem">
+                                    <div class="categoryBoxItemHeader" data-help-seq="${depth3.help_seq}" data-parent-help-seq="${depth3.parent_help_seq}">
+                                        <div class="categoryBoxItemText overflow_letter" contenteditable="true" spellcheck="false" onclick="getHelpContent($(this))">${depth3.title}</div>
+                                        <button class="categoryBoxItemButton is_save" type="button" onclick="updateCategory($(this))">저장</button>
+                                        <button class="categoryBoxItemButton is_add ic_plus" type="button"></button>
+                                        <button class="categoryBoxItemButton is_delete ic_minus" type="button" onclick="deleteHelpCategory($(this))"></button>
+                                    </div>`;
+                    //depth4 시작
+                    $(depth3['sub_category']).each(function (index4,depth4){
+                        nowHtml += `
+                                    <div class="categoryBoxItem">
+                                        <div class="categoryBoxItemHeader" data-help-seq="${depth4.help_seq}" data-parent-help-seq="${depth4.parent_help_seq}">
+                                            <div class="categoryBoxItemText overflow_letter" contenteditable="true" spellcheck="false" onclick="getHelpContent($(this))">${depth4.title}</div>
+                                            <button class="categoryBoxItemButton is_save" type="button" onclick="updateCategory($(this))">저장</button>
+                                            <button class="categoryBoxItemButton is_add ic_plus" type="button"></button>
+                                            <button class="categoryBoxItemButton is_delete ic_minus" type="button" onclick="deleteHelpCategory($(this))"></button>
+                                        </div>
+                                    </div>`
+                        //4depth 끝
+                    });
+
+                    nowHtml += `</div>`;
+                    //3depth 끝
+                });
+
+                nowHtml += `</div>`;
+                //2depth 끝
+            });
+
+            nowHtml += `</div>`;
+            // 1depth 끝
+        });
+        $('#masterCategoryDepth1').html(nowHtml);
+    }
+
+    // 카테고리 이름 업데이트.
+    function updateCategory($this) {
+        const $targetHeader = $this.closest('.categoryBoxItemHeader');
+        const help_seq = $targetHeader.attr('data-help-seq');
+        const title = $this.siblings('.categoryBoxItemText').text();
+        const helpData = {
+            "help_seq" : help_seq,
+            "title" : title,
+        }
+
+        $.ajax({
+            type: "PUT",
+            dataType: "json",
+            data: helpData,
+            url: `${denma_api_url}/api/help/update`,
+            success: function (response) {
+                showAlert("카테고리 이름이 변경되었습니다.");
+            },
+            error: function (error) {
+                console.log("error :: ", error);
+                alert("카테고리 이름 변경중 오류가 발생했습니다.");
+            }
+        });
+
+    }
+
+    /* 카테고리 > 카테고리박스 동작 설정 */
+    const $categoryBox = $('.categoryBox');
+
+    function setCategoryBox() {
+
+        /* 카테고리 셀 선택 */
+        $(document).on('click', '.categoryBoxItemText', function (e){
+            $categoryBox.find('.categoryBoxItemHeader').removeClass('is_active');
+            $(this).closest('.categoryBoxItemHeader').addClass('is_active');
+            checkActiveCategory();
+        });
+
+        /* 카테고리 셀 수정 */
+        $(document).on('keydown keyup paste', '.categoryBoxItemText', function (e){
+            checkActiveCategory();
+        });
+
+        /* 카테고리 셀 추가 */
+        $(document).on('click', '.categoryBoxItemButton.is_add', function (e){
+
+            console.log("categoryBoxItemButton click : ", $(this).closest('.categoryBoxItem, .categoryBox'));
+            let thisClassList = $(this).attr('class').split(" ")
+            for (let i = 0; i < thisClassList.length; i++) {
+                // if(thisClassList[i]==="categoryManage_btnAdd"){
+                //     categoryBoxItemAdd($(this).closest('.detailBodyContainerBody').find('.categorySetBody'),$(this));
+                //     return;
+                // }
+            }
+            categoryBoxItemAdd($(this).closest('.categoryBoxItem, .categoryBox'),$(this));
+        });
+
+        /* 선택된 셀 확인 */
+        checkActiveCategory();
+    }
+
+    function checkActiveCategory() {
+        const $targetCellHeader = $categoryBox.find('.categoryBoxItemHeader.is_active');
+        const $targetCellHeaderParents = $targetCellHeader.parents('.categoryBoxItem');
+        let categoryTitleText = [];
+        if ($targetCellHeaderParents.length >= 4) {
+            $targetCellHeader.find('.categoryBoxItemButton.is_add').hide();
+        } else {
+            $targetCellHeader.find('.categoryBoxItemButton.is_add').show();
+        }
+        $targetCellHeaderParents.each(function (index, value) {
+            categoryTitleText.unshift($(value).children('.categoryBoxItemHeader').children('.categoryBoxItemText').text())
+        });
+        $('.categoryTitle').text('본문 정보');
+    }
+
+    function categoryBoxItemAdd($target,$this) {
+        $('.categoryBoxNone').remove();
+        $('.categoryBoxItemController').show();
+
+        $categoryBox.find('.categoryBoxItemHeader').removeClass('is_active');
+
+        let html = `
+                <div class="categoryBoxItem">
+                    <div class="categoryBoxItemHeader is_active" data-name="newHeader">
+                        <div class="categoryBoxItemText overflow_letter" contenteditable="true" spellcheck="false" onclick="getHelpContent($(this))">카테고리</div>
+                        <button class="categoryBoxItemButton is_save" type="button" onclick="updateCategory($(this))">저장</button>
+                        <button class="categoryBoxItemButton is_add ic_plus" type="button"></button>
+                        <button class="categoryBoxItemButton is_delete ic_minus" type="button" onclick="deleteHelpCategory($(this))"></button>
+                    </div>
+                </div>
+            `;
+        $target.append(html);
+        checkActiveCategory();
+
+        const $targetCellHeader = $categoryBox.find('.categoryBoxItemHeader.is_active');
+        const $targetCellHeaderParents = $targetCellHeader.parents('.categoryBoxItem');
+        const depth = $targetCellHeaderParents.length;
+        if( $this.parent() !== undefined ) {
+            const parent_help_seq = $this.parent().attr("data-help-seq"); // 부모의 seq 가져옴.
+            insertHelpCategory(parent_help_seq, depth);
+        }
+    }
+
+    // 도움말 카테고리 추가.
+    function insertHelpCategory(parent_help_seq, depth){
+
+        let categoryData = {
+            'title': "카테고리",
+            'depth': depth,
+            'parent_help_seq': parent_help_seq,
+            'type' : 'CATEGORY'
+        }
+
+        $.ajax({
+            type: "POST",
+            url: `${denma_api_url}/api/help/category/create`,
+            data : categoryData,
+            dataType: "json",
+            success: function (response) {
+                $('.categoryBox').find('div[data-name=newHeader]').attr("data-parent-help-seq", response.parent_help_seq);
+                $('.categoryBox').find('div[data-name=newHeader]').attr("data-help-seq", response.help_seq);
+                $('.categoryBox').find('div[data-name=newHeader]').removeAttr('data-name');
+            },
+            error: function (error) {
+                console.log('error', error);
+                $('.categoryBox').find('div[data-name=newHeader]').remove();
+                alert(error.responseJSON);
+            }
+        });
+    }
+
+    // 도움말 카테고리 삭제
+    function deleteHelpCategory($this) {
+        const help_seq = $this.closest("div").attr("data-help-seq");
+        const removeHTML = $this.closest('.categoryBoxItem');
+        const categoryData = {
+            "help_seq" : help_seq,
+        }
+
+        $.ajax({
+            type: "DELETE",
+            url: `${denma_api_url}/api/help/delete`,
+            data : categoryData,
+            dataType: "json",
+            success: function (response) {
+                removeHTML.remove();
+                $('#ClientMallId').css("display", "none");
+                $('#ClientMallviewTitle').css("display", "none");
+            },
+            error: function (error) {
+                console.log('error :: ', error);
+                alert(error.responseJSON);
+            }
+        });
+    }
+
+    // 도움말 콘텐츠 조회.
+    function getHelpContent($this) {
+        $("#content_title").val('');
+        $('#summernote').summernote('code', '')
+        $('#help_seq').val('');
+        $('#createAndUploadBtn').text('내용 등록').attr('onclick', "createContent()");
+        const help_seq = $this.parent().attr("data-help-seq");
+        const sendData = {
+            "help_seq" : help_seq,
+        }
+
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            data: sendData,
+            url: `${denma_api_url}/api/help/select/childInfo`,
+            success: function (response) {
+                const data = response.result;
+                if (data !== undefined) {
+                    $('#createAndUploadBtn').text('내용 수정').attr('onclick', "updateContent()");
+                    $("#content_title").val(data.title);
+                    $('#summernote').summernote('code', data.content);
+                    $('#help_seq').val(data.help_seq);
+                }
+                $('#ClientMallId').css("display", "block");
+                $('#ClientMallviewTitle').css("display", "block");
+            },
+            error: function (error) {
+                // console.log("error :: ", error);
+                $('#ClientMallId').css("display", "none");
+                $('#ClientMallviewTitle').css("display", "none");
+            }
+        });
+    }
+
+    // 도움말 콘텐츠 등록.
+    function createContent() {
+        const $targetCellHeader = $categoryBox.find('.categoryBoxItemHeader.is_active');
+        const $targetCellHeaderParents = $targetCellHeader.parents('.categoryBoxItem');
+        const parent_help_seq = $targetCellHeader.attr('data-help-seq');
+        const depth = $targetCellHeaderParents.length + 1;
+        const content_title = $("#content_title").val();
+        const content = $('#summernote').summernote('code');
+
+        if (content_title == '' || content == '') {
+            alert('본문 정보의 제목 또는 내용을 입력해주세요.');
+            return false;
+        }
+
+        const contentData = {
+            "title" : content_title,
+            "depth" : depth,
+            "parent_help_seq" : parent_help_seq,
+            "content" : content,
+            "type" : "CONTENT"
+        }
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            data: contentData,
+            url: `${denma_api_url}/api/help/content/create`,
+            success: function (response) {
+                console.log("response :: ", response);
+                $('#createAndUploadBtn').text('내용 수정').attr('onclick', "updateContent()");
+                $("#help_seq").val(response.help_seq);
+                alert('본문 내용 등록에 성공했습니다.');
+            },
+            error: function (error) {
+                console.log("error :: ", error);
+                alert('본문 내용 등록중에 오류가 발생했습니다.');
+            }
+        });
+    }
+
+    // 도움말 콘텐츠 수정.
+    function updateContent() {
+        const content_title = $("#content_title").val();
+        const content = $('#summernote').summernote('code');
+        const help_seq = $("#help_seq").val();
+
+        if (content_title == '' || content == '') {
+            alert('본문 정보의 제목 또는 내용을 입력해주세요.');
+            return false;
+        }
+
+        const contentData = {
+            "help_seq" : help_seq,
+            "title" : content_title,
+            "content" : content,
+        }
+
+        $.ajax({
+            type: "PUT",
+            dataType: "json",
+            data: contentData,
+            url: `${denma_api_url}/api/help/update`,
+            success: function (response) {
+                console.log("response :: ", response);
+                alert('본문 내용 수정에 성공했습니다.');
+            },
+            error: function (error) {
+                console.log("error :: ", error);
+            }
+        });
+    }
+
+    // 도움말 콘텐츠 삭제.
+    function deleteContent() {
+        const help_seq = $("#help_seq").val();
+        if (help_seq == undefined || help_seq == '') {
+            return false;
+        }
+
+        const sendData = {
+            "help_seq" : help_seq
+        }
+
+        const resultOpinion = confirm('본문 내용을 정말로 삭제하시겠습니까?');
+        if (resultOpinion) {
+            $.ajax({
+                type: "DELETE",
+                dataType: "json",
+                data: sendData,
+                url: `${denma_api_url}/api/help/delete`,
+                success: function (response) {
+                    $('#ClientMallId').css("display", "none");
+                    $('#ClientMallviewTitle').css("display", "none");
+                    alert('본문 내용 삭제에 성공했습니다.');
+                },
+                error: function (error) {
+                    console.log("error :: ", error);
+                    alert('본문 삭제 요청중에 에러가 발생했습니다.');
+                }
+            });
+        }
+    }
+</script>

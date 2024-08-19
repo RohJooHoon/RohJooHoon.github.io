@@ -1,0 +1,556 @@
+/* 셀렉트 박스 커스텀 스타일 */
+.paymentDetailCustomSelected {
+    overflow: hidden;
+    width: 160px;
+    height: 36px;
+    background: #FFFFFF;
+    border: 1px solid #DCDCDD;
+    box-sizing: border-box;
+    padding: 9px 0 10px 13px;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    color: #12121D;
+}
+.paymentDetailCustomSelect {
+    list-style-type: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: none;
+    position: absolute;
+    padding: 0;
+    background-color: #FFFFFF;
+    border: 1px solid #DCDCDD;
+    box-sizing: border-box;
+}
+.paymentDetailCustomOption {
+    width: 100%;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 36px;
+    color: #12121D;
+    text-indent: 12px;
+}
+.paymentDetailCustomOption.is_select {
+    background-color: #43A5FF;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 36px;
+    color: #FFFFFF;
+}
+
+/* 버튼 */
+.paymentDetailBtnWrap {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0 0 40px 20px;
+    position:relative;
+}
+.paymentDetailBtn {
+    width: 128px;
+    height: 36px;
+    background-color: #DCDCDD;
+    border-radius: 2px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: #FFFFFF;
+}
+.paymentDetailBtn.is_next {
+    background-color: #96C60F;
+}
+.paymentDetailBtn+.paymentDetailBtn {
+    margin-left: 10px;
+}
+.paymentPopupEditItemTitle {
+    width: 92px;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: #12121D;
+}
+.paymentPopupEditNewCard {
+    padding-top: 21px;
+    border-top: 1px solid #A8A8A8;
+    display: none;
+}
+.paymentPopupEditNewCard.is_open {
+    display: block;
+}
+/* // 버튼 */
+
+
+/* checkBox custom */
+.listlb {
+    display: inline-block;
+    background: url("/img/list/mall_icon/Rectangle-ckbox-16.svg") 0 0 no-repeat;
+    vertical-align: middle;
+    position: relative;
+    margin:0;
+    padding-right: 10px;
+}
+/* Hide the default checkbox */
+.listlb input {
+    visibility: hidden;
+    cursor: pointer;
+}
+/* Create a custom checkbox */
+.mark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 25px;
+    background: url("/img/list/mall_icon/Rectangle-ckbox-16.svg") 0 0 no-repeat;
+    padding: 0;
+}
+.listlb:hover input ~ .mark {
+    background: url("/img/list/mall_icon/green-ckbox-hober16.svg") 0 0 no-repeat;
+}
+.listlb input:checked ~ .mark {
+    background: url("/img/list/mall_icon/checkbox-green-16.svg") 0 0 no-repeat;
+}
+/* Create the mark/indicator (hidden when not checked) */
+.listlb:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+/* // checkBox custom */
+
+
+
+/* payment popup*/
+.paymentPopupEditInner {
+    width: 100%;
+    height: 293px;
+    padding: 24px;
+}
+.paymentPopupEditTitle {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 23px;
+    letter-spacing: -0.02em;
+    color: #12121D;
+    margin-bottom: 6px;
+}
+.paymentPopupEdit {
+    display: flex;
+    flex-direction: column;
+}
+.paymentPopupEditWrap {
+    width: 100%;
+    background-color: #F9F9F9;
+    border-top: 1px solid #DCDCDD;
+    padding: 10px 13px 14px 13px;
+}
+.paymentPopupEditItem {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 21px;
+    align-items: center;
+    margin: 0;
+}
+.paymentPopupEditItem input {
+    border: 1px solid #DCDCDD;
+    box-sizing: border-box;
+    height: 36px;
+    text-indent: 5px;
+}
+.paymentPopupEditTxt {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: right;
+    color: #12121D;
+}
+.paymentPopupEditTxt.is_title {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: #A8A8A8;
+}
+.paymentPopupEditOrderInfo+.paymentPopupEditOrderInfo {
+    margin-top: 20px;
+}
+
+
+/* 기본 레이아웃 및 기타 스타일 */
+.payment {
+    width: 100%;
+    max-width: 1040px;
+    padding: 20px;
+}
+.paymentDetail {
+    background-color: #FFFFFF;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 26px;
+    min-width: 1500px;
+    border: 1px solid #DCDCDD;
+}
+.paymentDetailInner {
+    padding: 20px;
+}
+.paymentDetailInner+.paymentDetailInner {
+    margin-left: 35px;
+}
+.paymentDetailWrap {
+    display: flex;
+    flex-direction: row;
+}
+.paymentDetailInner {
+    width: 100%;
+    box-sizing: border-box;
+}
+.paymentDetailInnerHead {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 23px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+    color: #12121D;
+    border-bottom: 1px solid #dcdcdd;
+    padding-bottom: 8px;
+    box-sizing: border-box;
+}
+.paymentDetailInnerHead>button {
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    text-decoration-line: underline;
+    color: #43A5FF;
+    padding-left: 10px;
+    box-sizing: border-box;
+
+}
+
+.paymentDetailInnerBody {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: #A8A8A8;
+    padding-top: 25px;
+    box-sizing: border-box;
+}
+.paymentDetailBox {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+}
+.paymentDetailBox:last-child {
+    padding-bottom: 0;
+}
+.paymentDetailBox.is_orderInfo {
+    padding:20px 20px 20px 0;
+}
+.paymentDetailBox.is_orderInfo:last-child {
+    padding-bottom: 0px;
+}
+.paymentDetailBox.is_orderInfo+.paymentDetailBox.is_orderInfo {
+    border-top: 1px dashed #DCDCDD;
+}
+.paymentDetailDesc {
+    width: 105px;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.02em;
+    flex: none;
+    font-weight: normal;
+    color: #A8A8A8;
+    display: flex;
+    align-items: center;
+}
+.paymentDetailValue {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.02em;
+    flex: 1;
+    font-weight: bold;
+    color: #12121D;
+}
+.paymentDetailValue .creditIcon {
+    width: 20px;
+    height:20px;
+    background-image: url("/img/icon_coin.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    display: inline-block;
+}
+.paymentDetailFunc {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.02em;
+    flex: none;
+    font-weight: normal;
+    color: #DCDCDD;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.refundFunc {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.02em;
+    flex: none;
+    font-weight: normal;
+    color: #ec2727;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.creditChargeFunc {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.02em;
+    flex: none;
+    font-weight: normal;
+    color: #cbb334;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.serviceChargeFunc {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.02em;
+    flex: none;
+    font-weight: normal;
+    color: #cbb334;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+.creditRefund {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.02em;
+    flex: none;
+    font-weight: normal;
+    color: #852d2d;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.creditExtend {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.02em;
+    flex: none;
+    font-weight: normal;
+    color: #ecb53c;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.paymentDetailVersion {
+    display: block;
+    height: 20px;
+    line-height: 20px;
+    margin-right: 89px;
+    color: #FFFFFF;
+    text-align: center;
+    background-color: #43A5FF;
+    border-radius: 50px;
+}
+
+.paymentDetailVersionInfo {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    color: #12121D;
+}
+.paymentDetailVersionInfo.is_sub {
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    color: #A8A8A8;
+}
+.paymentDetailCredit {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 29px;
+    letter-spacing: -0.02em;
+    color: #12121D;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+.paymentDetailNotice {
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    letter-spacing: -0.02em;
+    color: #A8A8A8;
+    padding: 0 0 25px 20px;
+}
+.paymentDetailNotice strong {
+    color: #96C60F;
+    font-weight: normal;
+    font-size: 12px;
+    margin-bottom: 14px;
+}
+.layoutList {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.layoutListItem {
+    width: 100%;
+    height: 50px;
+}
+
+.paymentDetailTabGroup {
+    background-color: #F3F3F3;
+    font-size: 0;
+    line-height: 0;
+}
+.paymentDetailTabBtn {
+    padding: 0 60px 0 20px;
+    height: 56px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #A8A8A8;
+    letter-spacing: -0.02em;
+    background: rgba(220, 220, 221, 0.5);
+    box-sizing: border-box;
+    line-height: 0.6905481226;
+    border: 0;
+    outline: 0;
+}
+.paymentDetailTabBtn.is_active {
+    padding: 0 60px 0 20px;
+    background-color: #FFF;
+    font-weight: 700;
+    color: #96C60F;
+    letter-spacing: -0.02em;
+    box-sizing: border-box;
+}
+.paymentDetailTarget {
+    padding: 20px;
+}
+.paymentDetailTableHeadItem {
+    padding: 6px 12px;
+    position: static;
+    width: 98px;
+    height: 34px;
+    left: 0px;
+    top: 0px;
+    background: #F3F3F3;
+    border: 1px solid #DCDCDD;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: #A8A8A8 !important;
+}
+
+/* payment cancel/change 관련 page*/
+.membershipCancel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.membershipCancelWrap {
+    width: 509px;
+    padding-top: 76px;
+}
+.membershipCancelTitle {
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 43px;
+    text-align: center;
+    letter-spacing: -0.02em;
+    color: #12121D;
+}
+.membershipCancelDesc {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    letter-spacing: -0.02em;
+    color: #12121D;
+    padding-top: 38px;
+}
+.membershipCancelIcon {
+    width: 100%;
+    height: 41px;
+    background-image: url("/img/questionIcon.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-bottom: 25px;
+}
+.paymentDetailBtnWrap {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0 0 40px 20px;
+    position:relative;
+}
+.paymentDetailBtn {
+    width: 128px;
+    height: 36px;
+    background-color: #DCDCDD;
+    border-radius: 2px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: #FFFFFF;
+
+}
+.paymentDetailBtn.is_next {
+    background-color: #96C60F;
+}
+.paymentDetailBtn+.paymentDetailBtn {
+    margin-left: 10px;
+}
+
+/* 이용료 결제, 결제정보 */
+.paymentDetailTotalCostWrap {
+    background-color: #F9F9F9;
+    height: 101px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+}
+.paymentDetailCostBox{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+.paymentDetailTotalCost {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.paymentDetailCostItem {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: #12121D;
+}
+.paymentDetailCostData {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 29px;
+    color: #12121D;
+    width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

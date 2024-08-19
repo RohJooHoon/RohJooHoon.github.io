@@ -1,0 +1,152 @@
+<style>
+    .td-center{text-align: center;}
+</style>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">도매 리스트</h4>
+        </div>
+    </div>
+</div>
+<!-- 페이지 컨텐츠  -->
+<div class="container-fluid">
+    <div class="widget-content searchable-container list">
+        <div class="card card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                    </div>
+                </div>
+                <div class="col-auto pl-0">
+                    <button type="button" onclick="goToCreate()" class="btn mb-0 mr-0 waves-effect waves-light btn-success">도매계정 등록</button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="wholesaleTable table-bordered" id="dataTable" style="width: 100%;">
+                    <thead>
+                    <tr style="text-align: center">
+                        <th class="text-dark font-weight-bold">업체명</th>
+                        <th class="text-dark font-weight-bold">회원 아이디</th>
+                        <th class="text-dark font-weight-bold">client_id</th>
+                        <th class="text-dark font-weight-bold">전화번호</th>
+                        <th class="text-dark font-weight-bold">가입일</th>
+                        <th class="text-dark font-weight-bold">태그목록</th>
+                        <th class="text-dark font-weight-bold">플랫폼관리</th>
+                        <th class="text-dark font-weight-bold">플랫폼상품관리</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(function (){
+        getWholeSaleMemberList();
+    });
+
+    // 도매 회원 리스트 조회.
+    function getWholeSaleMemberList(){
+
+        let sendData = {
+            "client_type" : "WHOLESALE"
+        }
+
+        $(".wholesaleTable").dataTable().fnDestroy()
+        $('.wholesaleTable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "stateSave": false,
+            "ordering": false,
+            "searching": false,
+            "info" : false,
+            "pageLength": 100,
+            "ajax": {
+                "type" : "GET",
+                "url" : `${denma_api_url}/member/list`,
+                "data" : sendData,
+                dataSrc : function (response) {
+                    return response.data;
+                }
+            },
+            "columns" : [
+                {"data": "homepage_name"},
+                {"data": "mem_id"},
+                {"data": "client_id"},
+                {"data": "phone"},
+                {"data": "create_date"},
+            ],
+            "columnDefs": [
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return `<a href="/view/wholesale/etcInfo?client_id=${row.client_id}">${data}</a>`;
+                    },
+                    "targets": 0
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 1
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return data;
+                    },
+                    "targets": 2
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        return (data !== '')? data : 'X';
+                    },
+                    "targets": 3
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        const create_date = data.split(" ")[0];
+                        return create_date;
+                    },
+                    "targets": 4
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        const client_id = row.client_id;
+                        return `<a href="/view/wholesale/tagDataList?client_id=${client_id}&homepage_name=${row.homepage_name}">태그 목록</a>`;
+                    },
+                    "targets": 5
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        const client_id = row.client_id;
+                        return `<a href="/view/wholesale/platformList?client_id=${client_id}">플랫폼관리</a>`;
+                    },
+                    "targets": 6
+                },
+                {
+                    "class" : "td-center",
+                    "render": function(data, type, row) {
+                        const client_id = row.client_id;
+                        return `<a href="/view/wholesale/platformProductList?client_id=${client_id}">상품관리</a>`;
+                    },
+                    "targets": 7
+                },
+            ],
+        });
+    }
+
+
+    // 템플릿 생성 페이지로 이동.
+    function goToCreate() {
+        location.href = '/view/wholesale/memberCreate';
+    }
+</script>

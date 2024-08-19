@@ -1,0 +1,79 @@
+<!-- 상세 정보 -->
+<script id="imageList" type="text/x-jsrender">
+    <div class="goodsCard{{:option.star ? " is_star" : ""}} {{:option.class ? option.class : ""}} {{:option.additional ? " is_Additional" : ""}}{{:option.dim ? " is_dim" : ""}}{{:option.disabled ? " is_disabled" : ""}}{{:option.delete ? " is_delete" : ""}}{{:option.removeBg ? " is_removeBg" : ""}}" id="{{:name}}" data-type="{{:option.type}}" data-spin="{{:option.spin}}">
+        <div class="goodsCardHeader">
+            {{if !option.disabled}}
+                <div class="goodsCardHeaderDrag"></div>
+            {{/if}}
+            <div class="goodsCardHeaderTitle">
+                {{:option.title}}
+                {{:option.length ? '(<span class="goodsCardHeaderLength">' + data.length + '</span>)' : ''}}
+            </div>
+            {{if option.tooltip}}
+                <button class="questionBtn" data-toggle="dropdown" type="button"></button>
+                <div class="dropdown-menu">
+                    {{:option.tooltip}}
+                </div>
+            {{/if}}
+            <div class="goodsCardHeaderControl">
+                {{if option.aiKeyWord}}
+                    <button class="goodsCardHeaderBtn" type="button">AI 키워드 추출</button>
+                {{/if}}
+                {{if option.unUse}}
+                    <button class="goodsCardHeaderDelete" type="button"></button>
+                {{/if}}
+                {{if option.imgList}}
+                    <button class="goodsCardHeaderOpen" type="button"></button>
+                {{/if}}
+                <button class="goodsCardHeaderADD" type="button"></button>
+                {{if option.menu}}
+                    <div class="goodsCardHeaderMenu">
+                        <div class="goodsCardHeaderMenuList">
+                            {{for option.menu}}
+                                <button class="goodsCardHeaderMenuItem" type="button" onclick={{>func}}>{{>title}}</button>
+                            {{/for}}
+                        </div>
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+        {{if option.imgList}}
+            <div class="goodsCardBody{{:!data.length ? " is_none" : ""}}">
+                <ul class="goodsCardList{{:option.disabledItem ? " is_disabled" : ""}}">
+                    {{:items}}
+                </ul>
+                {{if option.action}}
+                    <div class="goodsCardNone">
+                        <div class="goodsCardNoneBox">
+                            <p class="goodsCardNoneText">
+                                <b style="color: #43A5FF; font-weight: normal;">15컷 ~ 50컷의 연속된 이미지</b>를 업로드해주세요.<br>
+                                생동감있는 상세 페이지를 만들 수 있습니다.
+                            </p>
+                        </div>
+                    </div>
+                {{else option.model}}
+                    <div class="goodsCardNone">
+                        <div class="goodsCardNoneBox">
+                            <p class="goodsCardNoneText">
+                                모델을 추가해주세요.
+                            </p>
+                        </div>
+                    </div>
+                {{else}}
+                    <div class="goodsCardNone">
+                        <div class="goodsCardNoneBox">
+                            <p class="goodsCardNoneText">
+                                {{if option.noneText}}
+                                    {{:option.noneText}}
+                                {{else}}
+                                    사용하지 않는 이미지는<br/>
+                                    여기에드래그하여 분류해주세요
+                                {{/if}}
+                            </p>
+                        </div>
+                    </div>
+                {{/if}}
+            </div>
+        {{/if}}
+    </div>
+</script>

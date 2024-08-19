@@ -1,0 +1,160 @@
+/* 상품 공통 정보 등록 - 리스트 정보 */
+.MallBody {
+    height: 100%;
+}
+.listContents,
+.goodsDetail{
+    height: 100%;
+}
+.listContentsHeader,
+.goodsDetailHeader {
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 0px solid transparent;
+}
+.goodsDetailBody {
+    height: 100%;
+}
+.listContentsHeader .row {
+    margin: 0 !important;;
+}
+.listContents .listContentsBody {
+    overflow: auto;
+    padding-top:30px ;
+}
+.listContentsBtnGroup,
+.goodsDetailNav {
+    background-color: #F3F3F3;
+}
+.listContentsBtnGroup button{
+    padding: 0 60px 0 20px;
+    height: 56px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #A8A8A8;
+    letter-spacing: -0.02em;
+    background: rgba(220, 220, 221, 0.5);
+    box-sizing: border-box;
+    line-height: 0.6905481226;
+}
+.goodsDetailNav_item {
+    height: 64px;
+}
+.goodsDetailNav li {
+    padding: ;
+}
+.goodsDetailNav_item a{
+    height: 64px;
+    font-weight: 500;
+    font-size: 18px;
+    color: #A8A8A8;
+    letter-spacing: -0.02em;
+    background: rgba(220, 220, 221, 0.5);
+    box-sizing: border-box;
+    padding: 0;
+}
+.goodsDetailNav_item a span{
+    padding: 0;
+    margin: 0;
+    border: 1px solid;
+}
+.listContentsBtnGroup .is_active{
+    padding: 0 60px 0 20px;
+    background-color: #FFF;
+    font-size: 18px;
+    font-weight: 700;
+    color: #96C60F;
+    letter-spacing: -0.02em;
+    box-sizing: border-box;
+}
+
+.listContents_formGroup input,
+.listContents_formGroup select,
+.listContents_formGroup table {
+    color : #12121D;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+}
+.listContents_formGroup input::placeholder {
+    color:#DCDCDD;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+}
+.listContentsFormGroup_inputHD {
+    min-width: 188px;
+    background-color: #F9F9F9;
+    border: 1px solid #DCDCDD !important;
+    border-radius: 2px 0px 0px 2px;
+    color: #12121D;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 6px 12px !important;
+
+}
+.listContentsFormGroup_inputBD {
+    background-color: #FFFFFF;
+    border: 1px solid #DCDCDD;
+    border-radius: 0px 2px 2px 0px;
+    color: #12121D;
+    font-size: 14px;
+    font-weight: normal;
+}
+.listContentsFormGroup_inputBD select{
+    background: #F3F3F3 no-repeat center right 0 url('/img/list/ic-down.png');
+    background-size: 36px 36px;
+    font-size: 14px;
+    align-items: center;
+    color: #A8A8A8;
+
+}
+
+.listContentsFormGroup_inputBD input[type='radio'] {
+    -webkit-appearance:none;
+    width:16px;
+    height:16px;
+    border: 1px solid #96C60F;
+    border-radius:50%;
+    outline:none;
+    background: #FFFFFF;
+    position: relative;
+}
+.listContentsFormGroup_inputBD input[type='radio']:before {
+    content:'';
+    display:block;
+    width:10px;
+    height:10px;
+    position: absolute;
+    top: calc(50% - 5px);
+    left: calc(50% - 5px);
+    border-radius:10px;
+}
+.listContentsFormGroup_inputBD input[type='radio']:checked:before {
+    background: #96C60F;
+}
+.listContents_table {
+    border-radius: 2px;
+    font-size: 14px;
+    color: #12121D;
+    font-weight: 400;
+}
+.listContents_table tr th{
+    background: #F9F9F9;
+    border: 1px solid #DCDCDD;
+}
+
+.listContentsBtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 36px;
+}
+.listContentsBtn button:first-child{
+    margin-right: 24px;
+}
+.listContentsFormGroup_font {
+    font-size: 12px;
+    color: #A8A8A8;
+    font-weight: 700;
+}
