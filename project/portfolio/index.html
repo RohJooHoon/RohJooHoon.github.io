@@ -1,17 +1,1092 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Joohoon</title>
-  <link href="css/default.css" type="text/css" rel="stylesheet" />
-</head>
-<body>
-  <header class="header" include-html="layout/header.html"></header>
-  <div class="container" include-html="page/home.html"></div>
-  <footer class="footer" include-html="layout/footer.html"></footer>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Joohoon</title>
+    <link href="./css/default.css" type="text/css" rel="stylesheet" />
 
-  <script src="js/common.js"></script>
-</body>
+    <style>
+      .header {
+        position: fixed;
+        z-index: 500;
+        top: 0;
+        width: 100%;
+        height: 70px;
+        background-color: rgba(0, 0, 0, 0.2);
+        transition: background-color 0.5s ease-out;
+      }
+      .header.is_onScroll {
+        background-color: #000;
+      }
+      .header_wrap {
+        position: relative;
+        width: 100%;
+        max-width: 1280px;
+        padding: 0 20px;
+        margin: auto;
+        box-sizing: border-box;
+      }
+      .header_wrap:after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+      .header_logo {
+        float: left;
+        margin: 15px 0;
+        line-height: 40px;
+        font-size: 23px;
+        font-weight: 500;
+        letter-spacing: -0.3px;
+      }
+      .header_logo:after {
+        content: "";
+        display: inline-block;
+        vertical-align: bottom 18px;
+        width: 6px;
+        height: 6px;
+        margin-left: 3px;
+        background-color: #fc6060;
+      }
+      .header_logoLink {
+        color: #fff;
+      }
+      .headerNav {
+        float: right;
+        height: 40px;
+        margin: 15px 0;
+      }
+      .headerNav_menu {
+        display: none;
+      }
+      .headerNav_item {
+        position: relative;
+        display: inline-block;
+        line-height: 34px;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 500;
+        transition: color 0.4s ease-out;
+      }
+      .headerNav_item + .headerNav_item {
+        margin-left: 40px;
+      }
+      .headerNav_item:hover {
+        color: #fc6060;
+      }
+      .headerNav_item:after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 2px;
+        background-color: #fc6060;
+        transition: width 0.5s;
+      }
+      .headerNav_item.is_active:after {
+        width: 100%;
+      }
+      @media all and (max-width: 768px) {
+        .header_wrap.is_menuOpen {
+          background-color: #000;
+        }
+        .header_wrap.is_menuOpen .headerNav {
+          display: block;
+        }
+        .headerNav_menu {
+          display: block;
+          float: right;
+          margin: 22px 0;
+          padding: 0;
+          width: 26px;
+          height: 24px;
+          border: none;
+          background: center no-repeat url(img/header_menu.png);
+        }
+        .headerNav {
+          display: none;
+          float: none;
+          position: fixed;
+          top: 70px;
+          left: 0;
+          width: 100%;
+          height: calc(100% - 70px);
+          margin: 0;
+          padding: 0 20px;
+          background-color: #000;
+          box-sizing: border-box;
+        }
+        .headerNav_item {
+          display: block;
+          margin: 0 auto 10px;
+        }
+        .headerNav_item + .headerNav_item {
+          margin-left: auto;
+        }
+      }
+
+      /* banner */
+      .banner {
+        position: relative;
+        width: 100%;
+        height: 880px;
+        background: no-repeat center;
+        overflow: hidden;
+      }
+      .bannerText {
+        position: absolute;
+        width: 1100px;
+        padding: 0 15px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100;
+      }
+      .bannerText_title {
+        display: inline-block;
+        font-weight: 700;
+        line-height: 1.3;
+        font-size: 82px;
+        display: block;
+        margin-bottom: 0;
+        background: -moz-linear-gradient(top, #ff9696 0%, #ffe89e 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ff9696), color-stop(100%, #ffe89e));
+        background: -webkit-linear-gradient(top, #ff9696 0%, #ffe89e 100%);
+        background: -o-linear-gradient(top, #ff9696 0%, #ffe89e 100%);
+        background: -ms-linear-gradient(top, #ff9696 0%, #ffe89e 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .bannerText_description {
+        display: block;
+        line-height: 1.9;
+        color: #ffffff;
+        margin-bottom: 50px;
+        font-size: 16px;
+        font-weight: 400;
+      }
+      .banner .slider_list {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        transition: left 0.5s ease-in-out, transform 0.4s ease-in-out;
+        background-color: #000;
+      }
+      .banner .slider_item {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background: center no-repeat;
+        background-size: cover;
+      }
+      .banner .slider_item:after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+      .banner .sliderControl_btn {
+        position: absolute;
+        top: calc(50% - 33px);
+        z-index: 100;
+        width: 66px;
+        height: 66px;
+        line-height: 66px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: none;
+        border-radius: 66px;
+        font-size: 30px;
+        color: #fff;
+        transition: background-color 0.3s ease-in-out;
+      }
+      .banner .sliderControl_btn:hover {
+        background-color: #fc6060;
+      }
+      .banner .sliderControl_btn.is_prev {
+        left: 70px;
+      }
+      .banner .sliderControl_btn.is_next {
+        right: 70px;
+      }
+      @media all and (max-width: 1280px) {
+        .banner {
+          height: 700px;
+        }
+        .bannerText {
+          width: 100%;
+          padding: 0 80px;
+          box-sizing: border-box;
+        }
+        .bannerText_title {
+          font-size: 70px;
+        }
+        .bannerText_description {
+          font-size: 12px;
+        }
+      }
+      @media all and (max-width: 768px) {
+        .banner {
+          height: 400px;
+        }
+        .bannerText {
+          top: 60%;
+          padding: 0 30px;
+        }
+        .bannerText_title {
+          font-size: 45px;
+        }
+        .bannerText_description {
+          font-size: 10px;
+        }
+      }
+      /* // banner */
+
+      /* category */
+      .category {
+        margin: auto;
+        max-width: 1280px;
+        background-color: #fff;
+        padding: 80px 5%;
+      }
+      .categoryControl {
+        text-align: center;
+      }
+      .categoryControl_item {
+        background-color: transparent;
+        border: 0;
+        margin: 0 25px;
+        padding: 0;
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 34px;
+      }
+      .categoryControl_item:after {
+        content: "";
+        display: block;
+        background-color: #fc6060;
+        width: 0;
+        height: 3px;
+        transition: width 0.4s ease-in-out;
+      }
+      .categoryControl_item.is_active:after {
+        width: 100%;
+      }
+      .categoryBox {
+        position: relative;
+        margin: 30px 0;
+        font-size: 0;
+        line-height: 0;
+      }
+      .categoryBox_item {
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        width: calc(25% - 30px);
+        margin: 0 15px;
+        font-size: 20px;
+        font-weight: 600;
+        transition: transform 0.35s ease-in-out, left 0.3s ease-in-out, top 0.3s ease-in-out;
+        box-sizing: border-box;
+      }
+      .categoryBox_item:after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: background-color 0.4s ease-in-out;
+      }
+      .categoryBox_itemImg {
+        width: 100%;
+        padding-bottom: 60%;
+        background: no-repeat center;
+        background-size: cover;
+        transition: transform 0.4s ease-in-out;
+      }
+      .categoryBox_itemTextBox {
+        display: none;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        padding: 20px;
+        opacity: 0;
+        z-index: 10;
+        box-sizing: border-box;
+        transition: opacity 0.4s ease-in-out;
+      }
+      .categoryBox_itemTitle {
+        text-transform: uppercase;
+        color: #fff;
+        line-height: 18px;
+        font-size: 15px;
+        font-weight: 400;
+      }
+      .categoryBox_itemDescription {
+        color: #fff;
+        line-height: 18px;
+        font-size: 13px;
+        font-weight: 400;
+        margin-top: 10px;
+      }
+      @media all and (max-width: 1024px) {
+        .categoryControl_item {
+          font-size: 16px;
+          margin: 0 15px;
+        }
+      }
+      @media all and (min-width: 769px) {
+        .categoryBox_item:hover:after {
+          background-color: rgba(0, 0, 0, 0.5);
+        }
+        .categoryBox_item:hover .categoryBox_itemImg {
+          transform: scale(1.2);
+        }
+        .categoryBox_item:hover .categoryBox_itemTextBox {
+          display: block;
+          opacity: 1;
+        }
+      }
+      @media all and (max-width: 768px) {
+        .category {
+          padding: 40px 20px;
+        }
+        .categoryBox {
+          margin-bottom: 0;
+        }
+        .categoryBox_item {
+          width: 100%;
+          margin: 0;
+          transition: none;
+        }
+        .categoryBox_item {
+          margin-bottom: 30px;
+        }
+        .categoryBox_item.is_active:after {
+          background-color: rgba(0, 0, 0, 0.5);
+        }
+        .categoryBox_item.is_active .categoryBox_itemImg {
+          transform: scale(1.2);
+        }
+        .categoryBox_item.is_active .categoryBox_itemTextBox {
+          display: block;
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header" include-html="./layout/header.html">
+      <div class="header_wrap">
+        <h1 class="header_logo">
+          <a class="header_logoLink" href="./page/home.html">JooHoon</a>
+        </h1>
+        <button class="headerNav_menu is_blind" type="button">menu</button>
+        <nav class="headerNav nav">
+          <a class="headerNav_item nav_item is_active" href="./page/home.html">Home</a>
+          <a class="headerNav_item nav_item" href="./page/category.html">Category</a>
+          <a class="headerNav_item nav_item" href="./page/about.html">About</a>
+          <a class="headerNav_item nav_item" href="./page/work.html">Work</a>
+          <a class="headerNav_item nav_item" href="./page/contact.html">Contact</a>
+        </nav>
+      </div>
+    </header>
+    <div class="container">
+      <div class="banner slider">
+        <div class="bannerText">
+          <strong class="bannerText_title">
+            Hello<br />
+            I'm JooHoon
+          </strong>
+          <p class="bannerText_description">
+            I'm a creative web developer. I like to explore new ways.<br />
+            Create what I want without following others.
+          </p>
+        </div>
+        <ul class="slider_list">
+          <li class="slider_item" style="background-image: url(./img/banner_1.jpg)"></li>
+          <li class="slider_item" style="background-image: url(./img/banner_2.jpg)"></li>
+          <li class="slider_item" style="background-image: url(./img/banner_3.jpg)"></li>
+        </ul>
+      </div>
+      <div class="category">
+        <div class="categoryControl">
+          <button class="categoryControl_item is_active" data-category="all">ALL</button>
+          <button class="categoryControl_item" data-category="responsive">Responsive</button>
+          <button class="categoryControl_item" data-category="webaccessibility">Web Accessibility</button>
+          <button class="categoryControl_item" data-category="parallax">Parallax</button>
+          <button class="categoryControl_item" data-category="study">Study</button>
+        </div>
+        <div class="categoryBox">
+          <button class="categoryBox_item" data-category="responsive" href="#">
+            <div class="categoryBox_itemImg" data-size="1" style="background-image: url(./img/banner_theme.png)"></div>
+            <div class="categoryBox_itemTextBox">
+              <strong class="categoryBox_itemTitle">Samsung Theme Store</strong>
+              <p class="categoryBox_itemDescription">
+                #반응형<br />
+                워드프레스 테마 수정 메인 작업자<br />
+                블로그 페이지 관리 및 이벤트 관리
+              </p>
+            </div>
+          </button>
+          <button class="categoryBox_item" data-category="responsive,parallax" href="#">
+            <div class="categoryBox_itemImg" data-size="2" style="background-image: url(./img/banner_pgl.png)"></div>
+            <div class="categoryBox_itemTextBox">
+              <strong class="categoryBox_itemTitle">samsung play galaxy link</strong>
+              <p class="categoryBox_itemDescription">
+                #프로젝트리딩 #반응형<br />
+                PL역할<br />
+                250페이지 분량<br />
+                2인 구성 메인 작업자<br />
+              </p>
+            </div>
+          </button>
+          <button class="categoryBox_item" data-category="responsive" href="#">
+            <div class="categoryBox_itemImg" data-size="1" style="background-image: url(./img/banner_remote.png)"></div>
+            <div class="categoryBox_itemTextBox">
+              <strong class="categoryBox_itemTitle">Samsung Remote Mobile Manager</strong>
+              <p class="categoryBox_itemDescription">
+                #프로젝트리딩 #반응형<br />
+                PL역할<br />
+                250페이지 분량<br />
+                2인 구성 메인 작업자<br />
+              </p>
+            </div>
+          </button>
+          <button class="categoryBox_item" data-category="study" href="#">
+            <div class="categoryBox_itemImg" data-size="2" style="background-image: url(./img/banner_todo.png)"></div>
+            <div class="categoryBox_itemTextBox">
+              <strong class="categoryBox_itemTitle">React Study</strong>
+              <p class="categoryBox_itemDescription">
+                #프로젝트리딩 #반응형<br />
+                PL역할<br />
+                250페이지 분량<br />
+                2인 구성 메인 작업자<br />
+              </p>
+            </div>
+          </button>
+          <button class="categoryBox_item" data-category="responsive,parallax" href="#">
+            <div class="categoryBox_itemImg" data-size="2" style="background-image: url(./img/banner_cookever.png)"></div>
+            <div class="categoryBox_itemTextBox">
+              <strong class="categoryBox_itemTitle">COOKEVER - 핸드메이드 클래스 & 마켓</strong>
+              <p class="categoryBox_itemDescription">
+                #프로젝트리딩 #반응형<br />
+                PL역할<br />
+                250페이지 분량<br />
+                2인 구성 메인 작업자<br />
+              </p>
+            </div>
+          </button>
+          <button class="categoryBox_item" data-category="responsive,webaccessibility" href="#">
+            <div class="categoryBox_itemImg" data-size="3" style="background-image: url(./img/banner_sds.png)"></div>
+            <div class="categoryBox_itemTextBox">
+              <strong class="categoryBox_itemTitle">Samsung SDS</strong>
+              <p class="categoryBox_itemDescription">
+                #반응형 #접근성<br />
+                2017 접근성 마크 취득<br />
+                2018,2019 접근성 마크 갱신 메인작업자<br />
+              </p>
+            </div>
+          </button>
+          <button class="categoryBox_item" data-category="study" href="#">
+            <div class="categoryBox_itemImg" data-size="2" style="background-image: url(./img/banner_smartTable.png)"></div>
+            <div class="categoryBox_itemTextBox">
+              <strong class="categoryBox_itemTitle">Smart Kid's Table</strong>
+              <p class="categoryBox_itemDescription">
+                #프로젝트리딩 #반응형<br />
+                PL역할<br />
+                250페이지 분량<br />
+                2인 구성 메인 작업자<br />
+              </p>
+            </div>
+          </button>
+          <button class="categoryBox_item" data-category="responsive" href="#">
+            <div class="categoryBox_itemImg" data-size="1" style="background-image: url(./img/banner_vr.png)"></div>
+            <div class="categoryBox_itemTextBox">
+              <strong class="categoryBox_itemTitle">Samsung VR Website</strong>
+              <p class="categoryBox_itemDescription">
+                #프로젝트리딩 #반응형<br />
+                PL역할<br />
+                250페이지 분량<br />
+                2인 구성 메인 작업자<br />
+              </p>
+            </div>
+          </button>
+          <button class="categoryBox_item" data-category="study" href="#">
+            <div class="categoryBox_itemImg" data-size="3" style="background-image: url(./img/banner_eye.png)"></div>
+            <div class="categoryBox_itemTextBox">
+              <strong class="categoryBox_itemTitle">Mini Project</strong>
+              <p class="categoryBox_itemDescription">
+                #프로젝트리딩 #반응형<br />
+                PL역할<br />
+                250페이지 분량<br />
+                2인 구성 메인 작업자<br />
+              </p>
+            </div>
+          </button>
+          <button class="categoryBox_item" data-category="responsive" href="#">
+            <div class="categoryBox_itemImg" data-size="1" style="background-image: url(./img/banner_things.png)"></div>
+            <div class="categoryBox_itemTextBox">
+              <strong class="categoryBox_itemTitle">Samsung Smart Things</strong>
+              <p class="categoryBox_itemDescription">
+                #프로젝트리딩 #반응형<br />
+                PL역할<br />
+                250페이지 분량<br />
+                2인 구성 메인 작업자<br />
+              </p>
+            </div>
+          </button>
+          <button class="categoryBox_item" data-category="responsive" href="#">
+            <div class="categoryBox_itemImg" data-size="3" data-wide="true" style="background-image: url(./img/banner_wenzi.png)"></div>
+            <div class="categoryBox_itemTextBox">
+              <strong class="categoryBox_itemTitle">웬지 - 핸드메이드 클래스 & 마켓</strong>
+              <p class="categoryBox_itemDescription">
+                #프로젝트리딩 #반응형<br />
+                PL역할<br />
+                250페이지 분량<br />
+                2인 구성 메인 작업자<br />
+              </p>
+            </div>
+          </button>
+          <button class="categoryBox_item" data-category=""></button>
+        </div>
+      </div>
+    </div>
+    <script>
+      addEventListener("DOMContentLoaded", function () {
+        // classList ie 대응
+        Object.prototype.classAdd = function (input) {
+          if (this.className.split(input).length == 1) {
+            this.className = this.className + " " + input;
+            this.className = this.className.replace("  ", " ");
+          }
+        };
+        Object.prototype.classRemove = function (input) {
+          if (this.className.split(input).length != 1) {
+            this.className = this.className.replace(input, "").replace("  ", " ");
+          }
+        };
+        Object.prototype.classToggle = function (input) {
+          if (this.className.split(input).length == 1) {
+            this.classAdd(input);
+          } else {
+            this.classRemove(input);
+          }
+        };
+        Object.prototype.addEvent = function (event, func) {
+          var self = this;
+          event
+            .replace(" ", "")
+            .split(",")
+            .forEach(function (value, index) {
+              self.addEventListener(value, function (e) {
+                func(e);
+              });
+            });
+        };
+        Object.prototype.windowWidth = function () {
+          return window.innerWidth;
+        };
+        // Object.prototype.transitionHideAdd = function (input) {
+        //   value.classRemove('is_transitionHide');
+        // }
+
+        // htmlInclude - start
+        var htmlInclude = {
+          includeAll: document.querySelectorAll("[include-html]"),
+          nowIndex: 0,
+          init: function () {
+            self = this;
+            self.includeAll.forEach(function (value, index) {
+              var include = self.includeAll[index];
+              var href_url = include.getAttribute("include-html");
+              var xhttp = new XMLHttpRequest();
+              xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                  include.innerHTML = this.responseText;
+                  include.removeAttribute("include-html");
+                  if (++self.nowIndex == self.includeAll.length) {
+                    self.complete();
+                  }
+                }
+              };
+              xhttp.open("GET", href_url, true);
+              xhttp.send();
+              return;
+            });
+          },
+          gotoPage: function () {
+            var self = this;
+            var aHrefAll = document.querySelectorAll("a[href]");
+            aHrefAll.forEach(function (value, index) {
+              value.addEventListener("click", function (e) {
+                e.preventDefault();
+                var href_url = e.target.getAttribute("href");
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                  if (this.readyState == 4 && this.status == 200) {
+                    document.querySelector(".container").innerHTML = this.responseText;
+                    header.navSync(href_url);
+                    self.reload();
+                  }
+                };
+                xhttp.open("GET", href_url, true);
+                xhttp.send();
+                return;
+              });
+            });
+          },
+          complete: function () {
+            // 최초 실행시 동작
+            this.gotoPage();
+            header.init();
+
+            // 페이지 이동시 추가
+            this.reload();
+          },
+          reload: function () {
+            // 최초 실행 + 페이지 이동시 동작
+            slider.init();
+            category.init();
+          },
+        };
+        htmlInclude.init();
+        // htmlInclude - end
+
+        window.addEventListener("resize", function (e) {
+          // 리사이즈시 동작
+          for (let i = 0; i < slider.sliderData.length; i++) {
+            slider.resize(i);
+          }
+          for (let i = 0; i < category.categoryData.length; i++) {
+            category.sizeChack(i);
+          }
+        });
+
+        window.addEventListener("scroll", function (e) {
+          // 스크롤시 동작
+          header.scrollCheck();
+        });
+
+        window.addEventListener("keydown", function (e) {
+          // 키다운시 동작
+          common.outline(e);
+        });
+
+        // common - start
+        var common = {
+          outline: function (e) {
+            if (e.key == "Tab") {
+              if (!document.querySelector("body.onKeyDown")) {
+                document.querySelector("body").classAdd("onKeyDown");
+              }
+            }
+          },
+        };
+        // common - end
+
+        // header - start
+        var header = {
+          item: [],
+          init: function (params) {
+            this.scrollCheck();
+            this.changeNav();
+            this.menuControll();
+          },
+          scrollCheck: function () {
+            var header = document.querySelector(".header");
+            if (window.scrollY || document.scrollTop) {
+              if (!document.querySelector(".header.is_onScroll")) {
+                header.classAdd("is_onScroll");
+              }
+            } else {
+              header.classRemove("is_onScroll");
+            }
+          },
+          menuControll: function () {
+            var headerNav_menu = document.querySelector(".headerNav_menu");
+            var headerNav_itemAll = document.querySelectorAll(".headerNav_item");
+            var header_logoLink = document.querySelector(".header_logoLink");
+            headerNav_menu.addEventListener("click", function (e) {
+              document.querySelector(".header_wrap").classToggle("is_menuOpen");
+            });
+            header_logoLink.addEventListener("click", function (e) {
+              document.querySelector(".header_wrap").classRemove("is_menuOpen");
+            });
+            headerNav_itemAll.forEach(function (value, index) {
+              value.addEventListener("click", function (e) {
+                document.querySelector(".header_wrap").classRemove("is_menuOpen");
+              });
+            });
+          },
+          changeNav: function () {
+            var self = this;
+            var navAll = document.querySelectorAll(".nav");
+            navAll.forEach(function (value, index) {
+              var nav = navAll[index];
+              var nav_itemAll = nav.querySelectorAll(".nav_item");
+              nav_itemAll.forEach(function (value, index) {
+                var nav_item = nav_itemAll[index];
+                self.item[index] = nav_item;
+                nav_item.addEventListener("click", function (e) {
+                  var nav_item_select = nav.querySelector(".nav_item.is_active");
+                  if (e.target != nav_item_select) {
+                    nav_itemAll.forEach(function (value, index) {
+                      var nav_item = nav_itemAll[index];
+                      nav_item.classRemove("is_active");
+                    });
+                    e.target.classAdd("is_active");
+                  }
+                });
+              });
+            });
+          },
+          navSync: function (href_url) {
+            header.item.forEach(function (value, index) {
+              value.classRemove("is_active");
+              if (value.getAttribute("href") == href_url) {
+                value.classAdd("is_active");
+              }
+            });
+          },
+        };
+        header.scrollCheck();
+        // header - end
+
+        // slider - start
+        var slider = {
+          sliderData: [],
+          init: function () {
+            self = this;
+            var sliderAll = document.querySelectorAll(".slider");
+            if (sliderAll) {
+              sliderAll.forEach(function (value, sliderIndex) {
+                var slider_item_dummyFirst;
+                var slider_item_dummyLast;
+                var sliderData = {};
+                sliderData["slider"] = sliderAll[sliderIndex];
+                sliderData["slider_list"] = sliderData["slider"].querySelector(".slider_list");
+                sliderData["slider_list"].style.left = "0px";
+                sliderData["slider_list_index"] = 0;
+                sliderData["slider_list_width"] = sliderData["slider_list"].offsetWidth;
+                sliderData["slider_itemAll"] = sliderData["slider_list"].querySelectorAll(".slider_item");
+                sliderData["slider_item_length"] = sliderData["slider_itemAll"].length;
+                sliderData["slider_block"] = false;
+                sliderData["slider_list"].addEventListener("transitionstart", function () {
+                  sliderData["slider_block"] = true;
+                });
+                sliderData["slider_list"].addEventListener("transitionend", function () {
+                  sliderData["slider_block"] = false;
+                  if (sliderData["slider_list_index"] < 0) {
+                    sliderData["slider_list"].style.transition = "none";
+                    sliderData["slider_list_index"] = sliderData["slider_item_length"] - 1;
+                    sliderData["slider_list"].style.left = -(sliderData["slider_item_length"] - 1) * Number(sliderData["slider_list"].offsetWidth) + "px";
+                    window.setTimeout(function () {
+                      sliderData["slider_list"].style.transition = "";
+                    }, 1);
+                  } else if (sliderData["slider_list_index"] >= sliderData["slider_item_length"]) {
+                    sliderData["slider_list"].style.transition = "none";
+                    sliderData["slider_list_index"] = 0;
+                    sliderData["slider_list"].style.left = "0px";
+                    window.setTimeout(function () {
+                      sliderData["slider_list"].style.transition = "";
+                    }, 1);
+                  }
+                });
+                sliderData["slider_itemAll"].forEach(function (value, itemIndex) {
+                  sliderData["slider_itemAll"][itemIndex].style.left = itemIndex * sliderData["slider_list_width"] + "px";
+                  if (itemIndex == 0) {
+                    slider_item_dummyFirst = sliderData["slider_itemAll"][itemIndex].cloneNode(true);
+                    slider_item_dummyFirst.style.left = sliderData["slider_item_length"] * sliderData["slider_list_width"] + "px";
+                  } else if (itemIndex == sliderData["slider_itemAll"].length - 1) {
+                    slider_item_dummyLast = sliderData["slider_itemAll"][itemIndex].cloneNode(true);
+                    slider_item_dummyLast.style.left = -1 * sliderData["slider_list_width"] + "px";
+                  }
+                });
+                sliderData["slider_list"].prepend(slider_item_dummyLast);
+                sliderData["slider_list"].append(slider_item_dummyFirst);
+                sliderData["slider_itemDummyAll"] = sliderData["slider_list"].querySelectorAll(".slider_item");
+                self.sliderData[sliderIndex] = sliderData;
+
+                self.control(sliderIndex);
+                self.resize(sliderIndex);
+                self.touchmove(sliderIndex);
+              });
+            }
+          },
+          pageMove: function (direction, sliderIndex) {
+            var self = this;
+            var sliderData = self.sliderData[sliderIndex];
+            var slider_list = sliderData["slider_list"];
+            var slider_list_left = slider_list.style.left.split("px")[0];
+            if (sliderData["slider_block"] == false) {
+              if (direction == "prev") {
+                sliderData["slider_list_index"]--;
+                slider_list.style.left = Number(slider_list_left) + Number(slider_list.offsetWidth) + "px";
+              } else if (direction == "next") {
+                sliderData["slider_list_index"]++;
+                slider_list.style.left = Number(slider_list_left) - Number(slider_list.offsetWidth) + "px";
+              }
+            }
+          },
+          control: function (sliderIndex) {
+            var self = this;
+            var sliderControl_btnAll = this.sliderData[sliderIndex]["slider"].querySelectorAll(".sliderControl .sliderControl_btn");
+            var slider_list = this.sliderData[sliderIndex]["slider_list"];
+            sliderControl_btnAll.forEach(function (value, index) {
+              var sliderControl_btn = sliderControl_btnAll[index];
+              sliderControl_btn.addEventListener("click", function (e) {
+                e.target.classList.forEach(function (value, index) {
+                  if (value == "is_prev") {
+                    self.pageMove("prev", sliderIndex);
+                  } else if (value == "is_next") {
+                    self.pageMove("next", sliderIndex);
+                  }
+                });
+              });
+            });
+          },
+          resize: function (sliderIndex) {
+            var self = slider;
+            var sliderData = self.sliderData[sliderIndex];
+            sliderData["slider_list"].style.transition = "none";
+            sliderData["slider_list_width"] = sliderData["slider_list"].offsetWidth;
+            sliderData["slider_itemDummyAll"].forEach(function (value, index) {
+              value.style.left = (index - 1) * sliderData["slider_list_width"] + "px";
+            });
+            sliderData["slider_list"].style.left = sliderData["slider_list_index"] * sliderData["slider_list_width"] * -1 + "px";
+            window.setTimeout(function () {
+              sliderData["slider_list"].style.transition = "";
+            }, 1);
+          },
+          touchmove: function (sliderIndex) {
+            var self = this;
+            var sliderData = self.sliderData[sliderIndex];
+            var mouseChack = false;
+            var moveX = 0;
+            var startX = 0;
+            // addEventListener 다수 이벤트 지원 불가하여 addEvent 메서드 생성
+            sliderData["slider"].addEvent("mousedown, touchstart", function (e) {
+              mouseChack = true;
+              sliderData["slider_list"].style.transition = "transform 0s";
+            });
+            sliderData["slider"].addEvent("mouseup, touchend", function (e) {
+              if (moveX > 20) {
+                self.pageMove("prev", sliderIndex);
+              } else if (moveX < -20) {
+                self.pageMove("next", sliderIndex);
+              }
+              mouseChack = false;
+              moveX = 0;
+              startX = 0;
+              sliderData["slider_list"].style.transform = "";
+              sliderData["slider_list"].style.transition = "";
+            });
+            sliderData["slider"].addEvent("mouseleave, touchcancel", function (e) {
+              mouseChack = false;
+              moveX = 0;
+              startX = 0;
+              sliderData["slider_list"].style.transform = "";
+              sliderData["slider_list"].style.transition = "";
+            });
+            sliderData["slider"].addEvent("mousemove, touchmove", function (e) {
+              if (mouseChack) {
+                if (!startX) {
+                  // 이벤트에 따라 x값 분기처리
+                  startX = e.x ? e.x : e.targetTouches[0].clientX;
+                }
+                moveX = -(startX - (e.x ? e.x : e.targetTouches[0].clientX));
+                sliderData["slider_list"].style.transform = "translateX(" + moveX + "px)";
+              }
+            });
+          },
+        };
+        // slider - end
+
+        // category - start
+        var category = {
+          categoryData: [],
+          init: function () {
+            self = this;
+            var categoryAll = document.querySelectorAll(".category");
+            if (categoryAll) {
+              categoryAll.forEach(function (value, categoryIndex) {
+                var categoryData = {};
+                categoryData["nowCategory"] = "all";
+                categoryData["category"] = categoryAll[categoryIndex];
+                categoryData["categoryControl"] = categoryData["category"].querySelector(".categoryControl");
+                categoryData["categoryControl_itemAll"] = categoryData["categoryControl"].querySelectorAll(".categoryControl_item");
+                categoryData["categoryControl_itemAll"].forEach(function (value, clickIndex) {
+                  value.addEventListener("click", function (e) {
+                    self.changeMenu(categoryIndex, clickIndex);
+                    self.sizeChack(categoryIndex);
+                    self.changeList(categoryIndex);
+                    self.positioning(categoryIndex);
+                  });
+                });
+                categoryData["categoryBox"] = categoryData["category"].querySelector(".categoryBox");
+                categoryData["categoryBox_itemAll"] = categoryData["categoryBox"].querySelectorAll(".categoryBox_item");
+                self.categoryData[categoryIndex] = categoryData;
+                self.sizeChack(categoryIndex);
+                self.active(categoryIndex);
+              });
+            }
+          },
+          active: function (categoryIndex) {
+            var self = this;
+            var categoryData = self.categoryData[categoryIndex];
+            categoryData["categoryBox_itemAll"].forEach(function (value, clickIndex) {
+              value.addEventListener("click", function (e) {
+                categoryData["categoryBox_itemAll"].forEach(function (value, clickIndex) {
+                  value.classRemove("is_active");
+                });
+                e.target.classAdd("is_active");
+              });
+              window.addEventListener("resize", function (e) {
+                categoryData["categoryBox_itemAll"].forEach(function (value, clickIndex) {
+                  value.classRemove("is_active");
+                });
+              });
+            });
+          },
+          changeMenu: function (categoryIndex, clickIndex) {
+            var self = this;
+            var categoryData = self.categoryData[categoryIndex];
+            var clickItem = categoryData["categoryControl_itemAll"][clickIndex];
+            categoryData["categoryControl_itemAll"].forEach(function (value, index) {
+              value.classRemove("is_active");
+            });
+            clickItem.classAdd("is_active");
+            categoryData["nowCategory"] = clickItem.getAttribute("data-category");
+          },
+          changeList: function (categoryIndex) {
+            var self = this;
+            var categoryData = self.categoryData[categoryIndex];
+            var nowCategory = categoryData["nowCategory"];
+            categoryData["categoryBox_itemAll"].forEach(function (value, index) {
+              var haveCategoryList = value.getAttribute("data-category").split(",");
+              value.classRemove("is_transitionHide");
+              if (nowCategory != "all") {
+                var haveCategory = false;
+                haveCategoryList.forEach(function (value, index) {
+                  if (value == nowCategory) {
+                    haveCategory = true;
+                  }
+                });
+                if (haveCategory == false) {
+                  value.classAdd("is_transitionHide");
+                }
+              }
+            });
+          },
+          sizeChack: function (categoryIndex) {
+            var self = this;
+            var categoryData = self.categoryData[categoryIndex];
+            var nowCategory = categoryData["nowCategory"];
+            var size_1 = "60%";
+            var size_2 = "calc(90% + 30px)";
+            var size_3 = "calc(150% + 60px)";
+            var size_w1 = "calc(30% - 9px)";
+            var size_w2 = "calc(45% + 16px)";
+            var size_w3 = "calc(75% + 38px)";
+            var wideWith = "calc(50% - 30px)";
+            categoryData["categoryBox_itemAll"].forEach(function (value, index) {
+              var categoryBox_itemImg = value.querySelector(".categoryBox_itemImg");
+              if (categoryBox_itemImg) {
+                var dataSize = categoryBox_itemImg.getAttribute("data-size");
+                var dataWide = categoryBox_itemImg.getAttribute("data-wide");
+                if (nowCategory == "all" && windowWidth() >= 768) {
+                  if (dataSize == 1) {
+                    if (dataWide) {
+                      categoryBox_itemImg.style.paddingBottom = size_w1;
+                      value.style.width = wideWith;
+                    } else {
+                      categoryBox_itemImg.style.paddingBottom = size_1;
+                      value.style.width = "";
+                    }
+                  } else if (dataSize == 2) {
+                    if (dataWide) {
+                      categoryBox_itemImg.style.paddingBottom = size_w2;
+                      value.style.width = wideWith;
+                    } else {
+                      categoryBox_itemImg.style.paddingBottom = size_2;
+                      value.style.width = "";
+                    }
+                  } else if (dataSize == 3) {
+                    if (dataWide) {
+                      categoryBox_itemImg.style.paddingBottom = size_w3;
+                      value.style.width = wideWith;
+                    } else {
+                      categoryBox_itemImg.style.paddingBottom = size_3;
+                      value.style.width = "";
+                    }
+                  }
+                } else {
+                  categoryBox_itemImg.style.paddingBottom = size_2;
+                  value.style.width = "";
+                }
+              }
+            });
+            self.positioning(categoryIndex);
+          },
+          positioning: function (categoryIndex) {
+            var self = this;
+            var categoryData = self.categoryData[categoryIndex];
+            var maxHeight = 0;
+            var nowCategoryBox_item = categoryData["categoryBox"].querySelectorAll(".categoryBox_item:not(.is_transitionHide)");
+            categoryData["categoryBox"].style.height = "";
+            if (windowWidth() < 768) {
+              categoryData["categoryBox_itemAll"].forEach(function (value, index) {
+                value.style.zIndex = "";
+                value.style.top = "";
+                value.style.left = "";
+                value.style.position = "";
+              });
+            } else {
+              categoryData["categoryBox_itemAll"].forEach(function (value, index) {
+                value.style.zIndex = "";
+              });
+              nowCategoryBox_item.forEach(function (value, index) {
+                var col = parseInt(index / 4);
+                var chackHeight = 0;
+                var chackMaxHeight = 0;
+                value.style.zIndex = "10";
+                value.style.position = "absolute";
+                if (index % 4 == 0) {
+                  value.style.left = "0";
+                } else if (index % 4 == 1) {
+                  value.style.left = "25%";
+                } else if (index % 4 == 2) {
+                  value.style.left = "50%";
+                } else if (index % 4 == 3) {
+                  value.style.left = "75%";
+                }
+                for (var i = 1; i <= col; i++) {
+                  chackHeight += nowCategoryBox_item[index - 4 * i].offsetHeight + 30;
+                }
+                chackMaxHeight = chackHeight + nowCategoryBox_item[index].offsetHeight;
+                value.style.top = chackHeight + "px";
+                if (maxHeight < chackMaxHeight) {
+                  maxHeight = chackMaxHeight;
+                }
+              });
+              categoryData["categoryBox"].style.height = maxHeight + "px";
+            }
+          },
+        };
+        // category - end
+      });
+    </script>
+  </body>
 </html>

@@ -18,6 +18,7 @@ time, mark, audio, video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  text-decoration: none;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -43,9 +44,36 @@ table {
   border-spacing: 0;
 }
 
+/* root */
+:root {
+  --black: #000000;
+  --black-rgb: 0, 0, 0;
+  --brown: #8F4700;
+  --brown-rgb: 143, 71, 0;
+  --orange: #FF8000;
+  --orange-rgb: 255, 128, 0;
+  --peach: #FFB870;
+  --peach-rgb: 255, 184, 112;
+  --silver: #C5C3BE;
+  --silver-rgb: 197, 195, 190;
+  --white: #FFFFFF;
+  --white-rgb: 255, 255, 255;
+}
+
 /* common.css */
 html,
 body,
 main {
   height: 100%;
+}
+
+body {
+  display: flex;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  background-color: var(--black);
+}
+
+main {
+  flex: 1;
 }
