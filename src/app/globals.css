@@ -74,6 +74,14 @@ body {
   background-color: var(--black);
 }
 
+button {
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
 main {
   flex: 1;
 }

@@ -8,20 +8,33 @@
   width: 100%;
   opacity: 1;
   background-color: rgba(var(--black-rgb), 0.5);
-  transition: all 0.2s ease-out;
+  transition: all 0.4s ease-out;
 }
 
 .headerWrap {
   display: flex;
+  align-items: center;
   width: 100%;
   max-width: 1280px;
   padding: 8px 24px;
   box-sizing: border-box;
 }
 
+.headerLogo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 24px;
+  font-size: 14px;
+  color: var(--white);
+  letter-spacing: 0.15em;
+  z-index: 100;
+}
+
 .headerMenuButton {
   display: none;
   z-index: 100;
+  margin-left: auto;
 }
 
 .headerNavWrap {
@@ -29,7 +42,7 @@
   margin-left: auto;
   align-items: center; /* 수직 중앙 정렬 */
   justify-content: center; /* 수평 중앙 정렬 */
-  transition: all 0.2s ease-out;
+  background-color: rgba(var(--black-rgb), 0);
 }
 
 .headerNav {
@@ -52,6 +65,9 @@
 .headerNavItem.is_active {
   color: var(--orange);
 }
+.headerNavItem.is_active:after {
+  width: 100%;
+}
 
 @media all and (min-width: 768px) {
   .headerNavItem:hover {
@@ -62,7 +78,7 @@
     display: block;
     width: 0;
     height: 2px;
-    transition: 0.5s;
+    transition: 0.4s;
   }
   .headerNavItem:hover:after {
     width: 100%;
@@ -71,12 +87,20 @@
   .headerNavItem.is_active:after {
     background-color: var(--orange);
   }
+  .headerNavItem.is_active {
+    color: var(--orange);
+  }
 }
 
 @media all and (max-width: 768px) {
   .header.is_open {
     background-color: rgba(var(--black-rgb), 0);
   }
+
+  .headerWrap {
+    padding: 12px 18px;
+  }
+
   .headerNavWrap {
     position: fixed;
     left: 0;
@@ -84,21 +108,27 @@
     width: 100%;
     height: 100%;
     margin: 0;
+    opacity: 0;
+    background-color: rgba(var(--black-rgb), 0.5);
+    transition: opacity 0.4s ease-out;
   }
 
   .header.is_open .headerNavWrap {
-    background-color: rgba(var(--black-rgb), 0.5);
+    opacity: 1;
+  }
+
+  .header:not(.is_open):not(.is_openEnd) .headerNavWrap {
+    width: 0;
+    height: 0;
+    overflow: hidden;
   }
 
   .headerMenuButton {
-    display: block;
+    display: flex;
   }
 
   .header:not(.is_open) .headerNav {
     opacity: 0;
   }
 
-  .header:not(.is_openEnd):not(.is_open) .headerNav {
-    display: none;
-  }
 }
