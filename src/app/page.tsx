@@ -1,28 +1,25 @@
+"use client";
+
+import { useRef } from "react";
 import styles from "./page.module.css";
 import Header from "@/components/header";
-import Image from "next/legacy/image";
+import { Banner } from "./page.component"
 
 export default function () {
+  const testRef = useRef<HTMLDivElement>(null);
+
+  const handleShowMoreClick = () => {
+    if (testRef.current) {
+      testRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       <Header />
       <main className={styles.main}>
-        <div className={styles.banner}>
-          <Image
-            src="/images/banner_1.jpg"
-            alt="Banner Image"
-            layout="fill"
-            objectFit="cover"
-          />
-        </div>
-        <div className={styles.banner}>
-          <Image
-            src="/images/banner_1.jpg"
-            alt="Banner Image"
-            layout="fill"
-            objectFit="cover"
-          />
-        </div>
+        <Banner onShowMoreClick={handleShowMoreClick} />
+        <div ref={testRef} className={styles.test}>test</div>
       </main>
     </>
   );

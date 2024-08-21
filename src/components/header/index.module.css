@@ -101,6 +101,15 @@
     padding: 12px 18px;
   }
 
+  .headerLogo {
+    gap: 12px;
+    height: 24px;
+    font-size: 14px;
+    color: var(--white);
+    letter-spacing: 0.15em;
+    z-index: 100;
+  }
+
   .headerNavWrap {
     position: fixed;
     left: 0;
@@ -130,5 +139,4 @@
   .header:not(.is_open) .headerNav {
     opacity: 0;
   }
-
 }
