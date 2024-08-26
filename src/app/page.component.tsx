@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import styles from "./page.module.css";
+import pageStyles from "./page.module.css";
 import Image from "next/legacy/image";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
@@ -132,20 +132,20 @@ export function Banner({ onShowMoreClick }: { onShowMoreClick: () => void }) {
   bannerItems.push(bannerItems[2], bannerItems[3]);
 
   return (
-    <div className={styles.banner} ref={sliderRef} onMouseDown={handleMouseDown} onTouchStart={handleTouchStart}>
-      <div className={styles.bannerText}>
-        <strong className={styles.bannerTextTitle}>
+    <div className={pageStyles.banner} ref={sliderRef} onMouseDown={handleMouseDown} onTouchStart={handleTouchStart}>
+      <div className={pageStyles.bannerText}>
+        <strong className={pageStyles.bannerTextTitle}>
           Hello
           <br />
           I'm JooHoon
         </strong>
       </div>
 
-      <ul className={styles.bannerSlider}>
+      <ul className={pageStyles.bannerSlider}>
         {bannerItems.map((item, index) => (
           <li
             key={index}
-            className={styles.bannerSliderItem}
+            className={pageStyles.bannerSliderItem}
             style={{
               transform: `translateX(${moveDiff}%)`,
               transition: isDragging || isResetting ? "none" : "transform 0.3s",
@@ -156,8 +156,8 @@ export function Banner({ onShowMoreClick }: { onShowMoreClick: () => void }) {
         ))}
       </ul>
 
-      <button className={styles.bannerShowMore} onClick={onShowMoreClick}>
-        <div className={styles.bannerShowMoreText}>SHOW MORE</div>
+      <button className={pageStyles.bannerShowMore} onClick={onShowMoreClick}>
+        <div className={pageStyles.bannerShowMoreText}>SHOW MORE</div>
         <KeyboardArrowDownIcon style={{ width: 24, height: 24, color: "rgba(var(--white-rgb), 0.7)" }} />
       </button>
     </div>

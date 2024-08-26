@@ -1,0 +1,76 @@
+.test {
+  height: 800px;
+  background-color: var(--silver);
+}
+
+.sectionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 68px;
+  padding: 58px 0;
+  background-color: var(--white);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  flex: none;
+  width: 100%;
+  max-width: 1280px;
+  gap: 24px;
+  padding: 0 24px;
+}
+
+.sectionTitleWrap {
+  display: flex;
+  gap: 10px;
+}
+
+.sectionTitle {
+  font-size: 32px;
+  font-weight: var(--bold);
+  color: var(--black);
+}
+
+.sectionContentWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 38px;
+}
+
+.sectionContent {
+  display: flex;
+  flex: none;
+  width: 100%;
+  min-width: 300px;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.section.is_dual .sectionContent {
+  flex: 1;
+  width: calc(100% / 2 - 38px);
+}
+
+.section.is_triple .sectionContent {
+  flex: 1;
+  width: calc(100% / 3 - (38px * 2));
+}
+
+.sectionContentTitle {
+  display: flex;
+  gap: 10px;
+  font-size: 22px;
+  line-height: 24px;
+  color: var(--black);
+}
+
+.sectionContentDescription {
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--black);
+}

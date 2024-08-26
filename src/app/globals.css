@@ -47,6 +47,11 @@ table {
 
 /* root */
 :root {
+
+  /* font */
+  --bold: 700;
+
+  /* color */
   --black: #000000;
   --black-rgb: 0, 0, 0;
   --brown: #8F4700;
@@ -85,4 +90,5 @@ button {
 
 main {
   flex: 1;
+  overflow: scroll;
 }

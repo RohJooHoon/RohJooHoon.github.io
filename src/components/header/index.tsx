@@ -2,7 +2,7 @@
 
 import { useCommonStore } from "@/store/Common";
 import classNames from "classnames";
-import styles from "./index.module.css";
+import pageStyles from "./index.module.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/legacy/image";
@@ -21,29 +21,31 @@ export default function () {
   };
 
   return (
-    <div className={classNames(styles.header, { [styles.is_open]: isOpenMenu, [styles.is_openEnd]: isOpenMenuEnd })}>
-      <div className={styles.headerWrap}>
-        <Link className={styles.headerLogo} href="/">
-          <Image src="/images/logo.png" alt="Logo" width={22} height={22} />
-          PORTFOLIO
+    <div className={classNames(pageStyles.header, { [pageStyles.is_open]: isOpenMenu, [pageStyles.is_openEnd]: isOpenMenuEnd })}>
+      <div className={pageStyles.headerWrap}>
+        <Link href="/">
+          <h1 className={pageStyles.headerLogo}>
+            <Image src="/images/logo.png" alt="Logo" width={22} height={22} />
+            PORTFOLIO
+          </h1>
         </Link>
 
-        <button className={styles.headerMenuButton} key="menu-button" onClick={toggleMenu}>
+        <button className={pageStyles.headerMenuButton} key="menu-button" onClick={toggleMenu}>
           <DehazeIcon style={{ fontSize: 24, color: "var(--white)" }} />
         </button>
 
-        <div className={styles.headerNavWrap} onClick={handleNavWrapClick}>
-          <nav className={styles.headerNav}>
-            <Link className={classNames(styles.headerNavItem, { [styles.is_active]: path === "/" })} href="/">
+        <div className={pageStyles.headerNavWrap} onClick={handleNavWrapClick}>
+          <nav className={pageStyles.headerNav}>
+            <Link className={classNames(pageStyles.headerNavItem, { [pageStyles.is_active]: path === "/" })} href="/">
               Home
             </Link>
-            <Link className={classNames(styles.headerNavItem, { [styles.is_active]: path === "/work" })} href="/work">
+            <Link className={classNames(pageStyles.headerNavItem, { [pageStyles.is_active]: path === "/work" })} href="/work">
               Work
             </Link>
-            <Link className={classNames(styles.headerNavItem, { [styles.is_active]: path === "/blog" })} href="/blog">
+            <Link className={classNames(pageStyles.headerNavItem, { [pageStyles.is_active]: path === "/blog" })} href="/blog">
               Blog
             </Link>
-            <Link className={classNames(styles.headerNavItem, { [styles.is_active]: path === "/contact" })} href="/contact">
+            <Link className={classNames(pageStyles.headerNavItem, { [pageStyles.is_active]: path === "/contact" })} href="/contact">
               Contact
             </Link>
           </nav>

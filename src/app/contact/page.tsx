@@ -4,7 +4,7 @@ export default function () {
   return (
     <>
       <Header />
-      <h1>contact</h1>
+      <h1>work</h1>
     </>
   );
 }
