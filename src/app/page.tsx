@@ -19,7 +19,7 @@ export default function Page() {
     setIsLoading(true); // 로딩 상태 시작
 
     try {
-      const response = await fetch("/api/sendEmail", {
+      const response = await fetch(`http://${process.env.NEXT_PUBLIC_EC2_INSTANCE_PUBLIC_IP}:3100/send-email`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
