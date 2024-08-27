@@ -1,3 +1,24 @@
+/* root */
+:root {
+
+  /* font */
+  --bold: 700;
+
+  /* color */
+  --black: #000000;
+  --black-rgb: 0, 0, 0;
+  --brown: #8F4700;
+  --brown-rgb: 143, 71, 0;
+  --orange: #FF8000;
+  --orange-rgb: 255, 128, 0;
+  --peach: #FFB870;
+  --peach-rgb: 255, 184, 112;
+  --silver: #C5C3BE;
+  --silver-rgb: 197, 195, 190;
+  --white: #FFFFFF;
+  --white-rgb: 255, 255, 255;
+}
+
 /* reset.css */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -45,27 +66,6 @@ table {
   border-spacing: 0;
 }
 
-/* root */
-:root {
-
-  /* font */
-  --bold: 700;
-
-  /* color */
-  --black: #000000;
-  --black-rgb: 0, 0, 0;
-  --brown: #8F4700;
-  --brown-rgb: 143, 71, 0;
-  --orange: #FF8000;
-  --orange-rgb: 255, 128, 0;
-  --peach: #FFB870;
-  --peach-rgb: 255, 184, 112;
-  --silver: #C5C3BE;
-  --silver-rgb: 197, 195, 190;
-  --white: #FFFFFF;
-  --white-rgb: 255, 255, 255;
-}
-
 /* common.css */
 html,
 body,
@@ -91,4 +91,8 @@ button {
 main {
   flex: 1;
   overflow: scroll;
+}
+
+textarea:focus-visible, input:focus-visible {
+  outline-color: var(--orange);
 }
