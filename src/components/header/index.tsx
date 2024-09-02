@@ -42,7 +42,7 @@ export default function () {
             <Link className={classNames(pageStyles.headerNavItem, { [pageStyles.is_active]: path === "/work" })} href="/work">
               Work
             </Link>
-            <Link className={classNames(pageStyles.headerNavItem, { [pageStyles.is_active]: path === "/blog" })} href="/blog">
+            <Link className={pageStyles.headerNavItem} href="https://hand-easy-master.tistory.com/" target="_blank">
               Blog
             </Link>
           </nav>

@@ -19,15 +19,13 @@ export default function Page() {
     setIsLoading(true); // 로딩 상태 시작
 
     try {
-      const response = await fetch(`http://${process.env.NEXT_PUBLIC_EC2_INSTANCE_PUBLIC_IP}:3100/send-email`, {
+      const response = await fetch(`https://${process.env.NEXT_PUBLIC_EC2_INSTANCE_PUBLIC_IP}.nip.io/send-email`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, name, message }),
       });
-
-      console.log("response : ", response);
 
       if (response.ok) {
         alert("이메일이 성공적으로 전송되었습니다.");
@@ -72,7 +70,7 @@ export default function Page() {
       result = false;
     }
 
-    setFormChecked(result)
+    setFormChecked(result);
   };
 
   return (
@@ -185,18 +183,38 @@ export default function Page() {
               {/* Contact Form */}
               <div className={commonStyles.sectionContent}>
                 <form className={commonStyles.sectionForm} onSubmit={handleSendEmail}>
-                  <input className={commonStyles.sectionFormInput} type="email" name="email" placeholder="Return Email" value={email} onChange={(e) => {
-                    setEmail(e.target.value);
-                    formCheck('email', e.target.value);
-                  }} />
-                  <input className={commonStyles.sectionFormInput} type="text" name="name" placeholder="Name" value={name} onChange={(e) => {
-                    setName(e.target.value);
-                    formCheck('name', e.target.value);
-                  }} />
-                  <textarea className={commonStyles.sectionFormTextArea} name="message" placeholder="Message" value={message} onChange={(e) => {
-                    setMessage(e.target.value);
-                    formCheck('message', e.target.value);
-                  }} />
+                  <input
+                    className={commonStyles.sectionFormInput}
+                    type="email"
+                    name="email"
+                    placeholder="Return Email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      formCheck("email", e.target.value);
+                    }}
+                  />
+                  <input
+                    className={commonStyles.sectionFormInput}
+                    type="text"
+                    name="name"
+                    placeholder="Name"
+                    value={name}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                      formCheck("name", e.target.value);
+                    }}
+                  />
+                  <textarea
+                    className={commonStyles.sectionFormTextArea}
+                    name="message"
+                    placeholder="Message"
+                    value={message}
+                    onChange={(e) => {
+                      setMessage(e.target.value);
+                      formCheck("message", e.target.value);
+                    }}
+                  />
                   <div className={commonStyles.sectionFormBox}>
                     <button className={commonStyles.sectionFormSend} type="submit" disabled={!formChecked || isLoading}>
                       {isLoading ? "전송 중..." : "전송"}
