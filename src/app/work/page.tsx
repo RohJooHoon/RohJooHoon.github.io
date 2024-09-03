@@ -46,30 +46,6 @@ export default function () {
               </div>
             </div>
           </section>
-
-          {/* Work Experiences */}
-          <section className={`${commonStyles.section} ${commonStyles.is_flex}`}>
-            <div className={commonStyles.sectionTitleWrap}>
-              <h2 className={commonStyles.sectionTitle}>Work Experiences</h2>
-            </div>
-            <div className={commonStyles.sectionContentWrap}>
-              <div className={commonStyles.sectionContent}>
-                <strong className={commonStyles.sectionContentTitle}>키위스냅</strong>
-                <p className={commonStyles.sectionContentDescription}>대리 / Front-End Development</p>
-                <p className={commonStyles.sectionContentInfo}>2020.11 - 2024.03</p>
-              </div>
-              <div className={commonStyles.sectionContent}>
-                <strong className={commonStyles.sectionContentTitle}>더클로젯컴퍼니</strong>
-                <p className={commonStyles.sectionContentDescription}>주임 / Front-End Development</p>
-                <p className={commonStyles.sectionContentInfo}>2020.04 - 2020.11</p>
-              </div>
-              <div className={commonStyles.sectionContent}>
-                <strong className={commonStyles.sectionContentTitle}>에이치나인</strong>
-                <p className={commonStyles.sectionContentDescription}>주임 / DEV</p>
-                <p className={commonStyles.sectionContentInfo}>2017.04 - 2020.01</p>
-              </div>
-            </div>
-          </section>
         </div>
       </main>
     </>
