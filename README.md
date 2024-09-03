@@ -18,7 +18,6 @@
 - **AWS (EC2, S3, CloudFront)**  
 - **GIT (Actions, Pages)**
 - **node.js**
-- **mysql**
 - **웹표준**
 - **접근성**
 

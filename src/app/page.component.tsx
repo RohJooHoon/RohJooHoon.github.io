@@ -134,11 +134,18 @@ export function Banner({ onShowMoreClick }: { onShowMoreClick: () => void }) {
   return (
     <div className={pageStyles.banner} ref={sliderRef} onMouseDown={handleMouseDown} onTouchStart={handleTouchStart}>
       <div className={pageStyles.bannerText}>
-        <strong className={pageStyles.bannerTextTitle}>
-          Hello
+        <div>
+          <strong className={pageStyles.bannerTextTitle}>
+            Hello
+            <br />
+            I'm JooHoon
+          </strong>
+        </div>
+        <p className={pageStyles.bannerTextDescription}>
+          I'm a web developer, I like to explore new ways.
           <br />
-          I'm JooHoon
-        </strong>
+          Create what I want without following others.
+        </p>
       </div>
 
       <ul className={pageStyles.bannerSlider}>

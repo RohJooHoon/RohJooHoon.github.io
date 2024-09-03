@@ -1,9 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { CommonStoreProvider } from "@/store/Common";
+import Header from "@/components/header";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  weight: ["400", "700"],
+  style: ["normal"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "RohJooHoon - Portfolio",
@@ -22,7 +28,10 @@ export default function ({
   return (
     <CommonStoreProvider>
       <html lang="kr">
-        <body className={inter.className}>{children}</body>
+        <body className={poppins.className}>
+          <Header />
+          {children}
+        </body>
       </html>
     </CommonStoreProvider>
   );

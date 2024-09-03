@@ -22,14 +22,22 @@
 .bannerTextTitle {
   display: inline-block;
   font-weight: var(--bold);
-  line-height: 1.3;
+  line-height: 1.1;
   font-size: 82px;
   word-break: keep-all;
   white-space: nowrap;
-  margin-bottom: 0;
-  background: linear-gradient(0.25turn, var(--orange) 0%, var(--white) 50%);
+  background: linear-gradient(0.3turn, var(--peach) 10%, var(--lemon) 90%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.bannerTextDescription {
+  display: inline-block;
+  font-size: 16px;
+  letter-spacing: 0.03em;
+  line-height: 2;
+  color: var(--white);
+  margin-top: 12px;
 }
 
 .bannerSlider {
@@ -51,10 +59,14 @@
 }
 
 @keyframes moveUpDown {
-  0%, 80%, 90%, 100% {
+  0%,
+  80%,
+  90%,
+  100% {
     bottom: 4px;
   }
-  84%, 94% {
+  84%,
+  94% {
     bottom: -4px;
   }
 }
@@ -77,10 +89,20 @@
   letter-spacing: 0.08em;
 }
 
-
 @media all and (max-width: 768px) {
+  .bannerText {
+    padding: 0 16px;
+  }
+
   .bannerTextTitle {
     font-size: 42px;
+  }
+
+  .bannerTextDescription {
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 1.4;
+    margin-top: 4px;
   }
 
   .bannerShowMore {
