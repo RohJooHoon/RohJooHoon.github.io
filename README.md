@@ -23,7 +23,7 @@
 
 ## 사이트 보기
 
-- 라이브 포트폴리오 사이트: [rohjoohoon.github.io](https://rohjoohoon.github.io)
+- 라이브 포트폴리오 사이트 ( 작업중 ): [rohjoohoon.github.io](https://rohjoohoon.github.io)
 - EC2 리포지토리: [github.com/RohJooHoon/EC2](https://github.com/RohJooHoon/EC2)
 
 ## 연락처
