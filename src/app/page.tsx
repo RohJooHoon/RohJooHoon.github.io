@@ -1,11 +1,14 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import commonStyles from "@/app/common.module.css";
+import styles from "@/app/page.module.css";
+import Image from "next/image";
 import { Banner } from "./page.component";
 
 export default function Page() {
   const firstSectionRef = useRef<HTMLDivElement>(null);
+  const [bannerBgColor, setBannerBgColor] = useState("transparent");
 
   const handleShowMoreClick = () => {
     if (firstSectionRef.current) {
@@ -13,10 +16,83 @@ export default function Page() {
     }
   };
 
+  const handleScroll = () => {
+    const scrollY = window.scrollY;
+    if (scrollY > 50) {
+      setBannerBgColor("#FFF");
+    } else {
+      setBannerBgColor("transparent");
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <>
       <main className={commonStyles.main}>
-        <Banner onShowMoreClick={handleShowMoreClick} />
+        <Banner onShowMoreClick={handleShowMoreClick} bgColor={bannerBgColor} />
+
+        {/* 1 */}
+        <section className={styles.section}>
+          <div className={styles.sectionBgLayer} style={{ backgroundColor: "#cbcaca" }}>
+            <Image src={"/images/bg_1.jpg"} alt={""} className={styles.sectionBg} width={0} height={0} />
+          </div>
+          <div className={styles.sectionContentLayer}></div>
+        </section>
+
+        {/* 2 */}
+        <section className={styles.section}>
+          <div className={styles.sectionBgLayer} style={{ backgroundColor: "#64666a" }}>
+            <Image src={"/images/bg_2.jpg"} alt={""} className={styles.sectionBg} width={0} height={0} />
+          </div>
+          <div className={styles.sectionContentLayer}></div>
+        </section>
+
+        {/* 3 */}
+        <section className={styles.section}>
+          <div className={styles.sectionBgLayer} style={{ backgroundColor: "#cbcaca" }}>
+            <Image src={"/images/bg_3.jpg"} alt={""} className={styles.sectionBg} width={0} height={0} />
+          </div>
+          <div className={styles.sectionContentLayer}></div>
+        </section>
+
+        {/* 4 */}
+        <section className={styles.section}>
+          <div className={styles.sectionBgLayer} style={{ backgroundColor: "#d9d6c8" }}>
+            <Image src={"/images/bg_4.jpg"} alt={""} className={styles.sectionBg} width={0} height={0} />
+          </div>
+          <div className={styles.sectionContentLayer}></div>
+        </section>
+
+        {/* 5 */}
+        <section className={styles.section}>
+          <div className={styles.sectionBgLayer} style={{ backgroundColor: "#bbbaba" }}>
+            <Image src={"/images/bg_5.jpg"} alt={""} className={styles.sectionBg} width={0} height={0} />
+          </div>
+          <div className={styles.sectionContentLayer}></div>
+        </section>
+
+        {/* 6 */}
+        <section className={styles.section}>
+          <div className={styles.sectionBgLayer} style={{ backgroundColor: "#929e9a" }}>
+            <Image src={"/images/bg_6.jpg"} alt={""} className={styles.sectionBg} width={0} height={0} />
+          </div>
+          <div className={styles.sectionContentLayer}></div>
+        </section>
+
+        {/* 0 */}
+        <section className={styles.section}>
+          <div className={styles.sectionBgLayer} style={{ backgroundColor: "#04050a" }}>
+            <Image src={"/images/bg_0.jpg"} alt={""} className={styles.sectionBg} width={0} height={0} />
+          </div>
+          <div className={styles.sectionContentLayer}></div>
+        </section>
+
         <div className={commonStyles.sectionContainer} ref={firstSectionRef}>
           {/* About Me */}
           <section className={commonStyles.section}>
