@@ -1,30 +1,55 @@
 /* Section */
 .section {
-  position: relative;
-}
-
-.sectionBgLayer {
-  position: relative;
   display: flex;
-  min-height: 300px;
-  overflow: hidden;
+  position: relative;
 }
 
 .sectionBg {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: auto;
-  height: 100%;
-}
-
-.sectionContentLayer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+}
+
+.sectionBgImage {
+  flex: none;
+  width: auto;
+  height: 100%;
+  transition: all 0.3s ease-out;
+}
+
+.sectionBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  min-height: 100px;
+  padding: 80px 60px;
+  z-index: 1;
+}
+
+.sectionTitle {
+  font-size: 32px;
+  font-weight: var(--bold);
+  line-height: 1.1;
+  color: var(--white);
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.sectionDescription {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--white);
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* Banner */
@@ -51,6 +76,7 @@
 
 .bannerTextTitle {
   display: inline-block;
+  position: relative;
   font-weight: var(--bold);
   line-height: 1.1;
   font-size: 82px;
@@ -61,6 +87,19 @@
   -webkit-text-fill-color: transparent;
 }
 
+.bannerTextTitle::after {
+  display: block;
+  content: "Hello\AI'm JooHoon";
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: pre-wrap; /* 또는 pre */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+
 .bannerTextDescription {
   display: inline-block;
   font-size: 16px;
@@ -68,6 +107,7 @@
   line-height: 2;
   color: var(--white);
   margin-top: 12px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .bannerSlider {
@@ -120,6 +160,23 @@
 }
 
 @media all and (max-width: 768px) {
+  /* Section */
+  .sectionBox {
+    padding: 80px 16px;
+    gap: 8px;
+  }
+
+  .sectionTitle {
+    font-size: 26px;
+    line-height: 1.1;
+  }
+  
+  .sectionDescription {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* Banner */
   .bannerText {
     padding: 0 16px;
   }

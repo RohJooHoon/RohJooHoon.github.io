@@ -8,7 +8,10 @@ import { Banner } from "./page.component";
 
 export default function Page() {
   const firstSectionRef = useRef<HTMLDivElement>(null);
-  const [bannerBgColor, setBannerBgColor] = useState("transparent");
+  const mainRef = useRef<HTMLElement>(null);
+  const [loadCheck, setLoadCheck] = useState(false);
+  const [mainTop, setMainTop] = useState(0);
+  const sectionRef1 = useRef<HTMLDivElement>(null);
 
   const handleShowMoreClick = () => {
     if (firstSectionRef.current) {
@@ -16,95 +19,143 @@ export default function Page() {
     }
   };
 
-  const handleScroll = () => {
-    const scrollY = window.scrollY;
-    if (scrollY > 50) {
-      setBannerBgColor("#FFF");
-    } else {
-      setBannerBgColor("transparent");
+  const handleScroll = (e: Event) => {
+    const mainScrollTop = mainRef.current?.scrollTop || 0;
+    setMainTop(mainScrollTop);
+  };
+
+  const animateStyle = (data: { target: React.RefObject<HTMLDivElement>; startEnd?: string; percent?: number; gap?: number; test?: string }) => {
+    let result = 1;
+
+    if (loadCheck && data.target.current) {
+      const mainHeight = mainRef.current?.clientHeight || 0;
+      const mainBottom = mainTop + mainHeight || 0;
+
+      const targetTop = mainTop + data.target.current?.getBoundingClientRect().top;
+      const targetHeight = data.target.current?.clientHeight || 0;
+      const targetBottom = targetTop + targetHeight;
+
+      if (data.startEnd === "bottomTop") {
+        // bottomTop
+        result = 1 - (targetTop - mainTop) / (mainHeight - targetHeight);
+      } else if (data.startEnd === "topTop") {
+        // topTop
+        result = 1 - (targetTop - mainTop) / mainHeight;
+      } else if (data.startEnd === "bottomBottom") {
+        // bottomBottom
+        result = (mainBottom - targetBottom) / targetTop;
+      } else {
+        // topBottom
+        result = 1 - (targetBottom - mainTop) / targetBottom;
+      }
+
+      if (result > 1) {
+        result = 1;
+      } else if (result < 0) {
+        result = 0;
+      }
+
+      if (data.percent) {
+        result = result * data.percent;
+      }
+
+      if (data.gap) {
+        result = result + data.gap;
+      }
     }
+
+    return result;
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    setLoadCheck(true);
+  }, ["mainRef"]);
+
+  useEffect(() => {
+    const mainElement = mainRef.current;
+    if (mainElement) {
+      mainElement.addEventListener("scroll", handleScroll);
+    }
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      if (mainElement) {
+        mainElement.removeEventListener("scroll", handleScroll);
+      }
     };
   }, []);
 
   return (
     <>
-      <main className={commonStyles.main}>
-        <Banner onShowMoreClick={handleShowMoreClick} bgColor={bannerBgColor} />
+      <main className={commonStyles.main} ref={mainRef}>
+        <Banner onShowMoreClick={handleShowMoreClick} />
 
         {/* 1 */}
-        <section className={styles.section}>
-          <div className={styles.sectionBgLayer} style={{ backgroundColor: "#cbcaca" }}>
-            <Image src={"/images/bg_1.jpg"} alt={""} className={styles.sectionBg} width={0} height={0} />
+        <section className={styles.section} ref={sectionRef1}>
+          <div className={styles.sectionBg} style={{ backgroundColor: "#cbcaca" }}>
+            <Image
+              className={styles.sectionBgImage}
+              src={"/images/bg_1.jpg"}
+              alt={""}
+              objectFit="contain"
+              width={0}
+              height={0}
+              style={{
+                transform: `translate(${animateStyle({ target: sectionRef1, percent: 40, gap: -17 })}%, ${animateStyle({ target: sectionRef1, percent: -25 })}%) scale(${animateStyle({ target: sectionRef1, percent: 0.5, gap: 1 })})`,
+                opacity: animateStyle({ target: sectionRef1, startEnd: "bottomBottom", percent: -1, gap: 1 }),
+              }}
+            />
           </div>
-          <div className={styles.sectionContentLayer}></div>
+          <div className={styles.sectionBox}>
+            <h2 className={styles.sectionTitle}>About Me</h2>
+            <p className={styles.sectionDescription}>
+              안녕하세요 노주훈의 포트폴리오 사이트에 오신 것을 환영합니다.
+              <br />이 사이트는 저의 프론트엔드 개발자로서의 기술과 프로젝트를 소개하는 공간입니다.
+            </p>
+          </div>
         </section>
 
         {/* 2 */}
-        <section className={styles.section}>
+        {/* <section className={styles.section}>
           <div className={styles.sectionBgLayer} style={{ backgroundColor: "#64666a" }}>
             <Image src={"/images/bg_2.jpg"} alt={""} className={styles.sectionBg} width={0} height={0} />
           </div>
           <div className={styles.sectionContentLayer}></div>
-        </section>
+        </section> */}
 
         {/* 3 */}
-        <section className={styles.section}>
+        {/* <section className={styles.section}>
           <div className={styles.sectionBgLayer} style={{ backgroundColor: "#cbcaca" }}>
             <Image src={"/images/bg_3.jpg"} alt={""} className={styles.sectionBg} width={0} height={0} />
           </div>
           <div className={styles.sectionContentLayer}></div>
-        </section>
+        </section> */}
 
         {/* 4 */}
-        <section className={styles.section}>
+        {/* <section className={styles.section}>
           <div className={styles.sectionBgLayer} style={{ backgroundColor: "#d9d6c8" }}>
             <Image src={"/images/bg_4.jpg"} alt={""} className={styles.sectionBg} width={0} height={0} />
           </div>
           <div className={styles.sectionContentLayer}></div>
-        </section>
+        </section> */}
 
         {/* 5 */}
-        <section className={styles.section}>
-          <div className={styles.sectionBgLayer} style={{ backgroundColor: "#bbbaba" }}>
+        {/* <section className={styles.section}>
+          <div className={styles.sectionBgLayer} style={{ backgroundColor: "#939e9c" }}>
             <Image src={"/images/bg_5.jpg"} alt={""} className={styles.sectionBg} width={0} height={0} />
           </div>
           <div className={styles.sectionContentLayer}></div>
-        </section>
-
-        {/* 6 */}
-        <section className={styles.section}>
-          <div className={styles.sectionBgLayer} style={{ backgroundColor: "#929e9a" }}>
-            <Image src={"/images/bg_6.jpg"} alt={""} className={styles.sectionBg} width={0} height={0} />
-          </div>
-          <div className={styles.sectionContentLayer}></div>
-        </section>
+        </section> */}
 
         {/* 0 */}
-        <section className={styles.section}>
-          <div className={styles.sectionBgLayer} style={{ backgroundColor: "#04050a" }}>
-            <Image src={"/images/bg_0.jpg"} alt={""} className={styles.sectionBg} width={0} height={0} />
+        {/* <section className={styles.section}>
+          <div className={styles.sectionBgLayer} style={{ backgroundColor: "#1b1b1c" }}>
+            <Image src={"/images/bg_0.jpg"} alt={""} fill objectFit="contain" width={0} height={0} />
           </div>
           <div className={styles.sectionContentLayer}></div>
-        </section>
+        </section> */}
 
         <div className={commonStyles.sectionContainer} ref={firstSectionRef}>
           {/* About Me */}
-          <section className={commonStyles.section}>
-            <div className={commonStyles.sectionTitleWrap}>
-              <h2 className={commonStyles.sectionTitle}>About Me</h2>
-            </div>
-            <div className={commonStyles.sectionContentWrap}>
-              <div className={commonStyles.sectionContent}>
-                <p className={commonStyles.sectionContentDescription}>안녕하세요 노주훈의 포트폴리오 사이트에 오신 것을 환영합니다. 이 사이트는 저의 프론트엔드 개발자로서의 기술과 프로젝트를 소개하는 공간입니다.</p>
-              </div>
-            </div>
-          </section>
+          <section className={commonStyles.section}></section>
 
           {/* Work Experiences */}
           <section className={`${commonStyles.section} ${commonStyles.is_flex}`}>

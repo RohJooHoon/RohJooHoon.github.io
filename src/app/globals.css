@@ -70,6 +70,7 @@ table {
 html,
 body,
 main {
+  overflow: hidden;
   height: 100%;
 }
 

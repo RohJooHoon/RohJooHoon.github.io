@@ -3,7 +3,7 @@ import pageStyles from "./page.module.css";
 import Image from "next/legacy/image";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
-export function Banner({ onShowMoreClick, bgColor }: { onShowMoreClick: () => void, bgColor: string }) {
+export function Banner({ onShowMoreClick }: { onShowMoreClick: () => void }) {
   const [windowWidth, setWindowWidth] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
   const [startX, setStartX] = useState(0);
