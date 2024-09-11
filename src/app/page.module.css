@@ -1,4 +1,8 @@
 /* Section */
+.sectionWrap {
+  
+}
+
 .section {
   display: flex;
   position: relative;
@@ -20,7 +24,6 @@
   flex: none;
   width: auto;
   height: 100%;
-  transition: all 0.3s ease-out;
 }
 
 .sectionBox {
@@ -40,6 +43,7 @@
   font-weight: var(--bold);
   line-height: 1.1;
   color: var(--white);
+  letter-spacing: 0.02em;
   text-align: center;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
