@@ -26,28 +26,27 @@ export default function Page() {
     setMainTop(mainScrollTop);
   };
 
-  let animateIndex = 0;
-  const animateStyle = (data: { target: React.RefObject<HTMLDivElement>; startEnd?: string; start?: number; end?: number; range?: number }) => {
+  const animateStyle = (target: React.RefObject<HTMLDivElement>, value: { [key: number]: number }, type?: "min" | "top" | "bottom" | "max") => {
     let result = 1;
 
-    if (loadCheck && data.target.current) {
+    if (loadCheck && target.current) {
       const mainHeight = mainRef.current?.clientHeight || 0;
       const mainBottom = mainTop + mainHeight || 0;
-      const targetTop = mainTop + data.target.current?.getBoundingClientRect().top;
-      const targetHeight = data.target.current?.clientHeight || 0;
+      const targetTop = mainTop + target.current?.getBoundingClientRect().top;
+      const targetHeight = target.current?.clientHeight || 0;
       const targetBottom = targetTop + targetHeight;
 
-      if (data.startEnd === "bottomTop") {
+      if (type === "min") {
         // bottomTop
         if (targetHeight > mainHeight) {
           result = (mainBottom - (targetTop + mainHeight)) / (targetHeight - mainHeight);
         } else {
           result = (mainBottom - targetBottom) / (mainHeight - targetHeight);
         }
-      } else if (data.startEnd === "topTop") {
+      } else if (type === "top") {
         // topTop
         result = (mainBottom - targetTop) / mainHeight;
-      } else if (data.startEnd === "bottomBottom") {
+      } else if (type === "bottom") {
         // bottomBottom
         result = (mainBottom - targetBottom) / mainHeight;
       } else {
@@ -55,30 +54,32 @@ export default function Page() {
         result = (mainBottom - targetTop) / (mainHeight + targetHeight);
       }
 
-      // if (result > 1) {
-      //   result = 1;
-      // } else if (result < 0) {
-      //   result = 0;
-      // }
-
-      if (animateIndex == 3 || animateIndex == 4) {
-        console.log(`#######`);
-        console.log(`animateIndex : ${animateIndex}`);
-        console.log(`result1 : ${result}`);
-        console.log(`data.start : ${data.start}`);
-        console.log(`data.end : ${data.end}`);
-        console.log(`mainTop : ${mainTop}`);
-        console.log(`mainBottom : ${mainBottom}`);
-        console.log(`mainHeight : ${mainHeight}`);
-        console.log(`targetTop : ${targetTop}`);
-        console.log(`targetBottom : ${targetBottom}`);
-        console.log(`targetHeight : ${targetHeight}`);
+      if (result > 1) {
+        result = 1;
+      } else if (result < 0) {
+        result = 0;
       }
-      animateIndex++;
 
-      if (data.start !== undefined && data.end !== undefined) {
-        result = data.start - (data.start - data.end) * result;
+      // Calculate the value based on the result
+      const keys = Object.keys(value)
+        .map(Number)
+        .sort((a, b) => a - b);
+      let calculatedValue = value[keys[0]];
+
+      for (let i = 0; i < keys.length - 1; i++) {
+        const startKey = keys[i];
+        const endKey = keys[i + 1];
+        if (result * 100 >= startKey && result * 100 <= endKey) {
+          const startValue = value[startKey];
+          const endValue = value[endKey];
+          const range = endKey - startKey;
+          const progress = (result * 100 - startKey) / range;
+          calculatedValue = startValue + (endValue - startValue) * progress;
+          break;
+        }
       }
+
+      return calculatedValue;
     }
 
     return result;
@@ -125,8 +126,8 @@ export default function Page() {
               width={0}
               height={0}
               style={{
-                transform: `translate(${animateStyle({ target: sectionRef1, startEnd: "topBottom", start: -25, end: 20 })}%, ${animateStyle({ target: sectionRef1, startEnd: "topBottom", start: -25, end: 25 })}%) scale(${animateStyle({ target: sectionRef1, startEnd: "topBottom", start: 1, end: 1.5 })})`,
-                opacity: animateStyle({ target: sectionRef1, startEnd: "bottomTop", start: 1, end: 0 }),
+                transform: `translate(${animateStyle(sectionRef1, { 0: -25, 100: 20 }, "max")}%, ${animateStyle(sectionRef1, { 0: -25, 100: 25 }, "max")}%) scale(${animateStyle(sectionRef1, { 0: 1, 100: 1.5 }, "max")})`,
+                opacity: animateStyle(sectionRef1, { 0: 1, 100: 0 }, "min"),
               }}
             />
           </div>
@@ -144,7 +145,7 @@ export default function Page() {
           ref={sectionWrapRef1}
           style={{
             height: "calc(100% + 500px)",
-            backgroundColor: `rgb(${animateStyle({ target: sectionWrapRef1, startEnd: "bottomTop", start: 255, end: 251 })}, ${animateStyle({ target: sectionWrapRef1, startEnd: "bottomTop", start: 255, end: 91 })}, ${animateStyle({ target: sectionWrapRef1, startEnd: "bottomTop", start: 255, end: 96 })})`,
+            backgroundColor: `rgb(${animateStyle(sectionWrapRef1, { 0: 255, 100: 251 }, "min")}, ${animateStyle(sectionWrapRef1, { 0: 255, 100: 91 }, "min")}, ${animateStyle(sectionWrapRef1, { 0: 255, 100: 96 }, "min")})`,
           }}
         ></div>
 
