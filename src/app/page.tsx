@@ -130,8 +130,16 @@ export default function Page() {
           <div className={styles.sectionBox}>
             <h2 className={styles.sectionTitle}>Hello</h2>
             <p className={styles.sectionDescription}>
-              안녕하세요 노주훈의 포트폴리오 사이트에 오신 것을 환영합니다.
-              <br />이 사이트는 저의 프론트엔드 개발자로서의 기술과 프로젝트를 소개하는 공간입니다.
+              안녕하세요 노주훈의 포트폴리오 사이트에 오신 것을 환영합니다.<br />
+              이 사이트는 저의 프론트엔드 개발자로서의 기술과 프로젝트를 소개하는 공간입니다.<br />
+              <br />
+              기술 스택은 next 14버전 TypeScript 로 제작되었으며,<br />
+              GitHub Action 를 통해 CI/CD 배포 자동화 구축이 되어있습니다.<br />
+              Contact 페이지의 입력폼은 AWS EC2 Ubuntu 웹서버를 세팅되어있으며<br />
+              node.js 로 제작한 api를 호출하여 메일 전송 기능이 구현되어있습니다. <br />
+              <br />
+              이미지 리소스는 직접 찍은 사진과 미드저니로 직접 생성한 리소스를 사용하였습니다.<br />
+              그 외 부분은 아직 미완성 상태로, 제작중 입니다.<br />
             </p>
           </div>
         </section>
@@ -147,7 +155,7 @@ export default function Page() {
           </div>
           <div className={styles.sectionBox}>
             <h2 className={styles.sectionTitle}>업무</h2>
-            <p className={styles.sectionDescription}>블라블라 이것 저것 블라블라</p>
+            <p className={styles.sectionDescription}>작업중 작업중 작업중</p>
           </div>
         </section>
 
