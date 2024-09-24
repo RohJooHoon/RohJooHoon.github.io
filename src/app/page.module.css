@@ -57,6 +57,11 @@
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+.sectionDescriptionLink {
+  font-weight: var(--bold);
+  color: var(--white);
+}
+
 /* Banner */
 .banner {
   display: block;
