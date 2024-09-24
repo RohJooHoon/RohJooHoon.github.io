@@ -13,12 +13,14 @@
 
 .sectionContainer {
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 88px;
   padding: 36px 0;
   background-color: var(--white);
+  z-index: 1;
 }
 
 .section {

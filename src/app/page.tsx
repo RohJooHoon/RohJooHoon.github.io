@@ -7,13 +7,18 @@ import Image from "next/image";
 import { Banner } from "./page.component";
 
 export default function Page() {
-  const mainRef = useRef<HTMLElement>(null);
+  const [documentLoaded, setDocumentLoaded] = useState(false);
   const [loadCheck, setLoadCheck] = useState(false);
   const [mainTop, setMainTop] = useState(0);
+  const mainRef = useRef<HTMLElement>(null);
   const sectionWrapRef1 = useRef<HTMLDivElement>(null);
   const sectionRef1 = useRef<HTMLDivElement>(null);
   const sectionRef2 = useRef<HTMLDivElement>(null);
   const sectionRef3 = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setDocumentLoaded(true);
+  }, []);
 
   const handleShowMoreClick = () => {
     if (sectionRef1.current) {
@@ -106,15 +111,6 @@ export default function Page() {
       <main className={commonStyles.main} ref={mainRef}>
         <Banner onShowMoreClick={handleShowMoreClick} />
 
-        {/* 2 */}
-        <section className={styles.section} ref={sectionRef2}>
-          <div className={styles.sectionBg} style={{ backgroundColor: "#64666a" }}></div>
-          <div className={styles.sectionBox}>
-            <h2 className={styles.sectionTitle}>업무</h2>
-            <p className={styles.sectionDescription}>블라블라 이것 저것 블라블라</p>
-          </div>
-        </section>
-
         {/* 1 */}
         <section className={styles.section} ref={sectionRef1}>
           <div className={styles.sectionBg} style={{ backgroundColor: "#cbcaca" }}>
@@ -126,8 +122,8 @@ export default function Page() {
               width={0}
               height={0}
               style={{
-                transform: `translate(${animateStyle(sectionRef1, { 0: -25, 100: 20 }, "max")}%, ${animateStyle(sectionRef1, { 0: -25, 100: 25 }, "max")}%) scale(${animateStyle(sectionRef1, { 0: 1, 100: 1.5 }, "max")})`,
-                opacity: animateStyle(sectionRef1, { 0: 1, 100: 0 }, "min"),
+                transform: `translate(${animateStyle(sectionRef1, { 0: -30, 100: 30 }, "max")}%, ${animateStyle(sectionRef1, { 0: 25, 100: -25 }, "max")}%) scale(${animateStyle(sectionRef1, { 0: 1, 100: 1.5 }, "max")})`,
+                opacity: animateStyle(sectionRef1, { 0: 1, 100: 0 }, "bottom"),
               }}
             />
           </div>
@@ -140,11 +136,26 @@ export default function Page() {
           </div>
         </section>
 
+        {/* 2 */}
+        <section className={styles.section} ref={sectionRef2} style={{ zIndex: "0" }}>
+          <div className={styles.sectionBg} style={{ backgroundColor: "#64666a" }}>
+            {documentLoaded && (
+              <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%" }}>
+                <Image className={styles.sectionBgImage} src={"/images/bg_2.jpg"} alt={""} objectFit="cover" layout="fill" />
+              </div>
+            )}
+          </div>
+          <div className={styles.sectionBox}>
+            <h2 className={styles.sectionTitle}>업무</h2>
+            <p className={styles.sectionDescription}>블라블라 이것 저것 블라블라</p>
+          </div>
+        </section>
+
         <div
           className={styles.sectionWrap}
           ref={sectionWrapRef1}
           style={{
-            height: "calc(100% + 500px)",
+            height: "calc(100% + 1500px)",
             backgroundColor: `rgb(${animateStyle(sectionWrapRef1, { 0: 255, 100: 251 }, "min")}, ${animateStyle(sectionWrapRef1, { 0: 255, 100: 91 }, "min")}, ${animateStyle(sectionWrapRef1, { 0: 255, 100: 96 }, "min")})`,
           }}
         ></div>
