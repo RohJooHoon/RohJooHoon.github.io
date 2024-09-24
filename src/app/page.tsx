@@ -16,6 +16,8 @@ export default function Page() {
   const sectionRef1 = useRef<HTMLDivElement>(null);
   const sectionRef2 = useRef<HTMLDivElement>(null);
   const sectionRef3 = useRef<HTMLDivElement>(null);
+  const sectionRef4 = useRef<HTMLDivElement>(null);
+  const sectionRef5 = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setDocumentLoaded(true);
@@ -113,20 +115,13 @@ export default function Page() {
         <Banner onShowMoreClick={handleShowMoreClick} />
 
         {/* 1 */}
-        <section className={styles.section} ref={sectionRef1}>
-          <div className={styles.sectionBg} style={{ backgroundColor: "#cbcaca" }}>
-            <Image
-              className={styles.sectionBgImage}
-              src={"/images/bg_1.jpg"}
-              alt={""}
-              objectFit="contain"
-              width={0}
-              height={0}
-              style={{
-                transform: `translate(${animateStyle(sectionRef1, { 0: -30, 100: 30 }, "max")}%, ${animateStyle(sectionRef1, { 0: 25, 100: -25 }, "max")}%) scale(${animateStyle(sectionRef1, { 0: 1, 100: 1.5 }, "max")})`,
-                opacity: animateStyle(sectionRef1, { 0: 1, 100: 0 }, "bottom"),
-              }}
-            />
+        <section className={styles.section} ref={sectionRef1} style={{ zIndex: "0" }}>
+          <div className={styles.sectionBg} style={{ backgroundColor: "#64666a" }}>
+            {documentLoaded && (
+              <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%" }}>
+                <Image className={styles.sectionBgImage} src={"/images/bg_1.jpg"} alt={""} objectFit="cover" layout="fill" />
+              </div>
+            )}
           </div>
           <div className={styles.sectionBox}>
             <h2 className={styles.sectionTitle}>Hello</h2>
@@ -136,15 +131,15 @@ export default function Page() {
               이 사이트는 저의 프론트엔드 개발자로서의 기술과 프로젝트를 소개하는 공간입니다.
               <br />
               <br />
-              기술 스택은 next 14버전 TypeScript 로 제작되었으며,
+              기술 스택은 React.js Next 14버전 TypeScript 로 제작되었으며,
               <br />
               GitHub Action 를 통해 CI/CD 배포 자동화 구축이 되어있습니다.
               <br />
               Contact 페이지의 입력폼은 node.js 로 제작한 api를 호출하며,
               <br />
-              api 웹서버는{" "}
+              API 웹서버는{" "}
               <Link className={styles.sectionDescriptionLink} href="https://github.com/RohJooHoon/EC2" target="_blank">
-                AWS EC2 Ubuntu
+                AWS EC2
               </Link>{" "}
               서버를 세팅하여 제작하였습니다. <br />
               <br />
@@ -157,26 +152,103 @@ export default function Page() {
         </section>
 
         {/* 2 */}
-        <section className={styles.section} ref={sectionRef2} style={{ zIndex: "0" }}>
-          <div className={styles.sectionBg} style={{ backgroundColor: "#64666a" }}>
-            {documentLoaded && (
-              <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%" }}>
-                <Image className={styles.sectionBgImage} src={"/images/bg_2.jpg"} alt={""} objectFit="cover" layout="fill" />
-              </div>
-            )}
+        <section className={styles.section} ref={sectionRef2}>
+          <div className={styles.sectionBg} style={{ backgroundColor: "#cbcaca" }}>
+            <Image
+              className={styles.sectionBgImage}
+              src={"/images/bg_2.jpg"}
+              alt={""}
+              objectFit="contain"
+              width={0}
+              height={0}
+              style={{
+                transform: `translate(${animateStyle(sectionRef2, { 0: -30, 100: 30 }, "max")}%, ${animateStyle(sectionRef2, { 0: 25, 100: -25 }, "max")}%) scale(${animateStyle(sectionRef2, { 0: 1, 100: 1.5 }, "max")})`,
+                opacity: animateStyle(sectionRef2, { 0: 1, 100: 0 }, "bottom"),
+              }}
+            />
           </div>
           <div className={styles.sectionBox}>
             <h2 className={styles.sectionTitle}>업무</h2>
             <p className={styles.sectionDescription}>
-              작업중 작업중 작업중<br />
-              작업중 작업중 작업중<br />
-              작업중 작업중 작업중<br />
-              작업중 작업중 작업중<br />
-              작업중 작업중 작업중<br />
+              작업중 작업중 작업중
+              <br />
+              작업중 작업중 작업중
+              <br />
+              작업중 작업중 작업중
+              <br />
+              작업중 작업중 작업중
+              <br />
+              작업중 작업중 작업중
+              <br />
             </p>
           </div>
         </section>
 
+        {/* 4 */}
+        <section className={styles.section} ref={sectionRef4}>
+          <div className={styles.sectionBg} style={{ backgroundColor: "#d9d6c8" }}>
+            <Image
+              className={styles.sectionBgImage}
+              src={"/images/bg_4.jpg"}
+              alt={""}
+              objectFit="contain"
+              width={0}
+              height={0}
+              style={{
+                transform: `translate(${animateStyle(sectionRef4, { 0: -30, 100: 30 }, "max")}%, ${animateStyle(sectionRef4, { 0: 25, 100: -25 }, "max")}%) scale(${animateStyle(sectionRef4, { 0: 1, 100: 1.5 }, "max")})`,
+                opacity: animateStyle(sectionRef4, { 0: 1, 100: 0 }, "bottom"),
+              }}
+            />
+          </div>
+          <div className={styles.sectionBox}>
+            <h2 className={styles.sectionTitle}>업무</h2>
+            <p className={styles.sectionDescription}>
+              작업중 작업중 작업중
+              <br />
+              작업중 작업중 작업중
+              <br />
+              작업중 작업중 작업중
+              <br />
+              작업중 작업중 작업중
+              <br />
+              작업중 작업중 작업중
+              <br />
+            </p>
+          </div>
+        </section>
+
+        {/* 5 */}
+        <section className={styles.section} ref={sectionRef5}>
+          <div className={styles.sectionBg} style={{ backgroundColor: "#939e9c" }}>
+            <Image
+              className={styles.sectionBgImage}
+              src={"/images/bg_5.jpg"}
+              alt={""}
+              objectFit="contain"
+              width={0}
+              height={0}
+              style={{
+                transform: `translate(${animateStyle(sectionRef5, { 0: -30, 100: 30 }, "max")}%, ${animateStyle(sectionRef5, { 0: 25, 100: -25 }, "max")}%) scale(${animateStyle(sectionRef5, { 0: 1, 100: 1.5 }, "max")})`,
+                opacity: animateStyle(sectionRef5, { 0: 1, 100: 0 }, "bottom"),
+              }}
+            />
+          </div>
+          <div className={styles.sectionBox}>
+            <h2 className={styles.sectionTitle}>업무</h2>
+            <p className={styles.sectionDescription}>
+              작업중 작업중 작업중
+              <br />
+              작업중 작업중 작업중
+              <br />
+              작업중 작업중 작업중
+              <br />
+              작업중 작업중 작업중
+              <br />
+              작업중 작업중 작업중
+              <br />
+            </p>
+          </div>
+        </section>
         <div
           className={styles.sectionWrap}
           ref={sectionWrapRef1}
@@ -196,30 +268,6 @@ export default function Page() {
             <p className={styles.sectionDescription}>아래 폼으로 연락주세요</p>
           </div>
         </section>
-
-        {/* 4 */}
-        {/* <section className={styles.section}>
-          <div className={styles.sectionBgLayer} style={{ backgroundColor: "#d9d6c8" }}>
-            <Image src={"/images/bg_4.jpg"} alt={""} className={styles.sectionBg} width={0} height={0} />
-          </div>
-          <div className={styles.sectionContentLayer}></div>
-        </section> */}
-
-        {/* 5 */}
-        {/* <section className={styles.section}>
-          <div className={styles.sectionBgLayer} style={{ backgroundColor: "#939e9c" }}>
-            <Image src={"/images/bg_5.jpg"} alt={""} className={styles.sectionBg} width={0} height={0} />
-          </div>
-          <div className={styles.sectionContentLayer}></div>
-        </section> */}
-
-        {/* 0 */}
-        {/* <section className={styles.section}>
-          <div className={styles.sectionBgLayer} style={{ backgroundColor: "#1b1b1c" }}>
-            <Image src={"/images/bg_0.jpg"} alt={""} fill objectFit="contain" width={0} height={0} />
-          </div>
-          <div className={styles.sectionContentLayer}></div>
-        </section> */}
 
         <div className={commonStyles.sectionContainer}>
           {/* About Me */}

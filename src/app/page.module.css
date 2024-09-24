@@ -1,12 +1,17 @@
 /* Section */
 .sectionWrap {
-  
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  z-index: 1;
 }
 
-.section, .sectionWrap {
+.section {
   display: flex;
   position: relative;
   z-index: 1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
 }
 
 .sectionBg {
@@ -60,6 +65,7 @@
 .sectionDescriptionLink {
   font-weight: var(--bold);
   color: var(--white);
+  cursor: pointer;
 }
 
 /* Banner */
