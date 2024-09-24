@@ -39,6 +39,9 @@ export default function () {
             <Link className={classNames(pageStyles.headerNavItem, { [pageStyles.is_active]: path === "/" })} href="/">
               Home
             </Link>
+            <Link className={classNames(pageStyles.headerNavItem, { [pageStyles.is_active]: path === "/contact" })} href="/contact">
+              Contact
+            </Link>
             <Link className={classNames(pageStyles.headerNavItem, { [pageStyles.is_active]: path === "/work" })} href="/work">
               Work
             </Link>
