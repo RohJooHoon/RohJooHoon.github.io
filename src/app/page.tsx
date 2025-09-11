@@ -126,22 +126,11 @@ export default function Page() {
           <div className={styles.sectionBox}>
             <h2 className={styles.sectionTitle}>Hello</h2>
             <p className={styles.sectionDescription}>
-              안녕하세요 노주훈의 포트폴리오 사이트에 오신 것을 환영합니다.
-              <br />
-              이 사이트는 저의 프론트엔드 개발자로서의 기술과 프로젝트를 소개하는 공간입니다.
-              <br />
-              <br />
-              기술 스택은 React.js Next 14버전 TypeScript 로 제작되었으며,
+              이 사이트는 React.js Next 14버전 TypeScript 로 제작되었으며,
               <br />
               GitHub Action 를 통해 CI/CD 배포 자동화 구축이 되어있습니다.
               <br />
               Contact 페이지의 입력폼은 node.js 로 제작한 api를 호출하며,
-              <br />
-              API 웹서버는{" "}
-              <Link className={styles.sectionDescriptionLink} href="https://github.com/RohJooHoon/EC2" target="_blank">
-                AWS EC2
-              </Link>{" "}
-              서버를 세팅하여 제작하였습니다. <br />
               <br />
               리소스는 직접 찍은 사진과 미드저니로 생성하여 사용하였습니다.
               <br />
