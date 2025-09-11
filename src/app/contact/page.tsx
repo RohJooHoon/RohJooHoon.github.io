@@ -12,32 +12,32 @@ export default function () {
   const [message, setMessage] = useState("");
 
   const handleSendEmail = async (e: React.FormEvent) => {
-    e.preventDefault(); // 기본 폼 제출 동작을 막음
-    setIsLoading(true); // 로딩 상태 시작
-
-    try {
-      const response = await fetch(`https://${process.env.NEXT_PUBLIC_EC2_INSTANCE_PUBLIC_IP}.nip.io/send-email`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, name, message }),
-      });
-
-      if (response.ok) {
-        alert("이메일이 성공적으로 전송되었습니다.");
-        setEmail(""); // 입력 필드 초기화
-        setName(""); // 입력 필드 초기화
-        setMessage(""); // 입력 필드 초기화
-      } else {
-        alert("이메일 전송에 실패했습니다.");
-      }
-    } catch (error) {
-      console.error("Error sending email:", error);
-      alert("이메일 전송 중 오류가 발생했습니다.");
-    } finally {
-      setIsLoading(false); // 로딩 상태 종료
-    }
+    // e.preventDefault(); // 기본 폼 제출 동작을 막음
+    // setIsLoading(true); // 로딩 상태 시작
+    //
+    // try {
+    //   const response = await fetch(`https://${process.env.NEXT_PUBLIC_EC2_INSTANCE_PUBLIC_IP}.nip.io/send-email`, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ email, name, message }),
+    //   });
+    //
+    //   if (response.ok) {
+    //     alert("이메일이 성공적으로 전송되었습니다.");
+    //     setEmail(""); // 입력 필드 초기화
+    //     setName(""); // 입력 필드 초기화
+    //     setMessage(""); // 입력 필드 초기화
+    //   } else {
+    //     alert("이메일 전송에 실패했습니다.");
+    //   }
+    // } catch (error) {
+    //   console.error("Error sending email:", error);
+    //   alert("이메일 전송 중 오류가 발생했습니다.");
+    // } finally {
+    //   setIsLoading(false); // 로딩 상태 종료
+    // }
   };
 
   const formCheck = (target: string, value: string) => {
