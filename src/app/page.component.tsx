@@ -65,7 +65,7 @@ export function Banner() {
       </div>
       <div className={styles.bannerShade} />
       <div className={styles.bannerText}>
-        <h1 className={styles.bannerTextTitle}>프론트엔드 개발자<br />노주훈입니다.</h1>
+        <h1 className={styles.bannerTextTitle}>Frontend Developer<br />JooHoon Roh</h1>
         <p className={styles.bannerTextDescription}>화면을 만들고, 복잡한 데이터 흐름을 정리하고,<br />반복되는 일을 줄입니다.</p>
         <div className={styles.bannerControls} aria-label="배경 사진 선택">
           <button type="button" onClick={() => move(-1)} aria-label="이전 배경 사진">←</button>
