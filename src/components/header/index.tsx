@@ -8,7 +8,6 @@ import styles from "./index.module.css";
 const links = [
   { href: "/#home", label: "Home" },
   { href: "/#projects", label: "Work" },
-  { href: "https://hand-easy-master.tistory.com/", label: "Blog" },
   { href: "/#contact", label: "Contact" },
 ];
 

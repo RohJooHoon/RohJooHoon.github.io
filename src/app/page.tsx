@@ -47,7 +47,7 @@ export default function Page() {
       </section>
       <footer id="contact" className={styles.contact}>
         <h2>Contact</h2><a href="mailto:joohoon.roh@gmail.com">joohoon.roh@gmail.com</a>
-        <div><Link href="https://github.com/RohJooHoon" target="_blank" rel="noopener noreferrer">GitHub</Link><Link href="https://hand-easy-master.tistory.com/" target="_blank" rel="noopener noreferrer">Blog</Link></div>
+        <div><Link href="https://github.com/RohJooHoon" target="_blank" rel="noopener noreferrer">GitHub</Link></div>
         <p>© {new Date().getFullYear()} JooHoon Roh</p>
       </footer>
     </main>
