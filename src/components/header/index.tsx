@@ -8,6 +8,7 @@ import styles from "./index.module.css";
 const links = [
   { href: "/#home", label: "Home" },
   { href: "/#projects", label: "Work" },
+  { href: "/#skills", label: "Skills" },
   { href: "/#contact", label: "Contact" },
 ];
 

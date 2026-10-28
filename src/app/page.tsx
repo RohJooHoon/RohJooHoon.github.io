@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Banner } from "./page.component";
 import { projects } from "@/content/projects";
 import { personalProjects } from "@/content/personal-projects";
+import { skillGroups } from "@/content/skills";
 import styles from "./page.module.css";
 
 const projectsByStartDate = [...projects].sort((a, b) =>
@@ -19,6 +20,17 @@ export default function Page() {
             <p>안녕하세요. 프론트엔드 개발자 노주훈입니다.</p>
             <p>쇼핑몰 솔루션의 초기 개발부터 통합 어드민, 삼성 스마트 TV 앱 출시까지 프론트엔드 설계와 개발을 맡아왔습니다. 최근에는 Next.js 기반 어드민을 리뉴얼하며 도메인 구조, 공용 패키지, 개발·배포 자동화를 구성했습니다.</p>
             <p>HTML·CSS와 웹 접근성에 대한 이해를 바탕으로 반응형 UI의 완성도까지 챙깁니다.</p>
+          </div>
+        </div>
+      </section>
+      <section id="skills" className={styles.section}>
+        <div className={styles.sectionBox}>
+          <h2 className={styles.sectionTitle}>기술 스택</h2>
+          <div className={styles.skillGroups}>
+            {skillGroups.map(group => <div key={group.title} className={styles.skillGroup}>
+              <h3>{group.title}</h3>
+              <ul>{group.items.map(item => <li key={item}>{item}</li>)}</ul>
+            </div>)}
           </div>
         </div>
       </section>
