@@ -68,9 +68,13 @@ export function Banner() {
         <h1 className={styles.bannerTextTitle}>프론트엔드 개발자<br />노주훈입니다.</h1>
         <p className={styles.bannerTextDescription}>화면을 만들고, 복잡한 데이터 흐름을 정리하고,<br />반복되는 일을 줄입니다.</p>
         <div className={styles.bannerControls} aria-label="배경 사진 선택">
-          <button type="button" onClick={() => move(-1)} aria-label="이전 배경 사진">←</button>
+          <button type="button" onClick={() => move(-1)} aria-label="이전 배경 사진">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="m15 6-6 6 6 6" /></svg>
+          </button>
           <span role="status" aria-live="polite">{String(selected + 1).padStart(2, "0")} / 03</span>
-          <button type="button" onClick={() => move(1)} aria-label="다음 배경 사진">→</button>
+          <button type="button" onClick={() => move(1)} aria-label="다음 배경 사진">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6" /></svg>
+          </button>
         </div>
       </div>
       <a className={styles.bannerShowMore} href="#about"><span className={styles.bannerShowMoreText}>SHOW MORE</span></a>
