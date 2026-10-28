@@ -29,7 +29,16 @@ export default function Page() {
           <div className={styles.skillGroups}>
             {skillGroups.map(group => <div key={group.title} className={styles.skillGroup}>
               <h3>{group.title}</h3>
-              <ul>{group.items.map(item => <li key={item}>{item}</li>)}</ul>
+              <div className={styles.skillContent}>
+                <ul>{group.items.map(item => <li key={item}>{item}</li>)}</ul>
+                {group.detail && <details className={styles.aiDetails}>
+                  <summary>{group.detail.title}</summary>
+                  <p className={styles.aiIntro}>{group.detail.description}</p>
+                  <dl className={styles.aiLayers}>{group.detail.layers.map(layer => <div key={layer.title}>
+                    <dt>{layer.title}</dt><dd>{layer.description}</dd>
+                  </div>)}</dl>
+                </details>}
+              </div>
             </div>)}
           </div>
         </div>

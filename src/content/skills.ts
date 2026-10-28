@@ -1,19 +1,32 @@
-export const skillGroups = [
+import { aiHarness } from './ai-harness';
+
+type SkillGroup = {
+  title: string;
+  items: string[];
+  detail?: typeof aiHarness;
+};
+
+export const skillGroups: SkillGroup[] = [
   {
     title: '프론트엔드',
     items: ['React 19', 'Next.js 16 · App Router', 'TypeScript', 'Vue 3', 'Nuxt.js', 'JavaScript', 'HTML', 'CSS / SCSS', 'Tailwind CSS v4'],
   },
   {
     title: '구조 설계·상태 관리',
-    items: ['FSD', 'Turborepo · 모노레포', 'Micro Frontends', 'Module Federation', 'TanStack Query', 'Zustand', 'Pinia', 'React Hook Form', 'Zod', 'React Compiler'],
+    items: ['FSD', 'Turborepo · 모노레포', 'pnpm Workspaces', 'Micro Frontends', 'Module Federation', 'TanStack Query', 'Zustand', 'Pinia', 'React Hook Form', 'Zod', 'React Compiler'],
+  },
+  {
+    title: 'AI 개발 워크플로',
+    items: ['Claude Code', 'AI 하네스 구성', '커스텀 스킬 설계', '서브에이전트 리뷰', '훅 기반 명령 가드', '검사 게이트 설계'],
+    detail: aiHarness,
   },
   {
     title: '테스트·코드 품질',
-    items: ['Vitest · 테스트 코드 작성', 'ESLint', 'TypeScript 정적 검사', 'Steiger', 'eslint-boundaries', 'Lefthook'],
+    items: ['Vitest · 테스트 코드 작성', 'ESLint', 'TypeScript 정적 검사', 'Steiger', 'eslint-boundaries', 'API Extractor', 'Lefthook'],
   },
   {
     title: 'Git·빌드·배포',
-    items: ['Git', 'GitHub Actions', 'CI/CD', 'Docker', 'AWS · EC2 / S3 / CloudFront', 'Static Export · CDN', 'Vite', 'Firebase CLI', 'release-please', 'Conventional Commits', 'Makefile'],
+    items: ['Git', 'GitHub Actions', 'GitHub CLI', 'GitHub Packages', 'Changesets', 'CI/CD', 'Docker', 'AWS · EC2 / S3 / CloudFront', 'Static Export · CDN', 'Vite', 'Firebase CLI', 'release-please', 'Conventional Commits', 'Makefile'],
   },
   {
     title: '제품 분석·모니터링',
