@@ -6,7 +6,7 @@
 .bannerSliderItem { position: relative; flex: none; width: 100%; height: 100%; }
 .bannerShade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(0,0,0,.58), rgba(0,0,0,.12) 85%); pointer-events: none; }
 .bannerText { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; display: flex; flex-direction: column; width: 100%; max-width: 1280px; padding: 0 24px; pointer-events: none; }
-.bannerTextTitle { align-self: flex-start; margin: 0; font-size: 82px; font-weight: 700; line-height: 1.1; white-space: nowrap; background: linear-gradient(.3turn, var(--peach) 10%, var(--lemon) 90%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.bannerTextTitle { align-self: flex-start; margin: 0; font-size: 82px; font-weight: 700; line-height: 1.25; white-space: nowrap; background: linear-gradient(.3turn, var(--peach) 10%, var(--lemon) 90%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .bannerTextDescription { margin: 18px 0 0; color: white; font-size: 16px; line-height: 2; text-shadow: 0 2px 4px rgba(0,0,0,.5); }
 .bannerControls { display: flex; align-items: center; gap: 18px; margin-top: 32px; color: white; pointer-events: auto; }
 .bannerControls button { width: 44px; height: 44px; border: 1px solid rgba(255,255,255,.55); border-radius: 50%; color: white; font-size: 20px; background: rgba(0,0,0,.3); }
@@ -50,7 +50,7 @@
 
 @media (max-width: 768px) {
   .bannerText { padding: 0 20px; }
-  .bannerTextTitle { font-size: 42px; }
+  .bannerTextTitle { font-size: clamp(28px, 8vw, 42px); }
   .bannerTextDescription { font-size: 13px; line-height: 1.8; }
   .bannerShade { background: rgba(0,0,0,.42); }
   .section { padding: 0 24px; }
