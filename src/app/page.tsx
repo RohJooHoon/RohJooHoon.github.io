@@ -4,6 +4,10 @@ import { projects } from "@/content/projects";
 import { personalProjects } from "@/content/personal-projects";
 import styles from "./page.module.css";
 
+const projectsByStartDate = [...projects].sort((a, b) =>
+  b.period.slice(0, 7).localeCompare(a.period.slice(0, 7)),
+);
+
 export default function Page() {
   return (
     <main id="main-content" tabIndex={-1}>
@@ -22,7 +26,7 @@ export default function Page() {
         <div className={styles.sectionBox}>
           <h2 className={styles.sectionTitle}>Work</h2>
           <div className={styles.workList}>
-            {projects.map(project => <article key={project.slug} className={styles.workItem}>
+            {projectsByStartDate.map(project => <article key={project.slug} className={styles.workItem}>
               <div><p className={styles.workMeta}><span>{project.type.split(" · ")[1]}</span><span>{project.period}</span></p><h3><Link href={`/projects/${project.slug}/`}>{project.title}</Link></h3><p>{project.summary}</p></div>
             </article>)}
           </div>
