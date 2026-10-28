@@ -5,7 +5,7 @@ export const projects = [
     type: "FRONTEND ARCHITECTURE · DEEP MEDI",
     title: "웹 어드민 2.0 아키텍처 설계",
     period: "2026.01 — 2026.05",
-    summary: "도메인 경계와 개발 규칙을 코드로 검증할 수 있는 프론트엔드 기반 구축",
+    summary: "도메인 의존성을 정적으로 검증하고 버전·번역 키 관리를 자동화한 어드민 리뉴얼",
     details: [
       "FSD 4계층 구조와 도메인 단위 모듈 설계",
       "Steiger·eslint-boundaries로 의존성 규칙 정적 검증",
@@ -19,7 +19,7 @@ export const projects = [
     type: "LEGACY REFACTORING · KIWISNAP",
     title: "상세페이지 에디터 구조 개선",
     period: "2020.11 — 2024.03",
-    summary: "화면 간 데이터 의존을 줄이고 중앙 상태 기반으로 에디터 구조 개선",
+    summary: "에디터 데이터를 스토어로 통합해 불필요한 API 요청과 동기화 오류 개선",
     details: [
       "Vue 3·Nuxt 기반으로 핵심 에디터 구조 개선",
       "스토어 기반 데이터 중앙 관리로 유지보수성 향상",
@@ -34,7 +34,7 @@ export const projects = [
     type: "MICRO FRONTENDS · HAIi",
     title: "React 마이크로 프론트엔드 구축",
     period: "2024.11 — 2025.11",
-    summary: "여러 팀이 독립적으로 개발하고 배포할 수 있는 프론트엔드 아키텍처 설계",
+    summary: "16개 사내 프로젝트를 위한 통합 어드민과 4개 팀의 독립 개발·배포 환경 구축",
     details: [
       "Module Federation 기반 Shell 1개와 Remote 앱 4개 설계",
       "앱별 실행 환경·라우팅·배포 파이프라인 구성",
@@ -47,9 +47,9 @@ export const projects = [
     number: "04",
     slug: "tizen-tv",
     type: "TV APPLICATION · HAIi",
-    title: "삼성 스마트 TV 인지 훈련 앱",
+    title: "삼성 스마트 TV 인지 훈련 앱 새미랑",
     period: "2025.07 — 2025.10",
-    summary: "터치 중심 모바일 경험을 TV 리모컨 기반 앱으로 확장",
+    summary: "삼성 스마트 TV 전용 앱의 프론트엔드를 전담해 신규 개발부터 공식 앱스토어 출시까지",
     details: [
       "Vue 3·TypeScript 기반 SPA 설계 및 프론트엔드 전담",
       "리모컨 포커스 이동·선택·뒤로가기 UX 구현",
