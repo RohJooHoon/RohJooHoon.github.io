@@ -1,50 +1,57 @@
 "use client";
 
-import { useCommonStore } from "@/store/Common";
-import classNames from "classnames";
-import pageStyles from "./index.module.css";
+import { useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import Image from "next/legacy/image";
+import Image from "next/image";
+import styles from "./index.module.css";
 
-// import material icons
-import DehazeIcon from "@mui/icons-material/Dehaze";
+const links = [
+  { href: "/#home", label: "Home" },
+  { href: "/#projects", label: "Work" },
+  { href: "https://hand-easy-master.tistory.com/", label: "Blog" },
+  { href: "/#contact", label: "Contact" },
+];
 
-export default function () {
-  const path = usePathname();
-  const { isOpenMenu, isOpenMenuEnd, toggleMenu } = useCommonStore();
+export default function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleNavWrapClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (!(event.target instanceof HTMLAnchorElement)) {
-      toggleMenu();
-    }
-  };
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   return (
-    <div className={classNames(pageStyles.header, { [pageStyles.is_open]: isOpenMenu, [pageStyles.is_openEnd]: isOpenMenuEnd })}>
-      <div className={pageStyles.headerWrap}>
-        <Link href="/">
-          <h1 className={pageStyles.headerLogo}>
-            <Image src="/images/logo.png" alt="Logo" width={22} height={22} />
-            PORTFOLIO
-          </h1>
+    <header className={styles.header}>
+      <a className={styles.skipLink} href="#main-content">본문 바로가기</a>
+      <div className={styles.headerWrap}>
+        <Link className={styles.headerLogo} href="/#home" onClick={() => setMenuOpen(false)}>
+          <Image src="/images/logo.png" alt="" width={22} height={22} />
+          <span>PORTFOLIO</span>
         </Link>
-
-        <button className={pageStyles.headerMenuButton} key="menu-button" onClick={toggleMenu}>
-          <DehazeIcon style={{ fontSize: 24, color: "var(--white)" }} />
+        <button
+          className={styles.menuButton}
+          ref={menuButtonRef}
+          type="button"
+          aria-controls="primary-navigation"
+          aria-label={menuOpen ? "메뉴 닫기" : "메뉴 열기"}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <span /><span />
         </button>
-
-        <div className={pageStyles.headerNavWrap} onClick={handleNavWrapClick}>
-          <nav className={pageStyles.headerNav}>
-            <Link className={classNames(pageStyles.headerNavItem, { [pageStyles.is_active]: path === "/" })} href="/">
-              Home
-            </Link>
-            <Link className={pageStyles.headerNavItem} href="https://hand-easy-master.tistory.com/" target="_blank">
-              Blog
-            </Link>
-          </nav>
-        </div>
+        <nav
+          id="primary-navigation"
+          className={`${styles.nav} ${menuOpen ? styles.navOpen : ""}`}
+          aria-label="주요 메뉴"
+          onKeyDown={(event) => {
+            if (event.key === "Escape") {
+              setMenuOpen(false);
+              menuButtonRef.current?.focus();
+            }
+          }}
+        >
+          {links.map((link) => (
+            <a key={link.href} href={link.href} onClick={() => setMenuOpen(false)}>{link.label}</a>
+          ))}
+        </nav>
       </div>
-    </div>
+    </header>
   );
 }

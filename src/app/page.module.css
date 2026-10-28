@@ -187,7 +187,7 @@
     font-size: 26px;
     line-height: 1.1;
   }
-  
+
   .sectionDescription {
     font-size: 13px;
     line-height: 1.6;
@@ -212,4 +212,68 @@
   .bannerShowMore {
     display: flex;
   }
+}
+
+/* Preserve the original photo-led layout and typography. */
+.banner { height: 100svh; min-height: 540px; background: #151515; }
+.bannerText { pointer-events: none; }
+.bannerTextTitle { margin: 0; }
+.bannerTextDescription { margin-bottom: 0; }
+.bannerTextTitle::after { content: none; }
+.bannerSlider { touch-action: pan-y; cursor: grab; }
+.bannerSlider:active { cursor: grabbing; }
+.bannerTrack { width: 100%; height: 100%; display: flex; }
+.bannerSliderItem { transform: none; }
+.bannerShade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.35), transparent 75%); pointer-events: none; }
+.bannerControls { display: flex; align-items: center; gap: 18px; margin-top: 32px; color: white; pointer-events: auto; }
+.bannerControls button { width: 44px; height: 44px; border: 1px solid rgba(255,255,255,.55); border-radius: 50%; color: white; font-size: 20px; background: rgba(0,0,0,.3); }
+.bannerControls button:hover { background: rgba(0,0,0,.6); }
+.bannerControls span { font-size: 12px; letter-spacing: .1em; }
+.bannerShowMore { display: flex; bottom: 20px; color: white; z-index: 2; gap: 4px; }
+.section { box-shadow: none; }
+.sectionBg::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.58); }
+.sectionPhoto { object-fit: cover; }
+.sectionBox { padding: 100px 24px; min-height: 480px; }
+.sectionTitle { margin: 0 0 24px; }
+.sectionDescription { margin: 0; word-break: keep-all; }
+.work .sectionBox { min-height: 740px; }
+.workList { width: 100%; max-width: 880px; }
+.workItem { padding: 28px 0; border-bottom: 1px solid rgba(255,255,255,.3); color: #fff; }
+.workItem:first-child { border-top: 1px solid rgba(255,255,255,.3); }
+.workItem h3 { margin: 10px 0; font-size: 22px; font-weight: 700; line-height: 1.5; }
+.workItem h3 a { display: inline-block; }
+.workItem h3 a:hover { text-decoration: underline; text-underline-offset: 6px; }
+.workItem p { margin: 0; font-size: 14px; line-height: 1.8; word-break: keep-all; }
+.workItem .workMeta { font-size: 11px; letter-spacing: .03em; }
+.workItem .workTags { margin-top: 10px; font-size: 12px; color: #eee; }
+.careerList { width: 100%; max-width: 740px; margin: 0; color: white; }
+.careerList > div { padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,.35); }
+.careerList dt { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px 16px; font-weight: 700; font-size: 20px; }
+.careerList dt span { font-size: 12px; font-weight: 400; }
+.careerList dd { margin: 10px 0 0; font-size: 14px; line-height: 1.8; }
+.contact { padding: 72px 24px 28px; background: #171717; text-align: center; color: white; }
+.contact h2 { font-size: 28px; font-weight: 700; margin: 0 0 24px; }
+.contact > a { font-size: clamp(16px, 3vw, 24px); }
+.contact > div { display: flex; justify-content: center; gap: 24px; margin: 24px 0 48px; font-size: 14px; }
+.contact p { font-size: 12px; color: #bbb; }
+@media (max-width: 768px) {
+  .bannerText { padding: 0 20px; }
+  .bannerTextDescription { line-height: 1.8; font-size: 13px; }
+  .sectionBox { min-height: 420px; padding: 72px 20px; }
+  .workItem h3 { font-size: 19px; }
+  .workItem p { font-size: 13px; }
+  .workItem .workMeta { font-size: 10px; }
+  .careerList dt { font-size: 18px; }
+  .careerList dd { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bannerShowMore { animation: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bannerTrack { transition-duration: .01ms !important; }
+}
+.bannerSlider { z-index: 0; }
+.bannerShade { z-index: 1; background: linear-gradient(90deg, rgba(0,0,0,.58), rgba(0,0,0,.12) 85%); }
+@media (max-width: 768px) {
+  .bannerShade { background: rgba(0,0,0,.42); }
 }

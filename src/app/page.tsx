@@ -1,252 +1,55 @@
-"use client";
-
-import React, { useRef, useState, useEffect } from "react";
-import commonStyles from "@/app/common.module.css";
-import styles from "@/app/page.module.css";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import { Banner } from "./page.component";
+import { projects } from "@/content/projects";
+import styles from "./page.module.css";
 
 export default function Page() {
-  const [documentLoaded, setDocumentLoaded] = useState(false);
-  const [loadCheck, setLoadCheck] = useState(false);
-  const [mainTop, setMainTop] = useState(0);
-  const mainRef = useRef<HTMLElement>(null);
-  const sectionWrapRef1 = useRef<HTMLDivElement>(null);
-  const sectionRef1 = useRef<HTMLDivElement>(null);
-  const sectionRef2 = useRef<HTMLDivElement>(null);
-  const sectionRef3 = useRef<HTMLDivElement>(null);
-  const sectionRef4 = useRef<HTMLDivElement>(null);
-  const sectionRef5 = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setDocumentLoaded(true);
-  }, []);
-
-  const handleShowMoreClick = () => {
-    if (sectionRef1.current) {
-      sectionRef1.current.scrollIntoView({ behavior: "smooth", block: "end" });
-    }
-  };
-
-  const handleScroll = (e: Event) => {
-    const mainScrollTop = mainRef.current?.scrollTop || 0;
-    setMainTop(mainScrollTop);
-  };
-
-  const animateStyle = (target: React.RefObject<HTMLDivElement>, value: { [key: number]: number }, type?: "min" | "top" | "bottom" | "max") => {
-    let result = 1;
-
-    if (loadCheck && target.current) {
-      const mainHeight = mainRef.current?.clientHeight || 0;
-      const mainBottom = mainTop + mainHeight || 0;
-      const targetTop = mainTop + target.current?.getBoundingClientRect().top;
-      const targetHeight = target.current?.clientHeight || 0;
-      const targetBottom = targetTop + targetHeight;
-
-      if (type === "min") {
-        // bottomTop
-        if (targetHeight > mainHeight) {
-          result = (mainBottom - (targetTop + mainHeight)) / (targetHeight - mainHeight);
-        } else {
-          result = (mainBottom - targetBottom) / (mainHeight - targetHeight);
-        }
-      } else if (type === "top") {
-        // topTop
-        result = (mainBottom - targetTop) / mainHeight;
-      } else if (type === "bottom") {
-        // bottomBottom
-        result = (mainBottom - targetBottom) / mainHeight;
-      } else {
-        // topBottom
-        result = (mainBottom - targetTop) / (mainHeight + targetHeight);
-      }
-
-      if (result > 1) {
-        result = 1;
-      } else if (result < 0) {
-        result = 0;
-      }
-
-      // Calculate the value based on the result
-      const keys = Object.keys(value)
-        .map(Number)
-        .sort((a, b) => a - b);
-      let calculatedValue = value[keys[0]];
-
-      for (let i = 0; i < keys.length - 1; i++) {
-        const startKey = keys[i];
-        const endKey = keys[i + 1];
-        if (result * 100 >= startKey && result * 100 <= endKey) {
-          const startValue = value[startKey];
-          const endValue = value[endKey];
-          const range = endKey - startKey;
-          const progress = (result * 100 - startKey) / range;
-          calculatedValue = startValue + (endValue - startValue) * progress;
-          break;
-        }
-      }
-
-      return calculatedValue;
-    }
-
-    return result;
-  };
-
-  useEffect(() => {
-    setLoadCheck(true);
-  }, ["mainRef"]);
-
-  useEffect(() => {
-    const mainElement = mainRef.current;
-    if (mainElement) {
-      mainElement.addEventListener("scroll", handleScroll);
-    }
-    return () => {
-      if (mainElement) {
-        mainElement.removeEventListener("scroll", handleScroll);
-      }
-    };
-  }, []);
-
   return (
-    <>
-      <main className={commonStyles.main} ref={mainRef}>
-        <Banner onShowMoreClick={handleShowMoreClick} />
-
-        {/* 1 */}
-        <section className={styles.section} ref={sectionRef1} style={{ zIndex: "0" }}>
-          <div className={styles.sectionBg} style={{ backgroundColor: "#64666a" }}>
-            {documentLoaded && (
-              <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%" }}>
-                <Image className={styles.sectionBgImage} src={"/images/bg_1.jpg"} alt={""} objectFit="cover" layout="fill" />
-              </div>
-            )}
+    <main id="main-content" tabIndex={-1}>
+      <Banner />
+      <section id="about" className={`${styles.section} ${styles.about}`}>
+        <div className={styles.sectionBg}><Image src="/images/bg_1.jpg" alt="" fill sizes="100vw" className={styles.sectionPhoto} /></div>
+        <div className={styles.sectionBox}>
+          <h2 className={styles.sectionTitle}>About</h2>
+          <p className={styles.sectionDescription}>안녕하세요. 프론트엔드 개발자 노주훈입니다.<br />Vue와 React로 웹 어드민, 에디터, TV 앱을 만들어 왔습니다.<br />화면을 구현하는 일부터 데이터 흐름을 정리하고<br />반복되는 개발 과정을 자동화하는 일까지 함께합니다.</p>
+        </div>
+      </section>
+      <section id="projects" className={`${styles.section} ${styles.work}`}>
+        <div className={styles.sectionBg}><Image src="/images/bg_2.jpg" alt="" fill sizes="100vw" className={styles.sectionPhoto} /></div>
+        <div className={styles.sectionBox}>
+          <h2 className={styles.sectionTitle}>Work</h2>
+          <div className={styles.workList}>
+            {projects.map(project => <article key={project.slug} className={styles.workItem}>
+              <div><p className={styles.workMeta}>{project.type} · {project.period}</p><h3><Link href={`/projects/${project.slug}/`}>{project.title}<span aria-hidden="true"> ↗</span></Link></h3><p>{project.summary}</p><p className={styles.workTags}>{project.tags.join(" · ")}</p></div>
+            </article>)}
           </div>
-          <div className={styles.sectionBox}>
-            <h2 className={styles.sectionTitle}>Hello</h2>
-            <p className={styles.sectionDescription}>
-              이 사이트는 React.js Next 14버전 TypeScript 로 제작되었으며,
-              <br />
-              GitHub Action 를 통해 CI/CD 배포 자동화 구축이 되어있습니다.
-              <br />
-              Contact 페이지의 입력폼은 node.js 로 제작한 api를 호출하며,
-              <br />
-              리소스는 직접 찍은 사진과 미드저니로 생성하여 사용하였습니다.
-              <br />
-              그 외 부분은 아직 미완성 상태로, 제작중 입니다.
-              <br />
-            </p>
-          </div>
-        </section>
-
-        {/* 2 */}
-        <section className={styles.section} ref={sectionRef2}>
-          <div className={styles.sectionBg} style={{ backgroundColor: "#cbcaca" }}>
-            <Image
-              className={styles.sectionBgImage}
-              src={"/images/bg_2.jpg"}
-              alt={""}
-              objectFit="contain"
-              width={0}
-              height={0}
-              style={{
-                transform: `translate(${animateStyle(sectionRef2, { 0: -30, 100: 30 }, "max")}%, ${animateStyle(sectionRef2, { 0: 25, 100: -25 }, "max")}%) scale(${animateStyle(sectionRef2, { 0: 1, 100: 1.5 }, "max")})`,
-                opacity: animateStyle(sectionRef2, { 0: 1, 100: 0 }, "bottom"),
-              }}
-            />
-          </div>
-          <div className={styles.sectionBox}>
-            <h2 className={styles.sectionTitle}>업무</h2>
-            <p className={styles.sectionDescription}>
-              작업중 작업중 작업중
-              <br />
-              작업중 작업중 작업중
-              <br />
-              작업중 작업중 작업중
-              <br />
-              작업중 작업중 작업중
-              <br />
-              작업중 작업중 작업중
-              <br />
-            </p>
-          </div>
-        </section>
-
-        {/* 4 */}
-        <section className={styles.section} ref={sectionRef4}>
-          <div className={styles.sectionBg} style={{ backgroundColor: "#d9d6c8" }}>
-            <Image
-              className={styles.sectionBgImage}
-              src={"/images/bg_4.jpg"}
-              alt={""}
-              objectFit="contain"
-              width={0}
-              height={0}
-              style={{
-                transform: `translate(${animateStyle(sectionRef4, { 0: -30, 100: 30 }, "max")}%, ${animateStyle(sectionRef4, { 0: 25, 100: -25 }, "max")}%) scale(${animateStyle(sectionRef4, { 0: 1, 100: 1.5 }, "max")})`,
-                opacity: animateStyle(sectionRef4, { 0: 1, 100: 0 }, "bottom"),
-              }}
-            />
-          </div>
-          <div className={styles.sectionBox}>
-            <h2 className={styles.sectionTitle}>업무</h2>
-            <p className={styles.sectionDescription}>
-              작업중 작업중 작업중
-              <br />
-              작업중 작업중 작업중
-              <br />
-              작업중 작업중 작업중
-              <br />
-              작업중 작업중 작업중
-              <br />
-              작업중 작업중 작업중
-              <br />
-            </p>
-          </div>
-        </section>
-
-        {/* 5 */}
-        <section className={styles.section} ref={sectionRef5}>
-          <div className={styles.sectionBg} style={{ backgroundColor: "#939e9c" }}>
-            <Image
-              className={styles.sectionBgImage}
-              src={"/images/bg_5.jpg"}
-              alt={""}
-              objectFit="contain"
-              width={0}
-              height={0}
-              style={{
-                transform: `translate(${animateStyle(sectionRef5, { 0: -30, 100: 30 }, "max")}%, ${animateStyle(sectionRef5, { 0: 25, 100: -25 }, "max")}%) scale(${animateStyle(sectionRef5, { 0: 1, 100: 1.5 }, "max")})`,
-                opacity: animateStyle(sectionRef5, { 0: 1, 100: 0 }, "bottom"),
-              }}
-            />
-          </div>
-          <div className={styles.sectionBox}>
-            <h2 className={styles.sectionTitle}>업무</h2>
-            <p className={styles.sectionDescription}>
-              작업중 작업중 작업중
-              <br />
-              작업중 작업중 작업중
-              <br />
-              작업중 작업중 작업중
-              <br />
-              작업중 작업중 작업중
-              <br />
-              작업중 작업중 작업중
-              <br />
-            </p>
-          </div>
-        </section>
-        <div
-          className={styles.sectionWrap}
-          ref={sectionWrapRef1}
-          style={{
-            height: "calc(100% + 1500px)",
-            backgroundColor: `rgb(${animateStyle(sectionWrapRef1, { 0: 255, 100: 251 }, "min")}, ${animateStyle(sectionWrapRef1, { 0: 255, 100: 91 }, "min")}, ${animateStyle(sectionWrapRef1, { 0: 255, 100: 96 }, "min")})`,
-          }}
-        ></div>
-      </main>
-    </>
+        </div>
+      </section>
+      <section id="experience" className={`${styles.section} ${styles.career}`}>
+        <div className={styles.sectionBg}><Image src="/images/bg_4.jpg" alt="" fill sizes="100vw" className={styles.sectionPhoto} /></div>
+        <div className={styles.sectionBox}>
+          <h2 className={styles.sectionTitle}>Experience</h2>
+          <dl className={styles.careerList}>
+            <div><dt>딥메디 <span>2026.01 — 현재</span></dt><dd>웹 어드민 2.0 리뉴얼 · 프론트 앱 개발 중간 관리</dd></div>
+            <div><dt>하이 (Haii) <span>2024.10 — 2026.01</span></dt><dd>통합 어드민과 MFE · 삼성 TV 앱 · 채팅형 설문 웹</dd></div>
+            <div><dt>키위스냅 <span>2020.11 — 2024.03</span></dt><dd>프론트엔드 개발 팀장 · 쇼핑몰 에디터와 직거래 솔루션</dd></div>
+            <div><dt>에이치나인 <span>2017.04 — 2020.01</span></dt><dd>웹 접근성 · 다국어 · 하이브리드 앱 · 웹 퍼블리싱</dd></div>
+          </dl>
+        </div>
+      </section>
+      <section id="publishing" className={`${styles.section} ${styles.publishing}`}>
+        <div className={styles.sectionBg}><Image src="/images/bg_5.jpg" alt="" fill sizes="100vw" className={styles.sectionPhoto} /></div>
+        <div className={styles.sectionBox}>
+          <h2 className={styles.sectionTitle}>Publishing</h2>
+          <p className={styles.sectionDescription}>HTML과 CSS로 화면의 기본을 다져 왔습니다.<br />삼성 SDS 웹 접근성 마크 취득·갱신 작업에 참여했고,<br />WENZI 약 250페이지 웹앱과 반응형 브랜드 페이지를 제작했습니다.<br />기획·디자인·개발 사이에서 구현 방향을 함께 맞춰갑니다.</p>
+        </div>
+      </section>
+      <footer id="contact" className={styles.contact}>
+        <h2>Contact</h2><a href="mailto:joohoon.roh@gmail.com">joohoon.roh@gmail.com</a>
+        <div><Link href="https://github.com/RohJooHoon" target="_blank" rel="noopener noreferrer">GitHub</Link><Link href="https://hand-easy-master.tistory.com/" target="_blank" rel="noopener noreferrer">Blog</Link></div>
+        <p>© {new Date().getFullYear()} JooHoon Roh</p>
+      </footer>
+    </main>
   );
 }
