@@ -93,12 +93,19 @@
 }
 
 .skillContent { min-width: 0; }
-.aiDetails { margin-top: 16px; }
-.aiDetails summary { width: fit-content; max-width: 100%; padding: 8px 0; color: #2c4668; cursor: pointer; font-size: 13px; line-height: 1.8; text-decoration: underline; text-underline-offset: 4px; }
-.aiDetails summary:focus-visible { outline: 2px solid #2c4668; outline-offset: 4px; }
-.aiDetails .aiIntro { margin: 16px 0 24px; font-size: 14px; color: #5c5953; line-height: 1.9; word-break: keep-all; }
+.aiDetails { margin-top: 20px; border: 1px solid #cdd6e3; border-radius: 6px; background: #edf1f6; overflow: hidden; }
+.aiDetails summary { padding: 14px 20px; color: #2c4668; cursor: pointer; font-size: 13px; font-weight: 700; line-height: 1.8; }
+.aiDetails[open] summary { background: #e3eaf3; border-bottom: 1px solid #cdd6e3; }
+.aiPanel { padding: 24px; }
+.aiDetails summary:focus-visible { outline: 2px solid #2c4668; outline-offset: -4px; }
+.aiDetails .aiIntro { margin: 0 0 24px; font-size: 14px; color: #5c5953; line-height: 1.9; word-break: keep-all; }
 .aiLayers { margin: 0; }
-.aiLayers > div { padding: 18px 0; border-top: 1px solid #dbd7d0; }
+.aiLayers > div { padding: 18px 0; border-top: 1px solid #ccd6e3; }
 .aiLayers > div:last-child { padding-bottom: 0; }
 .aiLayers dt { font-size: 14px; font-weight: 700; line-height: 1.8; }
 .aiLayers dd { margin: 8px 0 0; color: #5c5953; font-size: 13px; line-height: 1.9; word-break: keep-all; overflow-wrap: anywhere; }
+
+@media (max-width: 768px) {
+  .aiDetails summary { padding: 12px 16px; }
+  .aiPanel { padding: 20px 16px; }
+}

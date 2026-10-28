@@ -33,10 +33,12 @@ export default function Page() {
                 <ul>{group.items.map(item => <li key={item}>{item}</li>)}</ul>
                 {group.detail && <details className={styles.aiDetails}>
                   <summary>{group.detail.title}</summary>
-                  <p className={styles.aiIntro}>{group.detail.description}</p>
-                  <dl className={styles.aiLayers}>{group.detail.layers.map(layer => <div key={layer.title}>
-                    <dt>{layer.title}</dt><dd>{layer.description}</dd>
-                  </div>)}</dl>
+                  <div className={styles.aiPanel}>
+                    <p className={styles.aiIntro}>{group.detail.description}</p>
+                    <dl className={styles.aiLayers}>{group.detail.layers.map(layer => <div key={layer.title}>
+                      <dt>{layer.title}</dt><dd>{layer.description}</dd>
+                    </div>)}</dl>
+                  </div>
                 </details>}
               </div>
             </div>)}
