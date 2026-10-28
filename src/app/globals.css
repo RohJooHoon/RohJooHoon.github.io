@@ -44,3 +44,7 @@ textarea:focus-visible, input:focus-visible, a:focus-visible, button:focus-visib
 }
 
 ::selection { background: #83d0bb; color: #121718; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

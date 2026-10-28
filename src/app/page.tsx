@@ -87,7 +87,7 @@ const experience = [
 
 export default function Page() {
   return (
-    <main className={styles.main}>
+    <main id="main-content" tabIndex={-1} className={styles.main}>
       <section className={styles.hero} id="home">
         <div className={styles.heroGrid} aria-hidden="true" />
         <div className={styles.heroInner}>
@@ -109,7 +109,7 @@ export default function Page() {
           <div className={styles.heroFacts}>
             <div><strong>8년+</strong><span>개발 경력</span></div>
             <div><strong>4개 팀</strong><span>독립 배포 구조</span></div>
-            <div><strong>40%</strong><span>번들 사이즈 절감</span></div>
+            <div><strong>약 40%</strong><span>번들 절감 · 이력서 기재</span></div>
           </div>
         </div>
         <a className={styles.scrollCue} href="#projects">SCROLL TO EXPLORE <span>↓</span></a>
@@ -143,7 +143,7 @@ export default function Page() {
             </article>
           ))}
         </div>
-        <p className={styles.disclaimer}>성과 수치는 업무 당시 기록 및 이력서에 기재된 값이며, 측정 기준은 상세 사례에서 추가로 설명할 예정입니다.</p>
+        <p className={styles.disclaimer}>성과 수치는 이력서 기재값이며 이번 포트폴리오 작업에서 독립 검증하지 않았습니다. 측정 환경·비교 버전·산정 기준은 아직 확인되지 않았습니다.</p>
       </section>
 
       <section className={styles.experienceSection} id="experience">
@@ -198,13 +198,13 @@ export default function Page() {
 
       <footer className={styles.footer} id="contact">
         <div className={styles.footerInner}>
-          <p className={styles.eyebrow}>LET'S CONNECT</p>
+          <p className={styles.eyebrow}>LET&apos;S CONNECT</p>
           <h2>함께 해결할 문제를 찾고 있습니다.</h2>
           <p>프론트엔드 구조 설계, 사용자 경험 개선, 개발 환경 자동화에 관심이 있습니다.</p>
           <a className={styles.primaryButton} href="mailto:joohoon.roh@gmail.com">joohoon.roh@gmail.com <span aria-hidden="true">↗</span></a>
           <div className={styles.footerBottom}>
             <span>© {new Date().getFullYear()} JooHoon Roh</span>
-            <div><Link href="https://github.com/RohJooHoon" target="_blank">GitHub</Link><Link href="https://hand-easy-master.tistory.com/" target="_blank">Blog</Link></div>
+            <div><Link href="https://github.com/RohJooHoon" target="_blank" rel="noopener noreferrer">GitHub</Link><Link href="https://hand-easy-master.tistory.com/" target="_blank" rel="noopener noreferrer">Blog</Link></div>
           </div>
         </div>
       </footer>

@@ -192,3 +192,7 @@
 @media (prefers-reduced-motion: reduce) {
   .primaryButton, .secondaryButton { transition: none; }
 }
+
+.main :where(h1, h2, h3, p, ul) { margin-bottom: 0; }
+.main ul { padding-left: 0; list-style: none; }
+.disclaimer { color: #646b68; }

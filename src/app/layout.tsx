@@ -26,13 +26,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <CommonStoreProvider>
-      <html lang="ko">
-        <body className={poppins.className}>
+    <html lang="ko">
+      <body className={poppins.className}>
+        <CommonStoreProvider>
           <Header />
           {children}
-        </body>
-      </html>
-    </CommonStoreProvider>
+        </CommonStoreProvider>
+      </body>
+    </html>
   );
 }
