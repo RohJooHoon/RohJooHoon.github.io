@@ -73,7 +73,7 @@ export function Banner() {
           <button type="button" onClick={() => move(1)} aria-label="다음 배경 사진">→</button>
         </div>
       </div>
-      <a className={styles.bannerShowMore} href="#about"><span className={styles.bannerShowMoreText}>SHOW MORE</span><span aria-hidden="true">⌄</span></a>
+      <a className={styles.bannerShowMore} href="#about"><span className={styles.bannerShowMoreText}>SHOW MORE</span></a>
     </section>
   );
 }

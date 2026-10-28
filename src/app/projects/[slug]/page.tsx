@@ -20,7 +20,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
   return (
     <main id="main-content" tabIndex={-1} className={styles.main}>
       <div className={styles.container}>
-        <Link className={styles.back} href="/#projects">← 대표 프로젝트로</Link>
+        <Link className={styles.back} href="/#projects">대표 프로젝트로</Link>
         <header className={styles.intro}>
           <p className={styles.eyebrow}>{project.type}</p>
           <h1>{project.title}</h1>
@@ -42,7 +42,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
           <div className={styles.decisions}>{study.decisions.map((decision, index) => <article key={decision.title}><span className={styles.number}>0{index + 1}</span><div><h3>{decision.title}</h3><p>{decision.description}</p></div></article>)}</div>
         </section>
         <section className={styles.section}><p className={styles.eyebrow}>OUTCOME</p><h2>결과와 확인 범위</h2><p>{study.result}</p><aside className={styles.note}><h3>측정 및 공개 범위</h3><p>{study.limitation}</p><p>회사 소스와 내부 데이터는 공개하지 않습니다. 성과와 경력은 제공된 이력서 및 본인 확인 내용을 바탕으로 정리했습니다.</p></aside></section>
-        <footer className={styles.footer}><Link href="/#projects">다른 프로젝트 보기 ↗</Link><a href="mailto:joohoon.roh@gmail.com">이메일 연락 ↗</a></footer>
+        <footer className={styles.footer}><Link href="/#projects">다른 프로젝트 보기</Link><a href="mailto:joohoon.roh@gmail.com">이메일 연락</a></footer>
       </div>
     </main>
   );
