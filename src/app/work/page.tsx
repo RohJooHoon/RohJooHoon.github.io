@@ -11,7 +11,7 @@ export default function WorkPage() {
           {/* Skill */}
           <section className={commonStyles.section}>
             <div className={commonStyles.sectionTitleWrap}>
-              <h2 className={commonStyles.sectionTitle}>Skill</h2>
+              <h1 className={commonStyles.sectionTitle}>Skill</h1>
             </div>
             <div className={commonStyles.sectionContentWrap}>
               <div className={commonStyles.sectionContent}>

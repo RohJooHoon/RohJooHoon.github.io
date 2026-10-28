@@ -43,7 +43,7 @@ export default function ContactPage() {
           {/* Contact */}
           <section className={`${commonStyles.section} ${commonStyles.is_full}`}>
             <div className={commonStyles.sectionTitleWrap}>
-              <h2 className={commonStyles.sectionTitle}>Contact</h2>
+              <h1 className={commonStyles.sectionTitle}>Contact</h1>
             </div>
             <div className={commonStyles.sectionContentWrap}>
               <div className={commonStyles.sectionContent}>
@@ -57,8 +57,7 @@ export default function ContactPage() {
               {/* Contact Form */}
               <div className={commonStyles.sectionContent}>
                 <p><a href="mailto:joohoon.roh@gmail.com">joohoon.roh@gmail.com</a></p>
-                {!apiHost && <p>현재 문의 폼 연결이 준비되지 않았습니다. 이메일로 직접 연락해 주세요.</p>}
-                <form className={commonStyles.sectionForm} onSubmit={handleSendEmail} aria-busy={isLoading}>
+                {apiHost && <form className={commonStyles.sectionForm} onSubmit={handleSendEmail} aria-busy={isLoading}>
                   <label htmlFor="contact-email">답변받을 이메일</label>
                   <input
                     className={commonStyles.sectionFormInput}
@@ -105,7 +104,7 @@ export default function ContactPage() {
                     </button>
                   </div>
                   <p role="status">{status}</p>
-                </form>
+                </form>}
               </div>
             </div>
           </section>

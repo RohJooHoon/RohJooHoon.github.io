@@ -2,14 +2,14 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./index.module.css";
 
 const links = [
-  { href: "/#projects", label: "프로젝트" },
-  { href: "/#experience", label: "경력" },
-  { href: "/#approach", label: "강점" },
-  { href: "/#skills", label: "기술" },
-  { href: "/#contact", label: "연락처" },
+  { href: "/#home", label: "Home" },
+  { href: "/#projects", label: "Work" },
+  { href: "https://hand-easy-master.tistory.com/", label: "Blog" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export default function Header() {
@@ -22,8 +22,8 @@ export default function Header() {
       <a className={styles.skipLink} href="#main-content">본문 바로가기</a>
       <div className={styles.headerWrap}>
         <Link className={styles.headerLogo} href="/#home" onClick={() => setMenuOpen(false)}>
-          <span className={styles.logoMark} aria-hidden="true">R</span>
-          <span>JOOHOON ROH</span>
+          <Image src="/images/logo.png" alt="" width={22} height={22} />
+          <span>PORTFOLIO</span>
         </Link>
         <button
           className={styles.menuButton}

@@ -1,0 +1,61 @@
+export const projects = [
+  {
+    number: "01",
+    slug: "deepmedi-admin",
+    type: "FRONTEND ARCHITECTURE · DEEP MEDI",
+    title: "웹 어드민 2.0 아키텍처 설계",
+    period: "2026.01 — 2026.05",
+    summary: "도메인 경계와 개발 규칙을 코드로 검증할 수 있는 프론트엔드 기반 구축",
+    details: [
+      "FSD 4계층 구조와 도메인 단위 모듈 설계",
+      "Steiger·eslint-boundaries로 의존성 규칙 정적 검증",
+      "Turborepo 모노레포와 버전 관리·검증 자동화 구성",
+    ],
+    tags: ["Next.js 16", "React 19", "TypeScript", "FSD", "Turborepo"],
+  },
+  {
+    number: "02",
+    slug: "kiwisnap-editor",
+    type: "LEGACY REFACTORING · KIWISNAP",
+    title: "상세페이지 에디터 구조 개선",
+    period: "2020.11 — 2024.03",
+    summary: "화면 간 데이터 의존을 줄이고 중앙 상태 기반으로 에디터 구조 개선",
+    details: [
+      "Vue 3·Nuxt 기반으로 핵심 에디터 구조 개선",
+      "스토어 기반 데이터 중앙 관리로 유지보수성 향상",
+      "불필요한 API 요청과 동기화 오류를 줄여 주요 동작 속도 개선",
+    ],
+    metric: "3–5초 → 1초 이내",
+    tags: ["Vue 3", "Nuxt.js", "TypeScript", "State Management"],
+  },
+  {
+    number: "03",
+    slug: "haii-mfe",
+    type: "MICRO FRONTENDS · HAIi",
+    title: "React 마이크로 프론트엔드 구축",
+    period: "2024.11 — 2025.11",
+    summary: "여러 팀이 독립적으로 개발하고 배포할 수 있는 프론트엔드 아키텍처 설계",
+    details: [
+      "Module Federation 기반 Shell 1개와 Remote 앱 4개 설계",
+      "앱별 실행 환경·라우팅·배포 파이프라인 구성",
+      "공유 라이브러리 전략으로 중복 번들 축소",
+    ],
+    metric: "4개 팀 독립 배포 · 번들 약 40% 절감",
+    tags: ["React", "TypeScript", "Module Federation", "CI/CD"],
+  },
+  {
+    number: "04",
+    slug: "tizen-tv",
+    type: "TV APPLICATION · HAIi",
+    title: "삼성 스마트 TV 인지 훈련 앱",
+    period: "2025.07 — 2025.10",
+    summary: "터치 중심 모바일 경험을 TV 리모컨 기반 앱으로 확장",
+    details: [
+      "Vue 3·TypeScript 기반 SPA 설계 및 프론트엔드 전담",
+      "리모컨 포커스 이동·선택·뒤로가기 UX 구현",
+      "Tizen API 연동과 환경별 빌드·배포 자동화",
+    ],
+    tags: ["Vue 3", "TypeScript", "Tizen", "Pinia", "Vite"],
+  },
+];
+
