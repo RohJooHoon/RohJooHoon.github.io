@@ -18,7 +18,7 @@
 /* A single reading surface and a shared left edge keep the body quiet. */
 .section { background: #f7f5f1; color: #252421; padding: 0 32px; }
 .sectionBox { display: grid; grid-template-columns: 180px minmax(0, 1fr); align-items: start; gap: 64px; width: 100%; max-width: 1120px; margin: 0 auto; padding: 88px 0; border-bottom: 1px solid #dbd7d0; }
-.sectionTitle { position: sticky; top: 96px; margin: 0; font-size: 25px; line-height: 1.4; font-weight: 700; letter-spacing: -.025em; }
+.sectionTitle { margin: 0; font-size: 25px; line-height: 1.4; font-weight: 700; letter-spacing: -.025em; }
 .sectionDescription { max-width: 660px; color: #5c5953; font-size: 16px; line-height: 1.95; word-break: keep-all; }
 .sectionDescription p { margin: 0 0 16px; }
 .sectionDescription p:last-child { margin-bottom: 0; }
@@ -50,7 +50,7 @@
 
 @media (max-width: 768px) {
   .bannerText { padding: 0 20px; }
-  .bannerTextTitle { font-size: clamp(24px, 7.2vw, 42px); }
+  .bannerTextTitle { font-size: clamp(28px, 8vw, 42px); }
   .bannerTextDescription { font-size: 13px; line-height: 1.8; }
   .bannerShade { background: rgba(0,0,0,.42); }
   .section { padding: 0 24px; }
