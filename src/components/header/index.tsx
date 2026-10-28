@@ -21,7 +21,7 @@ export default function Header() {
       <a className={styles.skipLink} href="#main-content">본문 바로가기</a>
       <div className={styles.headerWrap}>
         <Link className={styles.headerLogo} href="/#home" onClick={() => setMenuOpen(false)}>
-          <Image src="/images/logo.png" alt="" width={22} height={22} />
+          <Image src="/images/logo.svg" alt="" width={28} height={28} />
           <span>PORTFOLIO</span>
         </Link>
         <button
