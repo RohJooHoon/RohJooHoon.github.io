@@ -5,11 +5,11 @@ import Link from "next/link";
 import styles from "./index.module.css";
 
 const links = [
-  { href: "#projects", label: "프로젝트" },
-  { href: "#experience", label: "경력" },
-  { href: "#approach", label: "강점" },
-  { href: "#skills", label: "기술" },
-  { href: "#contact", label: "연락처" },
+  { href: "/#projects", label: "프로젝트" },
+  { href: "/#experience", label: "경력" },
+  { href: "/#approach", label: "강점" },
+  { href: "/#skills", label: "기술" },
+  { href: "/#contact", label: "연락처" },
 ];
 
 export default function Header() {
@@ -18,7 +18,7 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.headerWrap}>
-        <Link className={styles.headerLogo} href="#home" onClick={() => setMenuOpen(false)}>
+        <Link className={styles.headerLogo} href="/#home" onClick={() => setMenuOpen(false)}>
           <span className={styles.logoMark} aria-hidden="true">R</span>
           <span>JOOHOON ROH</span>
         </Link>
