@@ -1,12 +1,12 @@
 /* The existing carousel remains the only photographic section. */
-.banner { position: relative; height: 100svh; min-height: 540px; overflow: hidden; background: #151515; }
+.banner { position: relative; height: 100svh; min-height: 540px; overflow: hidden; background: #142238; }
 .bannerSlider { position: absolute; inset: 0; z-index: 0; touch-action: pan-y; cursor: grab; }
 .bannerSlider:active { cursor: grabbing; }
 .bannerTrack { display: flex; width: 100%; height: 100%; }
 .bannerSliderItem { position: relative; flex: none; width: 100%; height: 100%; }
-.bannerShade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(0,0,0,.58), rgba(0,0,0,.12) 85%); pointer-events: none; }
+.bannerShade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(12,25,45,.7), rgba(12,25,45,.25) 85%); pointer-events: none; }
 .bannerText { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; display: flex; flex-direction: column; width: 100%; max-width: 1280px; padding: 0 24px; pointer-events: none; }
-.bannerTextTitle { align-self: flex-start; margin: 0; font-size: 82px; font-weight: 700; line-height: 1.25; white-space: nowrap; background: linear-gradient(.3turn, var(--peach) 10%, var(--lemon) 90%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.bannerTextTitle { align-self: flex-start; margin: 0; font-size: 82px; font-weight: 700; line-height: 1.25; white-space: nowrap; color: #e3eaf4; }
 .bannerTextDescription { margin: 18px 0 0; color: white; font-size: 16px; line-height: 2; text-shadow: 0 2px 4px rgba(0,0,0,.5); }
 .bannerControls { display: flex; align-items: center; gap: 18px; margin-top: 32px; color: white; pointer-events: auto; }
 .bannerControls button { width: 44px; height: 44px; border: 1px solid rgba(255,255,255,.55); border-radius: 50%; color: white; font-size: 20px; background: rgba(0,0,0,.3); }
@@ -16,41 +16,41 @@
 .bannerShowMoreText { font-size: 11px; letter-spacing: .1em; }
 
 /* A single reading surface and a shared left edge keep the body quiet. */
-.section { background: #f7f5f1; color: #252421; padding: 0 32px; }
-.sectionBox { display: grid; grid-template-columns: 180px minmax(0, 1fr); align-items: start; gap: 64px; width: 100%; max-width: 1120px; margin: 0 auto; padding: 88px 0; border-bottom: 1px solid #dbd7d0; }
+.section { background: #f6f8fb; color: #1d2a3b; padding: 0 32px; }
+.sectionBox { display: grid; grid-template-columns: 180px minmax(0, 1fr); align-items: start; gap: 64px; width: 100%; max-width: 1120px; margin: 0 auto; padding: 88px 0; border-bottom: 1px solid #d8e0ea; }
 .sectionTitle { margin: 0; font-size: 25px; line-height: 1.4; font-weight: 700; letter-spacing: -.025em; }
-.sectionDescription { max-width: 660px; color: #5c5953; font-size: 16px; line-height: 1.95; word-break: keep-all; }
+.sectionDescription { max-width: 660px; color: #556275; font-size: 16px; line-height: 1.95; word-break: keep-all; }
 .sectionDescription p { margin: 0 0 16px; }
 .sectionDescription p:last-child { margin-bottom: 0; }
-.sectionDescription p:first-child { color: #252421; }
+.sectionDescription p:first-child { color: #1d2a3b; }
 .workList { min-width: 0; }
-.workItem { padding: 30px 0; border-bottom: 1px solid #dbd7d0; }
+.workItem { padding: 30px 0; border-bottom: 1px solid #d8e0ea; }
 .workItem:first-child { padding-top: 0; }
 .workItem:last-child { border-bottom: 0; padding-bottom: 0; }
 .workItem h3 { margin: 12px 0 10px; font-size: clamp(20px, 2.2vw, 25px); line-height: 1.5; font-weight: 700; letter-spacing: -.035em; word-break: keep-all; }
-.workItem h3 a { display: inline-block; color: #87453e; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }
+.workItem h3 a { display: inline-block; color: #2c4668; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }
 .workItem h3 a:hover span { transform: translate(2px, -2px); }
-.workItem h3 a:hover { color: #542822; }
-.workItem p { margin: 0; color: #5c5953; font-size: 15px; line-height: 1.85; word-break: keep-all; }
-.workItem .workMeta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; font-size: 12px; color: #6b665e; }
+.workItem h3 a:hover { color: #172d4a; }
+.workItem p { margin: 0; color: #556275; font-size: 15px; line-height: 1.85; word-break: keep-all; }
+.workItem .workMeta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; font-size: 12px; color: #647185; }
 .careerList { margin: 0; }
-.careerList > div { padding: 24px 0; border-bottom: 1px solid #dbd7d0; }
+.careerList > div { padding: 24px 0; border-bottom: 1px solid #d8e0ea; }
 .careerList > div:first-child { padding-top: 0; }
 .careerList > div:last-child { padding-bottom: 0; border: 0; }
 .careerList dt { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px 16px; font-size: 19px; font-weight: 700; }
-.careerList dt span { color: #6b665e; font-size: 12px; font-weight: 400; }
-.careerList dd { margin: 10px 0 0; color: #5c5953; font-size: 14px; line-height: 1.8; }
-.contact { background: #1b1a18; color: #f7f5f1; padding: 64px 32px 28px; text-align: center; }
+.careerList dt span { color: #647185; font-size: 12px; font-weight: 400; }
+.careerList dd { margin: 10px 0 0; color: #556275; font-size: 14px; line-height: 1.8; }
+.contact { background: #142238; color: #f6f8fb; padding: 64px 32px 28px; text-align: center; }
 .contact h2 { margin: 0 0 20px; font-size: 25px; font-weight: 700; }
 .contact > a { font-size: clamp(16px, 3vw, 24px); }
-.contact > div { margin: 20px 0 40px; font-size: 13px; color: #d1cdc5; }
-.contact p { margin: 0; color: #aaa69d; font-size: 12px; }
+.contact > div { margin: 20px 0 40px; font-size: 13px; color: #c4cfdf; }
+.contact p { margin: 0; color: #a3b1c5; font-size: 12px; }
 
 @media (max-width: 768px) {
   .bannerText { padding: 0 20px; }
   .bannerTextTitle { font-size: clamp(28px, 8vw, 42px); }
   .bannerTextDescription { font-size: 13px; line-height: 1.8; }
-  .bannerShade { background: rgba(0,0,0,.42); }
+  .bannerShade { background: rgba(12,25,45,.55); }
   .section { padding: 0 24px; }
   .sectionBox { grid-template-columns: 1fr; gap: 28px; padding: 56px 0; }
   .sectionTitle { position: static; font-size: 23px; }
