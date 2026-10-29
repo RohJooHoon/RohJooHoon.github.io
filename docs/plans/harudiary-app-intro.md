@@ -27,7 +27,7 @@
 - [x] 1. 사용자 방향 반영 및 기존 앱 소개·스토어 주소 확인
 - [x] 2. 기술 설명을 제거하고 앱 소개·사용 경험·출시 중심으로 재작성
 - [x] 3. 메인 개인 프로젝트 설명과 상세 페이지 연결 정리
-- [ ] 4. 린트·타입 검사·정적 빌드 확인 후 반영
+- [x] 4. 린트·타입 검사·정적 빌드 확인 후 반영
 - [ ] 5. 앱 아이콘·대표 이미지와 실제 스크린샷을 받아 이미지 구성 보완
 
 ## 필요한 이미지
@@ -42,3 +42,7 @@
 - 하루팩토리의 기존 앱 소개와 다운로드 안내에 있는 기능·스토어 주소를 확인했다.
 - 상세 페이지를 별도 정적 경로로 만들고 경력 사례 템플릿에서 개인 앱의 기술 설명을 제거했다.
 - 이미지 구성은 자료 수령 후 진행한다. 현재 페이지에 가짜 스크린샷이나 이미지 준비 문구를 넣지 않는다.
+- [Verify portfolio #40841247059](https://github.com/RohJooHoon/RohJooHoon.github.io/actions/runs/40841247059)에서 ESLint·타입 검사·정적 빌드 성공. `/projects/harudiary`가 독립 정적 페이지로 생성된 것을 빌드 로그에서 확인했다.
+- [PR #3](https://github.com/RohJooHoon/RohJooHoon.github.io/pull/3)를 master에 병합했다.
+- [GitHub Pages #40841434928](https://github.com/RohJooHoon/RohJooHoon.github.io/actions/runs/40841434928)에서 build·deploy 성공을 확인했다. 앱 소개: https://rohjoohoon.github.io/projects/harudiary/
+- 브라우저 화면 검증과 스토어 외부 링크의 HTTP 응답 확인은 실행 환경의 프록시 연결 실패로 수행하지 못했다. 스토어 주소는 기존 앱 다운로드 안내에서 확인했다.
