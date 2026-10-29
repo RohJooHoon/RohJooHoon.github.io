@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { personalProjects } from '@/content/personal-projects';
+import { BackButton } from '@/components/back-button';
 import shared from '../[slug]/page.module.css';
 import styles from './page.module.css';
 
@@ -31,6 +32,7 @@ export default function HarudiaryPage() {
   return (
     <main id="main-content" tabIndex={-1} className={shared.main}>
       <div className={shared.container}>
+        <BackButton fallbackHref="/#personal-projects" />
         <header className={styles.hero}>
           <div className={styles.heroCopy}>
           <p className={shared.eyebrow}>하루일기 · 개인 앱</p>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { projects } from '@/content/projects';
 import { caseStudies } from '@/content/case-studies';
+import { BackButton } from '@/components/back-button';
 import styles from './page.module.css';
 
 export const dynamicParams = false;
@@ -19,6 +20,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
   return (
     <main id="main-content" tabIndex={-1} className={styles.main}>
       <div className={styles.container}>
+        <BackButton fallbackHref="/#projects" />
         <header className={styles.intro}>
           <p className={styles.eyebrow}>{project.type}</p>
           <h1>{project.title}</h1>
