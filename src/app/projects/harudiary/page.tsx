@@ -59,17 +59,12 @@ export default function HarudiaryPage() {
         <section className={shared.section} aria-labelledby="experience-title">
           <p className={shared.eyebrow}>이렇게 사용해요</p>
           <h2 id="experience-title">이야기하고, 기록하고, 돌아보고</h2>
-          <div className={styles.experience}>
-          <a className={styles.conversation} href="/images/harudiary/conversation.png" target="_blank" rel="noopener noreferrer" aria-label="AI 하루와 대화하는 화면 크게 보기 (새 창)">
-            <Image src="/images/harudiary/conversation.png" alt="오늘 있었던 일과 마음을 이야기하면 AI 하루가 답하며 기록을 돕는 대화 화면" width={332} height={719} sizes="(max-width: 700px) 280px, 300px" />
-          </a>
           <ol className={styles.steps}>
             {steps.map((step, index) => <li key={step.title}>
               <span className={styles.number}>0{index + 1}</span>
               <h3>{step.title}</h3><p>{step.description}</p>
             </li>)}
           </ol>
-          </div>
         </section>
 
         <section className={shared.section} aria-labelledby="features-title">
