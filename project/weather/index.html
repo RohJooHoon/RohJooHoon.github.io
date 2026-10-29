@@ -86,7 +86,7 @@
             allLoadCheck();
         } else {
             $.ajax({
-                url: "https://api.openweathermap.org/data/2.5/weather?q=Seoul,kr&lang=kr&units=metric&appid=acf191e1cb2ddda1db775cff43434ecd",
+                url: "https://api.openweathermap.org/data/2.5/weather?q=Seoul,kr&lang=kr&units=metric&appid=YOUR_OPENWEATHER_API_KEY",
                 type: "GET",
                 dataType: "JSON",
                 success: function (response) {
@@ -102,7 +102,7 @@
             allLoadCheck();
         } else {
             $.ajax({
-                url: "https://api.openweathermap.org/data/2.5/forecast?q=Seoul,kr&lang=kr&units=metric&appid=acf191e1cb2ddda1db775cff43434ecd",
+                url: "https://api.openweathermap.org/data/2.5/forecast?q=Seoul,kr&lang=kr&units=metric&appid=YOUR_OPENWEATHER_API_KEY",
                 type: "GET",
                 dataType: "JSON",
                 success: function (response) {

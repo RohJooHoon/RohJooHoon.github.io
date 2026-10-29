@@ -37,7 +37,7 @@
     callWeather();
     function callWeather() {
         $.ajax({
-            url: `https://api.openweathermap.org/data/2.5/weather?q=${q}&lang=${lang}&units=${units}&appid=${appid}`,
+            url: `https://api.openweathermap.org/data/2.5/weather?q=${q}&lang=${lang}&units=${units}&appid=YOUR_OPENWEATHER_API_KEY`,
             type: "GET",
             dataType: "JSON",
             success: function (response) {
@@ -47,7 +47,7 @@
             }
         });
         $.ajax({
-            url: `https://api.openweathermap.org/data/2.5/forecast?q=${q}&lang=${lang}&units=${units}&appid=${appid}`,
+            url: `https://api.openweathermap.org/data/2.5/forecast?q=${q}&lang=${lang}&units=${units}&appid=YOUR_OPENWEATHER_API_KEY`,
             type: "GET",
             dataType: "JSON",
             success: function (response) {
