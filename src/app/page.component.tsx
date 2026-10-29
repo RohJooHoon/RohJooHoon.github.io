@@ -4,8 +4,13 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
 
-const images = ["/images/banner_1.jpg", "/images/banner_2.jpg", "/images/banner_3.jpg"];
+const images = ["/images/banner_2.jpg", "/images/banner_1.jpg", "/images/banner_3.jpg"];
 const slides = [images[2], ...images, images[0]];
+const descriptions = [
+  ['웹부터 TV와 모바일 앱까지,', '사용자가 직접 쓰는 화면을 만듭니다.'],
+  ['복잡한 데이터 흐름을 정리하고,', '변경하기 쉬운 프론트엔드 구조를 설계합니다.'],
+  ['반복되는 개발·검증 과정을 자동화해,', '제품에 집중할 시간을 만듭니다.'],
+];
 
 export function Banner() {
   const [index, setIndex] = useState(1);
@@ -30,7 +35,7 @@ export function Banner() {
   };
 
   return (
-    <section id="home" className={styles.banner} aria-label="소개 및 배경 사진" aria-roledescription="캐러셀"
+    <section id="home" className={styles.banner} aria-label="개발 경험 소개" aria-roledescription="캐러셀"
       onKeyDown={event => {
         if (event.key === "ArrowRight") { event.preventDefault(); move(1); }
         if (event.key === "ArrowLeft") { event.preventDefault(); move(-1); }
@@ -66,13 +71,15 @@ export function Banner() {
       <div className={styles.bannerShade} />
       <div className={styles.bannerText}>
         <h1 className={styles.bannerTextTitle}>프론트엔드 개발자<br />노주훈입니다.</h1>
-        <p className={styles.bannerTextDescription}>화면을 만들고, 복잡한 데이터 흐름을 정리하고,<br />반복되는 일을 줄입니다.</p>
-        <div className={styles.bannerControls} aria-label="배경 사진 선택">
-          <button type="button" onClick={() => move(-1)} aria-label="이전 배경 사진">
+        <div className={styles.bannerDescriptionSlot} aria-live="polite" aria-atomic="true">
+          <p key={selected} className={styles.bannerTextDescription}>{descriptions[selected][0]}<br />{descriptions[selected][1]}</p>
+        </div>
+        <div className={styles.bannerControls} aria-label="소개 슬라이드 선택">
+          <button type="button" onClick={() => move(-1)} aria-label="이전 슬라이드">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="m15 6-6 6 6 6" /></svg>
           </button>
           <span role="status" aria-live="polite">{String(selected + 1).padStart(2, "0")} / 03</span>
-          <button type="button" onClick={() => move(1)} aria-label="다음 배경 사진">
+          <button type="button" onClick={() => move(1)} aria-label="다음 슬라이드">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6" /></svg>
           </button>
         </div>

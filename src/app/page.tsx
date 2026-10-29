@@ -17,9 +17,18 @@ export default function Page() {
         <div className={styles.sectionBox}>
           <h2 className={styles.sectionTitle}>About</h2>
           <div className={styles.sectionDescription}>
-            <p>안녕하세요. 프론트엔드 개발자 노주훈입니다.</p>
             <p>쇼핑몰 솔루션의 초기 개발부터 통합 어드민, 삼성 스마트 TV 앱 출시까지 프론트엔드 설계와 개발을 맡아왔습니다. 최근에는 Next.js 기반 어드민을 리뉴얼하며 도메인 구조, 공용 패키지, 개발·배포 자동화를 구성했습니다.</p>
             <p>HTML·CSS와 웹 접근성에 대한 이해를 바탕으로 반응형 UI의 완성도까지 챙깁니다.</p>
+          </div>
+        </div>
+      </section>
+      <section id="projects" className={styles.section}>
+        <div className={styles.sectionBox}>
+          <h2 className={styles.sectionTitle}>Work</h2>
+          <div className={styles.workList}>
+            {projectsByStartDate.map(project => <article key={project.slug} className={styles.workItem}>
+              <div><p className={styles.workMeta}><span>{project.type.split(" · ")[1]}</span><span>{project.period}</span></p><h3><Link href={`/projects/${project.slug}/`}>{project.title}</Link></h3><p>{project.summary}</p></div>
+            </article>)}
           </div>
         </div>
       </section>
@@ -30,7 +39,7 @@ export default function Page() {
             {skillGroups.map(group => <div key={group.title} className={styles.skillGroup}>
               <h3>{group.title}</h3>
               <div className={styles.skillContent}>
-                <ul>{group.items.map(item => <li key={item}>{item}</li>)}</ul>
+                <ul>{group.items.map(item => <li key={item} className={group.primaryItems?.includes(item) ? styles.skillPrimary : undefined}>{item}</li>)}</ul>
                 {group.detail && <details className={styles.aiDetails}>
                   <summary>{group.detail.title}</summary>
                   <div className={styles.aiPanel}>
@@ -42,16 +51,6 @@ export default function Page() {
                 </details>}
               </div>
             </div>)}
-          </div>
-        </div>
-      </section>
-      <section id="projects" className={styles.section}>
-        <div className={styles.sectionBox}>
-          <h2 className={styles.sectionTitle}>Work</h2>
-          <div className={styles.workList}>
-            {projectsByStartDate.map(project => <article key={project.slug} className={styles.workItem}>
-              <div><p className={styles.workMeta}><span>{project.type.split(" · ")[1]}</span><span>{project.period}</span></p><h3><Link href={`/projects/${project.slug}/`}>{project.title}</Link></h3><p>{project.summary}</p></div>
-            </article>)}
           </div>
         </div>
       </section>

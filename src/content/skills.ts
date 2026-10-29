@@ -3,16 +3,19 @@ import { aiHarness } from './ai-harness';
 type SkillGroup = {
   title: string;
   items: string[];
+  primaryItems?: string[];
   detail?: typeof aiHarness;
 };
 
 export const skillGroups: SkillGroup[] = [
   {
     title: '프론트엔드',
+    primaryItems: ['React 19', 'Next.js 16 · App Router', 'TypeScript', 'Vue 3', 'Nuxt.js'],
     items: ['React 19', 'Next.js 16 · App Router', 'TypeScript', 'Vue 3', 'Nuxt.js', 'JavaScript', 'HTML', 'CSS / SCSS', 'Tailwind CSS v4'],
   },
   {
     title: '구조 설계·상태 관리',
+    primaryItems: ['FSD', 'Turborepo · 모노레포', 'Micro Frontends', 'Module Federation'],
     items: ['FSD', 'Turborepo · 모노레포', 'pnpm Workspaces', 'Micro Frontends', 'Module Federation', 'TanStack Query', 'Zustand', 'Pinia', 'React Hook Form', 'Zod', 'React Compiler'],
   },
   {
