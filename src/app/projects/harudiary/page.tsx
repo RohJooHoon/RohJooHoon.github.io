@@ -44,9 +44,6 @@ export default function HarudiaryPage() {
             <a className={styles.secondary} href={playStoreUrl} target="_blank" rel="noopener noreferrer">Google Play에서 보기</a>
           </nav>
           </div>
-          <a className={styles.cover} href="/images/harudiary/intro.png" target="_blank" rel="noopener noreferrer" aria-label="하루일기 대표 이미지 크게 보기 (새 창)">
-            <Image src="/images/harudiary/intro.png" alt="나의 AI 일기 친구 하루일기, AI 캐릭터 하루와 앱 시작 화면" width={332} height={719} sizes="(max-width: 700px) 280px, 300px" priority />
-          </a>
         </header>
 
         <section className={shared.section} aria-labelledby="idea-title">
