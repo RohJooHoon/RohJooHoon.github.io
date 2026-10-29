@@ -18,8 +18,8 @@
 - [x] 1. 기존 상세 라우팅·메인 카드·공개 콘텐츠와 앱 저장소의 문서 확인
 - [x] 2. 앱의 관련 구현을 확인하고 공개 가능한 상세 콘텐츠 작성
 - [x] 3. 기존 상세 페이지에 개인 프로젝트를 지원하고 메인에서 연결
-- [ ] 4. 린트·타입·정적 빌드와 생성된 링크·콘텐츠 확인
-- [ ] 5. 변경을 저장소에 반영하고 GitHub Actions 배포 결과 확인
+- [x] 4. 린트·타입·정적 빌드와 생성된 링크·콘텐츠 확인
+- [x] 5. 변경을 저장소에 반영하고 GitHub Actions 배포 결과 확인
 
 ## 구현 범위
 
@@ -42,3 +42,9 @@
 - 앱의 백업·결제·AI 동의 구현을 확인해 기술 선택을 설명했다. 비공개 소스와 설정값은 복사하지 않았다.
 - 기존 경력 사례 4개와 개인 앱 상세 경로를 함께 정적 생성하도록 구성했다.
 - 로컬 의존성 설치는 실행 환경의 프록시 연결 실패로 완료하지 못했다. GitHub Actions에서 린트·타입 검사·정적 빌드를 확인한다.
+- [Verify portfolio #40839799125](https://github.com/RohJooHoon/RohJooHoon.github.io/actions/runs/40839799125) 성공: npm ci, ESLint 경고·오류 없음, Next.js 타입 검사·정적 빌드 통과.
+- 상세 라우트는 기존 경력 사례 4개와 하루일기 1개로 구성했다. 메인 상세 링크·개인 목록 복귀 경로·외부 링크의 새 탭 속성과 내부 식별자 미포함을 소스에서 확인했다.
+- 브라우저를 통한 화면·실기기 조작 검증은 이 환경에서 수행하지 못했다.
+- [PR #2](https://github.com/RohJooHoon/RohJooHoon.github.io/pull/2)를 master에 병합했다.
+- [GitHub Pages 배포 #40840009769](https://github.com/RohJooHoon/RohJooHoon.github.io/actions/runs/40840009769)의 build·deploy 성공을 확인했다. 배포된 구현 커밋: `38b46af24d88249cd10d66d3dc6cf05df7c412ab`.
+- 상세 페이지: https://rohjohoon.github.io/projects/harudiary/
