@@ -47,4 +47,4 @@
 - 브라우저를 통한 화면·실기기 조작 검증은 이 환경에서 수행하지 못했다.
 - [PR #2](https://github.com/RohJooHoon/RohJooHoon.github.io/pull/2)를 master에 병합했다.
 - [GitHub Pages 배포 #40840009769](https://github.com/RohJooHoon/RohJooHoon.github.io/actions/runs/40840009769)의 build·deploy 성공을 확인했다. 배포된 구현 커밋: `38b46af24d88249cd10d66d3dc6cf05df7c412ab`.
-- 상세 페이지: https://rohjohoon.github.io/projects/harudiary/
+- 상세 페이지: https://rohjoohoon.github.io/projects/harudiary/
