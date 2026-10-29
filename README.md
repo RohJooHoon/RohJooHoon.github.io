@@ -29,8 +29,9 @@ Next 14의 린트와 호환되는 ESLint 8.57.1을 사용합니다. 타입 검�
 - 기존 미완성 문구를 경력 설명으로 교체하고 일반 문서 스크롤과 앵커 이동을 사용합니다.
 - 프로젝트 목록 정보는 `src/content/projects.ts`, 상세 설명은 `src/content/case-studies.ts`에서 관리합니다.
 - 상세 사례는 `/projects/deepmedi-admin/`, `/projects/kiwisnap-editor/`, `/projects/haii-mfe/`, `/projects/tizen-tv/`로 정적 생성됩니다.
-- 개인 앱 하루일기는 `/projects/harudiary/`로 정적 생성하며 메인의 개인 프로젝트에서 연결합니다. 상세 페이지에는 운영 현황, 백업·구독 결제·AI 동의에 관한 구현 설명과 앱 다운로드·인스타그램 링크를 제공합니다.
+- 개인 앱 하루일기는 `/projects/harudiary/`로 정적 생성하며 메인의 개인 프로젝트에서 연결합니다. 앱 소개 전용 페이지로, AI 하루와 나눈 대화가 일기가 되는 경험·기획 의도·주요 기능·정식 출시와 운영 현황을 소개하고 App Store·Google Play·인스타그램으로 연결합니다.
 - 하루일기 상세 작업 계획과 TODO·검증 기록은 `docs/plans/harudiary-detail.md`에서 관리합니다.
+- 앱 소개 중심의 개편 계획과 이미지 자료 TODO는 `docs/plans/harudiary-app-intro.md`에서 관리합니다.
 
 MFE 소속은 2026-10-28 사용자 확인에 따라 하이(Haii)입니다. 업무 성과 수치는 제공된 이력서 기준이며 이번 작업에서 새로 측정하지 않았습니다. 내부 검토용 문구는 사이트에 노출하지 않습니다. 회사 소스와 미승인 스크린샷을 포함하지 않으며, Java/Spring 실무 경력은 추가하지 않았습니다.
 

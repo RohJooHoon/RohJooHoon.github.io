@@ -71,7 +71,7 @@ export default function Page() {
           <h2 className={styles.sectionTitle}>개인 프로젝트</h2>
           <div className={styles.workList}>
             {personalProjects.map(project => <article key={project.name} className={styles.workItem}>
-              <p className={styles.workMeta}><span>{project.status}</span><span>{project.technology}</span></p>
+              <p className={styles.workMeta}><span>{project.status}</span><span>{project.platforms.join(' · ')}</span></p>
               <h3><Link href={`/projects/${project.slug}/`}>{project.name}</Link></h3>
               <p>{project.description}</p>
               <p className={styles.projectMetrics}>{project.metrics} <span>({project.metricsAsOf})</span></p>
