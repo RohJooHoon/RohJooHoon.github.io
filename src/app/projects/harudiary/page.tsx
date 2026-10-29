@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import Image from 'next/image';
 import { personalProjects } from '@/content/personal-projects';
 import shared from '../[slug]/page.module.css';
@@ -32,7 +31,6 @@ export default function HarudiaryPage() {
   return (
     <main id="main-content" tabIndex={-1} className={shared.main}>
       <div className={shared.container}>
-        <Link className={shared.back} href="/#personal-projects">개인 프로젝트로</Link>
         <header className={styles.hero}>
           <div className={styles.heroCopy}>
           <p className={shared.eyebrow}>하루일기 · 개인 앱</p>
@@ -91,10 +89,6 @@ export default function HarudiaryPage() {
             <a className={styles.textLink} href={app.instagram} target="_blank" rel="noopener noreferrer">인스타그램에서 보기</a>
           </nav>
         </section>
-        <footer className={shared.footer}>
-          <Link href="/#personal-projects">개인 프로젝트로</Link>
-          <a href="mailto:joohoon.roh@gmail.com">이메일 연락</a>
-        </footer>
       </div>
     </main>
   );
