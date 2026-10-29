@@ -2,6 +2,7 @@ export const personalProjects = [
   {
     slug: 'harudiary',
     name: '하루일기',
+    thumbnail: '/images/harudiary/haru.png',
     status: '개인 앱 · 운영 중',
     platforms: ['iOS', 'Android'],
     description: '일기 쓰기가 어려운 사람이 AI 하루와 대화하면, 대화 내용이 일기로 기록되는 앱입니다. App Store와 Google Play에 출시해 운영하고 있습니다.',

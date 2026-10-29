@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Banner } from "./page.component";
 import { projects } from "@/content/projects";
 import { personalProjects } from "@/content/personal-projects";
@@ -72,12 +73,14 @@ export default function Page() {
           <div className={styles.workList}>
             {personalProjects.map(project => <article key={project.name} className={styles.workItem}>
               <p className={styles.workMeta}><span>{project.status}</span><span>{project.platforms.join(' · ')}</span></p>
-              <h3><Link href={`/projects/${project.slug}/`}>{project.name}</Link></h3>
+              <div className={styles.personalHeading}>
+                <Image src={project.thumbnail} alt="" width={64} height={64} className={styles.personalThumbnail} />
+                <h3><Link href={`/projects/${project.slug}/`}>{project.name}</Link></h3>
+              </div>
               <p>{project.description}</p>
               <p className={styles.projectMetrics}>{project.metrics} <span>({project.metricsAsOf})</span></p>
               <div className={styles.projectLinks}>
-                <Link href={`/projects/${project.slug}/`}>상세 보기</Link>
-                <a href={project.url} target="_blank" rel="noopener noreferrer">앱 다운로드</a>
+                <a href={project.url} target="_blank" rel="noopener noreferrer">다운로드</a>
                 <a href={project.instagram} target="_blank" rel="noopener noreferrer">인스타그램</a>
               </div>
             </article>)}

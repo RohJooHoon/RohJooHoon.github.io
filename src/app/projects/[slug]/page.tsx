@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { projects } from '@/content/projects';
 import { caseStudies } from '@/content/case-studies';
@@ -20,7 +19,6 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
   return (
     <main id="main-content" tabIndex={-1} className={styles.main}>
       <div className={styles.container}>
-        <Link className={styles.back} href="/#projects">대표 프로젝트로</Link>
         <header className={styles.intro}>
           <p className={styles.eyebrow}>{project.type}</p>
           <h1>{project.title}</h1>
@@ -44,7 +42,6 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
           <p className={styles.eyebrow}>OUTCOME</p><h2>성과</h2>
           <ul className={styles.results}>{study.results.map(result => <li key={result}>{result}</li>)}</ul>
         </section>
-        <footer className={styles.footer}><Link href="/#projects">다른 프로젝트 보기</Link><a href="mailto:joohoon.roh@gmail.com">이메일 연락</a></footer>
       </div>
     </main>
   );
