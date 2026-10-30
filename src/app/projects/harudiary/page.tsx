@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { personalProjects } from '@/content/personal-projects';
-import { BackButton } from '@/components/back-button';
 import shared from '../[slug]/page.module.css';
 import styles from './page.module.css';
 
@@ -34,10 +33,7 @@ export default function HarudiaryPage() {
       <div className={shared.container}>
         <header className={styles.hero}>
           <div className={styles.heroCopy}>
-          <div className={shared.headingRow}>
-            <BackButton fallbackHref="/#personal-projects" />
-            <p className={shared.eyebrow}>하루일기 · 개인 앱</p>
-          </div>
+          <p className={shared.eyebrow}>하루일기 · 개인 앱</p>
           <p className={styles.status}>App Store · Google Play 출시 · 운영 중</p>
           <h1>대화가 일기가 되는,<br />하루일기</h1>
           <p className={styles.lead}>일기 쓰기가 어려운 날, AI 하루와 이야기해 보세요.<br />나눈 대화가 나의 하루를 담은 일기로 기록됩니다.</p>

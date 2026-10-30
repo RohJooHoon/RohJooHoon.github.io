@@ -3,8 +3,6 @@
 .back { display: inline-block; padding: 8px 0; color: #2c4668; font-size: 14px; }
 .intro { padding: 40px 0 48px; }
 .eyebrow { color: #2c4668; font-size: 11px; font-weight: 700; letter-spacing: .12em; }
-.headingRow { display: flex; align-items: center; gap: 8px; }
-.headingRow .eyebrow { margin: 0; }
 .intro h1 { max-width: 800px; margin: 20px 0; font-size: clamp(32px, 5vw, 56px); line-height: 1.25; letter-spacing: -.05em; word-break: keep-all; }
 .summary { max-width: 720px; color: #525d56; font-size: 18px; line-height: 1.8; word-break: keep-all; }
 .facts { display: grid; grid-template-columns: 1fr 2fr; gap: 24px; padding: 28px 0; margin: 32px 0 0; border-top: 1px solid #d1d5cf; }
