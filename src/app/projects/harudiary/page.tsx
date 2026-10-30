@@ -79,7 +79,7 @@ export default function HarudiaryPage() {
           <p>개인 프로젝트로 제작한 하루일기를 App Store와 Google Play에 출시해 운영하고 있습니다. 지금 다운로드해 AI 하루와 나의 첫 일기를 남겨볼 수 있습니다.</p>
           <p className={styles.metrics}>{app.metrics}<br /><span>{app.metricsAsOf}</span></p>
           <nav className={styles.links} aria-label="앱과 운영 채널">
-            <a href={app.url} target="_blank" rel="noopener noreferrer">다운로드</a>
+            <a href={app.url} target="_blank" rel="noopener noreferrer">스토어 방문</a>
             <a href={app.instagram} target="_blank" rel="noopener noreferrer">인스타그램에서 보기</a>
           </nav>
         </section>

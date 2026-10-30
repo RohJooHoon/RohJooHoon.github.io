@@ -80,7 +80,7 @@ export default function Page() {
               <p>{project.description}</p>
               <p className={styles.projectMetrics}>{project.metrics} <span>({project.metricsAsOf})</span></p>
               <div className={styles.projectLinks}>
-                <a href={project.url} target="_blank" rel="noopener noreferrer">다운로드</a>
+                <a href={project.url} target="_blank" rel="noopener noreferrer">스토어 방문</a>
                 <a href={project.instagram} target="_blank" rel="noopener noreferrer">인스타그램</a>
               </div>
             </article>)}
