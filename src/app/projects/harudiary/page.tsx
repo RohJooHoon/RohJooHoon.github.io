@@ -5,8 +5,6 @@ import shared from '../[slug]/page.module.css';
 import styles from './page.module.css';
 
 const app = personalProjects.find(project => project.slug === 'harudiary')!;
-const appStoreUrl = 'https://apps.apple.com/kr/app/id6783727248';
-const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.harufactory.harudiary';
 
 export const metadata: Metadata = {
   title: '하루일기 — 대화가 일기가 되는 앱 | 노주훈',
@@ -37,10 +35,6 @@ export default function HarudiaryPage() {
           <p className={styles.status}>App Store · Google Play 출시 · 운영 중</p>
           <h1>대화가 일기가 되는,<br />하루일기</h1>
           <p className={styles.lead}>일기 쓰기가 어려운 날, AI 하루와 이야기해 보세요.<br />나눈 대화가 나의 하루를 담은 일기로 기록됩니다.</p>
-          <nav className={styles.links} aria-label="하루일기 다운로드">
-            <a className={styles.primary} href={appStoreUrl} target="_blank" rel="noopener noreferrer">App Store에서 보기</a>
-            <a className={styles.secondary} href={playStoreUrl} target="_blank" rel="noopener noreferrer">Google Play에서 보기</a>
-          </nav>
           </div>
         </header>
 
@@ -85,8 +79,8 @@ export default function HarudiaryPage() {
           <p>개인 프로젝트로 제작한 하루일기를 App Store와 Google Play에 출시해 운영하고 있습니다. 지금 다운로드해 AI 하루와 나의 첫 일기를 남겨볼 수 있습니다.</p>
           <p className={styles.metrics}>{app.metrics}<br /><span>{app.metricsAsOf}</span></p>
           <nav className={styles.links} aria-label="앱과 운영 채널">
-            <a className={styles.primary} href={app.url} target="_blank" rel="noopener noreferrer">다운로드</a>
-            <a className={styles.textLink} href={app.instagram} target="_blank" rel="noopener noreferrer">인스타그램에서 보기</a>
+            <a href={app.url} target="_blank" rel="noopener noreferrer">다운로드</a>
+            <a href={app.instagram} target="_blank" rel="noopener noreferrer">인스타그램에서 보기</a>
           </nav>
         </section>
       </div>
