@@ -80,7 +80,7 @@ export default function HarudiaryPage() {
           <p className={styles.metrics}>{app.metrics}<br /><span>{app.metricsAsOf}</span></p>
           <nav className={styles.links} aria-label="앱과 운영 채널">
             <a href={app.url} target="_blank" rel="noopener noreferrer">스토어 방문</a>
-            <a href={app.instagram} target="_blank" rel="noopener noreferrer">인스타그램에서 보기</a>
+            <a href={app.instagram} target="_blank" rel="noopener noreferrer">인스타그램</a>
           </nav>
         </section>
       </div>
