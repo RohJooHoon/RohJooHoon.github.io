@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
+import { ChevronIcon } from "@/components/chevron-icon";
 import styles from "./page.module.css";
 
 const images = ["/images/banner_2.jpg", "/images/banner_1.jpg", "/images/banner_3.jpg"];
@@ -76,11 +77,11 @@ export function Banner() {
         </div>
         <div className={styles.bannerControls} aria-label="소개 슬라이드 선택">
           <button type="button" onClick={() => move(-1)} aria-label="이전 슬라이드">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="m15 6-6 6 6 6" /></svg>
+            <ChevronIcon />
           </button>
           <span role="status" aria-live="polite">{String(selected + 1).padStart(2, "0")} / 03</span>
           <button type="button" onClick={() => move(1)} aria-label="다음 슬라이드">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6" /></svg>
+            <ChevronIcon direction="right" />
           </button>
         </div>
       </div>

@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
+import { ChevronIcon } from '@/components/chevron-icon';
 import styles from './index.module.css';
 
 function hasPreviousPage() {
@@ -35,7 +36,7 @@ export function BackButton({ fallbackHref }: { fallbackHref: string }) {
 
   return (
     <button type="button" className={styles.button} onClick={goBack} aria-label="뒤로가기" title="뒤로가기">
-      <span aria-hidden="true">&lt;</span>
+      <ChevronIcon size={32} />
     </button>
   );
 }
