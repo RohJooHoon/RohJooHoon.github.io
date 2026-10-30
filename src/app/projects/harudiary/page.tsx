@@ -32,10 +32,12 @@ export default function HarudiaryPage() {
   return (
     <main id="main-content" tabIndex={-1} className={shared.main}>
       <div className={shared.container}>
-        <BackButton fallbackHref="/#personal-projects" />
         <header className={styles.hero}>
           <div className={styles.heroCopy}>
-          <p className={shared.eyebrow}>하루일기 · 개인 앱</p>
+          <div className={shared.headingRow}>
+            <BackButton fallbackHref="/#personal-projects" />
+            <p className={shared.eyebrow}>하루일기 · 개인 앱</p>
+          </div>
           <p className={styles.status}>App Store · Google Play 출시 · 운영 중</p>
           <h1>대화가 일기가 되는,<br />하루일기</h1>
           <p className={styles.lead}>일기 쓰기가 어려운 날, AI 하루와 이야기해 보세요.<br />나눈 대화가 나의 하루를 담은 일기로 기록됩니다.</p>

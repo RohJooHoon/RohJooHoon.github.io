@@ -20,9 +20,11 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
   return (
     <main id="main-content" tabIndex={-1} className={styles.main}>
       <div className={styles.container}>
-        <BackButton fallbackHref="/#projects" />
         <header className={styles.intro}>
-          <p className={styles.eyebrow}>{project.type}</p>
+          <div className={styles.headingRow}>
+            <BackButton fallbackHref="/#projects" />
+            <p className={styles.eyebrow}>{project.type}</p>
+          </div>
           <h1>{project.title}</h1>
           <p className={styles.summary}>{project.summary}</p>
           <dl className={styles.facts}>
